@@ -1,0 +1,22 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Chistikov2017_Approx_IA_formulas" type="LATEX_RUN_CONFIGURATION" factoryName="LaTeX configuration factory">
+    <texify>
+      <compiler>PDFLATEX</compiler>
+      <compiler-path />
+      <sumatra-path />
+      <viewer-command />
+      <compiler-arguments />
+      <envs />
+      <main-file>$PROJECT_DIR$/docs/Chistikov2017_Approx_IA_Formulas.tex</main-file>
+      <output-path>$PROJECT_DIR$/docs/Chistikov2017_Approx_IA_Formulas</output-path>
+      <auxil-path />
+      <compile-twice>false</compile-twice>
+      <output-format>PDF</output-format>
+      <latex-distribution>MIKTEX</latex-distribution>
+      <has-been-run>true</has-been-run>
+      <bib-run-config>[]</bib-run-config>
+      <makeindex-run-config />
+    </texify>
+    <method v="2" />
+  </configuration>
+</component>

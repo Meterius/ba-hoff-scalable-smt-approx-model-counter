@@ -1,0 +1,58 @@
+\documentclass{article}
+\begin{document}
+
+    formula := original formula to be model counted for
+
+    k := number of bits per integer variable for representation
+
+    a := iterations per estimate
+
+    alpha := maximal error probability
+
+    epsilon := maximal multiplicative error
+
+    l := number of integer variables in formula
+
+    g := (\sqrt{a + 1} - 1)^2
+
+    G := (\sqrt{a + 1} + 1)^2
+
+    B := \frac{\sqrt{a + 1} + 1}{\sqrt{a + 1} - 1}
+
+    // q = amount of formula replications
+
+    q := ceil\(\(1 + 4 \* log_2\(sqrt\(a + 1\) + 1\) - 2 \* log\_2\(a\)\) / \(2 \* log_2\(1 + epsilon\)\)\)
+
+    q := ceil\(\(1 + log_2\(B\)\) / \(2 \* \log\(1 + epsilon\)\)\)
+
+    p := ceil\(g ^ \(1 / q\)\)
+
+    p := ceil\(\(sqrt\(a + 1\) - 1\) ^ \(2 / q\)\)
+
+    formula\_e := formula with additional l \* k bits encoding the integer variables
+
+    formula\_q := formula\_e but replicated q times in conjunction
+
+    // kp = n = total number of bits in formula\_q
+
+    n := k \* q \* l
+
+    // mp = maximal number of majority vote estimate iterations
+
+    mp := floor\(n - 2 \* log_2\(sqrt\(a + 1\) + 1\)\)
+
+    mp := floor\(n - log_2\(G\)\)
+
+    // r = majority estimate vote count
+
+    r := ceil\(8 \* log_e\(\(1 / alpha\) \* floor\(n - 2 \* log_2\(sqrt\(a + 1\) + 1\)\)\)\)
+
+    r := ceil\(8 \* log_e\(\(1 / alpha\) \* floor\(n - log_2\(G\)\)\)\)
+
+    m = edge of estimate after iteration procedure
+
+    // v = return value
+
+    v := \(a \* \(2 ^ \(m - 0.5\)\)\) ^ \(1 / q\)
+
+\end{document}
