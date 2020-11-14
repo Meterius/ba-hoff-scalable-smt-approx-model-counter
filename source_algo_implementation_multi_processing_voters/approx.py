@@ -234,5 +234,5 @@ def run_reference_test():
     print("Took {d} seconds".format(d=perf_counter() - s))
 
 
-if __name__ == "__main__":
-    run_reference_test()
+# if __name__ == "__main__":
+#    run_reference_test()
