@@ -1,6 +1,7 @@
 from z3 import *
 from math import *
 from itertools import chain
+from time import perf_counter
 from typing import Dict, List, cast
 from source_algo_implementation.z3_helper import random_m_xor_hash_equals_zero, \
     limited_model_count, clone_formula, is_binary_encoding
@@ -137,12 +138,16 @@ def run_reference_test():
     x = Int("x")
     f = And([0 <= x, x < 42])
 
+    s = perf_counter()
+
     print(
         approx(
             f, [x], 7, 100, 0.1, 0.2,
         )
     )
 
+    print("Took {d} seconds".format(d=perf_counter() -s ))
 
-# if __name__ == "__main__":
-#    run_reference_test()
+
+if __name__ == "__main__":
+   run_reference_test()

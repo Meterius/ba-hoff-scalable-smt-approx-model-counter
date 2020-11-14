@@ -5,7 +5,7 @@ from os import cpu_count
 from multiprocessing import Process, Barrier, Value, Lock
 from datetime import datetime
 from itertools import chain
-from typing import List, cast, Iterable
+from typing import List, cast, Iterable, Dict
 from .z3_helper import random_m_xor_hash_equals_zero, \
     limited_model_count, clone_formula, is_binary_encoding, deserialize_expression, get_variables, serialize_expression
 
@@ -63,6 +63,10 @@ def approx_worker(
                     )
                 )
 
+    def main_p_print_debug(*messages: Iterable[str]):
+        if worker_number == 1:
+            p_print_debug(*messages)
+
     formula = deserialize_expression(formula_serialized)
     arith_variable_map = {str(x): x for x in get_variables(formula) if type(x) == ArithRef}
     variables = [arith_variable_map[xn] for xn in variable_names]
@@ -103,55 +107,91 @@ def approx_worker(
         str(variables)
     )
 
-    m = 1
-    while m <= mp:
-        workers_sync_barrier.wait()
+    cached_mj_estimate_cache: Dict[int, bool] = {}
 
-        if worker_number == 1:
-            voters_positive.value = 0
-            voters_negative.value = 0
-            voters_unassigned.value = r
+    def cached_mj_estimate(m: int) -> bool:
+        if m not in cached_mj_estimate_cache:
+            workers_sync_barrier.wait()
 
-        p_print_debug("Iteration ({m}/{mp})".format(m=m, mp=mp))
+            if worker_number == 1:
+                voters_positive.value = 0
+                voters_negative.value = 0
+                voters_unassigned.value = r
 
-        workers_sync_barrier.wait()
+            workers_sync_barrier.wait()
 
-        while True:
-            with voters_unassigned.get_lock(), voters_positive.get_lock(), voters_negative.get_lock():
-                if voters_unassigned.value != 0:
-                    voters_unassigned.value -= 1
+            while True:
+                with voters_unassigned.get_lock(), voters_positive.get_lock(), voters_negative.get_lock():
+                    if voters_unassigned.value != 0:
+                        voters_unassigned.value -= 1
+                    else:
+                        break
+
+                if estimate(solver, q_variables, q_bits, m, a):
+                    # p_print_debug("Estimate Majority Iteration ({m}) Positive Vote Added".format(m=m))
+                    with voters_positive.get_lock():
+                        voters_positive.value += 1
                 else:
-                    break
+                    # p_print_debug("Estimate Majority Iteration ({m}) Negative Vote Added".format(m=m))
+                    with voters_negative.get_lock():
+                        voters_negative.value += 1
 
-            if estimate(solver, q_variables, q_bits, m, a):
-                # p_print_debug("Iteration ({m}/{mp}) Positive Vote Added".format(m=m, mp=mp))
-                with voters_positive.get_lock():
-                    voters_positive.value += 1
-            else:
-                # p_print_debug("Iteration ({m}/{mp}) Negative Vote Added".format(m=m, mp=mp))
-                with voters_negative.get_lock():
-                    voters_negative.value += 1
+            workers_sync_barrier.wait()
 
-        workers_sync_barrier.wait()
-
-        # TODO: early majority vote termination
-        if voters_positive.value <= r / 2:
-            break
+            cached_mj_estimate_cache[m] = voters_positive.value > r / 2
 
         if worker_number == 1:
-            p_print_debug("Iteration finished with {voters_positive} out of {r} votes positive".format(
-                voters_positive=voters_positive.value,
-                r=r,
-            ))
+            p_print_debug("Estimate majority for m={m} is {0}".format(cached_mj_estimate_cache[m], m=m))
 
-        m += 1
+        return cached_mj_estimate_cache[m]
 
-    p_print_debug("Finished")
+    def compare_edge_to(m: int) -> int:
+        estimate_base = cached_mj_estimate(m)
+
+        if m == 1 and not estimate_base:
+            return 0
+        elif m == mp:
+            return 0 if estimate_base else -1
+        elif estimate_base:
+            return 1
+
+        estimate_prev = cached_mj_estimate(m - 1)
+
+        return 0 if estimate_prev else -1
+
+    left = 1
+    right = mp
+
+    m = 1
+    while left <= right:
+        m = floor((left + right) / 2)
+
+        main_p_print_debug("Looking at m={m}".format(m=m))
+
+        comparison = compare_edge_to(m)
+
+        if comparison == -1:
+            main_p_print_debug("Edge is smaller then m={m}".format(m=m))
+            right = m - 1
+        elif comparison == 1:
+            main_p_print_debug("Edge is greater then m={m}".format(m=m))
+            left = m + 1
+        else:
+            main_p_print_debug("Edge found at m={m}".format(m=m))
+            break
 
     workers_sync_barrier.wait()
 
-    if worker_idx == 0:
-        return_value.value = (a * (2 ** (m - 0.5))) ** (1 / q)
+    if left > right:
+        main_p_print_debug(
+            "Edge is not present, i.e. a estimate majority vote must have returned an incorrect result, "
+            "assuming m={m} "
+                .format(m=m)
+        )
+
+    return_value.value = (a * (2 ** (m - 0.5))) ** (1 / q)
+
+    p_print_debug("Finished")
 
 
 def approx(
@@ -234,5 +274,5 @@ def run_reference_test():
     print("Took {d} seconds".format(d=perf_counter() - s))
 
 
-# if __name__ == "__main__":
-#    run_reference_test()
+if __name__ == "__main__":
+    run_reference_test()
