@@ -122,7 +122,10 @@ def approx_worker(
 
             while True:
                 with voters_unassigned.get_lock(), voters_positive.get_lock(), voters_negative.get_lock():
-                    if voters_unassigned.value != 0:
+                    early_vote_termination = voters_positive.value > r / 2 or voters_positive.value + \
+                                             (r - voters_positive.value - voters_negative.value) <= r / 2
+
+                    if voters_unassigned.value != 0 and not early_vote_termination:
                         voters_unassigned.value -= 1
                     else:
                         break
