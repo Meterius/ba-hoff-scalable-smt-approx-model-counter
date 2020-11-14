@@ -134,6 +134,7 @@ def approx_worker(
 
         workers_sync_barrier.wait()
 
+        # TODO: early majority vote termination
         if voters_positive.value <= r / 2:
             break
 
