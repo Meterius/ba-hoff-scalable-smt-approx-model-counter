@@ -54,8 +54,7 @@ def count_models_by_branching(formula: BoolRef, variables: List[ArithRef], bit_c
 
 def count_models_by_comparison_branching(formula: BoolRef, variables: List[ArithRef], bit_count: int) -> int:
     # like count_models_by_branching but instead of transforming the formula into a boolean formula
-    # implementing the equivalent behaviour but directly via ordering branching which
-    # is minimally faster
+    # it implements the equivalent behaviour directly
 
     mc = 0
 
