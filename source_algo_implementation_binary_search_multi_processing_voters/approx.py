@@ -10,6 +10,9 @@ from .z3_helper import random_m_xor_hash_equals_zero, \
     limited_model_count, clone_formula, is_binary_encoding, deserialize_expression, get_variables, serialize_expression
 
 
+print_debug = True
+
+
 def estimate(solver: Solver, variables: List[ArithRef], bits: List[BoolRef], m: int, a: int) -> bool:
     """
     Given a `solver` that has the formula asserted, the variables and the bits that
@@ -52,16 +55,17 @@ def approx_worker(
     worker_number = worker_idx + 1
 
     def p_print_debug(*messages: Iterable[str]):
-        with worker_stdio_lock:
-            for message in messages:
-                print(
-                    "[{time}] (Worker[{worker_number}:{worker_count}]): {message}".format(
-                        time=datetime.now().strftime("%H:%M:%S:%f"),
-                        worker_count=worker_count,
-                        worker_number=worker_number,
-                        message=message,
+        if print_debug:
+            with worker_stdio_lock:
+                for message in messages:
+                    print(
+                        "[{time}] (Worker[{worker_number}:{worker_count}]): {message}".format(
+                            time=datetime.now().strftime("%H:%M:%S:%f"),
+                            worker_count=worker_count,
+                            worker_number=worker_number,
+                            message=message,
+                        )
                     )
-                )
 
     def main_p_print_debug(*messages: Iterable[str]):
         if worker_number == 1:
@@ -101,10 +105,6 @@ def approx_worker(
 
     p_print_debug(
         "Setup Complete",
-        "Deserialized formula:",
-        str(formula),
-        "Deserialized variables:",
-        str(variables)
     )
 
     cached_mj_estimate_cache: Dict[int, bool] = {}
@@ -131,11 +131,11 @@ def approx_worker(
                         break
 
                 if estimate(solver, q_variables, q_bits, m, a):
-                    # p_print_debug("Estimate Majority Iteration ({m}) Positive Vote Added".format(m=m))
+                    p_print_debug("Estimate Majority Iteration ({m}) Positive Vote Added".format(m=m))
                     with voters_positive.get_lock():
                         voters_positive.value += 1
                 else:
-                    # p_print_debug("Estimate Majority Iteration ({m}) Negative Vote Added".format(m=m))
+                    p_print_debug("Estimate Majority Iteration ({m}) Negative Vote Added".format(m=m))
                     with voters_negative.get_lock():
                         voters_negative.value += 1
 

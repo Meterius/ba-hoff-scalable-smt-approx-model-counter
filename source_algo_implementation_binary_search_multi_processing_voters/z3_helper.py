@@ -80,12 +80,12 @@ def xor_sum(bs: List[BoolRef]) -> BoolRef:
     :param bs: Boolean expressions that are summed
     """
 
-    if len(bs) == 0:
-        return BoolVal(False)
-    elif len(bs) == 1:
-        return bs[0]
-    else:
-        return Xor(bs[0], xor_sum(bs[1:]))
+    value = BoolVal(False)
+
+    for b in bs:
+        value = Xor(b, value)
+
+    return value
 
 
 def random_bool_val() -> BoolRef:
@@ -105,7 +105,7 @@ def random_xor_hash(bits: List[BoolRef]) -> BoolRef:
 
     return Xor(
         random_bool_val(),
-        xor_sum([And(random_bool_val(), bit) for bit in bits])
+        xor_sum([bit for bit in bits if choice((False, True))])
     )
 
 
