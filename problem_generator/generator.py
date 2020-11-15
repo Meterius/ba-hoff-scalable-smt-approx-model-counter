@@ -43,10 +43,12 @@ def generate_random_constraint(tree: List[TreeNode]) -> Constraint:
     )
 
 
-def generate_random_problem() -> Tuple[List[TreeNode], List[Constraint]]:
-    root = generate_random_tree(100, 5)
+def generate_random_problem(
+    n: int, max_children: int, constraint_count: int,
+) -> Tuple[List[TreeNode], List[Constraint]]:
+    root = generate_random_tree(n, max_children)
     tree = collect_tree(root)
-    constraints = [generate_random_constraint(tree) for i in range(25)]
+    constraints = [generate_random_constraint(tree) for i in range(constraint_count)]
 
     return tree, constraints
 
@@ -55,7 +57,7 @@ def convert_problem(problem: Tuple[List[TreeNode], List[Constraint]]) -> Tuple[B
     tree, constraints = problem
 
     node_cardinality_map: Dict[TreeNode, ArithRef] = {
-        x: Int("cardinality_{x}".format(x=x)) for x in tree
+        x: Int("cardinality_{id}".format(id=x.id)) for x in tree
     }
 
     def collect_tree_conditions(root: TreeNode) -> BoolRef:
@@ -78,4 +80,4 @@ def convert_problem(problem: Tuple[List[TreeNode], List[Constraint]]) -> Tuple[B
 
     condition = And(collect_tree_conditions(tree[0]), And([convert_constraint_condition(c) for c in constraints]))
 
-    return condition, list(node_cardinality_map.values())
+    return simplify(condition), list(node_cardinality_map.values())
