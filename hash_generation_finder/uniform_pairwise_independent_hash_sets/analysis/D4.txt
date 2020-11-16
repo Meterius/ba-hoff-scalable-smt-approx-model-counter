@@ -1,0 +1,13 @@
+Descriptions of the hash sets for D4
+Iterated by ordering of D4_listed.txt ignoring last line as it is the set of all hashes
+
+H1:
+H2: (Self Inversed), a in [0, 1], k in [0, ..., 3] give h_2_a_k(x) = a if k == x else (not a)
+H3:
+H4:
+H5:
+H6: Inverse and Complement H5
+H7: Inverse and Complement H4
+H8: Inverse and Complement H3
+H9: Complement H2 (SMT Paper XOR Function)
+H10: Inverse and Complement H1

@@ -7,7 +7,7 @@ from os import cpu_count
 if __name__ == "__main__":
     s = perf_counter()
 
-    problem = generate_random_problem(9, 3, 0)
+    problem = generate_random_problem(10, 3, 0)
     formula, variables = convert_problem(problem)
 
     count_models_by_comparison_branching(

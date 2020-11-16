@@ -1,0 +1,5 @@
+Descriptions of the hash sets for D3
+Iterated by ordering of D3_listed.txt ignoring last line as it is the set of all hashes
+
+H1: k in [0, ..., 3] give h_1_k(x) = 0 if k == 3 or k == x else 1
+H2: H1 inversed
