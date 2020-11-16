@@ -1,5 +1,5 @@
 from z3 import *
-from typing import NamedTuple, List, Dict, Optional, Union
+from typing import NamedTuple, List, Dict, Optional, Union, Tuple
 from random import choice
 
 
@@ -95,6 +95,9 @@ def random_bool_val() -> BoolRef:
     return choice((BoolVal(False), BoolVal(True)))
 
 
+random_xor_hash_cache: Dict[Tuple[BoolRef, BoolRef], BoolRef] = {}
+
+
 def random_xor_hash(bits: List[BoolRef]) -> BoolRef:
     """
     Returns value of random xor hash like described
@@ -103,10 +106,24 @@ def random_xor_hash(bits: List[BoolRef]) -> BoolRef:
     :param bits: Bits used as parameters to the hash function
     """
 
-    return Xor(
-        random_bool_val(),
-        xor_sum([bit for bit in bits if choice((False, True))])
-    )
+    used_bits = [bit for bit in bits if choice([False, True])]
+
+    queue = [random_bool_val()] + used_bits
+
+    while len(queue) > 1:
+        a = queue[0]
+        b = queue[1]
+
+        if is_const(a) and is_const(b):
+            if (a, b) not in random_xor_hash_cache:
+                random_xor_hash_cache[(a, b)] = Xor(a, b)
+            value = random_xor_hash_cache[(a, b)]
+        else:
+            value = Xor(a, b)
+
+        queue = queue[2:] + [value]
+
+    return queue[0]
 
 
 def random_xor_hash_equals_zero(bits: List[BoolRef]) -> BoolRef:
@@ -119,7 +136,7 @@ def random_xor_hash_equals_zero(bits: List[BoolRef]) -> BoolRef:
     :param bits:
     """
 
-    return Not(random_xor_hash(bits))
+    return random_xor_hash(bits)
 
 
 def random_m_xor_hash_equals_zero(m: int, bits: List[BoolRef]) -> BoolRef:

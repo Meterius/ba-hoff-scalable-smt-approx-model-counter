@@ -103,9 +103,19 @@ def approx_worker(
     solver = Solver()
     solver.add(formula_q)
 
+    main_p_print_debug(
+        "r={r}".format(r=r),
+        "q={q}".format(q=q),
+        "mp={mp}".format(mp=mp),
+    )
+
+    workers_sync_barrier.wait()
+
     p_print_debug(
         "Setup Complete",
     )
+
+    workers_sync_barrier.wait()
 
     cached_mj_estimate_cache: Dict[int, bool] = {}
 
@@ -131,11 +141,11 @@ def approx_worker(
                         break
 
                 if estimate(solver, q_variables, q_bits, m, a):
-                    p_print_debug("Estimate Majority Iteration ({m}) Positive Vote Added".format(m=m))
+                    # p_print_debug("Estimate Majority Iteration ({m}) Positive Vote Added".format(m=m))
                     with voters_positive.get_lock():
                         voters_positive.value += 1
                 else:
-                    p_print_debug("Estimate Majority Iteration ({m}) Negative Vote Added".format(m=m))
+                    # p_print_debug("Estimate Majority Iteration ({m}) Negative Vote Added".format(m=m))
                     with voters_negative.get_lock():
                         voters_negative.value += 1
 
