@@ -1,4 +1,4 @@
-HSK:
+Approach k-Subset-Classification:
     For integer domain {0, ..., d-1}
     Random Parameters:
         a in [0, 1]
