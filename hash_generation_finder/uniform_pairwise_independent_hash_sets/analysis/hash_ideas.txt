@@ -26,3 +26,12 @@ Approach k-Subset-Classification:
         hash formula would be linear to d which makes this hash idea worth-less since the hash formula
         will be of exponential complexity relative to the bit_count input parameter
 
+Complement of XOR:
+    Simply the hash set that is the complement of the XOR hash set.
+    This is also not use-able since the XOR hash set contains for n bits
+    n + 1 bits to characterize i.e. has 2 ** (n + 1) different hash functions.
+    But since the amount of hash functions is 2 ** (2 ** n) this means that the
+    complement has 2 ** (2 ** n) - 2 ** (n + 1) different hash functions that need
+    to be characterized by some parameter. But as evident the parameter would need to be
+    of exponential size itself (of complexity 2 ** n) which makes it the hash formula
+    of exponential complexity relative to the bit_count input parameter

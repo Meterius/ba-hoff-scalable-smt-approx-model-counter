@@ -9,5 +9,6 @@ H5:
 H6: Inverse and Complement H5
 H7: Inverse and Complement H4
 H8: Inverse and Complement H3
-H9: Complement H2 (SMT Paper XOR Function)
+H9: Complement H2 (SMT Paper XOR Function) - Exactly all hashes that have even number of ones and zeros
+    when counting ones / zeros output for all values i.e. H2 thus all uneven
 H10: Inverse and Complement H1

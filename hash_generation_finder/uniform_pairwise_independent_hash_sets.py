@@ -40,6 +40,10 @@ def inversed_hash_set(H: Set[Tuple[int, ...]]) -> Set[Tuple[int, ...]]:
     }
 
 
+def reversed_hash(h: Tuple[int, ...]) -> Tuple[int, ...]:
+    return tuple(reversed(h))
+
+
 def complement_hash_set(H: Set[Tuple[int, ...]]) -> Set[Tuple[int, ...]]:
     if len(H) == 0:
         raise ValueError("Hash set cannot be empty")
@@ -132,16 +136,20 @@ def find_transformed_hash_function_sets(
 
 
 if __name__ == "__main__":
-    # D = 16
-    # only
-    # def hsk(k: int):
-    #     return {
-    #         tuple([a if x in K else 1 - a for x in range(D)]) for a in [0, 1] for K in map(set, combinations(range(D), k))
-    #     }
-    # HS = hsk(6)
-    # print(HS)
-    # print(len(HS))
-    # print(is_pairwise_independent_hash_set(D, HS))
+    """
+    Testing of the k Subset Classifications hash
+    D = 16
+    only
+    def hsk(k: int):
+        return {
+            tuple([a if x in K else 1 - a for x in range(D)]) for a in [0, 1] for K in map(set, combinations(range(D), k))
+        }
+    HS = hsk(6)
+    print(HS)
+    print(len(HS))
+    print(is_pairwise_independent_hash_set(D, HS))
 
-    # for d in range(1, 100):
-    #    generate_and_store_uniform_pairwise_independent_hash_sets(d)
+    for d in range(1, 100):
+       generate_and_store_uniform_pairwise_independent_hash_sets(d)
+    """
+

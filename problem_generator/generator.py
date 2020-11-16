@@ -67,7 +67,7 @@ def convert_problem(problem: Tuple[List[TreeNode], List[Constraint]]) -> Tuple[B
             Implies(node_cardinality_map[root] == 0, node_cardinality_map[child] == 0) for child in root.children
         ]
 
-        cardinality_condition = And(0 <= node_cardinality_map[root], node_cardinality_map[root] < 4)
+        cardinality_condition = And(0 <= node_cardinality_map[root], node_cardinality_map[root] < 2)
 
         return And(
             parent_child_conditions
