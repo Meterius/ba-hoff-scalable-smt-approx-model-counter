@@ -1,4 +1,17 @@
 from typing import Tuple
+import numpy as np
+
+
+def invert_hash(h):
+    return tuple(1 - h[j] for j in range(len(h)))
+
+
+def is_hash_symmetric(h) -> bool:
+    return h == reversed(h)
+
+
+def is_hash_set_symmetric(H) -> bool:
+    return all(map(is_hash_symmetric, convert_hash_set_to_tuple_representation(H)))
 
 
 def is_hash_set_dual_extension(H1, H2) -> bool:
@@ -33,5 +46,24 @@ def is_hash_set_dual_extension(H1, H2) -> bool:
     return True
 
 
+def get_hash_set_dual_extension_via_paired_inverses(H1, H2):
+    HC1 = convert_hash_set_to_tuple_representation(H1)
+    HC2 = convert_hash_set_to_tuple_representation(H2)
+
+    H = tuple(
+        HC1[i] + (invert_hash(HC2[i]) if a else HC2[i]) for a in [False, True] for i in range(len(HC1))
+    )
+
+    return convert_hash_set_to_numpy_representation(H)
+
+
 def convert_hash_set_to_tuple_representation(H) -> Tuple[Tuple[int, ...], ...]:
     return tuple(sorted([tuple(H[:, i]) for i in range(H.shape[1])]))
+
+
+def convert_hash_set_to_numpy_representation(H):
+    D = len(H[0])
+
+    return np.array([
+         [h[j] for h in H] for j in range(D)
+    ])

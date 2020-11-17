@@ -1,6 +1,4 @@
-from hash_generation_finder.uniform_pairwise_independent_hash_sets.D5_exec import uniform_pairwise_independent_hash_sets_D5
-from hash_generation_finder.uniform_pairwise_independent_hash_sets.D6_exec import uniform_pairwise_independent_hash_sets_D6
-from hash_generation_finder.hashing import is_pairwise_independent_hash_set, complement_hash_set,\
+from hash_generation_finder.old_code.hashing import is_pairwise_independent_hash_set, complement_hash_set,\
     inverse_hash, reversed_hash, hashes, uniform_pairwise_independent_hash_sets_iterator
 from itertools import product, cycle, count, combinations, chain
 from typing import Iterable, Tuple
