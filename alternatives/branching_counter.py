@@ -1,5 +1,5 @@
 from z3 import *
-from typing import List
+from typing import List, Iterable
 
 
 def is_binary_encoding(x: ArithRef, bits: List[BoolRef]) -> BoolRef:
@@ -34,6 +34,32 @@ def count_models_by_boolean_branching(formula: BoolRef, variables: List[BoolRef]
 
     explore_branch([False])
     explore_branch([True])
+
+    return mc
+
+
+def iterate_models_by_boolean_branching(formula: BoolRef, variables: List[BoolRef]) -> Iterable[ModelRef]:
+    # counts models by exploring the tree that is formed by partial assignments
+    # which can cut off large subspaces that are unsatisfiable and imposes only
+    # a small complexity increase on the formula which is making this method
+    # way faster than counting by naive model exclusion
+
+    mc = 0
+
+    solver = Solver()
+    solver.add(formula)
+
+    queue = [[False], [True]]
+
+    while len(queue) > 0:
+        partial_assignment = queue.pop(0)
+
+        if solver.check(And([variables[i] == partial_assignment[i] for i in range(len(partial_assignment))])) == sat:
+            if len(partial_assignment) == len(variables):
+                yield solver.model()
+            else:
+                queue.insert(0, partial_assignment + [False])
+                queue.insert(0, partial_assignment + [True])
 
     return mc
 

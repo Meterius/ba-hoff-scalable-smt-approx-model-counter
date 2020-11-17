@@ -1,0 +1,1 @@
+upi - Uniform Pairwise Independent (Pairwise independent when using uniform distribution)

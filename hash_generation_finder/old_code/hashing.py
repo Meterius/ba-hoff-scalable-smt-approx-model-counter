@@ -12,26 +12,17 @@ def count_iterations(iterable: Iterable) -> int:
     return count
 
 
-is_pairwise_independent_hash_set_comb_cache = {}
-
-
 def is_pairwise_independent_hash_set(D: int, H: Collection[Tuple[int, ...]]) -> bool:
-    a0_count_map = [0 for a in range(D)]
-
     for a in range(D):
-        a0_count_map[a] = sum([1 for h in H if h[a] == 1])
-
-        if 2 * a0_count_map[a] != len(H):
+        if 2 *  sum([1 for h in H if h[a] == 1]) != len(H):
             return False
 
-    if D not in is_pairwise_independent_hash_set_comb_cache:
-        is_pairwise_independent_hash_set_comb_cache[D] = tuple(combinations(range(D), 2))
+    for (a, b) in combinations(range(D), 2):
+        for (x, y) in product([0, 1], repeat=2):
+            a0b0_count = sum([1 for h in H if h[a] == y and h[b] == x])
 
-    for (a, b) in is_pairwise_independent_hash_set_comb_cache[D]:
-        a0b0_count = sum([1 for h in H if h[a] == 0 and h[b] == 0])
-
-        if 4 * a0b0_count != len(H):
-            return False
+            if 4 * a0b0_count != len(H):
+                return False
 
     return True
 
