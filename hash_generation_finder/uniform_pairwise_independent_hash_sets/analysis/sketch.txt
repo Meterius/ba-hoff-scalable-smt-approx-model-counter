@@ -1,0 +1,52 @@
+H1: Hash in line 1 in upi_sets_n2k3_listed.txt
+(0, 0, 0, 1),
+(0, 0, 1, 0),
+(0, 1, 0, 0),
+(0, 1, 1, 1),
+(1, 0, 0, 1),
+(1, 0, 1, 0),
+(1, 1, 0, 0),
+(1, 1, 1, 1))
+
+0, 0, 0, 1
+
+0, 0, 0, 1
+
+0, 0, 1, 0
+
+0, 1, 1, 1
+
+0, 0, 1, 0
+
+0, 1, 0, 0
+
+0, 1, 0, 0
+
+0, 1, 1, 1
+
+
+H2: Hash in line 9 in upi_sets_n3k4_listed.txt
+(0, 0, 0, 1, 0, 0, 0, 1),
+(0, 0, 0, 1, 1, 1, 1, 0),
+(0, 0, 1, 0, 0, 0, 0, 1),
+(0, 0, 1, 0, 1, 1, 1, 0),
+(0, 1, 0, 0, 0, 0, 1, 0),
+(0, 1, 0, 0, 1, 1, 0, 1),
+(0, 1, 1, 1, 0, 1, 1, 1),
+(0, 1, 1, 1, 1, 0, 0, 0),
+(1, 0, 0, 1, 0, 0, 1, 0),
+(1, 0, 0, 1, 1, 1, 0, 1),
+(1, 0, 1, 0, 0, 1, 0, 0),
+(1, 0, 1, 0, 1, 0, 1, 1),
+(1, 1, 0, 0, 0, 1, 0, 0),
+(1, 1, 0, 0, 1, 0, 1, 1),
+(1, 1, 1, 1, 0, 1, 1, 1),
+(1, 1, 1, 1, 1, 0, 0, 0)
+
+H2 is a dual extension of H1,
+each hash in H1 is extended by a 4 bit word and
+also gets an extension with that word inverted,
+i.e. (0, 0, 0, 1) in H1 is extended to
+(0, 0, 0, 1, 0, 0, 0, 1) and
+(0, 0, 0, 1, 1, 1, 1, 0) where the first adds 0 0 0 1 and the second 1 1 1 0 i.e.
+the second extension is the first one inverted

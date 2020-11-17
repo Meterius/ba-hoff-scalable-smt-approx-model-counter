@@ -6,6 +6,8 @@ if __name__ == "__main__":
     n = 3
     k = n + 1
 
+    hash_sets = generate_upi_hash_sets_via_solver(n, k)
+
     code_dir = os.path.dirname(__file__)
     file_base = os.path.join(code_dir, "output", "upi_sets_n{n}k{k}".format(n=n, k=k))
 
@@ -16,7 +18,7 @@ if __name__ == "__main__":
         fe.write("import numpy as np\n\n\n")
         fe.write("upi_sets_n{n}k{k} = []\n".format(n=n, k=k))
 
-        for H in generate_upi_hash_sets_via_solver(n, k):
+        for H in hash_sets:
             HC = convert_hash_set_to_tuple_representation(H)
 
             fe.write("upi_sets_n{n}k{k}.append(np.".format(n=n, k=k))

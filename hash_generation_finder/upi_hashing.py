@@ -3,7 +3,7 @@ from hash_generation_finder.utility import convert_hash_set_to_tuple_representat
 from z3 import *
 import numpy as np
 from itertools import combinations, permutations
-from typing import Iterable, Any
+from typing import Iterable, Any, Callable, Optional, List
 from math import *
 
 
@@ -62,18 +62,32 @@ def generate_upi_hash_sets(n: int, k: int) -> Iterable[Any]:
     print("Finished UPI generator for n={n} and k={k}".format(n=n, k=k))
 
 
-def generate_upi_hash_sets_via_solver(n: int, k: int) -> Iterable[Any]:
+def generate_upi_hash_sets_via_solver(
+    n: int,
+    k: int,
+    make_additional_condition: Optional[Callable[[List[List[BoolRef]]], BoolRef]] = None,
+) -> Iterable[Any]:
+    """
+    :param n:
+    :param k:
+    :param make_additional_condition: Gets with a 2d list called hash_is_zero s.t.
+                                      hash_is_zero[i][j] means hash i is zero at value j,
+                                      the return value will be added to the model conditions i.e.
+                                      the generated hash sets will all satisfy the additional condition
+    """
+
     print("Generating UPI sets for n={n} and k={k}".format(n=n, k=k))
 
-    bits = [[Bool("hash({i})_value({j})".format(i=i, j=j)) for j in range(2**n)] for i in range(2**k)]
+    bits = [[Bool("hash({i})_at_({j})_is_zero".format(i=i, j=j)) for j in range(2**n)] for i in range(2**k)]
 
     hash_is_zero = [
-        [Not(bits[i][j]) for j in range(2**n)] for i in range(2**k)
+        [bits[i][j] for j in range(2**n)] for i in range(2**k)
     ]
 
     def cond_prob_of_zero_is_one_half(j: int) -> BoolRef:
         return PbEq([(hash_is_zero[i][j], 1) for i in range(2**k)], 2**(k-1))
 
+    # ensures the event h(a) = 0 has probability 1 / 2
     val_eq_1_conditions = And([
         cond_prob_of_zero_is_one_half(j) for j in range(2**n)
     ])
@@ -81,26 +95,34 @@ def generate_upi_hash_sets_via_solver(n: int, k: int) -> Iterable[Any]:
     def cond_prob_of_two_zeros_is_one_quarter(j1: int, j2: int) -> BoolRef:
         return PbEq([(And([hash_is_zero[i][j1], hash_is_zero[i][j2]]), 1) for i in range(2**k)], 2**(k-2))
 
+    # ensures the event h(a) = 0 and h(b) = 0 is independent for all a != b
     val_comb_eq_0_conditions = And([
         cond_prob_of_two_zeros_is_one_quarter(a, b) for a, b in combinations(range(2**n), 2)
     ])
 
-    def hash_is_lexicographically_smaller_than(i1: int, i2: int) -> BoolRef:
-        return Sum([If(bits[i1][j], 2**j, 0) for j in range(2**n)]) < Sum([If(bits[i2][j], 2**j, 0) for j in range(2**n)])
+    def hash_is_lexicographically_smaller_than(i1: int, i2: int):
+        return Sum([If(bits[i1][j], 2**j, 0) for j in range(2**n)])\
+               < Sum([If(bits[i2][j], 2**j, 0) for j in range(2**n)])
 
+    # ensures that no two models encode the same hash function
     hash_set_distinct = And([
         hash_is_lexicographically_smaller_than(i, i+1) for i in range(2**k - 1)
     ])
 
+    formula = And([val_eq_1_conditions, val_comb_eq_0_conditions, hash_set_distinct])
+
+    if make_additional_condition:
+        formula = And(formula, make_additional_condition(hash_is_zero))
+
     models = iterate_models_by_boolean_branching(
-        formula=And([val_eq_1_conditions, val_comb_eq_0_conditions, hash_set_distinct]),
+        formula=formula,
         variables=[bit for bit_row in bits for bit in bit_row],
     )
 
     found = 0
     for m in models:
         found += 1
-        H = np.array([[1 if m[bits[i][j]] else 0 for i in range(2 ** k)] for j in range(2 ** n)])
+        H = np.array([[0 if m[bits[i][j]] else 1 for i in range(2 ** k)] for j in range(2 ** n)])
 
         if found % 1 == 0:
             print("Found {found} models so far...".format(found=found))
