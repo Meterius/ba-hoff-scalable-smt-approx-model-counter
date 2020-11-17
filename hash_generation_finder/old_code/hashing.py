@@ -1,6 +1,8 @@
-from typing import Iterable, Tuple, Set, TypeVar, List, Callable
-from itertools import combinations, product, chain
+from math import *
+from typing import Iterable, Tuple, Set, TypeVar, List, Callable, Collection
+from itertools import combinations, product, chain, permutations
 import os
+import numpy as np
 
 
 def count_iterations(iterable: Iterable) -> int:
@@ -10,17 +12,23 @@ def count_iterations(iterable: Iterable) -> int:
     return count
 
 
-def is_pairwise_independent_hash_set(D: int, H: Set[Tuple[int, ...]]) -> bool:
-    a0_count_map = {a: 0 for a in range(D)}
+is_pairwise_independent_hash_set_comb_cache = {}
+
+
+def is_pairwise_independent_hash_set(D: int, H: Collection[Tuple[int, ...]]) -> bool:
+    a0_count_map = [0 for a in range(D)]
 
     for a in range(D):
-        a0_count_map[a] = count_iterations(h for h in H if h[a] == 0)
+        a0_count_map[a] = sum([1 for h in H if h[a] == 1])
 
         if 2 * a0_count_map[a] != len(H):
             return False
 
-    for (a, b) in combinations(range(D), 2):
-        a0b0_count = count_iterations(h for h in H if h[a] == 0 and h[b] == 0)
+    if D not in is_pairwise_independent_hash_set_comb_cache:
+        is_pairwise_independent_hash_set_comb_cache[D] = tuple(combinations(range(D), 2))
+
+    for (a, b) in is_pairwise_independent_hash_set_comb_cache[D]:
+        a0b0_count = sum([1 for h in H if h[a] == 0 and h[b] == 0])
 
         if 4 * a0b0_count != len(H):
             return False
@@ -74,49 +82,74 @@ def hash_sets_iterator(D: int, k: int = 0) -> Iterable[Set[Tuple[int, ...]]]:
             yield H
 
 
-def uniform_pairwise_independent_hash_sets_iterator(D):
-    for H in hash_sets_iterator(D):
-        if len(H) != 2 ** D and is_pairwise_independent_hash_set(D, H):
-            yield H
+def uniform_pairwise_independent_hash_sets_iterator(D, k):
+    # generates independent hash functions faster by using numpy arrays and arithmetic
+    # and generating only over possible candidates
+
+    possible_column_count = factorial(k) / (factorial(int(k / 2)) * factorial(k - int(k / 2)))
+    possible_columns = np.array([
+        [1 if i in c else 0 for i in range(k)] for c in
+        map(set, combinations(range(k), int(k / 2)))
+    ], dtype=int)
+
+    total = factorial(possible_column_count) / factorial(possible_column_count - D)
+
+    print(possible_column_count)
+    print("Theoretical candidates {0}".format(total))
+
+    combs = tuple(combinations(range(D), 2))
+
+    F = set()
+
+    for i, ixs in enumerate(permutations(range(int(possible_column_count)), D)):
+        H = possible_columns[np.array(ixs, dtype=int)]
+
+        pairwise_independent = True
+
+        if i % 1000000 == 0:
+            print("{p:.2f}% ({i} out of {total})".format(p=100*i/total, total=total, i=i))
+
+        for a, b in combs:
+            coll = np.sum(H[a] * H[b])
+
+            if coll * 4 != k:
+                pairwise_independent = False
+                break
+
+        if pairwise_independent:
+            CH = tuple(sorted(tuple(H[:, i]) for i in range(k)))
+            if CH not in F:
+                F.add(CH)
+                yield CH
 
 
-def generate_and_store_uniform_pairwise_independent_hash_sets(D):
-    hash_count = 2 ** D
-    hash_set_count = 2 ** hash_count - 1
-
-    k = 0
+def generate_and_store_uniform_pairwise_independent_hash_sets(n, k):
+    D = 2 ** n
 
     code_dir = os.path.dirname(__file__)
-    file_base = os.path.join(code_dir, "uniform_pairwise_independent_hash_sets", "D{D}".format(D=D))
+    file_base = os.path.join(code_dir, "output", "n{n}k{k}".format(n=n, k=k))
 
     file_listed = file_base + "_listed.txt"
     file_exec = file_base + "_exec.py"
 
-    print("Generating uniform pairwise independent hash sets for D={D}...".format(D=D))
+    print("Generating uniform pairwise independent hash sets for n={n} k={k}...".format(n=n, k=k))
 
     with open(file_listed, "w") as fl, open(file_exec, "w") as fe:
-        fe.write("uniform_pairwise_independent_hash_sets_D{D} = []\n".format(D=D))
+        fe.write("uniform_pairwise_independent_hash_sets_D{D}_k{k} = []\n".format(D=D, k=k))
 
-        for i, H in enumerate(hash_sets_iterator(D)):
-            if i % 1000000 == 0:
-                print(
-                    "Iterated through {p:.2f}% ({i}/{hash_set_count}), found {k} upi hash sets so far"
-                        .format(i=i, p=100 * i / hash_set_count, k=k, hash_set_count=hash_set_count)
-                )
+        for H in uniform_pairwise_independent_hash_sets_iterator(n, k):
+            fe.write("uniform_pairwise_independent_hash_sets_D{D}_k{k}.append(".format(D=D, k=k))
+            fe.write(repr(H))
+            fe.write(")\n")
 
-            if is_pairwise_independent_hash_set(D, H):
-                fe.write("uniform_pairwise_independent_hash_sets_D{D}.append(".format(D=D))
-                fe.write(repr(H))
-                fe.write(")\n")
+            fl.write(repr(H))
+            fl.write("\n")
 
-                fl.write(repr(H))
-                fl.write("\n")
-
-                k += 1
+            k += 1
 
     print("Wrote executable data in {file_exec}".format(file_exec=file_exec))
     print("Wrote sets listed by line in {file_listed}".format(file_listed=file_listed))
-    print("Finished for D={D}".format(D=D))
+    print("Finished for n={n} k={k}".format(n=n, k=k))
 
 
 def find_transformed_hash_function_sets(
