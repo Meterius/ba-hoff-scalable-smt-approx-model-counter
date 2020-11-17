@@ -17,14 +17,12 @@ def is_pairwise_independent_hash_set(D: int, H: Set[Tuple[int, ...]]) -> bool:
         a0_count_map[a] = count_iterations(h for h in H if h[a] == 0)
 
         if 2 * a0_count_map[a] != len(H):
-            print(a)
             return False
 
     for (a, b) in combinations(range(D), 2):
         a0b0_count = count_iterations(h for h in H if h[a] == 0 and h[b] == 0)
 
         if 4 * a0b0_count != len(H):
-            print(a, b, a0b0_count)
             return False
 
     return True
@@ -70,8 +68,8 @@ def hashes(D: int) -> Set[Tuple[int, ...]]:
     return set(map(tuple, product([0, 1], repeat=D)))
 
 
-def hash_sets_iterator(D: int) -> Iterable[Set[Tuple[int, ...]]]:
-    for H in powerset(hashes(D)):
+def hash_sets_iterator(D: int, k: int = 0) -> Iterable[Set[Tuple[int, ...]]]:
+    for H in (powerset(hashes(D)) if k == 0 else map(set, combinations(hashes(D), k))):
         if len(H) > 0:
             yield H
 
@@ -136,6 +134,26 @@ def find_transformed_hash_function_sets(
 
 
 if __name__ == "__main__":
+    for d in (6, 8, 9, 16, 32):
+        generate_and_store_uniform_pairwise_independent_hash_sets(d)
+
+    """
+    uniform_pairwise_independent_hash_sets_D5 = []
+    for i, H in enumerate(uniform_pairwise_independent_hash_sets_D5):
+        if len({h for h in H if inverse_hash(h) in H}) == len(H) and len({h for h in H if inverse_hash(h) == h}) == 0:
+            print(i + 1)
+    """
+
+    """
+    for k in (2**3, 2**4, 2**5):
+        print(k)
+        for H in hash_sets_iterator(2**6, k):
+            if is_pairwise_independent_hash_set(2**6, H):
+                print("---")
+                print(H)
+                print("---")
+    """
+
     """
     Testing of the k Subset Classifications hash
     D = 16
