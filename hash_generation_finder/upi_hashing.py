@@ -2,8 +2,8 @@ from alternatives.branching_counter import iterate_models_by_boolean_branching
 from hash_generation_finder.utility import convert_hash_set_to_tuple_representation
 from z3 import *
 import numpy as np
-from itertools import combinations, permutations
-from typing import Iterable, Any, Callable, Optional, List
+from itertools import combinations, permutations, product
+from typing import Iterable, Any, Callable, Optional, List, Iterable, Tuple
 from math import *
 
 
@@ -13,6 +13,23 @@ from math import *
 # Tuple representation represents hash functions as a tuple
 # Tuple representation represents hash sets as a tuple of tuple representation of
 # hash functions which are sorted
+
+
+def get_paper_xor_hash(a: int, y: List[int]) -> Tuple[int, ...]:
+    return tuple([
+        a if Sum([x[i] * y[i] for i in range(len(y))]) % 2 == 1 else 1-a for x in product([0, 1], repeat=len(y))
+    ])
+
+
+def get_paper_xor_hash_set(n: int):
+    return np.array([
+        get_paper_xor_hash(a, y) for a in [0, 1] for y in product([0, 1], repeat=n)
+    ]).transpose()
+
+
+if __name__ == "__main__":
+    for h in convert_hash_set_to_tuple_representation(get_paper_xor_hash_set(3)):
+        print(h)
 
 
 def generate_upi_hash_sets(n: int, k: int) -> Iterable[Any]:
