@@ -84,7 +84,7 @@ def generate_upi_hash_sets_via_solver(
     n: int,
     k: int,
     make_additional_condition: Optional[Callable[[List[List[BoolRef]]], BoolRef]] = None,
-    use_exclusion_iterator: bool = False,
+    use_exclusion_iterator: bool = True,
 ) -> Iterable[Any]:
     """
     :param n:
@@ -145,7 +145,7 @@ def generate_upi_hash_sets_via_solver(
         found += 1
         H = np.array([[0 if m[bits[i][j]] else 1 for i in range(2 ** k)] for j in range(2 ** n)])
 
-        if found % 1 == 0:
+        if found % 100 == 99:
             print("Found {found} models so far...".format(found=found))
 
         yield H

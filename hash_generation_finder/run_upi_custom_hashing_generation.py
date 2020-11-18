@@ -107,7 +107,7 @@ if __name__ == "__main__":
 
     HS = set()
 
-    for H in generate_upi_hash_sets_via_solver(n, k, make_additional_condition, True):
+    for H in generate_upi_hash_sets_via_solver(n, k, make_additional_condition):
         HC = convert_hash_set_to_tuple_representation(H)
 
         print("----------------------------------")

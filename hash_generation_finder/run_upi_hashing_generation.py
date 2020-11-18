@@ -3,7 +3,7 @@ from hash_generation_finder.upi_hashing import generate_upi_hash_sets_via_solver
 import os
 
 if __name__ == "__main__":
-    n = 3
+    n = 4
     k = n + 1
 
     hash_sets = generate_upi_hash_sets_via_solver(n, k)
