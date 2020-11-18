@@ -1,4 +1,6 @@
 from z3 import *
+from typing import List
+from hash_generation_finder.upi_hashing import generate_upi_hash_sets_via_solver, convert_hash_set_to_tuple_representation
 from itertools import combinations
 
 # runs some pi hash generation
@@ -8,115 +10,102 @@ if __name__ == "__main__":
     n = 3
     k = n + 1
 
-    hash_is_zero = [
-        [Bool("h[{i}]({j})=0".format(i=i, j=j)) for j in range(2 ** n)] for i in range(2 ** k)
-    ]
+    # makes the iteration stop after at least stop_after hash sets have been found,
+    # if negative or zero will only stop once all have been found
+    stop_after = 1
 
-    h0pc = And([
-        PbEq([(hash_is_zero[i][j], 1) for i in range(2**k)], 2**(k-1)) for j in range(2 ** n)
-    ])
+    def make_additional_condition(hash_is_zero: List[List[BoolRef]]) -> BoolRef:
+        def compare_hash_range(
+            i1: int,
+            i1m1: int,
+            i2: int,
+            i2m1: int,
+            ml: int,
+            inverse_equality: bool = False,
+        ) -> BoolRef:
+            """
+            Compares the hash i1 at the values i1m1 to i1m1 + ml - 1
+            to hash i2 at the values i2m1 to i2m1 + ml - 1, s.t.
+            if inverse_equality is False it returns whether the hash
+            range is equal and otherwise whether the hash ranges are inversely equal
+            """
 
-    hh0pc = And([
-        PbEq([
-            (And([hash_is_zero[i][j1], hash_is_zero[i][j2]]), 1) for i in range(2**k)
-        ], 2**(k-2)) for j1, j2 in combinations(range(2 ** n), 2)
-    ])
+            modifier = (lambda x: Not(x)) if inverse_equality else (lambda x: x)
+            return And([hash_is_zero[i1][i1m1 + l] == modifier(hash_is_zero[i2][i2m1 + l]) for l in range(ml)])
 
-    solver = Solver()
-    solver.add(h0pc)
-    solver.add(hh0pc)
+        def is_hash_prefix_equal(m2: int, i1: int, i2: int):
+            """
+            Returns whether the hash range from 0 to m2 - 1 at the hashes i1 and i2
+            is equal
+            """
+            return compare_hash_range(i1, 0, i2, 0, m2, False)
 
-    self_inverse = And([
-        And([
-            hash_is_zero[2*i][j] == Not(hash_is_zero[2*i+1][j]) for j in range(2**n)
-        ]) for i in range(2**(k-1))
-    ])
-    # solver.add(self_inverse) # asserts that the hash set must be a self inverse hash set
+        conditions = []
 
-    def compare_hash_range(
-        i1: int,
-        i1m1: int,
-        i2: int,
-        i2m1: int,
-        ml: int,
-        inverse_equality: bool = False,
-    ) -> BoolRef:
-        """
-        Compares the hash i1 at the values i1m1 to i1m1 + ml - 1
-        to hash i2 at the values i2m1 to i2m1 + ml - 1, s.t.
-        if inverse_equality is False it returns whether the hash
-        range is equal and otherwise whether the hash ranges are inversely equal
-        """
-
-        modifier = (lambda x: Not(x)) if inverse_equality else (lambda x: x)
-        return And([hash_is_zero[i1][i1m1 + l] == modifier(hash_is_zero[i2][i2m1 + l]) for l in range(ml)])
-
-    def is_hash_prefix_equal(m2: int, i1: int, i2: int):
-        """
-        Returns whether the hash range from 0 to m2 - 1 at the hashes i1 and i2
-        is equal
-        """
-        return compare_hash_range(i1, 0, i2, 0, m2, False)
-
-    dual_extension = And([
-        And([
-            is_hash_prefix_equal(2**(n-1), 2*i, 2*i+1),
-            And([Not(is_hash_prefix_equal(2**(n-1), 2*i, 2*i2)) for i2 in range(2**(k-1)) if i2 != i])
-        ]) for i in range(2**(k-1))
-    ])
-
-    paired_inverse_dual_extension = And([
-        dual_extension,
-        And([
-            compare_hash_range(2*i, 2**(n-1), 2*i+1, 2**(n-1), 2**(n-1), True)
-            for i in range(2**(k-1))
+        self_inverse = And([
+            And([
+                hash_is_zero[2*i][j] == Not(hash_is_zero[2*i+1][j]) for j in range(2**n)
+            ]) for i in range(2**(k-1))
         ])
-    ])
 
-    self_paired_inverse_dual_extension = And([
-        paired_inverse_dual_extension,
-        And([
-            Or([
-                compare_hash_range(2 * i, 0, 2 * i, 2 ** (n - 1), 2 ** (n - 1)),
-                compare_hash_range(2 * i + 1, 0, 2 * i + 1, 2 ** (n - 1), 2 ** (n - 1)),
+        dual_extension = And([
+            And([
+                is_hash_prefix_equal(2 ** (n - 1), 2 * i, 2 * i + 1),
+                And([Not(is_hash_prefix_equal(2 ** (n - 1), 2 * i, 2 * i2)) for i2 in range(2 ** (k - 1)) if i2 != i])
+            ]) for i in range(2 ** (k - 1))
+        ])
+
+        paired_inverse_dual_extension = And([
+            dual_extension,
+            And([
+                compare_hash_range(2 * i, 2 ** (n - 1), 2 * i + 1, 2 ** (n - 1), 2 ** (n - 1), True)
+                for i in range(2 ** (k - 1))
             ])
-            for i in range(2**(k-1))
         ])
-    ])
 
-    # only one of following the modifiers should active at once
-    # asserts that the hash set must be a dual extension
-    # solver.add(dual_extension)
-    # asserts that the hash set must be a paired inverse dual extension
-    # solver.add(paired_inverse_dual_extension)
-    # asserts that the hash set must be a paired inverse dual extension that was applied using the same hash set twice
-    solver.add(self_paired_inverse_dual_extension)
+        self_paired_inverse_dual_extension = And([
+            paired_inverse_dual_extension,
+            And([
+                Or([
+                    compare_hash_range(2 * i, 0, 2 * i, 2 ** (n - 1), 2 ** (n - 1)),
+                    compare_hash_range(2 * i + 1, 0, 2 * i + 1, 2 ** (n - 1), 2 ** (n - 1)),
+                ])
+                for i in range(2 ** (k - 1))
+            ])
+        ])
 
-    def hash_is_lexicographically_smaller_than(i1: int, i2: int):
-        return Sum([If(hash_is_zero[i1][j], 0, 2**(n-j-1)) for j in range(2**n)])\
-               < Sum([If(hash_is_zero[i2][j], 0, 2**(n-j-1)) for j in range(2**n)])
+        # asserts that the hash set must be a self inverse hash set
+        # conditions.append(self_inverse)
 
-    # ensures that no two models encode the same hash function
-    # and the hash bit rows are ordered with ascending binary number
-    # value interpreting the leading bit as the highest valued
-    hash_set_distinct = And([
-        hash_is_lexicographically_smaller_than(i, i+1) for i in range(2**k - 1)
-    ])
+        # only one of following the modifiers should active at once
 
-    solver.add(hash_set_distinct)
+        # asserts that the hash set must be a dual extension
+        # conditions.append(dual_extension)
 
-    ret = solver.check()
-    if ret != sat:
-        raise ValueError("Solver responded with " + str(ret))
+        # asserts that the hash set must be a paired inverse dual extension
+        # conditions.append(paired_inverse_dual_extension)
 
-    m = solver.model()
+        # asserts that the hash set must be a paired inverse dual extension
+        # that was applied using the same hash set twice
+        # conditions.append(self_paired_inverse_dual_extension)
 
-    m_hashes = tuple([
-        tuple([0 if m[hash_is_zero[i][j]] else 1 for j in range(2 ** n)]) for i in range(2 ** k)
-    ])
+        return And(conditions)
 
-    for i in range(2 ** k):
-        print(m_hashes[i])
+    HS = set()
+
+    for H in generate_upi_hash_sets_via_solver(n, k, make_additional_condition, True):
+        HC = convert_hash_set_to_tuple_representation(H)
+
+        print("----------------------------------")
+        for h in HC:
+            print(h)
+        print("----------------------------------")
+
+        HS.add(HC)
+
+        if len(HS) >= stop_after and stop_after > 0:
+            print("Found >={stop_after} hash sets that comply with the conditions".format(stop_after=stop_after))
+            break
 
     """
     # Generates pi hash function

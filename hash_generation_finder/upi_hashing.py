@@ -1,4 +1,5 @@
 from alternatives.branching_counter import iterate_models_by_boolean_branching
+from alternatives.exclusion_counter import iterate_models_by_exclusion
 from hash_generation_finder.utility import convert_hash_set_to_tuple_representation
 from z3 import *
 import numpy as np
@@ -83,6 +84,7 @@ def generate_upi_hash_sets_via_solver(
     n: int,
     k: int,
     make_additional_condition: Optional[Callable[[List[List[BoolRef]]], BoolRef]] = None,
+    use_exclusion_iterator: bool = False,
 ) -> Iterable[Any]:
     """
     :param n:
@@ -128,12 +130,12 @@ def generate_upi_hash_sets_via_solver(
         hash_is_lexicographically_smaller_than(i, i + 1) for i in range(2 ** k - 1)
     ])
 
-    formula = And([val_eq_1_conditions, val_comb_eq_0_conditions, hash_set_distinct])
+    formula = simplify(And([val_eq_1_conditions, val_comb_eq_0_conditions, hash_set_distinct]))
 
     if make_additional_condition:
-        formula = And(formula, make_additional_condition(hash_is_zero))
+        formula = simplify(And(formula, make_additional_condition(hash_is_zero)))
 
-    models = iterate_models_by_boolean_branching(
+    models = (iterate_models_by_exclusion if use_exclusion_iterator else iterate_models_by_boolean_branching)(
         formula=formula,
         variables=[bit for bit_row in bits for bit in bit_row],
     )
