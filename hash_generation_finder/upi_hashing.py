@@ -118,12 +118,14 @@ def generate_upi_hash_sets_via_solver(
     ])
 
     def hash_is_lexicographically_smaller_than(i1: int, i2: int):
-        return Sum([If(bits[i1][j], 2**j, 0) for j in range(2**n)])\
-               < Sum([If(bits[i2][j], 2**j, 0) for j in range(2**n)])
+        return Sum([If(hash_is_zero[i1][j], 0, 2 ** (n - j - 1)) for j in range(2 ** n)]) \
+               < Sum([If(hash_is_zero[i2][j], 0, 2 ** (n - j - 1)) for j in range(2 ** n)])
 
     # ensures that no two models encode the same hash function
+    # and the hash bit rows are ordered with ascending binary number
+    # value interpreting the leading bit as the highest valued
     hash_set_distinct = And([
-        hash_is_lexicographically_smaller_than(i, i+1) for i in range(2**k - 1)
+        hash_is_lexicographically_smaller_than(i, i + 1) for i in range(2 ** k - 1)
     ])
 
     formula = And([val_eq_1_conditions, val_comb_eq_0_conditions, hash_set_distinct])
