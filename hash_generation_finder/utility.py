@@ -59,6 +59,10 @@ def get_hash_set_dual_extension_via_paired_inverses(H1, H2):
 
 
 def convert_hash_set_to_tuple_representation(H) -> Tuple[Tuple[int, ...], ...]:
+    # ensures that convert tuple to tuple representation will return it sorted
+    if type(H) == tuple:
+        H = convert_hash_set_to_numpy_representation(H)
+
     hash_list = [tuple(H[:, i]) for i in range(H.shape[1])]
 
     sorted_hash_list = tuple(map(itemgetter(0), sorted([
