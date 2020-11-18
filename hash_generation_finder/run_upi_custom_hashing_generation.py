@@ -1,6 +1,7 @@
 from z3 import *
 from typing import List
-from hash_generation_finder.upi_hashing import generate_upi_hash_sets_via_solver, convert_hash_set_to_tuple_representation
+from hash_generation_finder.upi_hashing import generate_upi_hash_sets_via_solver,\
+    convert_hash_set_to_tuple_representation, get_paper_xor_hash_set
 from itertools import combinations
 
 # runs some pi hash generation
@@ -39,6 +40,14 @@ if __name__ == "__main__":
             is equal
             """
             return compare_hash_range(i1, 0, i2, 0, m2, False)
+
+        def is_hash_set_different(H):
+            HC = convert_hash_set_to_tuple_representation(H)
+            return Or([
+                hash_is_zero[i][j] != BoolVal(HC[i][j] == 0)
+                for j in range(2**n)
+                for i in range(2**k)
+            ])
 
         conditions = []
 
@@ -87,7 +96,12 @@ if __name__ == "__main__":
 
         # asserts that the hash set must be a paired inverse dual extension
         # that was applied using the same hash set twice
-        # conditions.append(self_paired_inverse_dual_extension)
+        conditions.append(self_paired_inverse_dual_extension)
+
+        # add hash sets that should be ignored to the list
+        excluded_hash_sets = [get_paper_xor_hash_set(n)]
+
+        conditions.append(And([is_hash_set_different(H) for H in excluded_hash_sets]))
 
         return And(conditions)
 

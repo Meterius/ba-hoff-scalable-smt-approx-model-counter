@@ -1,3 +1,4 @@
+from operator import itemgetter
 from typing import Tuple
 import numpy as np
 
@@ -58,7 +59,13 @@ def get_hash_set_dual_extension_via_paired_inverses(H1, H2):
 
 
 def convert_hash_set_to_tuple_representation(H) -> Tuple[Tuple[int, ...], ...]:
-    return tuple(sorted([tuple(H[:, i]) for i in range(H.shape[1])]))
+    hash_list = [tuple(H[:, i]) for i in range(H.shape[1])]
+
+    sorted_hash_list = tuple(map(itemgetter(0), sorted([
+        (h, sum([h[i] * (2**(len(h)-i-1)) for i in range(len(h))])) for h in hash_list
+    ], key=itemgetter(1))))
+
+    return sorted_hash_list
 
 
 def convert_hash_set_to_numpy_representation(H):
