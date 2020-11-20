@@ -77,7 +77,7 @@ def approx(
         print("Iter ({m}/{mp})".format(m=m, mp=mp))
 
         for i in range(1, r + 1):
-            print("Iter ({m}/{mp}) - {i}".format(m=m, mp=mp, i=i))
+            # print("Iter ({m}/{mp}) - {i}".format(m=m, mp=mp, i=i))
             if estimate(solver, q_variables, q_bits, m, a):
                 c += 1
 
