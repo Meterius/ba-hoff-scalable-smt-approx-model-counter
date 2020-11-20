@@ -53,7 +53,12 @@ Z3CloneExpressionOutput = NamedTuple("Z3CloneExpressionOutput", [
 EstimateRunnerPayloadType = TypeVar("EstimateRunnerPayloadType")
 
 
-class EstimateRunner(ABC, Generic[EstimateRunnerPayloadType]):
+class BaseEstimateRunner(ABC, Generic[EstimateRunnerPayloadType]):
+    """
+    Implements core estimate functionality.
+    Is abstract as the decode payload method must be implemented based on use case.
+    """
+
     params: ApproxDerivedParams
 
     instance_data: Optional[EstimateRunnerInstanceData] = None
@@ -69,7 +74,8 @@ class EstimateRunner(ABC, Generic[EstimateRunnerPayloadType]):
         """
         Abstract method that should be implemented by concrete implementation.
         Decodes payload to approx payload params.
-        The payload should be transferable via python multiprocessing arguments.
+        The payload should be transferable via python multiprocessing arguments if it is expected
+        to be run with separate processes that are not launched via forking.
         :params payload: Payload from which approx payload params should be decoded
         :params ctx: Context that the z3 data should be created with,
                      note that this can also be achieved by translating
@@ -135,7 +141,7 @@ class EstimateRunner(ABC, Generic[EstimateRunnerPayloadType]):
         :param variable:
         """
 
-        return z3.Const("{key}_{name}".format(key=key, name=str(variable)), variable.sort())
+        return z3.Const(f"{key}_{variable}", variable.sort())
 
     def _z3_clone_expression(self, expression: z3.ExprRef, q: int) -> Z3CloneExpressionOutput:
         """
@@ -151,7 +157,7 @@ class EstimateRunner(ABC, Generic[EstimateRunnerPayloadType]):
         variables = self._z3_get_variables(expression)
 
         var_map = {
-            x: [self._z3_recreate_variable("clone\{{i}\}".format(i=i), x) for i in range(q)] for x in variables
+            x: [self._z3_recreate_variable(f"clone{{{i}}}", x) for i in range(q)] for x in variables
         }
 
         clones = [z3.substitute(expression, [(x, var_map[x][i]) for x in variables]) for i in range(q)]
@@ -183,6 +189,7 @@ class EstimateRunner(ABC, Generic[EstimateRunnerPayloadType]):
             return z3.BoolVal(True)
 
         ctx = bits[0].ctx
+
         hash_is_zero_conditions = []
 
         # creates m times the xor hash function from the smt paper to generate
@@ -193,7 +200,7 @@ class EstimateRunner(ABC, Generic[EstimateRunnerPayloadType]):
             # appending the result to the end of the queue, when the queue only has one remaining item
             # that item will be an xor sum of the original queue
 
-            queue = [z3.BoolVal(random.getrandbits(1))] + [bit for bit in bits if random.getrandbits(1)]
+            queue = [z3.BoolVal(random.getrandbits(1), ctx=ctx)] + [bit for bit in bits if random.getrandbits(1)]
 
             while len(queue) >= 2:
                 queue.append(
@@ -221,8 +228,7 @@ class EstimateRunner(ABC, Generic[EstimateRunnerPayloadType]):
             if response == z3.unknown:
                 solver.pop()
                 raise RuntimeError("Solver responded with unknown")
-
-            if response == z3.unsat:
+            elif response == z3.unsat:
                 solver.pop()
                 return i
 
@@ -247,7 +253,7 @@ class EstimateRunner(ABC, Generic[EstimateRunnerPayloadType]):
 
         # map from formula variable to its encoding bits
         bit_map = {
-            x: [z3.Bool("{x}_bit_{i}".format(x=x, i=i)) for i in range(n)] for x, n in payload_params.variables
+            x: [z3.Bool(f"{x}_bit_{i}", ctx=ctx) for i in range(n)] for x, n in payload_params.variables
         }
 
         # formula that extends original formula with assertion that the bit_map encodes its corresponding variables
@@ -272,7 +278,7 @@ class EstimateRunner(ABC, Generic[EstimateRunnerPayloadType]):
         ]
 
         # q times conjunction of clones of formula_e
-        formula_q = z3.And([formula_e_clone_data.clones])
+        formula_q = z3.And(formula_e_clone_data.clones)
 
         solver.add(formula_q)
 
@@ -308,3 +314,13 @@ class EstimateRunner(ABC, Generic[EstimateRunnerPayloadType]):
         instance_data.solver.pop()
 
         return lmc is None
+
+
+class DirectEstimateRunner(BaseEstimateRunner[ApproxPayloadParams]):
+    """ EstimateRunner implementation that does not encode the initialization payload and simply translates the ctx """
+
+    def _decode_payload(self, payload: ApproxPayloadParams, ctx: z3.Context) -> ApproxPayloadParams:
+        return ApproxPayloadParams(
+            formula=payload.formula.translate(ctx),
+            variables=[(x.translate(ctx), bc) for x, bc in payload.variables],
+        )
