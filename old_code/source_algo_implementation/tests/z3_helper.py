@@ -2,7 +2,7 @@ from z3 import *
 from itertools import product
 import unittest
 import random
-import source_algo_implementation.z3_helper as z3_helper
+import old_code.source_algo_implementation.z3_helper as z3_helper
 
 
 class TestZ3Helper(unittest.TestCase):

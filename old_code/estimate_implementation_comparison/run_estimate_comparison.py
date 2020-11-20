@@ -1,6 +1,6 @@
 from time import perf_counter
-from estimate_implementation_comparison.estimate_implementations import ref_estimate
-from estimate_implementation_comparison.z3_helper import is_binary_encoding
+from old_code.estimate_implementation_comparison.estimate_implementations import ref_estimate
+from old_code.estimate_implementation_comparison.z3_helper import is_binary_encoding
 from z3 import *
 
 

@@ -3,8 +3,8 @@ from math import sqrt
 from itertools import chain
 import unittest
 import random
-import source_algo_implementation.z3_helper as z3_helper
-import source_algo_implementation.approx as approx
+import old_code.source_algo_implementation.z3_helper as z3_helper
+import old_code.source_algo_implementation.approx as approx
 
 
 class TestApprox(unittest.TestCase):

@@ -2,7 +2,7 @@ from z3 import *
 from math import *
 from itertools import chain
 from typing import List, cast
-from source_algo_implementation.z3_helper import random_m_xor_hash_equals_zero, \
+from old_code.source_algo_implementation.z3_helper import random_m_xor_hash_equals_zero, \
     limited_model_count, clone_formula, is_binary_encoding
 
 

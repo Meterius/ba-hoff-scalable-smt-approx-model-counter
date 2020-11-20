@@ -1,6 +1,6 @@
 from z3 import *
 from hash_generation_finder.utility import convert_hash_set_to_tuple_representation
-from source_algo_implementation.z3_helper import is_binary_encoding
+from old_code.source_algo_implementation.z3_helper import is_binary_encoding
 from alternatives.exclusion_counter import iterate_models_by_exclusion
 from alternatives.branching_counter import iterate_models_by_boolean_branching
 from itertools import product

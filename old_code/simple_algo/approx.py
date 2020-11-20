@@ -3,7 +3,7 @@ from math import *
 import random
 from itertools import chain
 from typing import List, cast
-from source_algo_implementation.z3_helper import limited_model_count, clone_formula, is_binary_encoding
+from old_code.source_algo_implementation.z3_helper import limited_model_count, clone_formula, is_binary_encoding
 
 
 def generate_xor_hash(i: int, n: int, x: ArithRef):
