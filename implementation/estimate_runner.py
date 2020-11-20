@@ -14,8 +14,6 @@ ApproxPayloadParams = NamedTuple(
     [("formula", z3.BoolRef), ("variables", List[Tuple[z3.ArithRef, int]])]
 )
 
-EstimateRunnerPayloadType = TypeVar("EstimateRunnerPayloadType")
-
 
 class ApproxDerivedParams:
     def __init__(self, params: ApproxParams):
@@ -51,6 +49,8 @@ EstimateRunnerInstanceData = NamedTuple(
 Z3CloneExpressionOutput = NamedTuple("Z3CloneExpressionOutput", [
     ("clones", List[z3.BoolRef]), ("var_map", Dict[z3.ExprRef, List[z3.ExprRef]])
 ])
+
+EstimateRunnerPayloadType = TypeVar("EstimateRunnerPayloadType")
 
 
 class EstimateRunner(ABC, Generic[EstimateRunnerPayloadType]):
