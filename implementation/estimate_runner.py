@@ -1,41 +1,21 @@
 import z3
 import random
-from abc import ABC, abstractmethod
-from math import sqrt, log2, ceil
-from typing import NamedTuple, Optional, Generic, TypeVar, List, Tuple, Dict, cast
-
-ApproxParams = NamedTuple(
-    "ApproxParams",
-    [("a", int), ("epsilon", float)],
-)
+from common import ApproxDerivedParams, ApproxParams
+from helper import deserialize_expression, serialize_expression
+from typing import NamedTuple, Optional, List, Tuple, Dict, cast
 
 ApproxPayloadParams = NamedTuple(
     "ApproxPayloadParams",
     [("formula", z3.BoolRef), ("variables", List[Tuple[z3.ArithRef, int]])]
 )
 
-
-class ApproxDerivedParams:
-    def __init__(self, params: ApproxParams):
-        self.a = params.a
-        self.epsilon = params.epsilon
-
-        self.g = (sqrt(self.a + 1) - 1) ** 2
-        self.G = (sqrt(self.a + 1) + 1) ** 2
-
-        self.q = ceil(
-            (1 + 4 * log2(sqrt(self.a + 1) + 1) - 2 * log2(self.a)) /
-            (2 * log2(1 + self.epsilon))
-        )
-        self.p = ceil((sqrt(self.a + 1) - 1) ** (2 / self.q))
-
-
 EstimateRunnerInstanceData = NamedTuple(
     "EstimateRunnerInstanceData",
     [
-        ("payload_params", ApproxPayloadParams),
         ("solver", z3.Solver),
 
+        # variables of the given formula
+        ("variables", List[Tuple[z3.ArithRef, int]]),
         # bits representing unsigned binary encoding of the variables given for the formula
         ("bits", List[z3.BoolRef]),
 
@@ -50,13 +30,10 @@ Z3CloneExpressionOutput = NamedTuple("Z3CloneExpressionOutput", [
     ("clones", List[z3.BoolRef]), ("var_map", Dict[z3.ExprRef, List[z3.ExprRef]])
 ])
 
-EstimateRunnerPayloadType = TypeVar("EstimateRunnerPayloadType")
 
-
-class BaseEstimateRunner(ABC, Generic[EstimateRunnerPayloadType]):
+class EstimateRunner:
     """
     Implements core estimate functionality.
-    Is abstract as the decode payload method must be implemented based on use case.
     """
 
     params: ApproxDerivedParams
@@ -68,23 +45,6 @@ class BaseEstimateRunner(ABC, Generic[EstimateRunnerPayloadType]):
         :params approx_params:
         """
         self.params = ApproxDerivedParams(approx_params)
-
-    @abstractmethod
-    def _decode_payload(self, payload: EstimateRunnerPayloadType, ctx: z3.Context) -> ApproxPayloadParams:
-        """
-        Abstract method that should be implemented by concrete implementation.
-        Decodes payload to approx payload params.
-        The payload should be transferable via python multiprocessing arguments if it is expected
-        to be run with separate processes that are not launched via forking.
-        :params payload: Payload from which approx payload params should be decoded
-        :params ctx: Context that the z3 data should be created with,
-                     note that this can also be achieved by translating
-                     formula and variables after their creation, although
-                     that should be avoided as it unnecessarily increases setup
-                     and memory costs
-        """
-
-        return NotImplemented
 
     def _require_instance_data(self) -> EstimateRunnerInstanceData:
         """
@@ -240,7 +200,7 @@ class BaseEstimateRunner(ABC, Generic[EstimateRunnerPayloadType]):
 
         return None
 
-    def initialize(self, payload: EstimateRunnerPayloadType):
+    def initialize(self, payload_params: ApproxPayloadParams):
         """
         Initializes the runner.
         Needs to be called before other methods are used.
@@ -249,16 +209,18 @@ class BaseEstimateRunner(ABC, Generic[EstimateRunnerPayloadType]):
 
         ctx = z3.Context()
         solver = z3.Solver(ctx=ctx)
-        payload_params = self._decode_payload(payload, ctx)
+
+        formula = payload_params.formula.translate(ctx)
+        variables = [(x.translate(ctx), bc) for x, bc in payload_params.variables]
 
         # map from formula variable to its encoding bits
         bit_map = {
-            x: [z3.Bool(f"{x}_bit_{i}", ctx=ctx) for i in range(n)] for x, n in payload_params.variables
+            x: [z3.Bool(f"{x}_bit_{i}", ctx=ctx) for i in range(n)] for x, n in variables
         }
 
         # formula that extends original formula with assertion that the bit_map encodes its corresponding variables
         formula_e = z3.And(
-            payload_params.formula,
+            formula,
             z3.And([self._z3_make_assert_unsigned_binary_encoding(x, bit_map[x]) for x in bit_map]),
         )
 
@@ -284,13 +246,23 @@ class BaseEstimateRunner(ABC, Generic[EstimateRunnerPayloadType]):
 
         self.instance_data = EstimateRunnerInstanceData(
             solver=solver,
-            payload_params=payload_params,
 
+            variables=variables,
             bits=[bit for x in bit_map for bit in bit_map[x]],
 
             q_bits=q_bits,
             q_variables=q_variables,
         )
+
+    def exact_model_count_if_less_or_equal_p(self) -> Optional[int]:
+        """
+        If the formula has <= p models this will return the exact model count,
+        otherwise it returns None.
+        """
+
+        instance_data = self._require_instance_data()
+
+        return self._z3_limited_model_count(instance_data.solver, instance_data.q_bits, self.params.p + 1)
 
     def estimate(self, m: int):
         """
@@ -316,11 +288,23 @@ class BaseEstimateRunner(ABC, Generic[EstimateRunnerPayloadType]):
         return lmc is None
 
 
-class DirectEstimateRunner(BaseEstimateRunner[ApproxPayloadParams]):
-    """ EstimateRunner implementation that does not encode the initialization payload and simply translates the ctx """
+SerializedApproxPayloadParams = NamedTuple(
+    "SerializedApproxPayloadParams",
+    [("serialized_formula", str), ("serialized_variables", List[Tuple[str, int]])],
+)
 
-    def _decode_payload(self, payload: ApproxPayloadParams, ctx: z3.Context) -> ApproxPayloadParams:
-        return ApproxPayloadParams(
-            formula=payload.formula.translate(ctx),
-            variables=[(x.translate(ctx), bc) for x, bc in payload.variables],
-        )
+
+def serialize_approx_payload_params(approx_payload_params: ApproxPayloadParams) -> SerializedApproxPayloadParams:
+    return SerializedApproxPayloadParams(
+        serialized_formula=serialize_expression(approx_payload_params.formula),
+        serialized_variables=[(str(x), bc) for x, bc in approx_payload_params.variables],
+    )
+
+
+def deserialize_approx_payload_params(
+    serialized_approx_payload_params: SerializedApproxPayloadParams,
+) -> ApproxPayloadParams:
+    return ApproxPayloadParams(
+        formula=deserialize_expression(serialized_approx_payload_params.serialized_formula),
+        variables=[(z3.Int(name), bc) for name, bc in serialized_approx_payload_params.serialized_variables],
+    )

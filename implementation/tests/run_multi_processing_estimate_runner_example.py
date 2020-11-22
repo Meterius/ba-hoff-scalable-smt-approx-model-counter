@@ -1,0 +1,58 @@
+from implementation.common import InMemoryApproxExecutionManager
+from implementation.estimate_runner import EstimateRunner, ApproxParams, ApproxPayloadParams
+from implementation.estimate_integrator import MultiProcessingEstimateIntegrator
+from implementation.estimate_scheduler import ConfidentEdgeFinderBinarySearchEstimateScheduler
+from time import perf_counter
+from z3 import *
+from os import cpu_count
+
+if __name__ == "__main__":
+    n = 20
+    x, y, z = Ints("x y z")
+    f = And([
+        x >= 0,
+        y >= 0,
+        x % 4 == 0,
+        y % 5 == 0,
+        z < x + y,
+    ])
+
+    s2 = perf_counter()
+    s = perf_counter()
+
+    manager = InMemoryApproxExecutionManager(
+        approx_params=ApproxParams(
+            a=10,
+            q=1,
+            bit_count=2 * n,
+        ),
+    )
+
+    print(f"Initializing InMemoryApproxExecutionManager took {perf_counter() - s:.3f} seconds")
+    s = perf_counter()
+
+    scheduler = ConfidentEdgeFinderBinarySearchEstimateScheduler(
+        manager=manager,
+        confidence=0.75,
+    )
+
+    print(f"Initializing ConfidentEdgeFinderBinarySearchEstimateScheduler took {perf_counter() - s:.3f} seconds")
+    s = perf_counter()
+
+    integrator = MultiProcessingEstimateIntegrator(
+        approx_payload_params=ApproxPayloadParams(
+            formula=f,
+            variables=[(x, n), (y, n)],
+        ),
+        scheduler=scheduler,
+        worker_count=1,
+    )
+
+    print(f"Initializing MultiProcessingEstimateIntegrator took {perf_counter() - s:.3f} seconds")
+    s = perf_counter()
+
+    print(f"Initializing took {perf_counter()-s2:.3f} seconds")
+
+    integrator.run()
+
+    print(f"Binary search with multi processing took {perf_counter()-s2:.3f} seconds")

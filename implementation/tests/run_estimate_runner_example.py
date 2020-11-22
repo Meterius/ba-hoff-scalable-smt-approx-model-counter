@@ -1,4 +1,4 @@
-from implementation.estimate_runner import DirectEstimateRunner, ApproxParams, ApproxPayloadParams
+from implementation.estimate_runner import EstimateRunner, ApproxParams, ApproxPayloadParams
 from time import perf_counter
 from z3 import *
 
@@ -13,10 +13,11 @@ if __name__ == "__main__":
         z < x + y,
     ])
 
-    runner = DirectEstimateRunner(
+    runner = EstimateRunner(
         approx_params=ApproxParams(
             a=10,
-            epsilon=2,
+            q=1,
+            bit_count=2*n,
         )
     )
 
