@@ -95,29 +95,26 @@ class MultiProcessingEstimateIntegrator:
         print_debug("Starting integrator run")
 
         tasks_in_progress: Dict[int, int] = {}
-        tasks = self.scheduler.available_estimate_tasks()
+        tasks = self.scheduler.available_estimate_tasks()[:self.worker_count]
 
         for task in tasks:
             tasks_in_progress[task] = tasks_in_progress.get(task, 0) + 1
             self.task_queue.put(task)
-
-        print_debug(f"{len(tasks)} more tasks scheduled")
 
         while any(map(lambda x: x > 0, tasks_in_progress.values())):
             task, result = self.result_queue.get()
 
             self.scheduler.manager.add_estimate_result_and_sync(task, result)
 
-            tasks = self.scheduler.available_estimate_tasks(tasks_in_progress)
+            tasks_in_progress[task] = tasks_in_progress.get(task, 0) - 1
+
+            tasks = self.scheduler.available_estimate_tasks(
+                tasks_in_progress,
+            )[:self.worker_count-sum(tasks_in_progress.values())]
 
             for task in tasks:
                 tasks_in_progress[task] = tasks_in_progress.get(task, 0) + 1
                 self.task_queue.put(task)
-
-            print_debug(self.scheduler.manager.data)
-
-            if len(tasks) > 0:
-                print_debug(f"{len(tasks)} more tasks scheduled")
 
     def terminate(self):
         for process in self.processes:
