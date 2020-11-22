@@ -1,21 +1,13 @@
-from z3 import *
 import random
-from typing import NamedTuple, List, Union, Tuple, Dict
-
-TreeNode = NamedTuple("TreeNode", [("children", Tuple["TreeNode", ...]), ('id', str)])
-
-
-ConstraintImplication = NamedTuple("ConstraintImplication", [("source", TreeNode), ("target", TreeNode)])
+from problem_generator.tree import TreeNode, Constraint, collect_tree, ConstraintImplication
+from typing import List, Tuple
 
 
-Constraint = Union[ConstraintImplication]
-
-
-def collect_tree(root: TreeNode) -> List[TreeNode]:
-    return [root] + [y for x in root.children for y in collect_tree(x)]
-
-
-def generate_random_tree(n: int, cn: int, id: str = "0") -> TreeNode:
+def generate_random_tree(
+    n: int,
+    cn: int,
+    id: str = "0",
+) -> TreeNode:
     if n < 1 or cn < 1:
         raise ValueError("n and cn need to be greater or equal 1")
 
@@ -29,8 +21,10 @@ def generate_random_tree(n: int, cn: int, id: str = "0") -> TreeNode:
     children = tuple([generate_random_tree(x, cn, id + "-" + str(i)) for i, x in enumerate(children_node_count)])
 
     node = TreeNode(
-        children=children,
         id=id,
+        cardinality_range=(random.randint(0, 1), 2),
+        children_selection_range=(random.randint(0, 1), random.randint(1, 2)),
+        children=children,
     )
 
     return node
@@ -52,32 +46,3 @@ def generate_random_problem(
 
     return tree, constraints
 
-
-def convert_problem(problem: Tuple[List[TreeNode], List[Constraint]]) -> Tuple[BoolRef, List[ArithRef]]:
-    tree, constraints = problem
-
-    node_cardinality_map: Dict[TreeNode, ArithRef] = {
-        x: Int("cardinality_{id}".format(id=x.id)) for x in tree
-    }
-
-    def collect_tree_conditions(root: TreeNode) -> BoolRef:
-        parent_child_conditions = [
-            Implies(node_cardinality_map[child] > 0, node_cardinality_map[root] > 0) for child in root.children
-        ] + [
-            Implies(node_cardinality_map[root] == 0, node_cardinality_map[child] == 0) for child in root.children
-        ]
-
-        cardinality_condition = And(0 <= node_cardinality_map[root], node_cardinality_map[root] < 2)
-
-        return And(
-            parent_child_conditions
-            + [cardinality_condition]
-            + [collect_tree_conditions(child) for child in root.children]
-        )
-
-    def convert_constraint_condition(constraint: Constraint) -> BoolRef:
-        return Implies(node_cardinality_map[constraint.source] > 0, node_cardinality_map[constraint.target] > 0)
-
-    condition = And(collect_tree_conditions(tree[0]), And([convert_constraint_condition(c) for c in constraints]))
-
-    return simplify(condition), list(node_cardinality_map.values())
