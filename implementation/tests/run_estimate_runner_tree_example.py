@@ -1,21 +1,27 @@
 from estimate_runner import EstimateProblemParams
+from problem_generator.generator import generate_random_flat_tree, generate_random_constraints
+from problem_generator.tree import convert_problem, get_tree_model_count_upper_bound_with_required_root, collect_tree
 from implementation.estimate_manager import InMemoryApproxExecutionManager, EstimateBaseParams
-from implementation.estimate_integrator import MultiProcessingEstimateIntegrator
+from implementation.estimate_integrator import DirectProcessingEstimateIntegrator
 from implementation.estimate_scheduler import ConfidentEdgeFinderBinarySearchEstimateScheduler
 from time import perf_counter
-from z3 import *
-from os import cpu_count
+from math import log2, ceil, floor
 
 if __name__ == "__main__":
-    n = 20
-    x, y, z = Ints("x y z")
-    f = And([
-        x >= 0,
-        y >= 0,
-        x % 4 == 0,
-        y % 5 == 0,
-        z < x + y,
-    ])
+    root = generate_random_flat_tree(25, 1, 2)
+    tree = collect_tree(root)
+    constraints = generate_random_constraints(root, 0)
+
+    max_mc = get_tree_model_count_upper_bound_with_required_root(root)
+
+    print(f"Tree has {len(tree)} nodes and has a model count upper bound of >= 2 ** {floor(log2(max_mc))}")
+    print(f"{len(constraints)} constraints have been added")
+
+    formula, _, card_map = convert_problem((root, constraints))
+
+    variables = [
+        (card_map[node], int(ceil(log2(node.cardinality_range[1] + 1)))) for node in card_map
+    ]
 
     s2 = perf_counter()
     s = perf_counter()
@@ -24,7 +30,7 @@ if __name__ == "__main__":
         base_params=EstimateBaseParams(
             a=10,
             q=1,
-            bc=2 * n,
+            bc=sum([bc for _, bc in variables]),
             max_mc=None,
         ),
     )
@@ -40,16 +46,15 @@ if __name__ == "__main__":
     print(f"Initializing ConfidentEdgeFinderBinarySearchEstimateScheduler took {perf_counter() - s:.3f} seconds")
     s = perf_counter()
 
-    integrator = MultiProcessingEstimateIntegrator(
+    integrator = DirectProcessingEstimateIntegrator(
         problem_params=EstimateProblemParams(
-            formula=f,
-            variables=[(x, n), (y, n)],
+            formula=formula,
+            variables=variables,
         ),
         scheduler=scheduler,
-        worker_count=1,
     )
 
-    print(f"Initializing MultiProcessingEstimateIntegrator took {perf_counter() - s:.3f} seconds")
+    print(f"Initializing DirectProcessingEstimateIntegrator took {perf_counter() - s:.3f} seconds")
     s = perf_counter()
 
     print(f"Initializing took {perf_counter()-s2:.3f} seconds")

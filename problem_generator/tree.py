@@ -1,5 +1,5 @@
 from z3 import *
-from math import prod
+from math import comb
 from itertools import combinations
 from typing import NamedTuple, List, Union, Tuple, Dict
 
@@ -80,29 +80,46 @@ def convert_problem(
     return simplify(condition), list(node_cardinality_map.values()), node_cardinality_map
 
 
-def get_tree_model_count_with_required_root(root: TreeNode) -> int:
+def get_tree_model_count_upper_bound_with_required_root(root: TreeNode) -> int:
     if len(root.children) == 0:
         return root.cardinality_range[1]
 
     required = {child for child in root.children if child.cardinality_range[0] > 0}
+    not_required = set(root.children).difference(required)
 
-    child_upper_bounds = {child: get_tree_model_count_with_required_root(child) for child in root.children}
+    t_required = tuple(required)
+    t_not_required = tuple(not_required)
+
+    child_upper_bounds = {
+        child: get_tree_model_count_upper_bound_with_required_root(child) for child in root.children
+    }
+
+    max_child_upper_bound = max(child_upper_bounds.values())
 
     upper_bound = 0
 
     for r in range(root.children_selection_range[0], root.children_selection_range[1] + 1):
-        if r >= len(required):
-            for comb in combinations(
-                set(root.children).difference(required),
-                r - len(required)
-            ):
-                selected_children = required.union(comb)
-                upper_bound += prod([child_upper_bounds[child] for child in selected_children])
+        if r >= len(t_required):
+            if r <= 3:
+                for combination in combinations(
+                    t_not_required,
+                    r - len(t_required)
+                ):
+                    selected_children = t_required + combination
+
+                    selected_children_upper_bound = 1
+
+                    for child in selected_children:
+                        selected_children_upper_bound *= child_upper_bounds[child]
+
+                    upper_bound += selected_children_upper_bound
+            else:
+                upper_bound += (max_child_upper_bound ** r) * comb(len(t_not_required), r - len(t_required))
 
     return upper_bound * root.cardinality_range[1]
 
 
-def get_tree_model_count(root: TreeNode) -> int:
-    return get_tree_model_count_with_required_root(root) + (1 if root.cardinality_range[0] == 0 else 0)
+def get_tree_model_count_upper_bound(root: TreeNode) -> int:
+    return get_tree_model_count_upper_bound_with_required_root(root) + (1 if root.cardinality_range[0] == 0 else 0)
 
 

@@ -21,6 +21,7 @@ if __name__ == "__main__":
             a=10,
             q=1,
             bc=2*n,
+            max_mc=None,
         ),
         problem_params=EstimateProblemParams(
             formula=f,

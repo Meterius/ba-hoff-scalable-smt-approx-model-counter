@@ -60,7 +60,7 @@ class EstimateDerivedBaseParams:
         self.max_mc: int = base_params.max_mc if base_params.max_mc is not None else 2**self.n
 
         # self.mp: int = int(floor(self.n - log2(self.G)))
-        self.mp: int = int(floor(log2(self.max_mc) - log2(self.G)))
+        self.mp: int = max(1, int(floor(log2(self.max_mc) - log2(self.G))))
 
         self.p: int = int(ceil((sqrt(self.a + 1) - 1) ** (2 / self.q)))
 
@@ -85,6 +85,11 @@ and iteratively improving the approx information
 """
 
 
+class ApproxExecutionAnalyser:
+    def __init__(self, execution: ApproxExecution):
+        self.execution: ApproxExecution = execution
+
+
 class BaseApproxExecutionManager(ABC):
     """
     An execution manager stores the approx execution data in memory and expects that implementations of the
@@ -107,12 +112,14 @@ class BaseApproxExecutionManager(ABC):
             },
         )
 
+        self.analyser = ApproxExecutionAnalyser(self.execution)
+
     @abstractmethod
     def sync(self):
         pass
 
     @abstractmethod
-    def add_estimate_result_and_sync(self, m: int, positive: bool):
+    def add_estimate_result_and_sync(self, task: EstimateTask, result: EstimateTaskResult):
         pass
 
 

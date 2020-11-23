@@ -88,14 +88,14 @@ class ConfidentEdgeFinderBinarySearchEstimateScheduler(BaseEstimateScheduler[Tup
         right = self.params.mp
 
         alpha = 1 - self.confidence
-        r = int(ceil(8 * log((1 / alpha) * floor(self.params.n - log2(self.params.G)))))
+        r = int(ceil(8 * log((1 / alpha) * self.params.mp)))
 
         def estimate(task: EstimateTask) -> Union[bool, int]:
             nonlocal self
 
             estimate_data = self.manager.execution.estimate_tasks_combined_results[task]
 
-            rr = max(0, r - estimate_data.positive_voters + estimate_data.negative_voters)
+            rr = max(0, r - (estimate_data.positive_voters + estimate_data.negative_voters))
 
             if estimate_data.positive_voters >= estimate_data.negative_voters and \
                estimate_data.positive_voters >= estimate_data.negative_voters + rr:
@@ -135,16 +135,16 @@ class ConfidentEdgeFinderBinarySearchEstimateScheduler(BaseEstimateScheduler[Tup
             else:
                 break
 
-        return [self.params.p + 1, 2 * self.params.G] \
-            if m == 1 else [2 ** (m - 1) * self.params.g, 2 ** m * self.params.G]
+        return (self.params.p + 1, 2 * self.params.G) \
+            if m == 1 else (2 ** (m - 1) * self.params.g, 2 ** m * self.params.G)
 
     def _available_estimate_tasks(self) -> List[EstimateTask]:
         res = self._apply_binary_search()
-        return res if type(res) == list else []
+        return [] if type(res) == tuple else res
 
     def predicted_estimate_tasks(self) -> List[EstimateTask]:
         return []
 
     def result(self) -> Optional[Tuple[int, int]]:
         res = self._apply_binary_search()
-        return None if type(res) == list else res
+        return res if type(res) == tuple else None

@@ -13,6 +13,42 @@ from typing import Dict, Iterable, Optional
 # perform their actions is not specified.
 
 
+class DirectProcessingEstimateIntegrator:
+    PRINT_DEBUG = True
+
+    @staticmethod
+    def _print_debug(*messages: Iterable[str]):
+        if DirectProcessingEstimateIntegrator.PRINT_DEBUG:
+            for message in messages:
+                print(f"[{datetime.now().strftime('%H:%M:%S:%f')}] {message}")
+
+    def __init__(self, problem_params: EstimateProblemParams, scheduler: BaseEstimateScheduler):
+        self.problem_params = problem_params
+        self.scheduler = scheduler
+
+    def run(self):
+        """
+        Works on the available tasks from the scheduler until none remain.
+        """
+
+        self._print_debug("Starting integrator run")
+
+        runner = EstimateRunner(
+            base_params=self.scheduler.manager.execution.estimate_base_params,
+            problem_params=self.problem_params,
+        )
+
+        tasks = self.scheduler.available_estimate_tasks()
+        while len(tasks) > 0:
+            task = tasks[0]
+
+            s = perf_counter()
+            self.scheduler.manager.add_estimate_result_and_sync(task, runner.estimate(task))
+            self._print_debug(f"Ran estimate for {task} which took {perf_counter() - s:.3f} seconds")
+
+            tasks = self.scheduler.available_estimate_tasks()
+
+
 class MultiProcessingEstimateIntegrator:
     PRINT_DEBUG = True
 
