@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from math import ceil, sqrt, log2, floor
-from typing import NamedTuple, Dict
+from typing import NamedTuple, Dict, Optional
 from dataclasses import dataclass
 
 EstimateTask = NamedTuple("EstimateTask", [("m", int)])
@@ -26,6 +26,10 @@ EstimateBaseParams = NamedTuple(
         ("q", int),
         # amount of bits used to encode the formulas variables (1 <= bc)
         ("bc", int),
+        # if known an upper bound on the model count, if not specified is set to 2**bc,
+        # this can be used if the formula is known to have an upper bound on the model count,
+        # which will be used to reduce unnecessary operations
+        ("max_mc", Optional[int]),
     ],
 )
 """ Params that are constant across the approx execution """
@@ -35,6 +39,8 @@ def assert_estimate_base_params_is_valid(base_params: EstimateBaseParams):
     assert base_params.a >= 1, "Base parameter a >= 1"
     assert base_params.q >= 1, "Base parameter q >= 1"
     assert base_params.bc >= 1, "Base parameter bc >= 1"
+    assert base_params.max_mc is None or 2**base_params.bc >= base_params.max_mc >= 0, \
+        "Base parameter max_mc if specified is <= 2**bc and >= 0"
 
 
 class EstimateDerivedBaseParams:
@@ -51,7 +57,10 @@ class EstimateDerivedBaseParams:
         self.g: float = (sqrt(self.a + 1) - 1) ** 2
         self.G: float = (sqrt(self.a + 1) + 1) ** 2
 
-        self.mp: int = int(floor(self.n - log2(self.G)))
+        self.max_mc: int = base_params.max_mc if base_params.max_mc is not None else 2**self.n
+
+        # self.mp: int = int(floor(self.n - log2(self.G)))
+        self.mp: int = int(floor(log2(self.max_mc) - log2(self.G)))
 
         self.p: int = int(ceil((sqrt(self.a + 1) - 1) ** (2 / self.q)))
 
@@ -60,6 +69,7 @@ class EstimateDerivedBaseParams:
             q=self.q,
             a=self.a,
             bc=self.bc,
+            max_mc=self.max_mc,
         )
 
 
