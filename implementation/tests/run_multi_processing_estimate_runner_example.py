@@ -1,5 +1,5 @@
-from implementation.common import InMemoryApproxExecutionManager
-from implementation.estimate_runner import EstimateRunner, ApproxParams, ApproxPayloadParams
+from estimate_runner import EstimateProblemParams
+from implementation.estimate_manager import InMemoryApproxExecutionManager, EstimateBaseParams
 from implementation.estimate_integrator import MultiProcessingEstimateIntegrator
 from implementation.estimate_scheduler import ConfidentEdgeFinderBinarySearchEstimateScheduler
 from time import perf_counter
@@ -21,10 +21,10 @@ if __name__ == "__main__":
     s = perf_counter()
 
     manager = InMemoryApproxExecutionManager(
-        approx_params=ApproxParams(
+        base_params=EstimateBaseParams(
             a=10,
             q=1,
-            bit_count=2 * n,
+            bc=2 * n,
         ),
     )
 
@@ -40,7 +40,7 @@ if __name__ == "__main__":
     s = perf_counter()
 
     integrator = MultiProcessingEstimateIntegrator(
-        approx_payload_params=ApproxPayloadParams(
+        problem_params=EstimateProblemParams(
             formula=f,
             variables=[(x, n), (y, n)],
         ),

@@ -1,5 +1,5 @@
 from abc import abstractmethod, ABC
-from common import BaseApproxExecutionManager
+from estimate_manager import BaseApproxExecutionManager, EstimateDerivedBaseParams, EstimateTask
 from typing import List, Generic, TypeVar, Tuple, Optional, Union, Dict
 from math import floor, log2, log, ceil
 
@@ -7,10 +7,21 @@ R = TypeVar("R")
 
 
 class BaseEstimateScheduler(ABC, Generic[R]):
+    """
+    The estimate scheduler specifies available estimate tasks and
+    predicted estimate tasks that need to be completed before the goal or
+    result the estimate scheduler is supposed to achieve are available.
+    Ideally when the available_estimate_tasks are finished the result should
+    be available.
+    """
+
     def __init__(self, manager: BaseApproxExecutionManager):
         self.manager = manager
 
-    def available_estimate_tasks(self, tasks_in_progress: Optional[Dict[int, int]] = None) -> List[int]:
+    def available_estimate_tasks(
+        self,
+        tasks_in_progress: Optional[Dict[EstimateTask, int]] = None,
+    ) -> List[EstimateTask]:
         """
         Returns a list of estimate m parameters that need to be executed in
         order to achieve the scheduler goal. If a tasks_in_progress map is supplied
@@ -30,7 +41,7 @@ class BaseEstimateScheduler(ABC, Generic[R]):
         return tasks
 
     @abstractmethod
-    def _available_estimate_tasks(self) -> List[int]:
+    def _available_estimate_tasks(self) -> List[EstimateTask]:
         """
         Returns a list of estimate m parameters that need to be executed in
         order to achieve the scheduler goal.
@@ -38,7 +49,7 @@ class BaseEstimateScheduler(ABC, Generic[R]):
         pass
 
     @abstractmethod
-    def predicted_estimate_tasks(self) -> List[int]:
+    def predicted_estimate_tasks(self) -> List[EstimateTask]:
         """
         Returns a list of estimate m parameters that could possibly be needed to be executed
         after the available work has been finished/continued. If additional computational power is available
@@ -67,21 +78,22 @@ class ConfidentEdgeFinderBinarySearchEstimateScheduler(BaseEstimateScheduler[Tup
     def __init__(self, manager: BaseApproxExecutionManager, confidence: float):
         super().__init__(manager)
 
-        assert 0 <= confidence < 1
+        assert 0 <= confidence < 1, "Confidence is < 1 and >= 0"
 
-        self.confidence = confidence
+        self.confidence: float = confidence
+        self.params: EstimateDerivedBaseParams = EstimateDerivedBaseParams(manager.execution.estimate_base_params)
 
-    def _apply_binary_search(self) -> Union[Tuple[int, int], List[int]]:
+    def _apply_binary_search(self) -> Union[Tuple[int, int], List[EstimateTask]]:
         left = 1
-        right = self.manager.params.mp
+        right = self.params.mp
 
         alpha = 1 - self.confidence
-        r = int(ceil(8 * log((1 / alpha) * floor(self.manager.params.n - log2(self.manager.params.G)))))
+        r = int(ceil(8 * log((1 / alpha) * floor(self.params.n - log2(self.params.G)))))
 
-        def estimate(m: int) -> Union[bool, int]:
+        def estimate(task: EstimateTask) -> Union[bool, int]:
             nonlocal self
 
-            estimate_data = self.manager.data.estimate_data_map[m]
+            estimate_data = self.manager.execution.estimate_tasks_combined_results[task]
 
             rr = max(0, r - estimate_data.positive_voters + estimate_data.negative_voters)
 
@@ -99,20 +111,20 @@ class ConfidentEdgeFinderBinarySearchEstimateScheduler(BaseEstimateScheduler[Tup
         while left <= right:
             m = floor((left + right) / 2)
 
-            estimate_base = estimate(m)
+            estimate_base = estimate(EstimateTask(m=m))
             if type(estimate_base) == int:
-                return [m] * estimate_base
+                return [EstimateTask(m=m)] * estimate_base
 
             if m == 1 and not estimate_base:
                 comparison = 0
-            elif m == self.manager.params.mp:
+            elif m == self.params.mp:
                 comparison = 0 if estimate_base else -1
             elif estimate_base:
                 comparison = 1
             else:
-                estimate_prev = estimate(m - 1)
+                estimate_prev = estimate(EstimateTask(m=m-1))
                 if type(estimate_prev) == int:
-                    return [m - 1] * estimate_prev
+                    return [EstimateTask(m=m-1)] * estimate_prev
 
                 comparison = 0 if estimate_prev else -1
 
@@ -123,16 +135,16 @@ class ConfidentEdgeFinderBinarySearchEstimateScheduler(BaseEstimateScheduler[Tup
             else:
                 break
 
-        return [self.manager.params.p + 1, 2 * self.manager.params.G] \
-            if m == 1 else [2 ** (m - 1) * self.manager.params.g, 2 ** m * self.manager.params.G]
+        return [self.params.p + 1, 2 * self.params.G] \
+            if m == 1 else [2 ** (m - 1) * self.params.g, 2 ** m * self.params.G]
 
-    def _available_estimate_tasks(self) -> List[int]:
+    def _available_estimate_tasks(self) -> List[EstimateTask]:
         res = self._apply_binary_search()
-        return [] if type(res) == tuple else res
+        return res if type(res) == list else []
 
-    def predicted_estimate_tasks(self) -> List[int]:
+    def predicted_estimate_tasks(self) -> List[EstimateTask]:
         return []
 
     def result(self) -> Optional[Tuple[int, int]]:
         res = self._apply_binary_search()
-        return res if type(res) == tuple else None
+        return None if type(res) == list else res

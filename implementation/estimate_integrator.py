@@ -1,10 +1,16 @@
+from estimate_manager import EstimateBaseParams
 from estimate_scheduler import BaseEstimateScheduler
-from estimate_runner import SerializedApproxPayloadParams, serialize_approx_payload_params, \
-    ApproxPayloadParams, EstimateRunner, ApproxParams, deserialize_approx_payload_params
+from estimate_runner import EstimateRunner, EstimateProblemParams, \
+    SerializedEstimateProblemParams, deserialize_estimate_problem_params, serialize_estimate_problem_params
 from datetime import datetime
 from time import perf_counter
 from multiprocessing import Process, SimpleQueue, Lock
 from typing import Dict, Iterable, Optional
+
+
+# Estimate integrator construct the estimate runners and forward
+# the work orders of the scheduler to them. Where the runners actually
+# perform their actions is not specified.
 
 
 class MultiProcessingEstimateIntegrator:
@@ -24,8 +30,8 @@ class MultiProcessingEstimateIntegrator:
         stdio_lock: Lock,
         task_queue: SimpleQueue,
         result_queue: SimpleQueue,
-        approx_params: ApproxParams,
-        serialized_approx_payload: SerializedApproxPayloadParams,
+        base_params: EstimateBaseParams,
+        serialized_problem_params: SerializedEstimateProblemParams,
     ):
         worker_number = worker_idx + 1
 
@@ -37,10 +43,9 @@ class MultiProcessingEstimateIntegrator:
             )
 
         runner = EstimateRunner(
-            approx_params=approx_params,
+            base_params=base_params,
+            problem_params=deserialize_estimate_problem_params(serialized_problem_params),
         )
-
-        runner.initialize(deserialize_approx_payload_params(serialized_approx_payload))
 
         debug_print("Initialized")
 
@@ -50,11 +55,11 @@ class MultiProcessingEstimateIntegrator:
             s = perf_counter()
             result = runner.estimate(task)
             result_queue.put((task, result))
-            debug_print(f"Ran estimate for m={task} which took {perf_counter()-s:.3f} seconds")
+            debug_print(f"Ran estimate for {task} which took {perf_counter()-s:.3f} seconds")
 
             task = task_queue.get()
 
-    def __init__(self, approx_payload_params: ApproxPayloadParams, scheduler: BaseEstimateScheduler, worker_count: int):
+    def __init__(self, problem_params: EstimateProblemParams, scheduler: BaseEstimateScheduler, worker_count: int):
         self.scheduler = scheduler
         self.task_queue = SimpleQueue()
         self.result_queue = SimpleQueue()
@@ -71,8 +76,8 @@ class MultiProcessingEstimateIntegrator:
                     "stdio_lock": self.stdio_lock,
                     "task_queue": self.task_queue,
                     "result_queue": self.result_queue,
-                    "approx_params": scheduler.manager.params.approx_params,
-                    "serialized_approx_payload": serialize_approx_payload_params(approx_payload_params),
+                    "base_params": scheduler.manager.execution.estimate_base_params,
+                    "serialized_problem_params": serialize_estimate_problem_params(problem_params),
                 }
             ) for worker_idx in range(worker_count)
         ]

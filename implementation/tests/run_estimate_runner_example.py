@@ -1,4 +1,5 @@
-from implementation.estimate_runner import EstimateRunner, ApproxParams, ApproxPayloadParams
+from estimate_manager import EstimateBaseParams
+from implementation.estimate_runner import EstimateRunner, EstimateProblemParams
 from time import perf_counter
 from z3 import *
 
@@ -13,18 +14,15 @@ if __name__ == "__main__":
         z < x + y,
     ])
 
-    runner = EstimateRunner(
-        approx_params=ApproxParams(
-            a=10,
-            q=1,
-            bit_count=2*n,
-        )
-    )
-
     s = perf_counter()
 
-    runner.initialize(
-        ApproxPayloadParams(
+    runner = EstimateRunner(
+        base_params=EstimateBaseParams(
+            a=10,
+            q=1,
+            bc=2*n,
+        ),
+        problem_params=EstimateProblemParams(
             formula=f,
             variables=[(x, n), (y, n)],
         )

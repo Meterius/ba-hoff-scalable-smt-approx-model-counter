@@ -1,30 +1,41 @@
 import z3
 import random
-from common import ApproxDerivedParams, ApproxParams
+from estimate_manager import EstimateDerivedBaseParams, EstimateBaseParams, assert_estimate_base_params_is_valid, \
+    EstimateTaskResult, EstimateTask
 from helper import deserialize_expression, serialize_expression
 from typing import NamedTuple, Optional, List, Tuple, Dict, cast
 
-ApproxPayloadParams = NamedTuple(
-    "ApproxPayloadParams",
+EstimateProblemParams = NamedTuple(
+    "EstimateProblemParams",
     [("formula", z3.BoolRef), ("variables", List[Tuple[z3.ArithRef, int]])]
 )
+"""
+The estimate problem specifies the data that is missing from the base params,
+and is separated as it may be stored separately to the base params due to its
+not directly serializable nature.
 
-EstimateRunnerInstanceData = NamedTuple(
-    "EstimateRunnerInstanceData",
-    [
-        ("solver", z3.Solver),
+Specifically it specifies the formula and variables with their associated bit counts,
+note that the sum of used bits for the variables needs to equal the bc param in the base params.
 
-        # variables of the given formula
-        ("variables", List[Tuple[z3.ArithRef, int]]),
-        # bits representing unsigned binary encoding of the variables given for the formula
-        ("bits", List[z3.BoolRef]),
+This data characterizes the model count and is expected to stay equivalent across an approx execution.
+"""
 
-        # clones of the bits and variables that are used in the clones of the original formula which
-        # is actually asserted to the solver
-        ("q_bits", List[z3.BoolRef]),
-        ("q_variables", List[z3.ArithRef]),
-    ]
-)
+
+def assert_estimate_problem_params_is_valid(problem_params: EstimateProblemParams):
+    for x, bc in problem_params.variables:
+        assert bc > 0, "Each problem variable has a positive bit count"
+
+
+def assert_estimate_problem_and_base_params_are_valid(
+    problem_params: EstimateProblemParams,
+    base_params: EstimateBaseParams,
+):
+    assert_estimate_base_params_is_valid(base_params)
+    assert_estimate_problem_params_is_valid(problem_params)
+
+    assert sum([bc for x, bc in problem_params.variables]) == base_params.bc, \
+        "Amount of bits in problem variables equals base params bit count"
+
 
 Z3CloneExpressionOutput = NamedTuple("Z3CloneExpressionOutput", [
     ("clones", List[z3.BoolRef]), ("var_map", Dict[z3.ExprRef, List[z3.ExprRef]])
@@ -33,29 +44,59 @@ Z3CloneExpressionOutput = NamedTuple("Z3CloneExpressionOutput", [
 
 class EstimateRunner:
     """
-    Implements core estimate functionality.
+    Implements estimate function.
     """
 
-    params: ApproxDerivedParams
-
-    instance_data: Optional[EstimateRunnerInstanceData] = None
-
-    def __init__(self, approx_params: ApproxParams):
+    def __init__(
+        self,
+        base_params: EstimateBaseParams,
+        problem_params: EstimateProblemParams,
+    ):
         """
         :params approx_params:
         """
-        self.params = ApproxDerivedParams(approx_params)
+        self.params: EstimateDerivedBaseParams = EstimateDerivedBaseParams(base_params)
+        self.problem_params: EstimateProblemParams = problem_params
 
-    def _require_instance_data(self) -> EstimateRunnerInstanceData:
-        """
-        Returns instance data that is set after initialize has been called.
-        If initialize has not been called this method will raise an exception.
-        """
+        # Problem and base params compatibility check
 
-        if self.instance_data is not None:
-            return self.instance_data
-        else:
-            raise RuntimeError("EstimateRunner is not initialized")
+        assert_estimate_problem_and_base_params_are_valid(problem_params, base_params)
+
+        # Solver and formula initialization
+
+        ctx: z3.Context = z3.Context()
+        solver: z3.Solver = z3.Solver(ctx=ctx)
+
+        formula = problem_params.formula.translate(ctx)
+        variables = [(x.translate(ctx), bc) for x, bc in problem_params.variables]
+
+        # map from formula variable to its encoding bits
+        bit_map = {
+            x: [z3.Bool(f"{x}_bit_{i}", ctx=ctx) for i in range(n)] for x, n in variables
+        }
+
+        # formula that extends original formula with assertion that the bit_map encodes its corresponding variables
+        formula_e = z3.And([
+            formula,
+            z3.And([self._z3_make_assert_unsigned_binary_encoding(x, bit_map[x]) for x in bit_map]),
+        ])
+
+        formula_e_clone_data = self._z3_clone_expression(formula_e, self.params.q)
+
+        q_bits = [
+            cast(z3.BoolRef, q_bit)
+            for x in bit_map
+            for bit in bit_map[x]
+            for q_bit in formula_e_clone_data.var_map[bit]
+        ]
+
+        # q times conjunction of clones of formula_e
+        formula_q = z3.And(formula_e_clone_data.clones)
+
+        solver.add(formula_q)
+
+        self._solver: z3.Solver = solver
+        self._q_bits: List[z3.BoolRef] = q_bits
 
     def _z3_get_variables(self, expression: z3.ExprRef) -> List[z3.ExprRef]:
         """
@@ -93,7 +134,8 @@ class EstimateRunner:
         collect(expression)
         return [elem.n for elem in variables]
 
-    def _z3_recreate_variable(self, key: str, variable: z3.ExprRef) -> z3.ExprRef:
+    @staticmethod
+    def _z3_recreate_variable(key: str, variable: z3.ExprRef) -> z3.ExprRef:
         """
         Recreates the variable but renames it with a key that is used
         to make it distinct.
@@ -127,7 +169,8 @@ class EstimateRunner:
             var_map=var_map,
         )
 
-    def _z3_make_assert_unsigned_binary_encoding(self, variable: z3.ArithRef, bits: List[z3.BoolRef]) -> z3.BoolRef:
+    @staticmethod
+    def _z3_make_assert_unsigned_binary_encoding(variable: z3.ArithRef, bits: List[z3.BoolRef]) -> z3.BoolRef:
         """
         Returns z3 formula that asserts that the bits are
         an unsigned binary encoding of the variable.
@@ -137,7 +180,8 @@ class EstimateRunner:
 
         return z3.Sum([z3.If(bit, 2 ** i, 0) for i, bit in enumerate(bits)]) == variable
 
-    def _z3_make_assert_random_pairwise_independent_hash_is_zero(self, bits: List[z3.BoolRef], m: int) -> z3.BoolRef:
+    @staticmethod
+    def _z3_make_assert_random_pairwise_independent_hash_is_zero(bits: List[z3.BoolRef], m: int) -> z3.BoolRef:
         """
         Returns z3 formula that asserts that the output of a randomly generated hash function
         is zero when given as input the specified bits. The random hash function needs to be
@@ -171,18 +215,19 @@ class EstimateRunner:
 
         return z3.And(hash_is_zero_conditions)
 
-    def _z3_limited_model_count(self, solver: z3.Solver, variables: List[z3.ExprRef], max: int) -> Optional[int]:
+    @staticmethod
+    def _z3_limited_model_count(solver: z3.Solver, variables: List[z3.ExprRef], u: int) -> Optional[int]:
         """
-        If the solver assertions have less than max models that are distinct for the given variables it
+        If the solver assertions have less than u models that are distinct for the given variables it
         returns the exact model count, otherwise it returns None.
         :param solver:
         :param variables:
-        :param max:
+        :param u:
         """
 
         solver.push()
 
-        for i in range(max):
+        for i in range(u):
             response = solver.check()
 
             if response == z3.unknown:
@@ -200,111 +245,53 @@ class EstimateRunner:
 
         return None
 
-    def initialize(self, payload_params: ApproxPayloadParams):
-        """
-        Initializes the runner.
-        Needs to be called before other methods are used.
-        :params payload:
-        """
-
-        ctx = z3.Context()
-        solver = z3.Solver(ctx=ctx)
-
-        formula = payload_params.formula.translate(ctx)
-        variables = [(x.translate(ctx), bc) for x, bc in payload_params.variables]
-
-        # map from formula variable to its encoding bits
-        bit_map = {
-            x: [z3.Bool(f"{x}_bit_{i}", ctx=ctx) for i in range(n)] for x, n in variables
-        }
-
-        # formula that extends original formula with assertion that the bit_map encodes its corresponding variables
-        formula_e = z3.And(
-            formula,
-            z3.And([self._z3_make_assert_unsigned_binary_encoding(x, bit_map[x]) for x in bit_map]),
-        )
-
-        formula_e_clone_data = self._z3_clone_expression(formula_e, self.params.q)
-
-        q_bits = [
-            cast(z3.BoolRef, q_bit)
-            for x in bit_map
-            for bit in bit_map[x]
-            for q_bit in formula_e_clone_data.var_map[bit]
-        ]
-
-        q_variables = [
-            cast(z3.ArithRef, q_x)
-            for x in bit_map
-            for q_x in formula_e_clone_data.var_map[x]
-        ]
-
-        # q times conjunction of clones of formula_e
-        formula_q = z3.And(formula_e_clone_data.clones)
-
-        solver.add(formula_q)
-
-        self.instance_data = EstimateRunnerInstanceData(
-            solver=solver,
-
-            variables=variables,
-            bits=[bit for x in bit_map for bit in bit_map[x]],
-
-            q_bits=q_bits,
-            q_variables=q_variables,
-        )
-
     def exact_model_count_if_less_or_equal_p(self) -> Optional[int]:
         """
         If the formula has <= p models this will return the exact model count,
         otherwise it returns None.
         """
 
-        instance_data = self._require_instance_data()
+        return self._z3_limited_model_count(self._solver, self._q_bits, self.params.p + 1)
 
-        return self._z3_limited_model_count(instance_data.solver, instance_data.q_bits, self.params.p + 1)
-
-    def estimate(self, m: int):
+    def estimate(self, task: EstimateTask) -> EstimateTaskResult:
         """
         Performs estimate from smt paper for the parameter m.
         Note: requires runner to be initialized
-        :param m:
+        :param task:
         """
 
-        instance_data = self._require_instance_data()
-
-        instance_data.solver.push()
-        instance_data.solver.add(
+        self._solver.push()
+        self._solver.add(
             self._z3_make_assert_random_pairwise_independent_hash_is_zero(
-                instance_data.q_bits, m,
+                self._q_bits, task.m,
             )
         )
 
         # is None if solver has at least a models for q_bits
-        lmc = self._z3_limited_model_count(instance_data.solver, instance_data.q_bits, self.params.a)
+        lmc = self._z3_limited_model_count(self._solver, self._q_bits, self.params.a)
 
-        instance_data.solver.pop()
+        self._solver.pop()
 
-        return lmc is None
+        return EstimateTaskResult(positive_vote=lmc is None)
 
 
-SerializedApproxPayloadParams = NamedTuple(
-    "SerializedApproxPayloadParams",
+SerializedEstimateProblemParams = NamedTuple(
+    "SerializedEstimateProblemParams",
     [("serialized_formula", str), ("serialized_variables", List[Tuple[str, int]])],
 )
 
 
-def serialize_approx_payload_params(approx_payload_params: ApproxPayloadParams) -> SerializedApproxPayloadParams:
-    return SerializedApproxPayloadParams(
-        serialized_formula=serialize_expression(approx_payload_params.formula),
-        serialized_variables=[(str(x), bc) for x, bc in approx_payload_params.variables],
+def serialize_estimate_problem_params(problem_params: EstimateProblemParams) -> SerializedEstimateProblemParams:
+    return SerializedEstimateProblemParams(
+        serialized_formula=serialize_expression(problem_params.formula),
+        serialized_variables=[(str(x), bc) for x, bc in problem_params.variables],
     )
 
 
-def deserialize_approx_payload_params(
-    serialized_approx_payload_params: SerializedApproxPayloadParams,
-) -> ApproxPayloadParams:
-    return ApproxPayloadParams(
-        formula=deserialize_expression(serialized_approx_payload_params.serialized_formula),
-        variables=[(z3.Int(name), bc) for name, bc in serialized_approx_payload_params.serialized_variables],
+def deserialize_estimate_problem_params(
+    serialized_estimate_problem_params: SerializedEstimateProblemParams,
+) -> EstimateProblemParams:
+    return EstimateProblemParams(
+        formula=cast(z3.BoolRef, deserialize_expression(serialized_estimate_problem_params.serialized_formula)),
+        variables=[(z3.Int(name), bc) for name, bc in serialized_estimate_problem_params.serialized_variables],
     )
