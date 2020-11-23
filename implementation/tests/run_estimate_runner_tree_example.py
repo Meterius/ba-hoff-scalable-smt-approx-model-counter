@@ -2,13 +2,15 @@ from estimate_runner import EstimateProblemParams
 from problem_generator.generator import generate_random_flat_tree, generate_random_constraints
 from problem_generator.tree import convert_problem, get_tree_model_count_upper_bound_with_required_root, collect_tree
 from implementation.estimate_manager import InMemoryApproxExecutionManager, EstimateBaseParams
-from implementation.estimate_integrator import DirectProcessingEstimateIntegrator
+from implementation.estimate_integrator import DirectProcessingEstimateIntegrator, MultiProcessingEstimateIntegrator, EstimateRunner
 from implementation.estimate_scheduler import ConfidentEdgeFinderBinarySearchEstimateScheduler
+from alternatives.branching_counter import count_models_by_comparison_branching
 from time import perf_counter
 from math import log2, ceil, floor
+from os import cpu_count
 
 if __name__ == "__main__":
-    root = generate_random_flat_tree(25, 1, 2)
+    root = generate_random_flat_tree(20, 3, 3)
     tree = collect_tree(root)
     constraints = generate_random_constraints(root, 0)
 
@@ -31,7 +33,7 @@ if __name__ == "__main__":
             a=10,
             q=1,
             bc=sum([bc for _, bc in variables]),
-            max_mc=None,
+            max_mc=max_mc,
         ),
     )
 
@@ -46,7 +48,8 @@ if __name__ == "__main__":
     print(f"Initializing ConfidentEdgeFinderBinarySearchEstimateScheduler took {perf_counter() - s:.3f} seconds")
     s = perf_counter()
 
-    integrator = DirectProcessingEstimateIntegrator(
+    integrator = MultiProcessingEstimateIntegrator(
+        worker_count=cpu_count(),
         problem_params=EstimateProblemParams(
             formula=formula,
             variables=variables,

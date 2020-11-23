@@ -98,9 +98,11 @@ def get_tree_model_count_upper_bound_with_required_root(root: TreeNode) -> int:
 
     upper_bound = 0
 
+    max_comb = 3
+
     for r in range(root.children_selection_range[0], root.children_selection_range[1] + 1):
         if r >= len(t_required):
-            if r <= 3:
+            if r - len(t_required) <= max_comb or len(t_not_required) - (r - len(t_required)) <= max_comb:
                 for combination in combinations(
                     t_not_required,
                     r - len(t_required)

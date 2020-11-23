@@ -1,44 +1,57 @@
 from estimate_manager import EstimateBaseParams
 from estimate_scheduler import BaseEstimateScheduler
-from estimate_runner import OptimizedEstimateRunner, EstimateRunner, EstimateProblemParams, \
+from estimate_runner import EstimateTask, OptimizedEstimateRunner, EstimateRunner, EstimateProblemParams, \
     SerializedEstimateProblemParams, deserialize_estimate_problem_params, serialize_estimate_problem_params
 from datetime import datetime
 from time import perf_counter
+from abc import ABC, abstractmethod
 from multiprocessing import Process, SimpleQueue, Lock
-from typing import Dict, Iterable, Optional
+from typing import Dict, Iterable, Optional, Type
 
 
 # Estimate integrator construct the estimate runners and forward
 # the work orders of the scheduler to them. Where the runners actually
 # perform their actions is not specified.
 
+class BaseEstimateIntegrator(ABC):
+    PRINT_DEBUG: bool = True
+    """ Whether the print debug should print its output to the console """
 
-class DirectProcessingEstimateIntegrator:
-    PRINT_DEBUG = True
+    RUNNER_CLASS: Type[EstimateRunner] = OptimizedEstimateRunner
+    """ An estimate runner class used for executing estimate tasks """
 
-    @staticmethod
-    def _print_debug(*messages: Iterable[str]):
-        if DirectProcessingEstimateIntegrator.PRINT_DEBUG:
+    def __init__(self, problem_params: EstimateProblemParams, scheduler: BaseEstimateScheduler):
+        self.problem_params: EstimateProblemParams = problem_params
+        self.scheduler: BaseEstimateScheduler = scheduler
+
+    @classmethod
+    def _print_debug(cls, *messages: Iterable[str]):
+        """ Timestamped version of print that only prints if PRINT_DEBUG is True """
+        if cls.PRINT_DEBUG:
             for message in messages:
                 print(f"[{datetime.now().strftime('%H:%M:%S:%f')}] {message}")
 
-    def __init__(self, problem_params: EstimateProblemParams, scheduler: BaseEstimateScheduler):
-        self.problem_params = problem_params
-        self.scheduler = scheduler
-
+    @abstractmethod
     def run(self):
         """
-        Works on the available tasks from the scheduler until none remain.
+        Works available and predicted tasks of scheduler until no
+        more tasks are available, after which the scheduler is expected
+        to be able to return its data.
         """
+        raise NotImplementedError
 
+
+class DirectProcessingEstimateIntegrator(BaseEstimateIntegrator):
+    def run(self):
         self._print_debug("Starting integrator run")
 
-        runner = EstimateRunner(
+        runner = self.RUNNER_CLASS(
             base_params=self.scheduler.manager.execution.estimate_base_params,
             problem_params=self.problem_params,
         )
 
         tasks = self.scheduler.available_estimate_tasks()
+
         while len(tasks) > 0:
             task = tasks[0]
 
@@ -49,18 +62,12 @@ class DirectProcessingEstimateIntegrator:
             tasks = self.scheduler.available_estimate_tasks()
 
 
-class MultiProcessingEstimateIntegrator:
-    PRINT_DEBUG = True
+class MultiProcessingEstimateIntegrator(BaseEstimateIntegrator):
+    RUNNER_CLASS = EstimateRunner
 
-    @staticmethod
-    def _print_debug(lock: Optional[Lock], title: str, *messages: Iterable[str]):
-        if MultiProcessingEstimateIntegrator.PRINT_DEBUG:
-            with lock:
-                for message in messages:
-                    print(f"[{datetime.now().strftime('%H:%M:%S:%f')}] ({title}): {message}")
-
-    @staticmethod
+    @classmethod
     def _run_worker(
+        cls,
         worker_idx: int,
         worker_count: int,
         stdio_lock: Lock,
@@ -72,13 +79,13 @@ class MultiProcessingEstimateIntegrator:
         worker_number = worker_idx + 1
 
         def debug_print(*messages: Iterable[str]):
-            MultiProcessingEstimateIntegrator._print_debug(
-                stdio_lock,
-                f"Worker[{worker_number}/{worker_count}]",
-                *messages,
-            )
+            if cls.PRINT_DEBUG:
+                with stdio_lock:
+                    cls._print_debug(
+                        *[f"Worker[{worker_number}/{worker_count}]: {message}" for message in messages],
+                    )
 
-        runner = EstimateRunner(
+        runner = cls.RUNNER_CLASS(
             base_params=base_params,
             problem_params=deserialize_estimate_problem_params(serialized_problem_params),
         )
@@ -96,7 +103,8 @@ class MultiProcessingEstimateIntegrator:
             task = task_queue.get()
 
     def __init__(self, problem_params: EstimateProblemParams, scheduler: BaseEstimateScheduler, worker_count: int):
-        self.scheduler = scheduler
+        super().__init__(problem_params, scheduler)
+
         self.task_queue = SimpleQueue()
         self.result_queue = SimpleQueue()
         self.stdio_lock = Lock()
@@ -114,7 +122,8 @@ class MultiProcessingEstimateIntegrator:
                     "result_queue": self.result_queue,
                     "base_params": scheduler.manager.execution.estimate_base_params,
                     "serialized_problem_params": serialize_estimate_problem_params(problem_params),
-                }
+                },
+                daemon=True,
             ) for worker_idx in range(worker_count)
         ]
 
@@ -128,14 +137,15 @@ class MultiProcessingEstimateIntegrator:
 
         def print_debug(*messages: Iterable[str]):
             MultiProcessingEstimateIntegrator._print_debug(
-                self.stdio_lock,
-                "Integrator",
-                *messages,
+                *[f"Integrator: {message}" for message in messages]
             )
 
         print_debug("Starting integrator run")
 
-        tasks_in_progress: Dict[int, int] = {}
+        s = perf_counter()
+
+        completed_task_count = 0
+        tasks_in_progress: Dict[EstimateTask, int] = {}
         tasks = self.scheduler.available_estimate_tasks()[:self.worker_count]
 
         for task in tasks:
@@ -144,6 +154,8 @@ class MultiProcessingEstimateIntegrator:
 
         while any(map(lambda x: x > 0, tasks_in_progress.values())):
             task, result = self.result_queue.get()
+
+            completed_task_count += 1
 
             self.scheduler.manager.add_estimate_result_and_sync(task, result)
 
@@ -157,6 +169,5 @@ class MultiProcessingEstimateIntegrator:
                 tasks_in_progress[task] = tasks_in_progress.get(task, 0) + 1
                 self.task_queue.put(task)
 
-    def terminate(self):
-        for process in self.processes:
-            process.terminate()
+        print(f"Completed {completed_task_count} tasks in {perf_counter()-s:.3f} seconds")
+
