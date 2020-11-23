@@ -1,10 +1,10 @@
 from estimate_manager import EstimateBaseParams
-from implementation.estimate_runner import EstimateRunner, EstimateProblemParams
+from implementation.estimate_runner import OptimizedEstimateRunner, EstimateRunner, EstimateTask, EstimateProblemParams
 from time import perf_counter
 from z3 import *
 
 if __name__ == "__main__":
-    n = 20
+    n = 12
     x, y, z = Ints("x y z")
     f = And([
         x >= 0,
@@ -14,9 +14,9 @@ if __name__ == "__main__":
         z < x + y,
     ])
 
-    s = perf_counter()
+    s1 = perf_counter()
 
-    runner = EstimateRunner(
+    runner = OptimizedEstimateRunner(
         base_params=EstimateBaseParams(
             a=10,
             q=1,
@@ -29,11 +29,12 @@ if __name__ == "__main__":
         )
     )
 
-    print(f"Initialize took {perf_counter()-s:.3f} seconds")
+    print(f"Initialize took {perf_counter()-s1:.3f} seconds")
 
     for m in range(1, 2 * n + 1):
         s = perf_counter()
-        print(runner.estimate(m))
+        result = runner.estimate(EstimateTask(m=m))
+        print(result)
         print(f"Estimate for m={m} took {perf_counter()-s:.3f} seconds")
 
-    print("Finished")
+    print(f"Finished, took {perf_counter()-s1:.3f} seconds")

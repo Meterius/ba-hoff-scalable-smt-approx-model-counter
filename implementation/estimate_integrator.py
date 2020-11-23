@@ -1,6 +1,6 @@
 from estimate_manager import EstimateBaseParams
 from estimate_scheduler import BaseEstimateScheduler
-from estimate_runner import EstimateRunner, EstimateProblemParams, \
+from estimate_runner import OptimizedEstimateRunner, EstimateRunner, EstimateProblemParams, \
     SerializedEstimateProblemParams, deserialize_estimate_problem_params, serialize_estimate_problem_params
 from datetime import datetime
 from time import perf_counter

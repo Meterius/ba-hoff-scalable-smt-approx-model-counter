@@ -4,6 +4,7 @@ from estimate_manager import EstimateDerivedBaseParams, EstimateBaseParams, asse
     EstimateTaskResult, EstimateTask
 from helper import deserialize_expression, serialize_expression
 from typing import NamedTuple, Optional, List, Tuple, Dict, cast
+from math import floor
 
 EstimateProblemParams = NamedTuple(
     "EstimateProblemParams",
@@ -274,6 +275,53 @@ class EstimateRunner:
 
         return EstimateTaskResult(positive_vote=lmc is None)
 
+
+class OptimizedEstimateRunner(EstimateRunner):
+    @staticmethod
+    def _z3_make_assert_random_pairwise_independent_hash_is_zero(bits: List[z3.BoolRef], m: int) -> z3.BoolRef:
+        if len(bits) == 0:
+            return z3.BoolVal(True)
+
+        ctx = bits[0].ctx
+
+        hash_is_zero_conditions = []
+
+        xor_map = {}
+
+        def xor(a: Tuple[int, ...], left: int, right: int):
+            if left == right:
+                return bits[left] if a[left] == 1 else z3.BoolVal(False, ctx=ctx)
+            elif right == left + 1 and sum(a) != 2:
+                return bits[left] if a[left] else bits[right]
+            else:
+                if a in xor_map:
+                    return xor_map[a]
+
+                middle = floor((left + right) / 2)
+
+                xor_map[a] = z3.Bool(f"xor_{a}", ctx=ctx)
+
+                a_left = tuple([a[i] if left <= i <= middle else 0 for i in range(len(a))])
+                a_right = tuple([a[i] if middle + 1 <= i <= right else 0 for i in range(len(a))])
+
+                hash_is_zero_conditions.append(
+                    xor_map[a] == z3.Xor(xor(a_left, left, middle), xor(a_right, middle + 1, right))
+                )
+
+                return xor_map[a]
+
+        # creates m times the xor hash function from the smt paper to generate
+        # a pairwise independent random hash for the given m
+        for i in range(m):
+            # generates the xor hash function from the smt paper for the case m=1,
+            # it generates the xor sum by applying xor to the first two queue elements and
+            # appending the result to the end of the queue, when the queue only has one remaining item
+            # that item will be an xor sum of the original queue
+
+            a = tuple([random.getrandbits(1) for _ in range(len(bits))])
+            hash_is_zero_conditions.append(xor(a, 0, len(a) - 1) == z3.BoolVal(bool(random.getrandbits(1)), ctx=ctx))
+
+        return z3.And(hash_is_zero_conditions)
 
 SerializedEstimateProblemParams = NamedTuple(
     "SerializedEstimateProblemParams",
