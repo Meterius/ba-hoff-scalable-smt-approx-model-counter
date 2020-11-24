@@ -1,10 +1,14 @@
-from hash_generation_finder.output.upi_sets_n2k3_exec import upi_sets_n2k3
+from hash_generation_finder.\
+    uniform_pairwise_independent_hash_sets.\
+    alpha_data_set_bit_domain_based_analysis.upi_sets_n2k3_exec import upi_sets_n2k3
 from hash_generation_finder.utility import is_hash_set_dual_extension, is_hash_set_symmetric, \
-    get_hash_set_dual_extension_via_paired_inverses, convert_hash_set_to_tuple_representation
+    get_hash_set_dual_extension_via_paired_inverses, convert_hash_set_to_tuple_representation, are_hash_sets_equal, \
+    invert_hash_set, get_hash_set_identifier
 from hash_generation_finder.upi_hashing import get_paper_xor_hash_set
 from hash_generation_finder.old_code.hashing import is_pairwise_independent_hash_set
 from itertools import combinations, product
 from z3 import *
+from math import *
 import numpy as np
 
 # Runs some filtering on the already generated upi hashing generation
@@ -15,6 +19,23 @@ if __name__ == "__main__":
     for (i, H1), (j, H2) in product(enumerate(upi_sets_n2k3), enumerate(upi_sets_n3k4)):
         if is_hash_set_dual_extension(H1, H2):
             print(i + 1, j + 1)
+    """
+
+    """
+    def list_transformed_relation_of_hash_sets(
+        HS,
+        transform,
+        is_symmetric,
+    ):
+        no_space = int(ceil(log10(len(HS) + 1)) + 1)
+
+        for ((i1, H1), (i2, H2)) in product(enumerate(HS), repeat=2):
+            if (is_symmetric and i1 <= i2) and are_hash_sets_equal(transform(H1), H2):
+                print(f"    {str(i1 + 1).ljust(no_space)}({get_hash_set_identifier(H1)})     "
+                      f"{str(i2 + 1).ljust(no_space)}({get_hash_set_identifier(H2)})")
+
+    # Lists hash sets that are inverses of each other
+    list_transformed_relation_of_hash_sets(upi_sets_n2k3, invert_hash_set, True)
     """
 
     """
@@ -72,9 +93,12 @@ if __name__ == "__main__":
             print(is_pairwise_independent_hash_set(len(HE2[0]), HE2))
     """
 
+    """
+    Identifies the SMT XOR PAPER HASH SET
     HXORC = convert_hash_set_to_tuple_representation(get_paper_xor_hash_set(2))
     for i, H in enumerate(upi_sets_n2k3):
         HC = convert_hash_set_to_tuple_representation(H)
 
         if HC == HXORC:
             print(i+1)
+    """

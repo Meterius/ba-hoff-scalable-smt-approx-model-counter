@@ -1,0 +1,4 @@
+INVERSE HASH SET RELATION (since symmetric relation, only distinct pairs are listed)
+    NONE
+
+--------------------------------------------------------------------------------

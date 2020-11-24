@@ -1,4 +1,14 @@
-HASH 5 (D[4]C[8]N[F3596AC0]):
+INVERSE HASH SET RELATION (since symmetric relation, only distinct pairs are listed)
+    1  (D[4]C[4]N[B3D5E680])     10 (D[4]C[4]N[F791A2C4])
+    2  (D[4]C[4]N[F359E248])     9  (D[4]C[4]N[7BD16AC0])
+    3  (D[4]C[4]N[7B59E2C0])     6  (D[4]C[4]N[F3D16A48])
+    4  (D[4]C[4]N[73D9EA40])     7  (D[4]C[4]N[FB5162C8])
+    5  (D[4]C[4]N[F3596AC0])     5  (D[4]C[4]N[F3596AC0]) SELF INVERSE
+    8  (D[4]C[4]N[7BD1E248])     8  (D[4]C[4]N[7BD1E248]) SELF INVERSE
+
+--------------------------------------------------------------------------------
+
+HASH SET 5 (D[4]C[8]N[F3596AC0]):
          | 00 | 01 | 10 | 11 |
      1   | 0  | 0  | 0  | 0  |
      2   | 0  | 0  | 1  | 1  |
@@ -9,4 +19,4 @@ HASH 5 (D[4]C[8]N[F3596AC0]):
      7   | 1  | 1  | 0  | 0  |
      8   | 1  | 1  | 1  | 1  |
 
-     SMT PAPER XOR HASH
+     SMT PAPER XOR HASH SET

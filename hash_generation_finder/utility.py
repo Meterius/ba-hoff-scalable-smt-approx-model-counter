@@ -9,6 +9,10 @@ def invert_hash(h):
     return tuple(1 - h[j] for j in range(len(h)))
 
 
+def invert_hash_set(H):
+    return 1 - convert_hash_set_to_numpy_representation(H)
+
+
 def is_hash_symmetric(h) -> bool:
     return h == reversed(h)
 
@@ -49,6 +53,10 @@ def is_hash_set_dual_extension(H1, H2) -> bool:
     return True
 
 
+def are_hash_sets_equal(H1, H2):
+    return np.array_equal(H1, H2)
+
+
 def get_hash_set_dual_extension_via_paired_inverses(H1, H2):
     HC1 = convert_hash_set_to_tuple_representation(H1)
     HC2 = convert_hash_set_to_tuple_representation(H2)
@@ -75,6 +83,9 @@ def convert_hash_set_to_tuple_representation(H) -> Tuple[Tuple[int, ...], ...]:
 
 
 def convert_hash_set_to_numpy_representation(H):
+    if isinstance(H, np.ndarray):
+        return H
+
     D = len(H[0])
 
     return np.array([
