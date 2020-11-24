@@ -29,7 +29,7 @@ if __name__ == "__main__":
 
     manager = InMemoryApproxExecutionManager(
         base_params=EstimateBaseParams(
-            a=10,
+            a=1,
             q=1,
             bc=sum([bc for _, bc in variables]),
             max_mc=max_mc,

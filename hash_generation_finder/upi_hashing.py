@@ -28,11 +28,6 @@ def get_paper_xor_hash_set(n: int):
     ]).transpose()
 
 
-if __name__ == "__main__":
-    for h in convert_hash_set_to_tuple_representation(get_paper_xor_hash_set(3)):
-        print(h)
-
-
 def generate_upi_hash_sets(n: int, k: int) -> Iterable[Any]:
     """
     Generates UPI hash functions with domain 2**n and cardinality 2**k,
