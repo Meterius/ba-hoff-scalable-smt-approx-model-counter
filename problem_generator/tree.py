@@ -116,6 +116,7 @@ def get_tree_model_count_upper_bound_with_required_root(root: TreeNode) -> int:
 
                     upper_bound += selected_children_upper_bound
             else:
+                print("simple")
                 upper_bound += (max_child_upper_bound ** r) * comb(len(t_not_required), r - len(t_required))
 
     return upper_bound * root.cardinality_range[1]

@@ -1,5 +1,5 @@
-from estimate_manager import EstimateBaseParams
-from implementation.estimate_runner import OptimizedEstimateRunner, EstimateRunner, EstimateTask, EstimateProblemParams
+from implementation.estimate_manager import EstimateBaseParams
+from implementation.estimate_runner import EstimateRunner, EstimateTask, EstimateProblemParams
 from time import perf_counter
 from z3 import *
 
@@ -16,7 +16,7 @@ if __name__ == "__main__":
 
     s1 = perf_counter()
 
-    runner = OptimizedEstimateRunner(
+    runner = EstimateRunner(
         base_params=EstimateBaseParams(
             a=10,
             q=1,

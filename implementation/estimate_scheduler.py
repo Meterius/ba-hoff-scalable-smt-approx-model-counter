@@ -1,5 +1,5 @@
 from abc import abstractmethod, ABC
-from estimate_manager import BaseApproxExecutionManager, EstimateDerivedBaseParams, EstimateTask
+from implementation.estimate_manager import BaseApproxExecutionManager, EstimateDerivedBaseParams, EstimateTask
 from typing import List, Generic, TypeVar, Tuple, Optional, Union, Dict
 from math import floor, log2, log, ceil
 

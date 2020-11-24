@@ -1,4 +1,4 @@
-from estimate_runner import EstimateProblemParams
+from implementation.estimate_runner import EstimateProblemParams
 from implementation.estimate_manager import InMemoryApproxExecutionManager, EstimateBaseParams
 from implementation.estimate_integrator import MultiProcessingEstimateIntegrator
 from implementation.estimate_scheduler import ConfidentEdgeFinderBinarySearchEstimateScheduler
@@ -46,7 +46,7 @@ if __name__ == "__main__":
             variables=[(x, n), (y, n)],
         ),
         scheduler=scheduler,
-        worker_count=1,
+        worker_count=cpu_count(),
     )
 
     print(f"Initializing MultiProcessingEstimateIntegrator took {perf_counter() - s:.3f} seconds")

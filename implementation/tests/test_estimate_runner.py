@@ -2,13 +2,13 @@ from z3 import *
 import unittest
 import random
 from implementation.estimate_manager import EstimateBaseParams, EstimateTask
-from implementation.estimate_runner import EstimateRunner, OptimizedEstimateRunner, EstimateProblemParams
+from implementation.estimate_runner import ReferenceEstimateRunner, EstimateRunner, EstimateProblemParams
 
 
-class TestEstimateRunner(unittest.TestCase):
+class TestReferenceEstimateRunner(unittest.TestCase):
     @staticmethod
     def make_runner(base_params: EstimateBaseParams, problem_params: EstimateProblemParams):
-        return EstimateRunner(base_params, problem_params)
+        return ReferenceEstimateRunner(base_params, problem_params)
 
     def test_estimate(self):
         c = 100
@@ -54,7 +54,7 @@ class TestEstimateRunner(unittest.TestCase):
                         )
 
 
-class TestOptimizedEstimateRunner(TestEstimateRunner):
+class TestEstimateRunner(TestReferenceEstimateRunner):
     @staticmethod
     def make_runner(base_params: EstimateBaseParams, problem_params: EstimateProblemParams):
-        return OptimizedEstimateRunner(base_params, problem_params)
+        return EstimateRunner(base_params, problem_params)
