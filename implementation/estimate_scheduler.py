@@ -88,7 +88,9 @@ class ConfidentEdgeFinderBinarySearchEstimateScheduler(BaseEstimateScheduler[Tup
         right = self.params.mp
 
         alpha = 1 - self.confidence
-        r = int(ceil(8 * log((1 / alpha) * self.params.mp)))
+
+        # modified to account for reduced amount of steps due to binary search
+        r = int(ceil(8 * log((1 / alpha) * ceil(log2(self.params.mp)))))
 
         def estimate(task: EstimateTask) -> Union[bool, int]:
             nonlocal self
