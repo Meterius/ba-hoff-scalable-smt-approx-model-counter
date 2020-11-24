@@ -41,7 +41,7 @@ class BaseEstimateIntegrator(ABC):
         raise NotImplementedError
 
 
-class DirectProcessingEstimateIntegrator(BaseEstimateIntegrator):
+class DirectEstimateIntegrator(BaseEstimateIntegrator):
     def run(self):
         self._print_debug("Starting integrator run")
 
