@@ -226,6 +226,14 @@ class ReferenceEstimateRunner:
         :param u:
         """
 
+        if u == 1:
+            response = solver.check()
+
+            if response == z3.unknown:
+                raise RuntimeError("Solver responded with unknown")
+            else:
+                return None if response == z3.sat else 0
+
         solver.push()
 
         for i in range(u):
@@ -238,9 +246,9 @@ class ReferenceEstimateRunner:
                 solver.pop()
                 return i
 
-            m = solver.model()
-
-            solver.add(z3.Or([x != m[x] for x in variables]))
+            if i != u-1:
+                m = solver.model()
+                solver.add(z3.Or([x != m[x] for x in variables]))
 
         solver.pop()
 
