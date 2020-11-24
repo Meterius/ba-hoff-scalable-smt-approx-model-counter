@@ -43,7 +43,7 @@ Z3CloneExpressionOutput = NamedTuple("Z3CloneExpressionOutput", [
 ])
 
 
-class EstimateRunner:
+class ReferenceEstimateRunner:
     """
     Implements estimate function.
     """
@@ -276,7 +276,7 @@ class EstimateRunner:
         return EstimateTaskResult(positive_vote=lmc is None)
 
 
-class OptimizedEstimateRunner(EstimateRunner):
+class EstimateRunner(ReferenceEstimateRunner):
     @staticmethod
     def _z3_make_assert_random_pairwise_independent_hash_is_zero(bits: List[z3.BoolRef], m: int) -> z3.BoolRef:
         if len(bits) == 0:
@@ -289,26 +289,22 @@ class OptimizedEstimateRunner(EstimateRunner):
         xor_map = {}
 
         def xor(a: Tuple[int, ...], left: int, right: int):
-            if left == right:
-                return bits[left] if a[left] == 1 else z3.BoolVal(False, ctx=ctx)
-            elif right == left + 1 and sum(a) != 2:
-                return bits[left] if a[left] else bits[right]
-            else:
-                if a in xor_map:
-                    return xor_map[a]
+            key = (a, left, right)
+            if key not in xor_map:
+                if left == right:
+                    return bits[left] if a[0] else z3.BoolVal(False, ctx=ctx)
+                else:
+                    middle = floor((left + right) / 2)
 
-                middle = floor((left + right) / 2)
+                    left_a = a[0:(middle+1)-left]
+                    right_a = a[(middle+1)-left:(right+1)-left]
 
-                xor_map[a] = z3.Bool(f"xor_{a}", ctx=ctx)
+                    xor_map[key] = z3.Bool(f"hxor{key}", ctx=ctx)
+                    hash_is_zero_conditions.append(
+                        z3.simplify(z3.Xor(xor(left_a, left, middle), xor(right_a, middle + 1, right)) == xor_map[key])
+                    )
 
-                a_left = tuple([a[i] if left <= i <= middle else 0 for i in range(len(a))])
-                a_right = tuple([a[i] if middle + 1 <= i <= right else 0 for i in range(len(a))])
-
-                hash_is_zero_conditions.append(
-                    xor_map[a] == z3.Xor(xor(a_left, left, middle), xor(a_right, middle + 1, right))
-                )
-
-                return xor_map[a]
+            return xor_map[key]
 
         # creates m times the xor hash function from the smt paper to generate
         # a pairwise independent random hash for the given m
@@ -321,7 +317,8 @@ class OptimizedEstimateRunner(EstimateRunner):
             a = tuple([random.getrandbits(1) for _ in range(len(bits))])
             hash_is_zero_conditions.append(xor(a, 0, len(a) - 1) == z3.BoolVal(bool(random.getrandbits(1)), ctx=ctx))
 
-        return z3.And(hash_is_zero_conditions)
+        return z3.simplify(z3.And(hash_is_zero_conditions))
+
 
 SerializedEstimateProblemParams = NamedTuple(
     "SerializedEstimateProblemParams",

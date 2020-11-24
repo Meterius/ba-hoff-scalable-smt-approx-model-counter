@@ -38,7 +38,7 @@ def generate_random_flat_tree(
     def gen_child(i: int):
         return TreeNode(
             id=f"0-{i}",
-            cardinality_range=(random.randint(0, 1), 1),
+            cardinality_range=(1, 1),
             children_selection_range=(1, 1),
             children=tuple([
                 TreeNode(

@@ -1,6 +1,6 @@
 from estimate_runner import EstimateProblemParams
 from problem_generator.generator import generate_random_flat_tree, generate_random_constraints
-from problem_generator.tree import convert_problem, get_tree_model_count_upper_bound_with_required_root, collect_tree
+from problem_generator.tree import convert_problem, get_tree_model_count_upper_bound, collect_tree
 from implementation.estimate_manager import InMemoryApproxExecutionManager, EstimateBaseParams
 from implementation.estimate_integrator import DirectProcessingEstimateIntegrator, MultiProcessingEstimateIntegrator, EstimateRunner
 from implementation.estimate_scheduler import ConfidentEdgeFinderBinarySearchEstimateScheduler
@@ -14,7 +14,7 @@ if __name__ == "__main__":
     tree = collect_tree(root)
     constraints = generate_random_constraints(root, 0)
 
-    max_mc = get_tree_model_count_upper_bound_with_required_root(root)
+    max_mc = get_tree_model_count_upper_bound(root)
 
     print(f"Tree has {len(tree)} nodes and has a model count upper bound of >= 2 ** {floor(log2(max_mc))}")
     print(f"{len(constraints)} constraints have been added")

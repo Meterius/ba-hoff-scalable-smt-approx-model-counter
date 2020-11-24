@@ -1,6 +1,6 @@
 from estimate_manager import EstimateBaseParams
 from estimate_scheduler import BaseEstimateScheduler
-from estimate_runner import EstimateTask, OptimizedEstimateRunner, EstimateRunner, EstimateProblemParams, \
+from estimate_runner import EstimateTask, ReferenceEstimateRunner, EstimateRunner, EstimateProblemParams, \
     SerializedEstimateProblemParams, deserialize_estimate_problem_params, serialize_estimate_problem_params
 from datetime import datetime
 from time import perf_counter
@@ -17,7 +17,7 @@ class BaseEstimateIntegrator(ABC):
     PRINT_DEBUG: bool = True
     """ Whether the print debug should print its output to the console """
 
-    RUNNER_CLASS: Type[EstimateRunner] = OptimizedEstimateRunner
+    RUNNER_CLASS: Type[EstimateRunner] = EstimateRunner
     """ An estimate runner class used for executing estimate tasks """
 
     def __init__(self, problem_params: EstimateProblemParams, scheduler: BaseEstimateScheduler):
@@ -63,8 +63,6 @@ class DirectProcessingEstimateIntegrator(BaseEstimateIntegrator):
 
 
 class MultiProcessingEstimateIntegrator(BaseEstimateIntegrator):
-    RUNNER_CLASS = EstimateRunner
-
     @classmethod
     def _run_worker(
         cls,
