@@ -4,7 +4,7 @@ from hash_generation_finder.utility import convert_hash_set_to_bit_table, get_ha
 import os
 
 if __name__ == "__main__":
-    n = 2
+    n = 3
     k = n + 1
 
     hash_sets = generate_upi_hash_sets_via_solver(n, k)
