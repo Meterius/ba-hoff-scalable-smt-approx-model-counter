@@ -3,7 +3,7 @@ from hash_generation_finder.\
     alpha_data_set_bit_domain_based_analysis.upi_sets_n2k3_exec import upi_sets_n2k3
 from hash_generation_finder.utility import is_hash_set_dual_extension, is_hash_set_symmetric, \
     get_hash_set_dual_extension_via_paired_inverses, convert_hash_set_to_tuple_representation, are_hash_sets_equal, \
-    invert_hash_set, get_hash_set_identifier
+    invert_hash_set, get_hash_set_identifier, get_hash_set_permutation
 from hash_generation_finder.upi_hashing import get_paper_xor_hash_set
 from hash_generation_finder.old_code.hashing import is_pairwise_independent_hash_set
 from itertools import combinations, product
@@ -22,20 +22,60 @@ if __name__ == "__main__":
     """
 
     """
-    def list_transformed_relation_of_hash_sets(
+    def list_equivalences_of_hash_sets(
         HS,
-        transform,
+        equivalence,
+    ):
+        QUEUE = set(range(len(HS)))
+        no_space = int(ceil(log10(len(HS) + 1)) + 1)
+
+        while len(QUEUE) > 0:
+            i = QUEUE.pop()
+
+            print(f"    {str(i + 1).ljust(no_space)}({get_hash_set_identifier(HS[i])})")
+
+            EQ = [i]
+
+            INSP = QUEUE.copy()
+
+            while len(INSP) > 0:
+                j = INSP.pop()
+                op = equivalence(HS[i], HS[j])
+
+                if op is not False and op is not None:
+                    print(f"    {str(j + 1).ljust(no_space)}({get_hash_set_identifier(HS[j])})")
+                    print(f"    {' ' * no_space}{op}")
+                    QUEUE.remove(j)
+                    EQ.append(j)
+
+            print("")
+
+    list_equivalences_of_hash_sets(upi_sets_n2k3, get_hash_set_permutation)
+    """
+
+    """
+    def list_relation_of_hash_sets(
+        HS,
+        relation,
         is_symmetric,
+        is_reflexive,
     ):
         no_space = int(ceil(log10(len(HS) + 1)) + 1)
 
         for ((i1, H1), (i2, H2)) in product(enumerate(HS), repeat=2):
-            if (is_symmetric and i1 <= i2) and are_hash_sets_equal(transform(H1), H2):
+            if (not is_symmetric or i1 <= i2) and (not is_reflexive or i1 != i2) and relation(H1, H2):
                 print(f"    {str(i1 + 1).ljust(no_space)}({get_hash_set_identifier(H1)})     "
                       f"{str(i2 + 1).ljust(no_space)}({get_hash_set_identifier(H2)})")
+    """
 
+    """
     # Lists hash sets that are inverses of each other
-    list_transformed_relation_of_hash_sets(upi_sets_n2k3, invert_hash_set, True)
+    list_relation_of_hash_sets(
+        upi_sets_n2k3, 
+        lambda x, y: np.array_equal(invert_hash_set(x), y), 
+        True,
+        False,
+    )
     """
 
     """

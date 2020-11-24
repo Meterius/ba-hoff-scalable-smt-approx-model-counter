@@ -1,7 +1,7 @@
 from operator import itemgetter
 from typing import Tuple
 from math import log2, floor
-from itertools import product, chain
+from itertools import product, chain, permutations
 import numpy as np
 
 
@@ -51,6 +51,23 @@ def is_hash_set_dual_extension(H1, H2) -> bool:
             return False
 
     return True
+
+
+def is_hash_set_permutable(H1, H2):
+    return get_hash_set_permutation(H1, H2) is not None
+
+
+def get_hash_set_permutation(H1, H2):
+    perms = product(
+        permutations(range(H1.shape[1])),
+        permutations(range(H1.shape[0])),
+    )
+
+    for p in perms:
+        if np.array_equal(H1[p[1], :][:, p[0]], H2):
+            return p
+
+    return None
 
 
 def are_hash_sets_equal(H1, H2):
