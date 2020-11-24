@@ -1,5 +1,4 @@
-from hash_generation_finder.uniform_pairwise_independent_hash_sets.complete_bit_count_domain_based.upi_sets_n2k3_exec import upi_sets_n2k3
-from hash_generation_finder.uniform_pairwise_independent_hash_sets.incomplete_bit_count_domain_based.upi_sets_n3k4_exec import upi_sets_n3k4
+from hash_generation_finder.output.upi_sets_n2k3_exec import upi_sets_n2k3
 from hash_generation_finder.utility import is_hash_set_dual_extension, is_hash_set_symmetric, \
     get_hash_set_dual_extension_via_paired_inverses, convert_hash_set_to_tuple_representation
 from hash_generation_finder.upi_hashing import get_paper_xor_hash_set
@@ -73,7 +72,7 @@ if __name__ == "__main__":
             print(is_pairwise_independent_hash_set(len(HE2[0]), HE2))
     """
 
-    HXORC = convert_hash_set_to_tuple_representation(get_paper_xor_hash_set(3))
+    HXORC = convert_hash_set_to_tuple_representation(get_paper_xor_hash_set(2))
     for i, H in enumerate(upi_sets_n2k3):
         HC = convert_hash_set_to_tuple_representation(H)
 
