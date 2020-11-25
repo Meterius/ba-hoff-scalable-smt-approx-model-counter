@@ -1,6 +1,7 @@
 from operator import itemgetter
 from typing import Tuple
 from math import log2, floor
+import re
 from itertools import product, chain, permutations
 import numpy as np
 
@@ -34,6 +35,38 @@ def get_hash_set_dual_extender(H):
         return pref_suff
     else:
         return None
+
+
+def get_hash_set_dual_paired_inverse_extender_identifier(H):
+    pref_suff = get_hash_set_dual_extender(H)
+
+    if pref_suff is None or not is_hash_set_dual_paired_inverse_extension(H):
+        return None
+    else:
+        HE = set()
+
+        for h1, h2 in pref_suff.values():
+            if h1 not in HE:
+                HE.add(h1)
+            else:
+                HE.add(h2)
+
+        HE = convert_hash_set_to_tuple_representation(tuple(HE))
+
+        return get_hash_set_identifier(HE)
+
+
+def get_hash_set_dual_extender_identifier(H):
+    pref_suff = get_hash_set_dual_extender(H)
+
+    if pref_suff is None:
+        return None
+    else:
+        return get_hash_set_identifier(
+            convert_hash_set_to_tuple_representation(
+                tuple(chain.from_iterable(pref_suff.values()))
+            )
+        )
 
 
 def is_hash_set_dual_paired_inverse_extension(H) -> bool:
@@ -181,3 +214,17 @@ def get_hash_set_identifier(H):
     N = sum(map(lambda x: x[1]*2**x[0], enumerate(chain.from_iterable(HC))))
 
     return f"D[{D}]C[{C}]N[{N:X}]"
+
+
+def get_hash_set_from_identifier(ident):
+    m = re.search("^D\[(.+)]C\[(.+)]N\[(.+)]$", ident)
+    d = int(m.groups()[0], 10)
+    c = int(m.groups()[1], 10)
+    n = int(m.groups()[2], 16)
+    ns = format(n, f"0{d*c}b")
+
+    HC = convert_hash_set_to_tuple_representation(tuple([
+        tuple([ns[i*d+(d-1-j)] == "1" for j in range(d)]) for i in range(c)
+    ]))
+
+    return convert_hash_set_to_numpy_representation(HC)
