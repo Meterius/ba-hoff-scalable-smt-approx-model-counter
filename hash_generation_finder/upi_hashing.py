@@ -1,6 +1,7 @@
 from alternatives.branching_counter import iterate_models_by_boolean_branching
 from alternatives.exclusion_counter import iterate_models_by_exclusion
-from hash_generation_finder.utility import convert_hash_set_to_tuple_representation
+from hash_generation_finder.utility import convert_hash_set_to_tuple_representation, \
+    convert_hash_set_to_numpy_representation
 from z3 import *
 import numpy as np
 from itertools import combinations, permutations, product
@@ -23,9 +24,9 @@ def get_paper_xor_hash(a: int, y: List[int]) -> Tuple[int, ...]:
 
 
 def get_paper_xor_hash_set(n: int):
-    return np.array([
+    return convert_hash_set_to_numpy_representation(convert_hash_set_to_tuple_representation(np.array([
         get_paper_xor_hash(a, y) for a in [0, 1] for y in product([0, 1], repeat=n)
-    ]).transpose()
+    ]).transpose()))
 
 
 def generate_upi_hash_sets(n: int, k: int) -> Iterable[Any]:

@@ -1,6 +1,6 @@
 from hash_generation_finder.\
     uniform_pairwise_independent_hash_sets.\
-    alpha_data_set_bit_domain_based_analysis.upi_sets_n2k3_exec import upi_sets_n2k3
+    alpha_data_set_bit_domain_based_analysis.upi_sets_n3k4_exec import upi_sets_n3k4
 from hash_generation_finder.utility import is_hash_set_dual_extension, is_hash_set_symmetric, \
     get_hash_set_dual_extension_via_paired_inverses, convert_hash_set_to_tuple_representation, are_hash_sets_equal, \
     invert_hash_set, get_hash_set_identifier, get_hash_set_permutation
@@ -134,11 +134,9 @@ if __name__ == "__main__":
     """
 
     """
-    Identifies the SMT XOR PAPER HASH SET
-    HXORC = convert_hash_set_to_tuple_representation(get_paper_xor_hash_set(2))
-    for i, H in enumerate(upi_sets_n2k3):
-        HC = convert_hash_set_to_tuple_representation(H)
-
-        if HC == HXORC:
+    # Identifies the SMT XOR PAPER HASH SET
+    HXORC = get_paper_xor_hash_set(3)
+    for i, H in enumerate(upi_sets_n3k4):
+        if are_hash_sets_equal(H, HXORC):
             print(i+1)
     """
