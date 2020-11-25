@@ -60,7 +60,7 @@ class EstimateDerivedBaseParams:
         self.max_mc: int = base_params.max_mc if base_params.max_mc is not None else 2**self.n
 
         # self.mp: int = int(floor(self.n - log2(self.G)))
-        self.mp: int = max(1, int(floor(log2(self.max_mc) - log2(self.G))))
+        self.mp: int = max(1, int(floor(log2(self.max_mc**self.q) - log2(self.G))))
 
         self.p: int = int(ceil((sqrt(self.a + 1) - 1) ** (2 / self.q)))
 
