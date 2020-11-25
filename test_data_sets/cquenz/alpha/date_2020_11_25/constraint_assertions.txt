@@ -1,0 +1,79 @@
+(declare-fun |feature#9d83319d-bd64-40f9-b439-53e267f71f3a#used| () Bool)
+(declare-fun |feature#c35ababc-9bc2-4e1a-b990-8fe8dc46febb#used| () Bool)
+(declare-fun |feature#e2a4ab97-2fe4-45cf-83e7-5b528c0b5ce2#used| () Bool)
+(declare-fun |feature#24c46d2d-cb58-44d6-b651-db321aa0481a#used| () Bool)
+(declare-fun |feature#ffd263e7-7b87-41d5-9ed7-230ed5df25d2#used| () Bool)
+(declare-fun |feature#c55e78b2-9c5d-4e49-a1e7-b9013f7ad524#used| () Bool)
+(declare-fun |feature#9f5a8c62-a1a7-426a-a691-2226795f0446#used| () Bool)
+(declare-fun |feature#f964e019-3c74-4d7c-91c9-af6877da76ad#used| () Bool)
+(declare-fun |feature#0f02e073-b07a-4c1d-bdd0-64ae7945b339#used| () Bool)
+(declare-fun |feature#90e19845-edc1-496a-baa3-b0a57d89e85c#used| () Bool)
+(declare-fun |feature#c923e063-767c-47d8-afde-d2ef68cfdb2e#used| () Bool)
+(declare-fun |feature#1aa71ed1-d18b-47ca-be4b-7d890ed51d05#used| () Bool)
+(declare-fun |feature#3c338aef-4362-4bf0-b2ce-ee946166fb92#used| () Bool)
+(declare-fun |feature#cee9b12b-cd98-4234-9fd1-e5c37c729999#used| () Bool)
+(declare-fun |feature#be756e9c-1b0d-4704-b8cb-be9dd3e82b52#used| () Bool)
+(declare-fun |feature#77d06b7b-4925-42fb-9b98-34dd8d155324#used| () Bool)
+(declare-fun |feature#8ee79515-848e-4e3c-9ee4-525ce227d3a8#used| () Bool)
+(declare-fun |feature#73801c0e-6bff-44c6-a735-acc4d7c73ae6#used| () Bool)
+(declare-fun |feature#1e3ecf48-b9fd-455f-a201-45b492c62521#used| () Bool)
+(declare-fun |feature#75546e22-2e4f-46c4-8480-45fab69eb79a#used| () Bool)
+(declare-fun |feature#e2a6da18-6bfa-4732-a178-8b9775828310#used| () Bool)
+(declare-fun |feature#b44f91b8-bc29-46a1-b46a-3a9c7eca5498#used| () Bool)
+(declare-fun |feature#1569fadb-9413-426c-8086-7414851af3fa#used| () Bool)
+(declare-fun |feature#7b81713e-4d90-40de-b5b9-feafd5bc608f#used| () Bool)
+(declare-fun |feature#f05d0797-c3df-499b-9b69-cb49b720d705#used| () Bool)
+(declare-fun |feature#e526639b-c896-4491-a361-4c3331d542e5#used| () Bool)
+(declare-fun |feature#be01eab2-975c-404c-93f3-7748adebc97d#used| () Bool)
+(declare-fun |feature#2b09c974-4632-4637-a499-97c5eee433ed#used| () Bool)
+(declare-fun |feature#a8bf78fd-1555-43f2-b8c7-05f71fedfd58#used| () Bool)
+(declare-fun |feature#e63463a3-ad84-49fd-a77f-0cdb81cbf7c2#used| () Bool)
+(assert (and (=> (and (not |feature#e63463a3-ad84-49fd-a77f-0cdb81cbf7c2#used|)
+              |feature#c923e063-767c-47d8-afde-d2ef68cfdb2e#used|)
+         |feature#8ee79515-848e-4e3c-9ee4-525ce227d3a8#used|)
+     (= |feature#c923e063-767c-47d8-afde-d2ef68cfdb2e#used|
+        |feature#cee9b12b-cd98-4234-9fd1-e5c37c729999#used|)
+     (=> |feature#1e3ecf48-b9fd-455f-a201-45b492c62521#used|
+         |feature#8ee79515-848e-4e3c-9ee4-525ce227d3a8#used|)
+     (=> |feature#a8bf78fd-1555-43f2-b8c7-05f71fedfd58#used|
+         |feature#1569fadb-9413-426c-8086-7414851af3fa#used|)
+     (=> |feature#2b09c974-4632-4637-a499-97c5eee433ed#used|
+         |feature#b44f91b8-bc29-46a1-b46a-3a9c7eca5498#used|)
+     (=> |feature#7b81713e-4d90-40de-b5b9-feafd5bc608f#used|
+         |feature#be01eab2-975c-404c-93f3-7748adebc97d#used|)
+     (=> |feature#ffd263e7-7b87-41d5-9ed7-230ed5df25d2#used|
+         |feature#e526639b-c896-4491-a361-4c3331d542e5#used|)
+     (=> |feature#e2a4ab97-2fe4-45cf-83e7-5b528c0b5ce2#used|
+         |feature#ffd263e7-7b87-41d5-9ed7-230ed5df25d2#used|)
+     (=> |feature#f05d0797-c3df-499b-9b69-cb49b720d705#used|
+         |feature#7b81713e-4d90-40de-b5b9-feafd5bc608f#used|)
+     (=> |feature#1569fadb-9413-426c-8086-7414851af3fa#used|
+         (not |feature#be756e9c-1b0d-4704-b8cb-be9dd3e82b52#used|))
+     (=> |feature#b44f91b8-bc29-46a1-b46a-3a9c7eca5498#used|
+         |feature#be756e9c-1b0d-4704-b8cb-be9dd3e82b52#used|)
+     (=> |feature#e2a6da18-6bfa-4732-a178-8b9775828310#used|
+         |feature#75546e22-2e4f-46c4-8480-45fab69eb79a#used|)
+     (=> |feature#1e3ecf48-b9fd-455f-a201-45b492c62521#used|
+         |feature#73801c0e-6bff-44c6-a735-acc4d7c73ae6#used|)
+     (=> |feature#8ee79515-848e-4e3c-9ee4-525ce227d3a8#used|
+         |feature#be756e9c-1b0d-4704-b8cb-be9dd3e82b52#used|)
+     (=> |feature#77d06b7b-4925-42fb-9b98-34dd8d155324#used|
+         (not |feature#be756e9c-1b0d-4704-b8cb-be9dd3e82b52#used|))
+     (=> |feature#cee9b12b-cd98-4234-9fd1-e5c37c729999#used|
+         |feature#90e19845-edc1-496a-baa3-b0a57d89e85c#used|)
+     (=> |feature#3c338aef-4362-4bf0-b2ce-ee946166fb92#used|
+         |feature#0f02e073-b07a-4c1d-bdd0-64ae7945b339#used|)
+     (=> |feature#c923e063-767c-47d8-afde-d2ef68cfdb2e#used|
+         |feature#1aa71ed1-d18b-47ca-be4b-7d890ed51d05#used|)
+     (=> |feature#c923e063-767c-47d8-afde-d2ef68cfdb2e#used|
+         |feature#90e19845-edc1-496a-baa3-b0a57d89e85c#used|)
+     (=> |feature#f964e019-3c74-4d7c-91c9-af6877da76ad#used|
+         |feature#0f02e073-b07a-4c1d-bdd0-64ae7945b339#used|)
+     (=> |feature#f964e019-3c74-4d7c-91c9-af6877da76ad#used|
+         |feature#9f5a8c62-a1a7-426a-a691-2226795f0446#used|)
+     (=> |feature#c55e78b2-9c5d-4e49-a1e7-b9013f7ad524#used|
+         |feature#ffd263e7-7b87-41d5-9ed7-230ed5df25d2#used|)
+     (=> |feature#24c46d2d-cb58-44d6-b651-db321aa0481a#used|
+         |feature#e2a4ab97-2fe4-45cf-83e7-5b528c0b5ce2#used|)
+     (=> |feature#c35ababc-9bc2-4e1a-b990-8fe8dc46febb#used|
+         |feature#9d83319d-bd64-40f9-b439-53e267f71f3a#used|)))
