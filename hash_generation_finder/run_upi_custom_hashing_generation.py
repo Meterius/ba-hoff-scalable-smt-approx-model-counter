@@ -1,10 +1,14 @@
 from z3 import *
 from typing import List
+from hash_generation_finder.utility import is_hash_set_dual_extension,\
+    are_hash_sets_equal, invert_hash_set, is_hash_set_dual_paired_inverse_extension, \
+    is_hash_set_dual_self_paired_inverse_extension
 from hash_generation_finder.upi_hashing import generate_upi_hash_sets_via_solver,\
     convert_hash_set_to_tuple_representation, get_paper_xor_hash_set
 from itertools import combinations
 
 # runs some pi hash generation
+from hash_generation_finder.utility import get_hash_set_identifier, convert_hash_set_to_bit_table
 
 if __name__ == "__main__":
     # Generates upi hash function
@@ -53,7 +57,7 @@ if __name__ == "__main__":
 
         self_inverse = And([
             And([
-                hash_is_zero[2*i][j] == Not(hash_is_zero[2*i+1][j]) for j in range(2**n)
+                hash_is_zero[i][j] == Not(hash_is_zero[2**k-i-1][j]) for j in range(2**n)
             ]) for i in range(2**(k-1))
         ])
 
@@ -84,7 +88,7 @@ if __name__ == "__main__":
         ])
 
         # asserts that the hash set must be a self inverse hash set
-        # conditions.append(self_inverse)
+        conditions.append(self_inverse)
 
         # only one of following the modifiers should active at once
 
@@ -96,12 +100,14 @@ if __name__ == "__main__":
 
         # asserts that the hash set must be a paired inverse dual extension
         # that was applied using the same hash set twice
-        conditions.append(self_paired_inverse_dual_extension)
+        # conditions.append(self_paired_inverse_dual_extension)
 
         # add hash sets that should be ignored to the list
         excluded_hash_sets = [get_paper_xor_hash_set(n)]
 
-        conditions.append(And([is_hash_set_different(H) for H in excluded_hash_sets]))
+        conditions.append(Not(is_hash_set_different(get_paper_xor_hash_set(n))))
+
+        # conditions.append(And([is_hash_set_different(H) for H in excluded_hash_sets]))
 
         return And(conditions)
 
@@ -110,10 +116,15 @@ if __name__ == "__main__":
     for H in generate_upi_hash_sets_via_solver(n, k, make_additional_condition):
         HC = convert_hash_set_to_tuple_representation(H)
 
-        print("----------------------------------")
-        for h in HC:
-            print(h)
-        print("----------------------------------")
+        print("------------------------------------------------------")
+        print(f"Is Self Inverse: {are_hash_sets_equal(H, invert_hash_set(H))}")
+        print(f"Is Dual Extension: {is_hash_set_dual_extension(H)}")
+        print(f"Is Paired Inverse Dual Extension: {is_hash_set_dual_paired_inverse_extension(H)}")
+        print(f"Is Self Paired Inverse Dual Extension: {is_hash_set_dual_self_paired_inverse_extension(H)}")
+        print(f"({get_hash_set_identifier(HC)}):")
+        for line in convert_hash_set_to_bit_table(HC):
+            print(f"   {line}")
+        print("------------------------------------------------------")
 
         HS.add(HC)
 

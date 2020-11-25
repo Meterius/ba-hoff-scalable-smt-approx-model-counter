@@ -21,7 +21,41 @@ def is_hash_set_symmetric(H) -> bool:
     return all(map(is_hash_symmetric, convert_hash_set_to_tuple_representation(H)))
 
 
-def is_hash_set_dual_extension(H1, H2) -> bool:
+def get_hash_set_dual_extender(H):
+    pref_suff = {}
+
+    HC = convert_hash_set_to_tuple_representation(H)
+    for h in HC:
+        pref = h[:floor(len(h) / 2)]
+        suff = h[floor(len(h) / 2):]
+        pref_suff[pref] = pref_suff.get(pref, []) + [suff]
+
+    if all(map(lambda x: len(x) == 2, pref_suff.values())):
+        return pref_suff
+    else:
+        return None
+
+
+def is_hash_set_dual_paired_inverse_extension(H) -> bool:
+    HC = convert_hash_set_to_tuple_representation(H)
+    pref_suff = get_hash_set_dual_extender(HC)
+
+    return all(map(lambda pref: pref_suff[pref][0] == invert_hash(pref_suff[pref][1]), pref_suff.keys())) if pref_suff\
+        else False
+
+
+def is_hash_set_dual_self_paired_inverse_extension(H) -> bool:
+    HC = convert_hash_set_to_tuple_representation(H)
+    pref_suff = get_hash_set_dual_extender(HC)
+
+    return all(map(
+        lambda pref:
+        pref_suff[pref][0] == invert_hash(pref_suff[pref][1]) and pref in pref_suff[pref]
+        , pref_suff.keys())) if pref_suff \
+        else False
+
+
+def is_hash_set_dual_extension(H1, H2 = None) -> bool:
     """
     Returns whether H2 can be generated
     by making each hash in H1 into two
@@ -31,26 +65,29 @@ def is_hash_set_dual_extension(H1, H2) -> bool:
     (in tuple representation)
     ((0, 1, 0, 0), (0, 1, 1, 0), (1, 1, 0, 1), (1, 1, 1, 0)) is a possible dual extension of ((0, 1), (1, 1))
     """
-    HC1 = convert_hash_set_to_tuple_representation(H1)
-    HC2 = convert_hash_set_to_tuple_representation(H2)
+    if H2:
+        HC1 = convert_hash_set_to_tuple_representation(H1)
+        HC2 = convert_hash_set_to_tuple_representation(H2)
 
-    if len(HC2) != len(HC1) * 2:
-        return False
-
-    for h1 in HC1:
-        c = 0
-
-        for h2 in HC2:
-            if h2[0:len(h1)] == h1:
-                c += 1
-
-                if c > 2:
-                    return False
-
-        if c != 2:
+        if len(HC2) != len(HC1) * 2:
             return False
 
-    return True
+        for h1 in HC1:
+            c = 0
+
+            for h2 in HC2:
+                if h2[0:len(h1)] == h1:
+                    c += 1
+
+                    if c > 2:
+                        return False
+
+            if c != 2:
+                return False
+
+        return True
+    else:
+        return get_hash_set_dual_extender(H1) is not None
 
 
 def is_hash_set_permutable(H1, H2):
@@ -71,7 +108,7 @@ def get_hash_set_permutation(H1, H2):
 
 
 def are_hash_sets_equal(H1, H2):
-    return np.array_equal(H1, H2)
+    return convert_hash_set_to_tuple_representation(H1) == convert_hash_set_to_tuple_representation(H2)
 
 
 def get_hash_set_dual_extension_via_paired_inverses(H1, H2):
