@@ -1,5 +1,5 @@
 from z3 import *
-from math import comb
+from math import comb, ceil, log2
 from itertools import combinations
 from typing import NamedTuple, List, Union, Tuple, Dict
 
@@ -126,3 +126,39 @@ def get_tree_model_count_upper_bound(root: TreeNode) -> int:
     return get_tree_model_count_upper_bound_with_required_root(root) + (1 if root.cardinality_range[0] == 0 else 0)
 
 
+def convert_cquenz_conf_knowledge_root_to_tree(ck: dict, root: str) -> TreeNode:
+    def collect(node_id):
+        feature = ck["features"][node_id]
+        children = [collect(child_id) for child_id in feature["childFeatureIDs"]]
+
+        return TreeNode(
+            id=node_id,
+            cardinality_range=(feature["cardinality"]["min"], feature["cardinality"]["max"]),
+            children_selection_range=(
+                feature["childCardinality"]["min"],
+                feature["childCardinality"]["max"] if feature["childCardinality"]["max"] >= 0 else
+                len(children),
+            ),
+            children=tuple(children),
+        )
+
+    return collect(root)
+
+
+def convert_cquenz_conf_knowledge_to_tree(ck: dict) -> TreeNode:
+    roots = ck["rootFeatureIDs"]
+    return TreeNode(
+        id="root",
+        cardinality_range=(1, 1),
+        children_selection_range=(len(roots), len(roots)),
+        children=tuple([convert_cquenz_conf_knowledge_root_to_tree(ck, root) for root in roots]),
+    )
+
+
+def get_cquenz_conf_knowledge_feature_variables(ck: dict) -> List[Tuple[ArithRef, int]]:
+    return [
+        (
+            Int(f"feature#{feature_id}#cardinality"),
+            int(ceil(log2(ck["features"][feature_id]["cardinality"]["max"] + 1)))
+        ) for feature_id in ck["features"].keys()
+    ]

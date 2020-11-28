@@ -83,7 +83,7 @@ class ConfidentEdgeFinderBinarySearchEstimateScheduler(BaseEstimateScheduler[Tup
         self.confidence: float = confidence
         self.params: EstimateDerivedBaseParams = EstimateDerivedBaseParams(manager.execution.estimate_base_params)
 
-    def _apply_binary_search(self) -> Union[Tuple[int, int], List[EstimateTask]]:
+    def _apply_binary_search(self) -> Union[Tuple[float, float], List[EstimateTask]]:
         left = 1
         right = self.params.mp
 
@@ -137,8 +137,13 @@ class ConfidentEdgeFinderBinarySearchEstimateScheduler(BaseEstimateScheduler[Tup
             else:
                 break
 
-        return (self.params.p + 1, 2 * self.params.G) \
-            if m == 1 else (2 ** (m - 1) * self.params.g, 2 ** m * self.params.G)
+        q_interval = (self.params.p + 1, 2 * self.params.G) if\
+            m == 1 else (2 ** (m - 1) * self.params.g, 2 ** m * self.params.G)
+
+        return (
+            q_interval[0] ** (1 / self.params.q),
+            q_interval[1] ** (1 / self.params.q),
+        )
 
     def _available_estimate_tasks(self) -> List[EstimateTask]:
         res = self._apply_binary_search()

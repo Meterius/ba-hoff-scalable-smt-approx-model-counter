@@ -1,0 +1,2968 @@
+(declare-fun |feature#75546e22-2e4f-46c4-8480-45fab69eb79a#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#75546e22-2e4f-46c4-8480-45fab69eb79a#used| () Bool)
+(declare-fun |feature#75546e22-2e4f-46c4-8480-45fab69eb79a#cardinality| () Int)
+(declare-fun |feature#a1c7af16-b865-41fa-962d-e50bacbbafa7#used| () Bool)
+(declare-fun |feature#a1c7af16-b865-41fa-962d-e50bacbbafa7#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#75546e22-2e4f-46c4-8480-45fab69eb79a#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#73801c0e-6bff-44c6-a735-acc4d7c73ae6#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#73801c0e-6bff-44c6-a735-acc4d7c73ae6#used| () Bool)
+(declare-fun |feature#73801c0e-6bff-44c6-a735-acc4d7c73ae6#cardinality| () Int)
+(declare-fun |feature#73801c0e-6bff-44c6-a735-acc4d7c73ae6#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#a1c7af16-b865-41fa-962d-e50bacbbafa7#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#a1c7af16-b865-41fa-962d-e50bacbbafa7#cardinality| () Int)
+(declare-fun |feature#FEATURE_DIAGRAM_INTERNAL#used| () Bool)
+(declare-fun |feature#FEATURE_DIAGRAM_INTERNAL#global_cardinality| () Int)
+(declare-fun |feature#ffd263e7-7b87-41d5-9ed7-230ed5df25d2#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#ffd263e7-7b87-41d5-9ed7-230ed5df25d2#used| () Bool)
+(declare-fun |feature#ffd263e7-7b87-41d5-9ed7-230ed5df25d2#cardinality| () Int)
+(declare-fun |feature#544dc0af-bebf-4bef-8cc3-2cfdde1bb103#used| () Bool)
+(declare-fun |feature#544dc0af-bebf-4bef-8cc3-2cfdde1bb103#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#ffd263e7-7b87-41d5-9ed7-230ed5df25d2#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#7b81713e-4d90-40de-b5b9-feafd5bc608f#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#7b81713e-4d90-40de-b5b9-feafd5bc608f#used| () Bool)
+(declare-fun |feature#7b81713e-4d90-40de-b5b9-feafd5bc608f#cardinality| () Int)
+(declare-fun |feature#7b81713e-4d90-40de-b5b9-feafd5bc608f#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#544dc0af-bebf-4bef-8cc3-2cfdde1bb103#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#544dc0af-bebf-4bef-8cc3-2cfdde1bb103#cardinality| () Int)
+(declare-fun |feature#873b5ea0-071a-412e-89e7-371e7ec14048#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#873b5ea0-071a-412e-89e7-371e7ec14048#used| () Bool)
+(declare-fun |feature#873b5ea0-071a-412e-89e7-371e7ec14048#cardinality| () Int)
+(declare-fun |feature#5d65de92-1ad0-4a99-b6f3-a96e2eaac0b4#used| () Bool)
+(declare-fun |feature#5d65de92-1ad0-4a99-b6f3-a96e2eaac0b4#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#873b5ea0-071a-412e-89e7-371e7ec14048#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#5d65de92-1ad0-4a99-b6f3-a96e2eaac0b4#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#5d65de92-1ad0-4a99-b6f3-a96e2eaac0b4#cardinality| () Int)
+(declare-fun |feature#9aee274c-9745-4df7-882f-9b9b0bb93aa6#used| () Bool)
+(declare-fun |feature#9aee274c-9745-4df7-882f-9b9b0bb93aa6#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#b2f57575-2f21-41aa-a9d9-a311bf0f0116#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#b2f57575-2f21-41aa-a9d9-a311bf0f0116#used| () Bool)
+(declare-fun |feature#b2f57575-2f21-41aa-a9d9-a311bf0f0116#cardinality| () Int)
+(declare-fun |feature#e1aa28ba-01d4-4d53-9c7d-62ead80c55f9#used| () Bool)
+(declare-fun |feature#e1aa28ba-01d4-4d53-9c7d-62ead80c55f9#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#b2f57575-2f21-41aa-a9d9-a311bf0f0116#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#e1aa28ba-01d4-4d53-9c7d-62ead80c55f9#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#e1aa28ba-01d4-4d53-9c7d-62ead80c55f9#cardinality| () Int)
+(declare-fun |feature#90e19845-edc1-496a-baa3-b0a57d89e85c#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#90e19845-edc1-496a-baa3-b0a57d89e85c#used| () Bool)
+(declare-fun |feature#90e19845-edc1-496a-baa3-b0a57d89e85c#cardinality| () Int)
+(declare-fun |feature#78387918-7e0f-4c05-a0bb-945d0b811943#used| () Bool)
+(declare-fun |feature#78387918-7e0f-4c05-a0bb-945d0b811943#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#90e19845-edc1-496a-baa3-b0a57d89e85c#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#5b0b6b00-9636-4141-8baa-789ac828aabd#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#5b0b6b00-9636-4141-8baa-789ac828aabd#used| () Bool)
+(declare-fun |feature#5b0b6b00-9636-4141-8baa-789ac828aabd#cardinality| () Int)
+(declare-fun |feature#5b0b6b00-9636-4141-8baa-789ac828aabd#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#0f02e073-b07a-4c1d-bdd0-64ae7945b339#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#0f02e073-b07a-4c1d-bdd0-64ae7945b339#used| () Bool)
+(declare-fun |feature#0f02e073-b07a-4c1d-bdd0-64ae7945b339#cardinality| () Int)
+(declare-fun |feature#0f02e073-b07a-4c1d-bdd0-64ae7945b339#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#78387918-7e0f-4c05-a0bb-945d0b811943#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#78387918-7e0f-4c05-a0bb-945d0b811943#cardinality| () Int)
+(declare-fun |feature#02c163a4-8a32-4453-a051-a4b482c29e84#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#02c163a4-8a32-4453-a051-a4b482c29e84#used| () Bool)
+(declare-fun |feature#02c163a4-8a32-4453-a051-a4b482c29e84#cardinality| () Int)
+(declare-fun |feature#1d98581f-7f70-4c8b-819f-79c560a14846#used| () Bool)
+(declare-fun |feature#1d98581f-7f70-4c8b-819f-79c560a14846#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#02c163a4-8a32-4453-a051-a4b482c29e84#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#1d98581f-7f70-4c8b-819f-79c560a14846#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#1d98581f-7f70-4c8b-819f-79c560a14846#cardinality| () Int)
+(declare-fun |feature#9aee274c-9745-4df7-882f-9b9b0bb93aa6#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#9aee274c-9745-4df7-882f-9b9b0bb93aa6#cardinality| () Int)
+(declare-fun |feature#be01eab2-975c-404c-93f3-7748adebc97d#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#be01eab2-975c-404c-93f3-7748adebc97d#used| () Bool)
+(declare-fun |feature#be01eab2-975c-404c-93f3-7748adebc97d#cardinality| () Int)
+(declare-fun |feature#188a84fb-e337-4cf4-86b5-81d97cbdfe02#used| () Bool)
+(declare-fun |feature#188a84fb-e337-4cf4-86b5-81d97cbdfe02#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#be01eab2-975c-404c-93f3-7748adebc97d#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#e526639b-c896-4491-a361-4c3331d542e5#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#e526639b-c896-4491-a361-4c3331d542e5#used| () Bool)
+(declare-fun |feature#e526639b-c896-4491-a361-4c3331d542e5#cardinality| () Int)
+(declare-fun |feature#e526639b-c896-4491-a361-4c3331d542e5#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#188a84fb-e337-4cf4-86b5-81d97cbdfe02#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#188a84fb-e337-4cf4-86b5-81d97cbdfe02#cardinality| () Int)
+(declare-fun |feature#bd8bf70f-e2b7-4040-bb7b-1da610f1f5e9#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#bd8bf70f-e2b7-4040-bb7b-1da610f1f5e9#used| () Bool)
+(declare-fun |feature#bd8bf70f-e2b7-4040-bb7b-1da610f1f5e9#cardinality| () Int)
+(declare-fun |feature#382ca6cb-f30d-447e-86f3-0d321ea6ce89#used| () Bool)
+(declare-fun |feature#382ca6cb-f30d-447e-86f3-0d321ea6ce89#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#bd8bf70f-e2b7-4040-bb7b-1da610f1f5e9#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#382ca6cb-f30d-447e-86f3-0d321ea6ce89#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#382ca6cb-f30d-447e-86f3-0d321ea6ce89#cardinality| () Int)
+(declare-fun |feature#b44f91b8-bc29-46a1-b46a-3a9c7eca5498#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#b44f91b8-bc29-46a1-b46a-3a9c7eca5498#used| () Bool)
+(declare-fun |feature#b44f91b8-bc29-46a1-b46a-3a9c7eca5498#cardinality| () Int)
+(declare-fun |feature#b15793f9-343a-4918-9e75-01032530016b#used| () Bool)
+(declare-fun |feature#b15793f9-343a-4918-9e75-01032530016b#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#b44f91b8-bc29-46a1-b46a-3a9c7eca5498#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#1569fadb-9413-426c-8086-7414851af3fa#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#1569fadb-9413-426c-8086-7414851af3fa#used| () Bool)
+(declare-fun |feature#1569fadb-9413-426c-8086-7414851af3fa#cardinality| () Int)
+(declare-fun |feature#1569fadb-9413-426c-8086-7414851af3fa#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#b15793f9-343a-4918-9e75-01032530016b#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#b15793f9-343a-4918-9e75-01032530016b#cardinality| () Int)
+(declare-fun |feature#75b35115-5ebe-413b-a4a2-2114309de1c7#used| () Bool)
+(declare-fun |feature#75b35115-5ebe-413b-a4a2-2114309de1c7#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#2b09c974-4632-4637-a499-97c5eee433ed#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#2b09c974-4632-4637-a499-97c5eee433ed#used| () Bool)
+(declare-fun |feature#2b09c974-4632-4637-a499-97c5eee433ed#cardinality| () Int)
+(declare-fun |feature#8a56f61f-a5a9-4e26-ac20-e773c98568b6#used| () Bool)
+(declare-fun |feature#8a56f61f-a5a9-4e26-ac20-e773c98568b6#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#2b09c974-4632-4637-a499-97c5eee433ed#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#a8bf78fd-1555-43f2-b8c7-05f71fedfd58#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#a8bf78fd-1555-43f2-b8c7-05f71fedfd58#used| () Bool)
+(declare-fun |feature#a8bf78fd-1555-43f2-b8c7-05f71fedfd58#cardinality| () Int)
+(declare-fun |feature#a8bf78fd-1555-43f2-b8c7-05f71fedfd58#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#8a56f61f-a5a9-4e26-ac20-e773c98568b6#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#8a56f61f-a5a9-4e26-ac20-e773c98568b6#cardinality| () Int)
+(declare-fun |feature#eebd2986-a552-4d43-a1cf-bbdad747b0bb#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#eebd2986-a552-4d43-a1cf-bbdad747b0bb#used| () Bool)
+(declare-fun |feature#eebd2986-a552-4d43-a1cf-bbdad747b0bb#cardinality| () Int)
+(declare-fun |feature#81b23e17-4303-4778-9e19-05e65787b69d#used| () Bool)
+(declare-fun |feature#81b23e17-4303-4778-9e19-05e65787b69d#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#eebd2986-a552-4d43-a1cf-bbdad747b0bb#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#81b23e17-4303-4778-9e19-05e65787b69d#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#81b23e17-4303-4778-9e19-05e65787b69d#cardinality| () Int)
+(declare-fun |feature#f4680373-0cdf-4071-bf75-b12f8e1cb595#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#f4680373-0cdf-4071-bf75-b12f8e1cb595#used| () Bool)
+(declare-fun |feature#f4680373-0cdf-4071-bf75-b12f8e1cb595#cardinality| () Int)
+(declare-fun |feature#e165cd49-c095-44e7-9592-c613f92faedd#used| () Bool)
+(declare-fun |feature#e165cd49-c095-44e7-9592-c613f92faedd#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#f4680373-0cdf-4071-bf75-b12f8e1cb595#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#e165cd49-c095-44e7-9592-c613f92faedd#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#e165cd49-c095-44e7-9592-c613f92faedd#cardinality| () Int)
+(declare-fun |feature#0066001f-6b20-4164-aa5f-fc4b926daec9#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#0066001f-6b20-4164-aa5f-fc4b926daec9#used| () Bool)
+(declare-fun |feature#0066001f-6b20-4164-aa5f-fc4b926daec9#cardinality| () Int)
+(declare-fun |feature#49f80289-4b06-4e9f-8212-9f672af7a6bc#used| () Bool)
+(declare-fun |feature#49f80289-4b06-4e9f-8212-9f672af7a6bc#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#0066001f-6b20-4164-aa5f-fc4b926daec9#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#49f80289-4b06-4e9f-8212-9f672af7a6bc#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#49f80289-4b06-4e9f-8212-9f672af7a6bc#cardinality| () Int)
+(declare-fun |feature#be756e9c-1b0d-4704-b8cb-be9dd3e82b52#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#be756e9c-1b0d-4704-b8cb-be9dd3e82b52#used| () Bool)
+(declare-fun |feature#be756e9c-1b0d-4704-b8cb-be9dd3e82b52#cardinality| () Int)
+(declare-fun |feature#efbb64d5-3002-411a-86cc-521f6bd9c367#used| () Bool)
+(declare-fun |feature#efbb64d5-3002-411a-86cc-521f6bd9c367#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#be756e9c-1b0d-4704-b8cb-be9dd3e82b52#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#efbb64d5-3002-411a-86cc-521f6bd9c367#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#efbb64d5-3002-411a-86cc-521f6bd9c367#cardinality| () Int)
+(declare-fun |feature#1aa71ed1-d18b-47ca-be4b-7d890ed51d05#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#1aa71ed1-d18b-47ca-be4b-7d890ed51d05#used| () Bool)
+(declare-fun |feature#1aa71ed1-d18b-47ca-be4b-7d890ed51d05#cardinality| () Int)
+(declare-fun |feature#b0fc7b05-4cb6-431e-b973-45f5431c9169#used| () Bool)
+(declare-fun |feature#b0fc7b05-4cb6-431e-b973-45f5431c9169#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#1aa71ed1-d18b-47ca-be4b-7d890ed51d05#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#9f5a8c62-a1a7-426a-a691-2226795f0446#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#9f5a8c62-a1a7-426a-a691-2226795f0446#used| () Bool)
+(declare-fun |feature#9f5a8c62-a1a7-426a-a691-2226795f0446#cardinality| () Int)
+(declare-fun |feature#9f5a8c62-a1a7-426a-a691-2226795f0446#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#b0fc7b05-4cb6-431e-b973-45f5431c9169#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#b0fc7b05-4cb6-431e-b973-45f5431c9169#cardinality| () Int)
+(declare-fun |feature#75b35115-5ebe-413b-a4a2-2114309de1c7#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#75b35115-5ebe-413b-a4a2-2114309de1c7#cardinality| () Int)
+(declare-fun |feature#99a5e6f0-a865-4500-aac8-5c8ff2415f90#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#99a5e6f0-a865-4500-aac8-5c8ff2415f90#used| () Bool)
+(declare-fun |feature#99a5e6f0-a865-4500-aac8-5c8ff2415f90#cardinality| () Int)
+(declare-fun |feature#4f6c7273-6bcb-4355-8b61-3380e03d6089#used| () Bool)
+(declare-fun |feature#4f6c7273-6bcb-4355-8b61-3380e03d6089#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#99a5e6f0-a865-4500-aac8-5c8ff2415f90#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#4f6c7273-6bcb-4355-8b61-3380e03d6089#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#4f6c7273-6bcb-4355-8b61-3380e03d6089#cardinality| () Int)
+(declare-fun |feature#237bd3a4-368d-4e93-9573-87302b08464b#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#237bd3a4-368d-4e93-9573-87302b08464b#used| () Bool)
+(declare-fun |feature#237bd3a4-368d-4e93-9573-87302b08464b#cardinality| () Int)
+(declare-fun |feature#d08e5919-29b6-4328-9eaf-69363b09d587#used| () Bool)
+(declare-fun |feature#d08e5919-29b6-4328-9eaf-69363b09d587#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#237bd3a4-368d-4e93-9573-87302b08464b#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#d08e5919-29b6-4328-9eaf-69363b09d587#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#d08e5919-29b6-4328-9eaf-69363b09d587#cardinality| () Int)
+(declare-fun |feature#2a39dd1e-82b0-4855-8926-a8fae7505ca4#used| () Bool)
+(declare-fun |feature#2a39dd1e-82b0-4855-8926-a8fae7505ca4#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#7ea3c1ad-9cf5-4f7f-a2fb-9ba646e8268d#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#7ea3c1ad-9cf5-4f7f-a2fb-9ba646e8268d#used| () Bool)
+(declare-fun |feature#7ea3c1ad-9cf5-4f7f-a2fb-9ba646e8268d#cardinality| () Int)
+(declare-fun |feature#dea185d5-9061-405b-adf2-0d8dafdbb787#used| () Bool)
+(declare-fun |feature#dea185d5-9061-405b-adf2-0d8dafdbb787#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#7ea3c1ad-9cf5-4f7f-a2fb-9ba646e8268d#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#dea185d5-9061-405b-adf2-0d8dafdbb787#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#dea185d5-9061-405b-adf2-0d8dafdbb787#cardinality| () Int)
+(declare-fun |feature#9498c562-69d0-428c-b7f6-98b80f8d8b40#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#9498c562-69d0-428c-b7f6-98b80f8d8b40#used| () Bool)
+(declare-fun |feature#9498c562-69d0-428c-b7f6-98b80f8d8b40#cardinality| () Int)
+(declare-fun |feature#9d2fdcc7-cb41-45b8-91b5-5c3b0cf8aed8#used| () Bool)
+(declare-fun |feature#9d2fdcc7-cb41-45b8-91b5-5c3b0cf8aed8#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#9498c562-69d0-428c-b7f6-98b80f8d8b40#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#9d2fdcc7-cb41-45b8-91b5-5c3b0cf8aed8#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#9d2fdcc7-cb41-45b8-91b5-5c3b0cf8aed8#cardinality| () Int)
+(declare-fun |feature#d94f8f64-69bb-4faa-b6a3-4ad3f86466c5#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#d94f8f64-69bb-4faa-b6a3-4ad3f86466c5#used| () Bool)
+(declare-fun |feature#d94f8f64-69bb-4faa-b6a3-4ad3f86466c5#cardinality| () Int)
+(declare-fun |feature#d1edd52a-07a1-4694-a2ff-d18ceeffd251#used| () Bool)
+(declare-fun |feature#d1edd52a-07a1-4694-a2ff-d18ceeffd251#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#d94f8f64-69bb-4faa-b6a3-4ad3f86466c5#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#d1edd52a-07a1-4694-a2ff-d18ceeffd251#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#d1edd52a-07a1-4694-a2ff-d18ceeffd251#cardinality| () Int)
+(declare-fun |feature#2a39dd1e-82b0-4855-8926-a8fae7505ca4#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#2a39dd1e-82b0-4855-8926-a8fae7505ca4#cardinality| () Int)
+(declare-fun |feature#8e013254-f29c-41d8-9688-df9d713ddb54#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#8e013254-f29c-41d8-9688-df9d713ddb54#used| () Bool)
+(declare-fun |feature#8e013254-f29c-41d8-9688-df9d713ddb54#cardinality| () Int)
+(declare-fun |feature#8a2764e2-d2d9-450b-b1c7-6e737bf9ffcb#used| () Bool)
+(declare-fun |feature#8a2764e2-d2d9-450b-b1c7-6e737bf9ffcb#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#8e013254-f29c-41d8-9688-df9d713ddb54#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#8a2764e2-d2d9-450b-b1c7-6e737bf9ffcb#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#8a2764e2-d2d9-450b-b1c7-6e737bf9ffcb#cardinality| () Int)
+(declare-fun |feature#905f65d8-78ff-4b55-99c0-2f066e909c02#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#905f65d8-78ff-4b55-99c0-2f066e909c02#used| () Bool)
+(declare-fun |feature#905f65d8-78ff-4b55-99c0-2f066e909c02#cardinality| () Int)
+(declare-fun |feature#fa5e2245-364a-4c9d-9615-3f9c12da95a8#used| () Bool)
+(declare-fun |feature#fa5e2245-364a-4c9d-9615-3f9c12da95a8#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#905f65d8-78ff-4b55-99c0-2f066e909c02#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#fa5e2245-364a-4c9d-9615-3f9c12da95a8#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#fa5e2245-364a-4c9d-9615-3f9c12da95a8#cardinality| () Int)
+(declare-fun |feature#2b7b047d-e963-4b6a-9ff7-ac2bda7504d5#used| () Bool)
+(declare-fun |feature#2b7b047d-e963-4b6a-9ff7-ac2bda7504d5#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#0fc943fb-fb26-4d7d-a581-e94fe4f94703#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#0fc943fb-fb26-4d7d-a581-e94fe4f94703#used| () Bool)
+(declare-fun |feature#0fc943fb-fb26-4d7d-a581-e94fe4f94703#cardinality| () Int)
+(declare-fun |feature#54745be9-90da-41ed-9b84-5fa1c1d5f88b#used| () Bool)
+(declare-fun |feature#54745be9-90da-41ed-9b84-5fa1c1d5f88b#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#0fc943fb-fb26-4d7d-a581-e94fe4f94703#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#54745be9-90da-41ed-9b84-5fa1c1d5f88b#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#54745be9-90da-41ed-9b84-5fa1c1d5f88b#cardinality| () Int)
+(declare-fun |feature#9b213f90-f733-41f4-9db5-96a881b185d5#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#9b213f90-f733-41f4-9db5-96a881b185d5#used| () Bool)
+(declare-fun |feature#9b213f90-f733-41f4-9db5-96a881b185d5#cardinality| () Int)
+(declare-fun |feature#5051b8d3-fa1d-4e4e-ac16-398a816e6aa4#used| () Bool)
+(declare-fun |feature#5051b8d3-fa1d-4e4e-ac16-398a816e6aa4#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#9b213f90-f733-41f4-9db5-96a881b185d5#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#5051b8d3-fa1d-4e4e-ac16-398a816e6aa4#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#5051b8d3-fa1d-4e4e-ac16-398a816e6aa4#cardinality| () Int)
+(declare-fun |feature#2b7b047d-e963-4b6a-9ff7-ac2bda7504d5#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#2b7b047d-e963-4b6a-9ff7-ac2bda7504d5#cardinality| () Int)
+(declare-fun |feature#e2a4ab97-2fe4-45cf-83e7-5b528c0b5ce2#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#e2a4ab97-2fe4-45cf-83e7-5b528c0b5ce2#used| () Bool)
+(declare-fun |feature#e2a4ab97-2fe4-45cf-83e7-5b528c0b5ce2#cardinality| () Int)
+(declare-fun |feature#abee5d8f-48f8-408d-b47d-fa4213292ecf#used| () Bool)
+(declare-fun |feature#abee5d8f-48f8-408d-b47d-fa4213292ecf#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#e2a4ab97-2fe4-45cf-83e7-5b528c0b5ce2#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#f05d0797-c3df-499b-9b69-cb49b720d705#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#f05d0797-c3df-499b-9b69-cb49b720d705#used| () Bool)
+(declare-fun |feature#f05d0797-c3df-499b-9b69-cb49b720d705#cardinality| () Int)
+(declare-fun |feature#f05d0797-c3df-499b-9b69-cb49b720d705#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#abee5d8f-48f8-408d-b47d-fa4213292ecf#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#abee5d8f-48f8-408d-b47d-fa4213292ecf#cardinality| () Int)
+(declare-fun |feature#c83a2e43-7930-4442-bdfa-ab4285e7388e#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#c83a2e43-7930-4442-bdfa-ab4285e7388e#used| () Bool)
+(declare-fun |feature#c83a2e43-7930-4442-bdfa-ab4285e7388e#cardinality| () Int)
+(declare-fun |feature#648ec7b0-7439-4547-a090-a2b9eb0ba2a8#used| () Bool)
+(declare-fun |feature#648ec7b0-7439-4547-a090-a2b9eb0ba2a8#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#c83a2e43-7930-4442-bdfa-ab4285e7388e#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#648ec7b0-7439-4547-a090-a2b9eb0ba2a8#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#648ec7b0-7439-4547-a090-a2b9eb0ba2a8#cardinality| () Int)
+(declare-fun |feature#e7f0be8e-dd80-4b83-abe4-58c9819168c5#used| () Bool)
+(declare-fun |feature#e7f0be8e-dd80-4b83-abe4-58c9819168c5#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#f97445c5-f214-4149-a0c5-9d3a31601c9c#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#f97445c5-f214-4149-a0c5-9d3a31601c9c#used| () Bool)
+(declare-fun |feature#f97445c5-f214-4149-a0c5-9d3a31601c9c#cardinality| () Int)
+(declare-fun |feature#0755f27d-4ff6-46eb-b64f-aa7f049ce564#used| () Bool)
+(declare-fun |feature#0755f27d-4ff6-46eb-b64f-aa7f049ce564#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#f97445c5-f214-4149-a0c5-9d3a31601c9c#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#0755f27d-4ff6-46eb-b64f-aa7f049ce564#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#0755f27d-4ff6-46eb-b64f-aa7f049ce564#cardinality| () Int)
+(declare-fun |feature#c96ae0c1-d312-4261-9f1a-71e89ad8ec19#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#c96ae0c1-d312-4261-9f1a-71e89ad8ec19#used| () Bool)
+(declare-fun |feature#c96ae0c1-d312-4261-9f1a-71e89ad8ec19#cardinality| () Int)
+(declare-fun |feature#2bdcdfeb-db17-4b67-9798-5db7ed10e5e1#used| () Bool)
+(declare-fun |feature#2bdcdfeb-db17-4b67-9798-5db7ed10e5e1#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#c96ae0c1-d312-4261-9f1a-71e89ad8ec19#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#2bdcdfeb-db17-4b67-9798-5db7ed10e5e1#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#2bdcdfeb-db17-4b67-9798-5db7ed10e5e1#cardinality| () Int)
+(declare-fun |feature#e7f0be8e-dd80-4b83-abe4-58c9819168c5#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#e7f0be8e-dd80-4b83-abe4-58c9819168c5#cardinality| () Int)
+(declare-fun |feature#9d83319d-bd64-40f9-b439-53e267f71f3a#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#9d83319d-bd64-40f9-b439-53e267f71f3a#used| () Bool)
+(declare-fun |feature#9d83319d-bd64-40f9-b439-53e267f71f3a#cardinality| () Int)
+(declare-fun |feature#c0f83d43-3ec1-4ac8-8d5d-4c3c7307d5a0#used| () Bool)
+(declare-fun |feature#c0f83d43-3ec1-4ac8-8d5d-4c3c7307d5a0#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#9d83319d-bd64-40f9-b439-53e267f71f3a#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#c0f83d43-3ec1-4ac8-8d5d-4c3c7307d5a0#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#c0f83d43-3ec1-4ac8-8d5d-4c3c7307d5a0#cardinality| () Int)
+(declare-fun |feature#FEATURE_DIAGRAM_INTERNAL#child_cardinality| () Int)
+(declare-fun |feature#FEATURE_DIAGRAM_INTERNAL#cardinality| () Int)
+(declare-fun |feature#c35ababc-9bc2-4e1a-b990-8fe8dc46febb#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#c35ababc-9bc2-4e1a-b990-8fe8dc46febb#used| () Bool)
+(declare-fun |feature#c35ababc-9bc2-4e1a-b990-8fe8dc46febb#cardinality| () Int)
+(declare-fun |feature#4012fb3e-d5e5-4b5f-a22d-ac3d36ea060a#used| () Bool)
+(declare-fun |feature#4012fb3e-d5e5-4b5f-a22d-ac3d36ea060a#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#c35ababc-9bc2-4e1a-b990-8fe8dc46febb#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#4012fb3e-d5e5-4b5f-a22d-ac3d36ea060a#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#4012fb3e-d5e5-4b5f-a22d-ac3d36ea060a#cardinality| () Int)
+(declare-fun |feature#FEATURE_DIAGRAM_EXTERNAL#used| () Bool)
+(declare-fun |feature#FEATURE_DIAGRAM_EXTERNAL#global_cardinality| () Int)
+(declare-fun |feature#1e3ecf48-b9fd-455f-a201-45b492c62521#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#1e3ecf48-b9fd-455f-a201-45b492c62521#used| () Bool)
+(declare-fun |feature#1e3ecf48-b9fd-455f-a201-45b492c62521#cardinality| () Int)
+(declare-fun |feature#90c84e64-1198-4b65-b7c6-705aa577c14b#used| () Bool)
+(declare-fun |feature#90c84e64-1198-4b65-b7c6-705aa577c14b#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#1e3ecf48-b9fd-455f-a201-45b492c62521#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#e2a6da18-6bfa-4732-a178-8b9775828310#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#e2a6da18-6bfa-4732-a178-8b9775828310#used| () Bool)
+(declare-fun |feature#e2a6da18-6bfa-4732-a178-8b9775828310#cardinality| () Int)
+(declare-fun |feature#e2a6da18-6bfa-4732-a178-8b9775828310#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#90c84e64-1198-4b65-b7c6-705aa577c14b#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#90c84e64-1198-4b65-b7c6-705aa577c14b#cardinality| () Int)
+(declare-fun |feature#c923e063-767c-47d8-afde-d2ef68cfdb2e#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#c923e063-767c-47d8-afde-d2ef68cfdb2e#used| () Bool)
+(declare-fun |feature#c923e063-767c-47d8-afde-d2ef68cfdb2e#cardinality| () Int)
+(declare-fun |feature#81fb4d60-a93a-4c5e-bd9f-65c5549f4c49#used| () Bool)
+(declare-fun |feature#81fb4d60-a93a-4c5e-bd9f-65c5549f4c49#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#c923e063-767c-47d8-afde-d2ef68cfdb2e#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#f964e019-3c74-4d7c-91c9-af6877da76ad#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#f964e019-3c74-4d7c-91c9-af6877da76ad#used| () Bool)
+(declare-fun |feature#f964e019-3c74-4d7c-91c9-af6877da76ad#cardinality| () Int)
+(declare-fun |feature#f964e019-3c74-4d7c-91c9-af6877da76ad#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#81fb4d60-a93a-4c5e-bd9f-65c5549f4c49#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#81fb4d60-a93a-4c5e-bd9f-65c5549f4c49#cardinality| () Int)
+(declare-fun |feature#c55e78b2-9c5d-4e49-a1e7-b9013f7ad524#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#c55e78b2-9c5d-4e49-a1e7-b9013f7ad524#used| () Bool)
+(declare-fun |feature#c55e78b2-9c5d-4e49-a1e7-b9013f7ad524#cardinality| () Int)
+(declare-fun |feature#f4dd4132-581c-4795-9c32-604861eadd25#used| () Bool)
+(declare-fun |feature#f4dd4132-581c-4795-9c32-604861eadd25#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#c55e78b2-9c5d-4e49-a1e7-b9013f7ad524#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#f4dd4132-581c-4795-9c32-604861eadd25#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#f4dd4132-581c-4795-9c32-604861eadd25#cardinality| () Int)
+(declare-fun |feature#3c338aef-4362-4bf0-b2ce-ee946166fb92#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#3c338aef-4362-4bf0-b2ce-ee946166fb92#used| () Bool)
+(declare-fun |feature#3c338aef-4362-4bf0-b2ce-ee946166fb92#cardinality| () Int)
+(declare-fun |feature#e63463a3-ad84-49fd-a77f-0cdb81cbf7c2#used| () Bool)
+(declare-fun |feature#e63463a3-ad84-49fd-a77f-0cdb81cbf7c2#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#3c338aef-4362-4bf0-b2ce-ee946166fb92#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#cee9b12b-cd98-4234-9fd1-e5c37c729999#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#cee9b12b-cd98-4234-9fd1-e5c37c729999#used| () Bool)
+(declare-fun |feature#cee9b12b-cd98-4234-9fd1-e5c37c729999#cardinality| () Int)
+(declare-fun |feature#cee9b12b-cd98-4234-9fd1-e5c37c729999#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#e63463a3-ad84-49fd-a77f-0cdb81cbf7c2#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#e63463a3-ad84-49fd-a77f-0cdb81cbf7c2#cardinality| () Int)
+(declare-fun |feature#809989ed-5d5c-4f31-9462-c8a98ae57a1d#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#809989ed-5d5c-4f31-9462-c8a98ae57a1d#used| () Bool)
+(declare-fun |feature#809989ed-5d5c-4f31-9462-c8a98ae57a1d#cardinality| () Int)
+(declare-fun |feature#b1ed2d2c-08ab-49f8-a2d4-d523588d3116#used| () Bool)
+(declare-fun |feature#b1ed2d2c-08ab-49f8-a2d4-d523588d3116#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#809989ed-5d5c-4f31-9462-c8a98ae57a1d#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#b1ed2d2c-08ab-49f8-a2d4-d523588d3116#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#b1ed2d2c-08ab-49f8-a2d4-d523588d3116#cardinality| () Int)
+(declare-fun |feature#8ee79515-848e-4e3c-9ee4-525ce227d3a8#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#8ee79515-848e-4e3c-9ee4-525ce227d3a8#used| () Bool)
+(declare-fun |feature#8ee79515-848e-4e3c-9ee4-525ce227d3a8#cardinality| () Int)
+(declare-fun |feature#a68c2553-f8e3-4974-bd6b-2a46caacbbc2#used| () Bool)
+(declare-fun |feature#a68c2553-f8e3-4974-bd6b-2a46caacbbc2#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#8ee79515-848e-4e3c-9ee4-525ce227d3a8#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#77d06b7b-4925-42fb-9b98-34dd8d155324#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#77d06b7b-4925-42fb-9b98-34dd8d155324#used| () Bool)
+(declare-fun |feature#77d06b7b-4925-42fb-9b98-34dd8d155324#cardinality| () Int)
+(declare-fun |feature#77d06b7b-4925-42fb-9b98-34dd8d155324#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#a68c2553-f8e3-4974-bd6b-2a46caacbbc2#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#a68c2553-f8e3-4974-bd6b-2a46caacbbc2#cardinality| () Int)
+(declare-fun |feature#24c46d2d-cb58-44d6-b651-db321aa0481a#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#24c46d2d-cb58-44d6-b651-db321aa0481a#used| () Bool)
+(declare-fun |feature#24c46d2d-cb58-44d6-b651-db321aa0481a#cardinality| () Int)
+(declare-fun |feature#d4fee036-7f97-4ed9-9ab9-b22bd98eabb1#used| () Bool)
+(declare-fun |feature#d4fee036-7f97-4ed9-9ab9-b22bd98eabb1#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#24c46d2d-cb58-44d6-b651-db321aa0481a#global_cardinality|
+             ()
+             Int)
+(declare-fun |feature#d4fee036-7f97-4ed9-9ab9-b22bd98eabb1#child_cardinality|
+             ()
+             Int)
+(declare-fun |feature#d4fee036-7f97-4ed9-9ab9-b22bd98eabb1#cardinality| () Int)
+(declare-fun |feature#FEATURE_DIAGRAM_EXTERNAL#child_cardinality| () Int)
+(declare-fun |feature#FEATURE_DIAGRAM_EXTERNAL#cardinality| () Int)
+(declare-fun |element#b3688c4b-ac08-495c-95ad-2d6e78e9f506#cardinality| () Int)
+(declare-fun |element#f00c48b5-0928-4ff9-8dd2-5b13848af447#cardinality| () Int)
+(declare-fun |element#79361956-db07-4fc4-97c4-87cfb094b25a#cardinality| () Int)
+(declare-fun |element#1d9cc3e9-3836-43f7-a8ee-3395813f85d4#cardinality| () Int)
+(declare-fun |element#25b341c6-ef9e-4c9a-9ac2-44649e9ddf11#cardinality| () Int)
+(declare-fun |element#e3b7088c-c111-49ad-bc87-38cf24cdc9bf#cardinality| () Int)
+(declare-fun |element#a21ff602-1de1-446f-975e-367d70ee774b#cardinality| () Int)
+(declare-fun |element#c43ed8a6-3fd1-4a1b-a61b-bae27908d3b8#cardinality| () Int)
+(declare-fun |element#606842a6-3857-4741-88c0-ba67979e73ae#cardinality| () Int)
+(declare-fun |element#57e116be-1441-4256-9a46-de1c894164b0#cardinality| () Int)
+(declare-fun |element#454610c8-7c22-4ced-92be-4aa06d99678e#cardinality| () Int)
+(declare-fun |element#0b9c783b-c95e-4368-8eaf-e31a3e9c8a3d#cardinality| () Int)
+(declare-fun |element#d6672085-31f5-445a-9ccc-d4fad433f210#cardinality| () Int)
+(declare-fun |element#908f2be0-1992-42ad-8468-95ef3f5a4813#cardinality| () Int)
+(declare-fun |element#56a4e8b9-2dd7-4f26-8be5-754b5a065bf8#cardinality| () Int)
+(declare-fun |element#439d5ab2-5ed9-4f66-bbf2-211e8412daa3#cardinality| () Int)
+(declare-fun |element#c299acd6-002d-45d5-be99-e6b292f60948#cardinality| () Int)
+(declare-fun |element#96a21ba0-5e78-4637-939d-afb5a6506e60#cardinality| () Int)
+(declare-fun |element#fc85a51f-ed2f-4271-90ba-aafa79e4cc14#cardinality| () Int)
+(declare-fun |element#b6057432-f882-4973-94fb-0bc761640fcb#cardinality| () Int)
+(declare-fun |element#b5f0f56f-211c-46a4-9993-393b0fc3a8d2#cardinality| () Int)
+(declare-fun |element#bd2c293e-ceb9-4888-8078-8fe44b02e9ce#cardinality| () Int)
+(declare-fun |element#d4438be4-7899-4666-b7f6-df48095cdee4#cardinality| () Int)
+(declare-fun |element#b8937977-10d1-4988-a11e-8449fdd1a96b#cardinality| () Int)
+(declare-fun |element#90deb363-5584-4f60-a827-ba572b2ca36a#cardinality| () Int)
+(declare-fun |element#7a485388-3d82-4f52-bf42-6623a0279336#cardinality| () Int)
+(declare-fun |element#a409c00d-f1b0-4a9d-88ff-c722c09d0fc1#cardinality| () Int)
+(declare-fun |element#49cf2e8a-bf07-49c1-a822-c2a13d338f48#cardinality| () Int)
+(declare-fun |element#3d14cb61-aa68-4120-90de-d89977eea14e#cardinality| () Int)
+(declare-fun |element#4473850f-ff9e-48f9-8381-fbcabbe47dd7#cardinality| () Int)
+(declare-fun |element#e9334163-4968-4c08-a101-34f0c366459d#cardinality| () Int)
+(declare-fun |element#51b14832-e6cd-4a9d-819a-1e91e6a04b11#cardinality| () Int)
+(declare-fun |element#c886b815-375a-4267-85f8-ca8dd720dfe9#cardinality| () Int)
+(declare-fun |element#fcb428a0-3f25-48de-9203-f6b43fb955dc#cardinality| () Int)
+(declare-fun |element#9fac21a5-987e-4daa-808e-53f1abab1fee#cardinality| () Int)
+(declare-fun |element#52056a12-798e-4590-a38b-5a0ddabb2bda#cardinality| () Int)
+(declare-fun |element#d3b14874-e7f5-4d11-8a62-8cd9972ce892#cardinality| () Int)
+(declare-fun |element#9d553ce8-4823-46f0-8324-eae5eec7c469#cardinality| () Int)
+(declare-fun |element#ded3da8a-dcc4-43e9-9746-931e49e7c874#cardinality| () Int)
+(declare-fun |element#d0195f93-c883-4863-ac47-0cbec724b3b6#cardinality| () Int)
+(declare-fun |element#02cc2b6d-8d1e-414a-8fd1-8f4e4a437aa1#cardinality| () Int)
+(declare-fun |element#e4ef02ff-4535-49b6-a8bc-84c39afcefe9#cardinality| () Int)
+(declare-fun |element#99b55326-ab9b-4f96-9495-3125350abc10#cardinality| () Int)
+(declare-fun |element#69d3daf3-c3c3-419e-b5e7-0ec8ef366cce#cardinality| () Int)
+(declare-fun |element#2ede1fd4-f065-4d80-a144-347ff703c6cf#cardinality| () Int)
+(declare-fun |element#87c3f36b-b71e-4025-a205-32d28d80ead5#cardinality| () Int)
+(declare-fun |element#fbacde88-52bd-4754-9530-bdbee4e2db19#cardinality| () Int)
+(declare-fun |element#fd469e41-9306-42f2-b037-3aacc655f983#cardinality| () Int)
+(declare-fun |element#2565b3b7-00be-4b08-9f2e-c84ba612aa60#cardinality| () Int)
+(declare-fun |element#2c4a678d-c2ba-48f3-9d9c-61d714c268bc#cardinality| () Int)
+(declare-fun |element#d8c94b56-cfb1-4ba1-81e5-13c22e6cdb78#cardinality| () Int)
+(declare-fun |element#07005119-3fb3-4bc6-86cc-6191ab268f06#cardinality| () Int)
+(declare-fun |element#b8c6a2f8-c339-4e98-9d59-8012bc68885a#cardinality| () Int)
+(declare-fun |element#b6fc4cf6-50d0-4312-a2a7-b4a5b31fabe0#cardinality| () Int)
+(declare-fun |element#cfebf6dc-eb21-4cc2-8bd2-ffb89569ace0#cardinality| () Int)
+(declare-fun |element#0af34669-7387-4953-916c-1f3b1e1583dd#cardinality| () Int)
+(declare-fun |element#c3e059b4-1669-4587-a2cb-1c85f73f2d5e#cardinality| () Int)
+(declare-fun |element#4fe7d629-5d32-4d1c-9b95-bf3505765499#cardinality| () Int)
+(declare-fun |element#5536d6dd-eae8-4388-ac59-f325aa878639#cardinality| () Int)
+(declare-fun |element#f6e0027a-9a39-4aa0-bb56-3562170f81c0#cardinality| () Int)
+(declare-fun |element#f21a6a0d-4d15-47e6-a995-e5067708aff1#cardinality| () Int)
+(declare-fun |element#0d9d134b-075c-45fe-8427-29a13096150d#cardinality| () Int)
+(declare-fun |element#80027c4a-0bb5-4541-901b-b54c515587ab#cardinality| () Int)
+(declare-fun |element#d96601bc-88b3-48ee-859e-4b42b7bb38d1#cardinality| () Int)
+(declare-fun |element#c2beacc7-6be0-4d4c-a35c-2f243b0e41f2#cardinality| () Int)
+(declare-fun |element#b0687eff-186c-4f56-91d4-907a17a22c15#cardinality| () Int)
+(declare-fun |element#6e02e5bf-1243-4fea-9742-523916d62125#cardinality| () Int)
+(declare-fun |element#deb8181a-3979-4d69-ac09-af882d027fda#cardinality| () Int)
+(declare-fun |element#e2bfc2b4-45c8-4579-8d5d-69c3ea9e7205#cardinality| () Int)
+(declare-fun |element#16180bc8-ae6a-4993-84c8-248774391202#cardinality| () Int)
+(declare-fun |element#e4c07f87-fe33-454f-b787-a30e85799f1a#cardinality| () Int)
+(declare-fun |element#cd62af28-1bd0-456b-83c0-3b67b9e2bba7#cardinality| () Int)
+(declare-fun |element#FEATURE_DIAGRAM_INTERNAL_ELEMENT#cardinality| () Int)
+(declare-fun |element#0448a39a-7bbc-4c64-a2b8-39394c06ab24#cardinality| () Int)
+(declare-fun |element#75dc071b-f8c6-48dc-9280-d64fe68b71f7#cardinality| () Int)
+(declare-fun |element#65fb6687-b9c2-4ddf-9a31-158fa0fc10a9#cardinality| () Int)
+(declare-fun |element#72ad65f6-6e4d-42db-8a8c-1e0822a7cf7f#cardinality| () Int)
+(declare-fun |element#d7716c89-56b3-4fb1-8b52-192645d7f8f6#cardinality| () Int)
+(declare-fun |element#b9bcce7f-0b35-4991-8876-48fa41d6c643#cardinality| () Int)
+(declare-fun |element#752b9737-b6ef-49fd-8869-5d076690edfc#cardinality| () Int)
+(declare-fun |element#b22bd000-0d2f-46a2-a5a2-0471100c0ae4#cardinality| () Int)
+(declare-fun |element#35186e7b-443d-430e-affb-930592ceb74d#cardinality| () Int)
+(declare-fun |element#136892ca-7fe1-40c2-9db2-850d8d84c2e6#cardinality| () Int)
+(declare-fun |element#55dd97f8-c9a1-49f7-a84a-3b18479e772e#cardinality| () Int)
+(declare-fun |element#b1fa5610-720d-457f-8d48-91187c9cfddd#cardinality| () Int)
+(declare-fun |element#29de1a99-c337-48fd-abe7-b2382426e2db#cardinality| () Int)
+(declare-fun |element#936a1cd6-d7b9-4874-810a-78182b84ff83#cardinality| () Int)
+(declare-fun |element#e5e43adc-51a3-4080-8401-980af3e0d7df#cardinality| () Int)
+(declare-fun |element#156e739b-a64f-4d35-b00e-0e80c84a58ff#cardinality| () Int)
+(declare-fun |element#7e5c78d5-938b-4fd8-b645-a03baca56da4#cardinality| () Int)
+(declare-fun |element#8fc7e3db-6ba5-44b3-8fdc-85cae46ec489#cardinality| () Int)
+(declare-fun |element#a1fe528e-7f55-4581-93fc-9e2c3c85c462#cardinality| () Int)
+(declare-fun |element#4c711e23-9099-4caa-8291-21a0167a4f9a#cardinality| () Int)
+(declare-fun |element#FEATURE_DIAGRAM_EXTERNAL_ELEMENT#cardinality| () Int)
+(assert (and (= |element#FEATURE_DIAGRAM_EXTERNAL_ELEMENT#cardinality|
+        (+ |feature#FEATURE_DIAGRAM_EXTERNAL#global_cardinality|))
+     (= |element#4c711e23-9099-4caa-8291-21a0167a4f9a#cardinality|
+        (+ |feature#d4fee036-7f97-4ed9-9ab9-b22bd98eabb1#global_cardinality|))
+     (= |element#a1fe528e-7f55-4581-93fc-9e2c3c85c462#cardinality|
+        (+ |feature#24c46d2d-cb58-44d6-b651-db321aa0481a#global_cardinality|))
+     (= |element#8fc7e3db-6ba5-44b3-8fdc-85cae46ec489#cardinality|
+        (+ |feature#a68c2553-f8e3-4974-bd6b-2a46caacbbc2#global_cardinality|))
+     (= |element#7e5c78d5-938b-4fd8-b645-a03baca56da4#cardinality|
+        (+ |feature#77d06b7b-4925-42fb-9b98-34dd8d155324#global_cardinality|))
+     (= |element#156e739b-a64f-4d35-b00e-0e80c84a58ff#cardinality|
+        (+ |feature#8ee79515-848e-4e3c-9ee4-525ce227d3a8#global_cardinality|))
+     (= |element#e5e43adc-51a3-4080-8401-980af3e0d7df#cardinality|
+        (+ |feature#b1ed2d2c-08ab-49f8-a2d4-d523588d3116#global_cardinality|))
+     (= |element#936a1cd6-d7b9-4874-810a-78182b84ff83#cardinality|
+        (+ |feature#809989ed-5d5c-4f31-9462-c8a98ae57a1d#global_cardinality|))
+     (= |element#29de1a99-c337-48fd-abe7-b2382426e2db#cardinality|
+        (+ |feature#e63463a3-ad84-49fd-a77f-0cdb81cbf7c2#global_cardinality|))
+     (= |element#b1fa5610-720d-457f-8d48-91187c9cfddd#cardinality|
+        (+ |feature#cee9b12b-cd98-4234-9fd1-e5c37c729999#global_cardinality|))
+     (= |element#55dd97f8-c9a1-49f7-a84a-3b18479e772e#cardinality|
+        (+ |feature#3c338aef-4362-4bf0-b2ce-ee946166fb92#global_cardinality|))
+     (= |element#136892ca-7fe1-40c2-9db2-850d8d84c2e6#cardinality|
+        (+ |feature#f4dd4132-581c-4795-9c32-604861eadd25#global_cardinality|))
+     (= |element#35186e7b-443d-430e-affb-930592ceb74d#cardinality|
+        (+ |feature#c55e78b2-9c5d-4e49-a1e7-b9013f7ad524#global_cardinality|))
+     (= |element#b22bd000-0d2f-46a2-a5a2-0471100c0ae4#cardinality|
+        (+ |feature#81fb4d60-a93a-4c5e-bd9f-65c5549f4c49#global_cardinality|))
+     (= |element#752b9737-b6ef-49fd-8869-5d076690edfc#cardinality|
+        (+ |feature#f964e019-3c74-4d7c-91c9-af6877da76ad#global_cardinality|))
+     (= |element#b9bcce7f-0b35-4991-8876-48fa41d6c643#cardinality|
+        (+ |feature#c923e063-767c-47d8-afde-d2ef68cfdb2e#global_cardinality|))
+     (= |element#d7716c89-56b3-4fb1-8b52-192645d7f8f6#cardinality|
+        (+ |feature#90c84e64-1198-4b65-b7c6-705aa577c14b#global_cardinality|))
+     (= |element#72ad65f6-6e4d-42db-8a8c-1e0822a7cf7f#cardinality|
+        (+ |feature#e2a6da18-6bfa-4732-a178-8b9775828310#global_cardinality|))
+     (= |element#65fb6687-b9c2-4ddf-9a31-158fa0fc10a9#cardinality|
+        (+ |feature#1e3ecf48-b9fd-455f-a201-45b492c62521#global_cardinality|))
+     (= |element#75dc071b-f8c6-48dc-9280-d64fe68b71f7#cardinality|
+        (+ |feature#4012fb3e-d5e5-4b5f-a22d-ac3d36ea060a#global_cardinality|))
+     (= |element#0448a39a-7bbc-4c64-a2b8-39394c06ab24#cardinality|
+        (+ |feature#c35ababc-9bc2-4e1a-b990-8fe8dc46febb#global_cardinality|))
+     (= |element#FEATURE_DIAGRAM_INTERNAL_ELEMENT#cardinality|
+        (+ |feature#FEATURE_DIAGRAM_INTERNAL#global_cardinality|))
+     (= |element#cd62af28-1bd0-456b-83c0-3b67b9e2bba7#cardinality|
+        (+ |feature#c0f83d43-3ec1-4ac8-8d5d-4c3c7307d5a0#global_cardinality|))
+     (= |element#e4c07f87-fe33-454f-b787-a30e85799f1a#cardinality|
+        (+ |feature#9d83319d-bd64-40f9-b439-53e267f71f3a#global_cardinality|))
+     (= |element#16180bc8-ae6a-4993-84c8-248774391202#cardinality|
+        (+ |feature#e7f0be8e-dd80-4b83-abe4-58c9819168c5#global_cardinality|))
+     (= |element#e2bfc2b4-45c8-4579-8d5d-69c3ea9e7205#cardinality|
+        (+ |feature#2bdcdfeb-db17-4b67-9798-5db7ed10e5e1#global_cardinality|))
+     (= |element#deb8181a-3979-4d69-ac09-af882d027fda#cardinality|
+        (+ |feature#c96ae0c1-d312-4261-9f1a-71e89ad8ec19#global_cardinality|))
+     (= |element#6e02e5bf-1243-4fea-9742-523916d62125#cardinality|
+        (+ |feature#0755f27d-4ff6-46eb-b64f-aa7f049ce564#global_cardinality|))
+     (= |element#b0687eff-186c-4f56-91d4-907a17a22c15#cardinality|
+        (+ |feature#f97445c5-f214-4149-a0c5-9d3a31601c9c#global_cardinality|))
+     (= |element#c2beacc7-6be0-4d4c-a35c-2f243b0e41f2#cardinality|
+        (+ |feature#648ec7b0-7439-4547-a090-a2b9eb0ba2a8#global_cardinality|))
+     (= |element#d96601bc-88b3-48ee-859e-4b42b7bb38d1#cardinality|
+        (+ |feature#c83a2e43-7930-4442-bdfa-ab4285e7388e#global_cardinality|))
+     (= |element#80027c4a-0bb5-4541-901b-b54c515587ab#cardinality|
+        (+ |feature#abee5d8f-48f8-408d-b47d-fa4213292ecf#global_cardinality|))
+     (= |element#0d9d134b-075c-45fe-8427-29a13096150d#cardinality|
+        (+ |feature#f05d0797-c3df-499b-9b69-cb49b720d705#global_cardinality|))
+     (= |element#f21a6a0d-4d15-47e6-a995-e5067708aff1#cardinality|
+        (+ |feature#e2a4ab97-2fe4-45cf-83e7-5b528c0b5ce2#global_cardinality|))
+     (= |element#f6e0027a-9a39-4aa0-bb56-3562170f81c0#cardinality|
+        (+ |feature#2b7b047d-e963-4b6a-9ff7-ac2bda7504d5#global_cardinality|))
+     (= |element#5536d6dd-eae8-4388-ac59-f325aa878639#cardinality|
+        (+ |feature#5051b8d3-fa1d-4e4e-ac16-398a816e6aa4#global_cardinality|))
+     (= |element#4fe7d629-5d32-4d1c-9b95-bf3505765499#cardinality|
+        (+ |feature#9b213f90-f733-41f4-9db5-96a881b185d5#global_cardinality|))
+     (= |element#c3e059b4-1669-4587-a2cb-1c85f73f2d5e#cardinality|
+        (+ |feature#54745be9-90da-41ed-9b84-5fa1c1d5f88b#global_cardinality|))
+     (= |element#0af34669-7387-4953-916c-1f3b1e1583dd#cardinality|
+        (+ |feature#0fc943fb-fb26-4d7d-a581-e94fe4f94703#global_cardinality|))
+     (= |element#cfebf6dc-eb21-4cc2-8bd2-ffb89569ace0#cardinality|
+        (+ |feature#fa5e2245-364a-4c9d-9615-3f9c12da95a8#global_cardinality|))
+     (= |element#b6fc4cf6-50d0-4312-a2a7-b4a5b31fabe0#cardinality|
+        (+ |feature#905f65d8-78ff-4b55-99c0-2f066e909c02#global_cardinality|))
+     (= |element#b8c6a2f8-c339-4e98-9d59-8012bc68885a#cardinality|
+        (+ |feature#8a2764e2-d2d9-450b-b1c7-6e737bf9ffcb#global_cardinality|))
+     (= |element#07005119-3fb3-4bc6-86cc-6191ab268f06#cardinality|
+        (+ |feature#8e013254-f29c-41d8-9688-df9d713ddb54#global_cardinality|))
+     (= |element#d8c94b56-cfb1-4ba1-81e5-13c22e6cdb78#cardinality|
+        (+ |feature#2a39dd1e-82b0-4855-8926-a8fae7505ca4#global_cardinality|))
+     (= |element#2c4a678d-c2ba-48f3-9d9c-61d714c268bc#cardinality|
+        (+ |feature#d1edd52a-07a1-4694-a2ff-d18ceeffd251#global_cardinality|))
+     (= |element#2565b3b7-00be-4b08-9f2e-c84ba612aa60#cardinality|
+        (+ |feature#d94f8f64-69bb-4faa-b6a3-4ad3f86466c5#global_cardinality|))
+     (= |element#fd469e41-9306-42f2-b037-3aacc655f983#cardinality|
+        (+ |feature#9d2fdcc7-cb41-45b8-91b5-5c3b0cf8aed8#global_cardinality|))
+     (= |element#fbacde88-52bd-4754-9530-bdbee4e2db19#cardinality|
+        (+ |feature#9498c562-69d0-428c-b7f6-98b80f8d8b40#global_cardinality|))
+     (= |element#87c3f36b-b71e-4025-a205-32d28d80ead5#cardinality|
+        (+ |feature#dea185d5-9061-405b-adf2-0d8dafdbb787#global_cardinality|))
+     (= |element#2ede1fd4-f065-4d80-a144-347ff703c6cf#cardinality|
+        (+ |feature#7ea3c1ad-9cf5-4f7f-a2fb-9ba646e8268d#global_cardinality|))
+     (= |element#69d3daf3-c3c3-419e-b5e7-0ec8ef366cce#cardinality|
+        (+ |feature#d08e5919-29b6-4328-9eaf-69363b09d587#global_cardinality|))
+     (= |element#99b55326-ab9b-4f96-9495-3125350abc10#cardinality|
+        (+ |feature#237bd3a4-368d-4e93-9573-87302b08464b#global_cardinality|))
+     (= |element#e4ef02ff-4535-49b6-a8bc-84c39afcefe9#cardinality|
+        (+ |feature#4f6c7273-6bcb-4355-8b61-3380e03d6089#global_cardinality|))
+     (= |element#02cc2b6d-8d1e-414a-8fd1-8f4e4a437aa1#cardinality|
+        (+ |feature#99a5e6f0-a865-4500-aac8-5c8ff2415f90#global_cardinality|))
+     (= |element#d0195f93-c883-4863-ac47-0cbec724b3b6#cardinality|
+        (+ |feature#75b35115-5ebe-413b-a4a2-2114309de1c7#global_cardinality|))
+     (= |element#ded3da8a-dcc4-43e9-9746-931e49e7c874#cardinality|
+        (+ |feature#b0fc7b05-4cb6-431e-b973-45f5431c9169#global_cardinality|))
+     (= |element#9d553ce8-4823-46f0-8324-eae5eec7c469#cardinality|
+        (+ |feature#9f5a8c62-a1a7-426a-a691-2226795f0446#global_cardinality|))
+     (= |element#d3b14874-e7f5-4d11-8a62-8cd9972ce892#cardinality|
+        (+ |feature#1aa71ed1-d18b-47ca-be4b-7d890ed51d05#global_cardinality|))
+     (= |element#52056a12-798e-4590-a38b-5a0ddabb2bda#cardinality|
+        (+ |feature#efbb64d5-3002-411a-86cc-521f6bd9c367#global_cardinality|))
+     (= |element#9fac21a5-987e-4daa-808e-53f1abab1fee#cardinality|
+        (+ |feature#be756e9c-1b0d-4704-b8cb-be9dd3e82b52#global_cardinality|))
+     (= |element#fcb428a0-3f25-48de-9203-f6b43fb955dc#cardinality|
+        (+ |feature#49f80289-4b06-4e9f-8212-9f672af7a6bc#global_cardinality|))
+     (= |element#c886b815-375a-4267-85f8-ca8dd720dfe9#cardinality|
+        (+ |feature#0066001f-6b20-4164-aa5f-fc4b926daec9#global_cardinality|))
+     (= |element#51b14832-e6cd-4a9d-819a-1e91e6a04b11#cardinality|
+        (+ |feature#e165cd49-c095-44e7-9592-c613f92faedd#global_cardinality|))
+     (= |element#e9334163-4968-4c08-a101-34f0c366459d#cardinality|
+        (+ |feature#f4680373-0cdf-4071-bf75-b12f8e1cb595#global_cardinality|))
+     (= |element#4473850f-ff9e-48f9-8381-fbcabbe47dd7#cardinality|
+        (+ |feature#81b23e17-4303-4778-9e19-05e65787b69d#global_cardinality|))
+     (= |element#3d14cb61-aa68-4120-90de-d89977eea14e#cardinality|
+        (+ |feature#eebd2986-a552-4d43-a1cf-bbdad747b0bb#global_cardinality|))
+     (= |element#49cf2e8a-bf07-49c1-a822-c2a13d338f48#cardinality|
+        (+ |feature#8a56f61f-a5a9-4e26-ac20-e773c98568b6#global_cardinality|))
+     (= |element#a409c00d-f1b0-4a9d-88ff-c722c09d0fc1#cardinality|
+        (+ |feature#a8bf78fd-1555-43f2-b8c7-05f71fedfd58#global_cardinality|))
+     (= |element#7a485388-3d82-4f52-bf42-6623a0279336#cardinality|
+        (+ |feature#2b09c974-4632-4637-a499-97c5eee433ed#global_cardinality|))
+     (= |element#90deb363-5584-4f60-a827-ba572b2ca36a#cardinality|
+        (+ |feature#b15793f9-343a-4918-9e75-01032530016b#global_cardinality|))
+     (= |element#b8937977-10d1-4988-a11e-8449fdd1a96b#cardinality|
+        (+ |feature#1569fadb-9413-426c-8086-7414851af3fa#global_cardinality|))
+     (= |element#d4438be4-7899-4666-b7f6-df48095cdee4#cardinality|
+        (+ |feature#b44f91b8-bc29-46a1-b46a-3a9c7eca5498#global_cardinality|))
+     (= |element#bd2c293e-ceb9-4888-8078-8fe44b02e9ce#cardinality|
+        (+ |feature#382ca6cb-f30d-447e-86f3-0d321ea6ce89#global_cardinality|))
+     (= |element#b5f0f56f-211c-46a4-9993-393b0fc3a8d2#cardinality|
+        (+ |feature#bd8bf70f-e2b7-4040-bb7b-1da610f1f5e9#global_cardinality|))
+     (= |element#b6057432-f882-4973-94fb-0bc761640fcb#cardinality|
+        (+ |feature#188a84fb-e337-4cf4-86b5-81d97cbdfe02#global_cardinality|))
+     (= |element#fc85a51f-ed2f-4271-90ba-aafa79e4cc14#cardinality|
+        (+ |feature#e526639b-c896-4491-a361-4c3331d542e5#global_cardinality|))
+     (= |element#96a21ba0-5e78-4637-939d-afb5a6506e60#cardinality|
+        (+ |feature#be01eab2-975c-404c-93f3-7748adebc97d#global_cardinality|))
+     (= |element#c299acd6-002d-45d5-be99-e6b292f60948#cardinality|
+        (+ |feature#9aee274c-9745-4df7-882f-9b9b0bb93aa6#global_cardinality|))
+     (= |element#439d5ab2-5ed9-4f66-bbf2-211e8412daa3#cardinality|
+        (+ |feature#1d98581f-7f70-4c8b-819f-79c560a14846#global_cardinality|))
+     (= |element#56a4e8b9-2dd7-4f26-8be5-754b5a065bf8#cardinality|
+        (+ |feature#02c163a4-8a32-4453-a051-a4b482c29e84#global_cardinality|))
+     (= |element#908f2be0-1992-42ad-8468-95ef3f5a4813#cardinality|
+        (+ |feature#78387918-7e0f-4c05-a0bb-945d0b811943#global_cardinality|))
+     (= |element#d6672085-31f5-445a-9ccc-d4fad433f210#cardinality|
+        (+ |feature#0f02e073-b07a-4c1d-bdd0-64ae7945b339#global_cardinality|))
+     (= |element#0b9c783b-c95e-4368-8eaf-e31a3e9c8a3d#cardinality|
+        (+ |feature#5b0b6b00-9636-4141-8baa-789ac828aabd#global_cardinality|))
+     (= |element#454610c8-7c22-4ced-92be-4aa06d99678e#cardinality|
+        (+ |feature#90e19845-edc1-496a-baa3-b0a57d89e85c#global_cardinality|))
+     (= |element#57e116be-1441-4256-9a46-de1c894164b0#cardinality|
+        (+ |feature#e1aa28ba-01d4-4d53-9c7d-62ead80c55f9#global_cardinality|))
+     (= |element#606842a6-3857-4741-88c0-ba67979e73ae#cardinality|
+        (+ |feature#b2f57575-2f21-41aa-a9d9-a311bf0f0116#global_cardinality|))
+     (= |element#c43ed8a6-3fd1-4a1b-a61b-bae27908d3b8#cardinality|
+        (+ |feature#5d65de92-1ad0-4a99-b6f3-a96e2eaac0b4#global_cardinality|))
+     (= |element#a21ff602-1de1-446f-975e-367d70ee774b#cardinality|
+        (+ |feature#873b5ea0-071a-412e-89e7-371e7ec14048#global_cardinality|))
+     (= |element#e3b7088c-c111-49ad-bc87-38cf24cdc9bf#cardinality|
+        (+ |feature#544dc0af-bebf-4bef-8cc3-2cfdde1bb103#global_cardinality|))
+     (= |element#25b341c6-ef9e-4c9a-9ac2-44649e9ddf11#cardinality|
+        (+ |feature#7b81713e-4d90-40de-b5b9-feafd5bc608f#global_cardinality|))
+     (= |element#1d9cc3e9-3836-43f7-a8ee-3395813f85d4#cardinality|
+        (+ |feature#ffd263e7-7b87-41d5-9ed7-230ed5df25d2#global_cardinality|))
+     (= |element#79361956-db07-4fc4-97c4-87cfb094b25a#cardinality|
+        (+ |feature#a1c7af16-b865-41fa-962d-e50bacbbafa7#global_cardinality|))
+     (= |element#f00c48b5-0928-4ff9-8dd2-5b13848af447#cardinality|
+        (+ |feature#73801c0e-6bff-44c6-a735-acc4d7c73ae6#global_cardinality|))
+     (= |element#b3688c4b-ac08-495c-95ad-2d6e78e9f506#cardinality|
+        (+ |feature#75546e22-2e4f-46c4-8480-45fab69eb79a#global_cardinality|))
+     (= |feature#FEATURE_DIAGRAM_EXTERNAL#global_cardinality|
+        |feature#FEATURE_DIAGRAM_EXTERNAL#cardinality|)
+     (= |feature#FEATURE_DIAGRAM_EXTERNAL#cardinality| 1)
+     (>= |feature#FEATURE_DIAGRAM_EXTERNAL#cardinality| 0)
+     (= (> |feature#FEATURE_DIAGRAM_EXTERNAL#cardinality| 0)
+        |feature#FEATURE_DIAGRAM_EXTERNAL#used|)
+     (=> (and |feature#FEATURE_DIAGRAM_EXTERNAL#used| true)
+         (> |feature#FEATURE_DIAGRAM_EXTERNAL#child_cardinality| 0))
+     (=> (not |feature#FEATURE_DIAGRAM_EXTERNAL#used|)
+         (= |feature#FEATURE_DIAGRAM_EXTERNAL#child_cardinality| 0))
+     (= |feature#FEATURE_DIAGRAM_EXTERNAL#child_cardinality|
+        (+ (ite |feature#d4fee036-7f97-4ed9-9ab9-b22bd98eabb1#used| 1 0)
+           (ite |feature#a68c2553-f8e3-4974-bd6b-2a46caacbbc2#used| 1 0)
+           (ite |feature#b1ed2d2c-08ab-49f8-a2d4-d523588d3116#used| 1 0)
+           (ite |feature#e63463a3-ad84-49fd-a77f-0cdb81cbf7c2#used| 1 0)
+           (ite |feature#f4dd4132-581c-4795-9c32-604861eadd25#used| 1 0)
+           (ite |feature#81fb4d60-a93a-4c5e-bd9f-65c5549f4c49#used| 1 0)
+           (ite |feature#90c84e64-1198-4b65-b7c6-705aa577c14b#used| 1 0)
+           (ite |feature#4012fb3e-d5e5-4b5f-a22d-ac3d36ea060a#used| 1 0)))
+     (=> (and |feature#FEATURE_DIAGRAM_EXTERNAL#used| true)
+         (and (>= |feature#FEATURE_DIAGRAM_EXTERNAL#child_cardinality| 0)
+              (<= |feature#FEATURE_DIAGRAM_EXTERNAL#child_cardinality| 8)))
+     (=> (not |feature#FEATURE_DIAGRAM_EXTERNAL#used|)
+         (= |feature#d4fee036-7f97-4ed9-9ab9-b22bd98eabb1#cardinality| 0))
+     (= |feature#d4fee036-7f97-4ed9-9ab9-b22bd98eabb1#global_cardinality|
+        (* |feature#FEATURE_DIAGRAM_EXTERNAL#global_cardinality|
+           |feature#d4fee036-7f97-4ed9-9ab9-b22bd98eabb1#cardinality|))
+     (=> |feature#d4fee036-7f97-4ed9-9ab9-b22bd98eabb1#used|
+         |feature#FEATURE_DIAGRAM_EXTERNAL#used|)
+     (=> |feature#FEATURE_DIAGRAM_EXTERNAL#used|
+         (and (>= |feature#d4fee036-7f97-4ed9-9ab9-b22bd98eabb1#cardinality| 0)
+              (<= |feature#d4fee036-7f97-4ed9-9ab9-b22bd98eabb1#cardinality| 1)))
+     (>= |feature#d4fee036-7f97-4ed9-9ab9-b22bd98eabb1#cardinality| 0)
+     (= (> |feature#d4fee036-7f97-4ed9-9ab9-b22bd98eabb1#cardinality| 0)
+        |feature#d4fee036-7f97-4ed9-9ab9-b22bd98eabb1#used|)
+     (=> (and |feature#d4fee036-7f97-4ed9-9ab9-b22bd98eabb1#used| true)
+         (> |feature#d4fee036-7f97-4ed9-9ab9-b22bd98eabb1#child_cardinality| 0))
+     (=> (not |feature#d4fee036-7f97-4ed9-9ab9-b22bd98eabb1#used|)
+         (= |feature#d4fee036-7f97-4ed9-9ab9-b22bd98eabb1#child_cardinality| 0))
+     (= |feature#d4fee036-7f97-4ed9-9ab9-b22bd98eabb1#child_cardinality|
+        (+ (ite |feature#24c46d2d-cb58-44d6-b651-db321aa0481a#used| 1 0)))
+     (=> (and |feature#d4fee036-7f97-4ed9-9ab9-b22bd98eabb1#used| true)
+         (= |feature#d4fee036-7f97-4ed9-9ab9-b22bd98eabb1#child_cardinality| 1))
+     (=> (not |feature#d4fee036-7f97-4ed9-9ab9-b22bd98eabb1#used|)
+         (= |feature#24c46d2d-cb58-44d6-b651-db321aa0481a#cardinality| 0))
+     (= |feature#24c46d2d-cb58-44d6-b651-db321aa0481a#global_cardinality|
+        (* |feature#d4fee036-7f97-4ed9-9ab9-b22bd98eabb1#global_cardinality|
+           |feature#24c46d2d-cb58-44d6-b651-db321aa0481a#cardinality|))
+     (=> |feature#24c46d2d-cb58-44d6-b651-db321aa0481a#used|
+         |feature#d4fee036-7f97-4ed9-9ab9-b22bd98eabb1#used|)
+     (=> |feature#d4fee036-7f97-4ed9-9ab9-b22bd98eabb1#used|
+         (and (>= |feature#24c46d2d-cb58-44d6-b651-db321aa0481a#cardinality| 0)
+              (<= |feature#24c46d2d-cb58-44d6-b651-db321aa0481a#cardinality| 1)))
+     (>= |feature#24c46d2d-cb58-44d6-b651-db321aa0481a#cardinality| 0)
+     (= (> |feature#24c46d2d-cb58-44d6-b651-db321aa0481a#cardinality| 0)
+        |feature#24c46d2d-cb58-44d6-b651-db321aa0481a#used|)
+     (=> (and |feature#24c46d2d-cb58-44d6-b651-db321aa0481a#used| false)
+         (> |feature#24c46d2d-cb58-44d6-b651-db321aa0481a#child_cardinality| 0))
+     (=> (not |feature#24c46d2d-cb58-44d6-b651-db321aa0481a#used|)
+         (= |feature#24c46d2d-cb58-44d6-b651-db321aa0481a#child_cardinality| 0))
+     (= |feature#24c46d2d-cb58-44d6-b651-db321aa0481a#child_cardinality| 0)
+     (=> (and |feature#24c46d2d-cb58-44d6-b651-db321aa0481a#used| false)
+         (= |feature#24c46d2d-cb58-44d6-b651-db321aa0481a#child_cardinality| 1))
+     (=> (not |feature#FEATURE_DIAGRAM_EXTERNAL#used|)
+         (= |feature#a68c2553-f8e3-4974-bd6b-2a46caacbbc2#cardinality| 0))
+     (= |feature#a68c2553-f8e3-4974-bd6b-2a46caacbbc2#global_cardinality|
+        (* |feature#FEATURE_DIAGRAM_EXTERNAL#global_cardinality|
+           |feature#a68c2553-f8e3-4974-bd6b-2a46caacbbc2#cardinality|))
+     (=> |feature#a68c2553-f8e3-4974-bd6b-2a46caacbbc2#used|
+         |feature#FEATURE_DIAGRAM_EXTERNAL#used|)
+     (=> |feature#FEATURE_DIAGRAM_EXTERNAL#used|
+         (= |feature#a68c2553-f8e3-4974-bd6b-2a46caacbbc2#cardinality| 1))
+     (>= |feature#a68c2553-f8e3-4974-bd6b-2a46caacbbc2#cardinality| 0)
+     (= (> |feature#a68c2553-f8e3-4974-bd6b-2a46caacbbc2#cardinality| 0)
+        |feature#a68c2553-f8e3-4974-bd6b-2a46caacbbc2#used|)
+     (=> (and |feature#a68c2553-f8e3-4974-bd6b-2a46caacbbc2#used| true)
+         (> |feature#a68c2553-f8e3-4974-bd6b-2a46caacbbc2#child_cardinality| 0))
+     (=> (not |feature#a68c2553-f8e3-4974-bd6b-2a46caacbbc2#used|)
+         (= |feature#a68c2553-f8e3-4974-bd6b-2a46caacbbc2#child_cardinality| 0))
+     (= |feature#a68c2553-f8e3-4974-bd6b-2a46caacbbc2#child_cardinality|
+        (+ (ite |feature#77d06b7b-4925-42fb-9b98-34dd8d155324#used| 1 0)
+           (ite |feature#8ee79515-848e-4e3c-9ee4-525ce227d3a8#used| 1 0)))
+     (=> (and |feature#a68c2553-f8e3-4974-bd6b-2a46caacbbc2#used| true)
+         (= |feature#a68c2553-f8e3-4974-bd6b-2a46caacbbc2#child_cardinality| 1))
+     (=> (not |feature#a68c2553-f8e3-4974-bd6b-2a46caacbbc2#used|)
+         (= |feature#77d06b7b-4925-42fb-9b98-34dd8d155324#cardinality| 0))
+     (= |feature#77d06b7b-4925-42fb-9b98-34dd8d155324#global_cardinality|
+        (* |feature#a68c2553-f8e3-4974-bd6b-2a46caacbbc2#global_cardinality|
+           |feature#77d06b7b-4925-42fb-9b98-34dd8d155324#cardinality|))
+     (=> |feature#77d06b7b-4925-42fb-9b98-34dd8d155324#used|
+         |feature#a68c2553-f8e3-4974-bd6b-2a46caacbbc2#used|)
+     (=> |feature#a68c2553-f8e3-4974-bd6b-2a46caacbbc2#used|
+         (and (>= |feature#77d06b7b-4925-42fb-9b98-34dd8d155324#cardinality| 0)
+              (<= |feature#77d06b7b-4925-42fb-9b98-34dd8d155324#cardinality| 1)))
+     (>= |feature#77d06b7b-4925-42fb-9b98-34dd8d155324#cardinality| 0)
+     (= (> |feature#77d06b7b-4925-42fb-9b98-34dd8d155324#cardinality| 0)
+        |feature#77d06b7b-4925-42fb-9b98-34dd8d155324#used|)
+     (=> (and |feature#77d06b7b-4925-42fb-9b98-34dd8d155324#used| false)
+         (> |feature#77d06b7b-4925-42fb-9b98-34dd8d155324#child_cardinality| 0))
+     (=> (not |feature#77d06b7b-4925-42fb-9b98-34dd8d155324#used|)
+         (= |feature#77d06b7b-4925-42fb-9b98-34dd8d155324#child_cardinality| 0))
+     (= |feature#77d06b7b-4925-42fb-9b98-34dd8d155324#child_cardinality| 0)
+     (=> (and |feature#77d06b7b-4925-42fb-9b98-34dd8d155324#used| false)
+         (= |feature#77d06b7b-4925-42fb-9b98-34dd8d155324#child_cardinality| 1))
+     (=> (not |feature#a68c2553-f8e3-4974-bd6b-2a46caacbbc2#used|)
+         (= |feature#8ee79515-848e-4e3c-9ee4-525ce227d3a8#cardinality| 0))
+     (= |feature#8ee79515-848e-4e3c-9ee4-525ce227d3a8#global_cardinality|
+        (* |feature#a68c2553-f8e3-4974-bd6b-2a46caacbbc2#global_cardinality|
+           |feature#8ee79515-848e-4e3c-9ee4-525ce227d3a8#cardinality|))
+     (=> |feature#8ee79515-848e-4e3c-9ee4-525ce227d3a8#used|
+         |feature#a68c2553-f8e3-4974-bd6b-2a46caacbbc2#used|)
+     (=> |feature#a68c2553-f8e3-4974-bd6b-2a46caacbbc2#used|
+         (and (>= |feature#8ee79515-848e-4e3c-9ee4-525ce227d3a8#cardinality| 0)
+              (<= |feature#8ee79515-848e-4e3c-9ee4-525ce227d3a8#cardinality| 1)))
+     (>= |feature#8ee79515-848e-4e3c-9ee4-525ce227d3a8#cardinality| 0)
+     (= (> |feature#8ee79515-848e-4e3c-9ee4-525ce227d3a8#cardinality| 0)
+        |feature#8ee79515-848e-4e3c-9ee4-525ce227d3a8#used|)
+     (=> (and |feature#8ee79515-848e-4e3c-9ee4-525ce227d3a8#used| false)
+         (> |feature#8ee79515-848e-4e3c-9ee4-525ce227d3a8#child_cardinality| 0))
+     (=> (not |feature#8ee79515-848e-4e3c-9ee4-525ce227d3a8#used|)
+         (= |feature#8ee79515-848e-4e3c-9ee4-525ce227d3a8#child_cardinality| 0))
+     (= |feature#8ee79515-848e-4e3c-9ee4-525ce227d3a8#child_cardinality| 0)
+     (=> (and |feature#8ee79515-848e-4e3c-9ee4-525ce227d3a8#used| false)
+         (= |feature#8ee79515-848e-4e3c-9ee4-525ce227d3a8#child_cardinality| 1))
+     (=> (not |feature#FEATURE_DIAGRAM_EXTERNAL#used|)
+         (= |feature#b1ed2d2c-08ab-49f8-a2d4-d523588d3116#cardinality| 0))
+     (= |feature#b1ed2d2c-08ab-49f8-a2d4-d523588d3116#global_cardinality|
+        (* |feature#FEATURE_DIAGRAM_EXTERNAL#global_cardinality|
+           |feature#b1ed2d2c-08ab-49f8-a2d4-d523588d3116#cardinality|))
+     (=> |feature#b1ed2d2c-08ab-49f8-a2d4-d523588d3116#used|
+         |feature#FEATURE_DIAGRAM_EXTERNAL#used|)
+     (=> |feature#FEATURE_DIAGRAM_EXTERNAL#used|
+         (and (>= |feature#b1ed2d2c-08ab-49f8-a2d4-d523588d3116#cardinality| 0)
+              (<= |feature#b1ed2d2c-08ab-49f8-a2d4-d523588d3116#cardinality| 1)))
+     (>= |feature#b1ed2d2c-08ab-49f8-a2d4-d523588d3116#cardinality| 0)
+     (= (> |feature#b1ed2d2c-08ab-49f8-a2d4-d523588d3116#cardinality| 0)
+        |feature#b1ed2d2c-08ab-49f8-a2d4-d523588d3116#used|)
+     (=> (and |feature#b1ed2d2c-08ab-49f8-a2d4-d523588d3116#used| true)
+         (> |feature#b1ed2d2c-08ab-49f8-a2d4-d523588d3116#child_cardinality| 0))
+     (=> (not |feature#b1ed2d2c-08ab-49f8-a2d4-d523588d3116#used|)
+         (= |feature#b1ed2d2c-08ab-49f8-a2d4-d523588d3116#child_cardinality| 0))
+     (= |feature#b1ed2d2c-08ab-49f8-a2d4-d523588d3116#child_cardinality|
+        (+ (ite |feature#809989ed-5d5c-4f31-9462-c8a98ae57a1d#used| 1 0)))
+     (=> (and |feature#b1ed2d2c-08ab-49f8-a2d4-d523588d3116#used| true)
+         (= |feature#b1ed2d2c-08ab-49f8-a2d4-d523588d3116#child_cardinality| 1))
+     (=> (not |feature#b1ed2d2c-08ab-49f8-a2d4-d523588d3116#used|)
+         (= |feature#809989ed-5d5c-4f31-9462-c8a98ae57a1d#cardinality| 0))
+     (= |feature#809989ed-5d5c-4f31-9462-c8a98ae57a1d#global_cardinality|
+        (* |feature#b1ed2d2c-08ab-49f8-a2d4-d523588d3116#global_cardinality|
+           |feature#809989ed-5d5c-4f31-9462-c8a98ae57a1d#cardinality|))
+     (=> |feature#809989ed-5d5c-4f31-9462-c8a98ae57a1d#used|
+         |feature#b1ed2d2c-08ab-49f8-a2d4-d523588d3116#used|)
+     (=> |feature#b1ed2d2c-08ab-49f8-a2d4-d523588d3116#used|
+         (and (>= |feature#809989ed-5d5c-4f31-9462-c8a98ae57a1d#cardinality| 0)
+              (<= |feature#809989ed-5d5c-4f31-9462-c8a98ae57a1d#cardinality| 1)))
+     (>= |feature#809989ed-5d5c-4f31-9462-c8a98ae57a1d#cardinality| 0)
+     (= (> |feature#809989ed-5d5c-4f31-9462-c8a98ae57a1d#cardinality| 0)
+        |feature#809989ed-5d5c-4f31-9462-c8a98ae57a1d#used|)
+     (=> (and |feature#809989ed-5d5c-4f31-9462-c8a98ae57a1d#used| false)
+         (> |feature#809989ed-5d5c-4f31-9462-c8a98ae57a1d#child_cardinality| 0))
+     (=> (not |feature#809989ed-5d5c-4f31-9462-c8a98ae57a1d#used|)
+         (= |feature#809989ed-5d5c-4f31-9462-c8a98ae57a1d#child_cardinality| 0))
+     (= |feature#809989ed-5d5c-4f31-9462-c8a98ae57a1d#child_cardinality| 0)
+     (=> (and |feature#809989ed-5d5c-4f31-9462-c8a98ae57a1d#used| false)
+         (= |feature#809989ed-5d5c-4f31-9462-c8a98ae57a1d#child_cardinality| 1))
+     (=> (not |feature#FEATURE_DIAGRAM_EXTERNAL#used|)
+         (= |feature#e63463a3-ad84-49fd-a77f-0cdb81cbf7c2#cardinality| 0))
+     (= |feature#e63463a3-ad84-49fd-a77f-0cdb81cbf7c2#global_cardinality|
+        (* |feature#FEATURE_DIAGRAM_EXTERNAL#global_cardinality|
+           |feature#e63463a3-ad84-49fd-a77f-0cdb81cbf7c2#cardinality|))
+     (=> |feature#e63463a3-ad84-49fd-a77f-0cdb81cbf7c2#used|
+         |feature#FEATURE_DIAGRAM_EXTERNAL#used|)
+     (=> |feature#FEATURE_DIAGRAM_EXTERNAL#used|
+         (and (>= |feature#e63463a3-ad84-49fd-a77f-0cdb81cbf7c2#cardinality| 0)
+              (<= |feature#e63463a3-ad84-49fd-a77f-0cdb81cbf7c2#cardinality| 1)))
+     (>= |feature#e63463a3-ad84-49fd-a77f-0cdb81cbf7c2#cardinality| 0)
+     (= (> |feature#e63463a3-ad84-49fd-a77f-0cdb81cbf7c2#cardinality| 0)
+        |feature#e63463a3-ad84-49fd-a77f-0cdb81cbf7c2#used|)
+     (=> (and |feature#e63463a3-ad84-49fd-a77f-0cdb81cbf7c2#used| true)
+         (> |feature#e63463a3-ad84-49fd-a77f-0cdb81cbf7c2#child_cardinality| 0))
+     (=> (not |feature#e63463a3-ad84-49fd-a77f-0cdb81cbf7c2#used|)
+         (= |feature#e63463a3-ad84-49fd-a77f-0cdb81cbf7c2#child_cardinality| 0))
+     (= |feature#e63463a3-ad84-49fd-a77f-0cdb81cbf7c2#child_cardinality|
+        (+ (ite |feature#cee9b12b-cd98-4234-9fd1-e5c37c729999#used| 1 0)
+           (ite |feature#3c338aef-4362-4bf0-b2ce-ee946166fb92#used| 1 0)))
+     (=> (and |feature#e63463a3-ad84-49fd-a77f-0cdb81cbf7c2#used| true)
+         (= |feature#e63463a3-ad84-49fd-a77f-0cdb81cbf7c2#child_cardinality| 1))
+     (=> (not |feature#e63463a3-ad84-49fd-a77f-0cdb81cbf7c2#used|)
+         (= |feature#cee9b12b-cd98-4234-9fd1-e5c37c729999#cardinality| 0))
+     (= |feature#cee9b12b-cd98-4234-9fd1-e5c37c729999#global_cardinality|
+        (* |feature#e63463a3-ad84-49fd-a77f-0cdb81cbf7c2#global_cardinality|
+           |feature#cee9b12b-cd98-4234-9fd1-e5c37c729999#cardinality|))
+     (=> |feature#cee9b12b-cd98-4234-9fd1-e5c37c729999#used|
+         |feature#e63463a3-ad84-49fd-a77f-0cdb81cbf7c2#used|)
+     (=> |feature#e63463a3-ad84-49fd-a77f-0cdb81cbf7c2#used|
+         (and (>= |feature#cee9b12b-cd98-4234-9fd1-e5c37c729999#cardinality| 0)
+              (<= |feature#cee9b12b-cd98-4234-9fd1-e5c37c729999#cardinality| 1)))
+     (>= |feature#cee9b12b-cd98-4234-9fd1-e5c37c729999#cardinality| 0)
+     (= (> |feature#cee9b12b-cd98-4234-9fd1-e5c37c729999#cardinality| 0)
+        |feature#cee9b12b-cd98-4234-9fd1-e5c37c729999#used|)
+     (=> (and |feature#cee9b12b-cd98-4234-9fd1-e5c37c729999#used| false)
+         (> |feature#cee9b12b-cd98-4234-9fd1-e5c37c729999#child_cardinality| 0))
+     (=> (not |feature#cee9b12b-cd98-4234-9fd1-e5c37c729999#used|)
+         (= |feature#cee9b12b-cd98-4234-9fd1-e5c37c729999#child_cardinality| 0))
+     (= |feature#cee9b12b-cd98-4234-9fd1-e5c37c729999#child_cardinality| 0)
+     (=> (and |feature#cee9b12b-cd98-4234-9fd1-e5c37c729999#used| false)
+         (= |feature#cee9b12b-cd98-4234-9fd1-e5c37c729999#child_cardinality| 1))
+     (=> (not |feature#e63463a3-ad84-49fd-a77f-0cdb81cbf7c2#used|)
+         (= |feature#3c338aef-4362-4bf0-b2ce-ee946166fb92#cardinality| 0))
+     (= |feature#3c338aef-4362-4bf0-b2ce-ee946166fb92#global_cardinality|
+        (* |feature#e63463a3-ad84-49fd-a77f-0cdb81cbf7c2#global_cardinality|
+           |feature#3c338aef-4362-4bf0-b2ce-ee946166fb92#cardinality|))
+     (=> |feature#3c338aef-4362-4bf0-b2ce-ee946166fb92#used|
+         |feature#e63463a3-ad84-49fd-a77f-0cdb81cbf7c2#used|)
+     (=> |feature#e63463a3-ad84-49fd-a77f-0cdb81cbf7c2#used|
+         (and (>= |feature#3c338aef-4362-4bf0-b2ce-ee946166fb92#cardinality| 0)
+              (<= |feature#3c338aef-4362-4bf0-b2ce-ee946166fb92#cardinality| 1)))
+     (>= |feature#3c338aef-4362-4bf0-b2ce-ee946166fb92#cardinality| 0)
+     (= (> |feature#3c338aef-4362-4bf0-b2ce-ee946166fb92#cardinality| 0)
+        |feature#3c338aef-4362-4bf0-b2ce-ee946166fb92#used|)
+     (=> (and |feature#3c338aef-4362-4bf0-b2ce-ee946166fb92#used| false)
+         (> |feature#3c338aef-4362-4bf0-b2ce-ee946166fb92#child_cardinality| 0))
+     (=> (not |feature#3c338aef-4362-4bf0-b2ce-ee946166fb92#used|)
+         (= |feature#3c338aef-4362-4bf0-b2ce-ee946166fb92#child_cardinality| 0))
+     (= |feature#3c338aef-4362-4bf0-b2ce-ee946166fb92#child_cardinality| 0)
+     (=> (and |feature#3c338aef-4362-4bf0-b2ce-ee946166fb92#used| false)
+         (= |feature#3c338aef-4362-4bf0-b2ce-ee946166fb92#child_cardinality| 1))
+     (=> (not |feature#FEATURE_DIAGRAM_EXTERNAL#used|)
+         (= |feature#f4dd4132-581c-4795-9c32-604861eadd25#cardinality| 0))
+     (= |feature#f4dd4132-581c-4795-9c32-604861eadd25#global_cardinality|
+        (* |feature#FEATURE_DIAGRAM_EXTERNAL#global_cardinality|
+           |feature#f4dd4132-581c-4795-9c32-604861eadd25#cardinality|))
+     (=> |feature#f4dd4132-581c-4795-9c32-604861eadd25#used|
+         |feature#FEATURE_DIAGRAM_EXTERNAL#used|)
+     (=> |feature#FEATURE_DIAGRAM_EXTERNAL#used|
+         (and (>= |feature#f4dd4132-581c-4795-9c32-604861eadd25#cardinality| 0)
+              (<= |feature#f4dd4132-581c-4795-9c32-604861eadd25#cardinality| 1)))
+     (>= |feature#f4dd4132-581c-4795-9c32-604861eadd25#cardinality| 0)
+     (= (> |feature#f4dd4132-581c-4795-9c32-604861eadd25#cardinality| 0)
+        |feature#f4dd4132-581c-4795-9c32-604861eadd25#used|)
+     (=> (and |feature#f4dd4132-581c-4795-9c32-604861eadd25#used| true)
+         (> |feature#f4dd4132-581c-4795-9c32-604861eadd25#child_cardinality| 0))
+     (=> (not |feature#f4dd4132-581c-4795-9c32-604861eadd25#used|)
+         (= |feature#f4dd4132-581c-4795-9c32-604861eadd25#child_cardinality| 0))
+     (= |feature#f4dd4132-581c-4795-9c32-604861eadd25#child_cardinality|
+        (+ (ite |feature#c55e78b2-9c5d-4e49-a1e7-b9013f7ad524#used| 1 0)))
+     (=> (and |feature#f4dd4132-581c-4795-9c32-604861eadd25#used| true)
+         (= |feature#f4dd4132-581c-4795-9c32-604861eadd25#child_cardinality| 1))
+     (=> (not |feature#f4dd4132-581c-4795-9c32-604861eadd25#used|)
+         (= |feature#c55e78b2-9c5d-4e49-a1e7-b9013f7ad524#cardinality| 0))
+     (= |feature#c55e78b2-9c5d-4e49-a1e7-b9013f7ad524#global_cardinality|
+        (* |feature#f4dd4132-581c-4795-9c32-604861eadd25#global_cardinality|
+           |feature#c55e78b2-9c5d-4e49-a1e7-b9013f7ad524#cardinality|))
+     (=> |feature#c55e78b2-9c5d-4e49-a1e7-b9013f7ad524#used|
+         |feature#f4dd4132-581c-4795-9c32-604861eadd25#used|)
+     (=> |feature#f4dd4132-581c-4795-9c32-604861eadd25#used|
+         (and (>= |feature#c55e78b2-9c5d-4e49-a1e7-b9013f7ad524#cardinality| 0)
+              (<= |feature#c55e78b2-9c5d-4e49-a1e7-b9013f7ad524#cardinality| 1)))
+     (>= |feature#c55e78b2-9c5d-4e49-a1e7-b9013f7ad524#cardinality| 0)
+     (= (> |feature#c55e78b2-9c5d-4e49-a1e7-b9013f7ad524#cardinality| 0)
+        |feature#c55e78b2-9c5d-4e49-a1e7-b9013f7ad524#used|)
+     (=> (and |feature#c55e78b2-9c5d-4e49-a1e7-b9013f7ad524#used| false)
+         (> |feature#c55e78b2-9c5d-4e49-a1e7-b9013f7ad524#child_cardinality| 0))
+     (=> (not |feature#c55e78b2-9c5d-4e49-a1e7-b9013f7ad524#used|)
+         (= |feature#c55e78b2-9c5d-4e49-a1e7-b9013f7ad524#child_cardinality| 0))
+     (= |feature#c55e78b2-9c5d-4e49-a1e7-b9013f7ad524#child_cardinality| 0)
+     (=> (and |feature#c55e78b2-9c5d-4e49-a1e7-b9013f7ad524#used| false)
+         (= |feature#c55e78b2-9c5d-4e49-a1e7-b9013f7ad524#child_cardinality| 1))
+     (=> (not |feature#FEATURE_DIAGRAM_EXTERNAL#used|)
+         (= |feature#81fb4d60-a93a-4c5e-bd9f-65c5549f4c49#cardinality| 0))
+     (= |feature#81fb4d60-a93a-4c5e-bd9f-65c5549f4c49#global_cardinality|
+        (* |feature#FEATURE_DIAGRAM_EXTERNAL#global_cardinality|
+           |feature#81fb4d60-a93a-4c5e-bd9f-65c5549f4c49#cardinality|))
+     (=> |feature#81fb4d60-a93a-4c5e-bd9f-65c5549f4c49#used|
+         |feature#FEATURE_DIAGRAM_EXTERNAL#used|)
+     (=> |feature#FEATURE_DIAGRAM_EXTERNAL#used|
+         (and (>= |feature#81fb4d60-a93a-4c5e-bd9f-65c5549f4c49#cardinality| 0)
+              (<= |feature#81fb4d60-a93a-4c5e-bd9f-65c5549f4c49#cardinality| 1)))
+     (>= |feature#81fb4d60-a93a-4c5e-bd9f-65c5549f4c49#cardinality| 0)
+     (= (> |feature#81fb4d60-a93a-4c5e-bd9f-65c5549f4c49#cardinality| 0)
+        |feature#81fb4d60-a93a-4c5e-bd9f-65c5549f4c49#used|)
+     (=> (and |feature#81fb4d60-a93a-4c5e-bd9f-65c5549f4c49#used| true)
+         (> |feature#81fb4d60-a93a-4c5e-bd9f-65c5549f4c49#child_cardinality| 0))
+     (=> (not |feature#81fb4d60-a93a-4c5e-bd9f-65c5549f4c49#used|)
+         (= |feature#81fb4d60-a93a-4c5e-bd9f-65c5549f4c49#child_cardinality| 0))
+     (= |feature#81fb4d60-a93a-4c5e-bd9f-65c5549f4c49#child_cardinality|
+        (+ (ite |feature#f964e019-3c74-4d7c-91c9-af6877da76ad#used| 1 0)
+           (ite |feature#c923e063-767c-47d8-afde-d2ef68cfdb2e#used| 1 0)))
+     (=> (and |feature#81fb4d60-a93a-4c5e-bd9f-65c5549f4c49#used| true)
+         (= |feature#81fb4d60-a93a-4c5e-bd9f-65c5549f4c49#child_cardinality| 1))
+     (=> (not |feature#81fb4d60-a93a-4c5e-bd9f-65c5549f4c49#used|)
+         (= |feature#f964e019-3c74-4d7c-91c9-af6877da76ad#cardinality| 0))
+     (= |feature#f964e019-3c74-4d7c-91c9-af6877da76ad#global_cardinality|
+        (* |feature#81fb4d60-a93a-4c5e-bd9f-65c5549f4c49#global_cardinality|
+           |feature#f964e019-3c74-4d7c-91c9-af6877da76ad#cardinality|))
+     (=> |feature#f964e019-3c74-4d7c-91c9-af6877da76ad#used|
+         |feature#81fb4d60-a93a-4c5e-bd9f-65c5549f4c49#used|)
+     (=> |feature#81fb4d60-a93a-4c5e-bd9f-65c5549f4c49#used|
+         (and (>= |feature#f964e019-3c74-4d7c-91c9-af6877da76ad#cardinality| 0)
+              (<= |feature#f964e019-3c74-4d7c-91c9-af6877da76ad#cardinality| 1)))
+     (>= |feature#f964e019-3c74-4d7c-91c9-af6877da76ad#cardinality| 0)
+     (= (> |feature#f964e019-3c74-4d7c-91c9-af6877da76ad#cardinality| 0)
+        |feature#f964e019-3c74-4d7c-91c9-af6877da76ad#used|)
+     (=> (and |feature#f964e019-3c74-4d7c-91c9-af6877da76ad#used| false)
+         (> |feature#f964e019-3c74-4d7c-91c9-af6877da76ad#child_cardinality| 0))
+     (=> (not |feature#f964e019-3c74-4d7c-91c9-af6877da76ad#used|)
+         (= |feature#f964e019-3c74-4d7c-91c9-af6877da76ad#child_cardinality| 0))
+     (= |feature#f964e019-3c74-4d7c-91c9-af6877da76ad#child_cardinality| 0)
+     (=> (and |feature#f964e019-3c74-4d7c-91c9-af6877da76ad#used| false)
+         (= |feature#f964e019-3c74-4d7c-91c9-af6877da76ad#child_cardinality| 1))
+     (=> (not |feature#81fb4d60-a93a-4c5e-bd9f-65c5549f4c49#used|)
+         (= |feature#c923e063-767c-47d8-afde-d2ef68cfdb2e#cardinality| 0))
+     (= |feature#c923e063-767c-47d8-afde-d2ef68cfdb2e#global_cardinality|
+        (* |feature#81fb4d60-a93a-4c5e-bd9f-65c5549f4c49#global_cardinality|
+           |feature#c923e063-767c-47d8-afde-d2ef68cfdb2e#cardinality|))
+     (=> |feature#c923e063-767c-47d8-afde-d2ef68cfdb2e#used|
+         |feature#81fb4d60-a93a-4c5e-bd9f-65c5549f4c49#used|)
+     (=> |feature#81fb4d60-a93a-4c5e-bd9f-65c5549f4c49#used|
+         (and (>= |feature#c923e063-767c-47d8-afde-d2ef68cfdb2e#cardinality| 0)
+              (<= |feature#c923e063-767c-47d8-afde-d2ef68cfdb2e#cardinality| 1)))
+     (>= |feature#c923e063-767c-47d8-afde-d2ef68cfdb2e#cardinality| 0)
+     (= (> |feature#c923e063-767c-47d8-afde-d2ef68cfdb2e#cardinality| 0)
+        |feature#c923e063-767c-47d8-afde-d2ef68cfdb2e#used|)
+     (=> (and |feature#c923e063-767c-47d8-afde-d2ef68cfdb2e#used| false)
+         (> |feature#c923e063-767c-47d8-afde-d2ef68cfdb2e#child_cardinality| 0))
+     (=> (not |feature#c923e063-767c-47d8-afde-d2ef68cfdb2e#used|)
+         (= |feature#c923e063-767c-47d8-afde-d2ef68cfdb2e#child_cardinality| 0))
+     (= |feature#c923e063-767c-47d8-afde-d2ef68cfdb2e#child_cardinality| 0)
+     (=> (and |feature#c923e063-767c-47d8-afde-d2ef68cfdb2e#used| false)
+         (= |feature#c923e063-767c-47d8-afde-d2ef68cfdb2e#child_cardinality| 1))
+     (=> (not |feature#FEATURE_DIAGRAM_EXTERNAL#used|)
+         (= |feature#90c84e64-1198-4b65-b7c6-705aa577c14b#cardinality| 0))
+     (= |feature#90c84e64-1198-4b65-b7c6-705aa577c14b#global_cardinality|
+        (* |feature#FEATURE_DIAGRAM_EXTERNAL#global_cardinality|
+           |feature#90c84e64-1198-4b65-b7c6-705aa577c14b#cardinality|))
+     (=> |feature#90c84e64-1198-4b65-b7c6-705aa577c14b#used|
+         |feature#FEATURE_DIAGRAM_EXTERNAL#used|)
+     (=> |feature#FEATURE_DIAGRAM_EXTERNAL#used|
+         (= |feature#90c84e64-1198-4b65-b7c6-705aa577c14b#cardinality| 1))
+     (>= |feature#90c84e64-1198-4b65-b7c6-705aa577c14b#cardinality| 0)
+     (= (> |feature#90c84e64-1198-4b65-b7c6-705aa577c14b#cardinality| 0)
+        |feature#90c84e64-1198-4b65-b7c6-705aa577c14b#used|)
+     (=> (and |feature#90c84e64-1198-4b65-b7c6-705aa577c14b#used| true)
+         (> |feature#90c84e64-1198-4b65-b7c6-705aa577c14b#child_cardinality| 0))
+     (=> (not |feature#90c84e64-1198-4b65-b7c6-705aa577c14b#used|)
+         (= |feature#90c84e64-1198-4b65-b7c6-705aa577c14b#child_cardinality| 0))
+     (= |feature#90c84e64-1198-4b65-b7c6-705aa577c14b#child_cardinality|
+        (+ (ite |feature#e2a6da18-6bfa-4732-a178-8b9775828310#used| 1 0)
+           (ite |feature#1e3ecf48-b9fd-455f-a201-45b492c62521#used| 1 0)))
+     (=> (and |feature#90c84e64-1198-4b65-b7c6-705aa577c14b#used| true)
+         (= |feature#90c84e64-1198-4b65-b7c6-705aa577c14b#child_cardinality| 1))
+     (=> (not |feature#90c84e64-1198-4b65-b7c6-705aa577c14b#used|)
+         (= |feature#e2a6da18-6bfa-4732-a178-8b9775828310#cardinality| 0))
+     (= |feature#e2a6da18-6bfa-4732-a178-8b9775828310#global_cardinality|
+        (* |feature#90c84e64-1198-4b65-b7c6-705aa577c14b#global_cardinality|
+           |feature#e2a6da18-6bfa-4732-a178-8b9775828310#cardinality|))
+     (=> |feature#e2a6da18-6bfa-4732-a178-8b9775828310#used|
+         |feature#90c84e64-1198-4b65-b7c6-705aa577c14b#used|)
+     (=> |feature#90c84e64-1198-4b65-b7c6-705aa577c14b#used|
+         (and (>= |feature#e2a6da18-6bfa-4732-a178-8b9775828310#cardinality| 0)
+              (<= |feature#e2a6da18-6bfa-4732-a178-8b9775828310#cardinality| 1)))
+     (>= |feature#e2a6da18-6bfa-4732-a178-8b9775828310#cardinality| 0)
+     (= (> |feature#e2a6da18-6bfa-4732-a178-8b9775828310#cardinality| 0)
+        |feature#e2a6da18-6bfa-4732-a178-8b9775828310#used|)
+     (=> (and |feature#e2a6da18-6bfa-4732-a178-8b9775828310#used| false)
+         (> |feature#e2a6da18-6bfa-4732-a178-8b9775828310#child_cardinality| 0))
+     (=> (not |feature#e2a6da18-6bfa-4732-a178-8b9775828310#used|)
+         (= |feature#e2a6da18-6bfa-4732-a178-8b9775828310#child_cardinality| 0))
+     (= |feature#e2a6da18-6bfa-4732-a178-8b9775828310#child_cardinality| 0)
+     (=> (and |feature#e2a6da18-6bfa-4732-a178-8b9775828310#used| false)
+         (= |feature#e2a6da18-6bfa-4732-a178-8b9775828310#child_cardinality| 1))
+     (=> (not |feature#90c84e64-1198-4b65-b7c6-705aa577c14b#used|)
+         (= |feature#1e3ecf48-b9fd-455f-a201-45b492c62521#cardinality| 0))
+     (= |feature#1e3ecf48-b9fd-455f-a201-45b492c62521#global_cardinality|
+        (* |feature#90c84e64-1198-4b65-b7c6-705aa577c14b#global_cardinality|
+           |feature#1e3ecf48-b9fd-455f-a201-45b492c62521#cardinality|))
+     (=> |feature#1e3ecf48-b9fd-455f-a201-45b492c62521#used|
+         |feature#90c84e64-1198-4b65-b7c6-705aa577c14b#used|)
+     (=> |feature#90c84e64-1198-4b65-b7c6-705aa577c14b#used|
+         (and (>= |feature#1e3ecf48-b9fd-455f-a201-45b492c62521#cardinality| 0)
+              (<= |feature#1e3ecf48-b9fd-455f-a201-45b492c62521#cardinality| 1)))
+     (>= |feature#1e3ecf48-b9fd-455f-a201-45b492c62521#cardinality| 0)
+     (= (> |feature#1e3ecf48-b9fd-455f-a201-45b492c62521#cardinality| 0)
+        |feature#1e3ecf48-b9fd-455f-a201-45b492c62521#used|)
+     (=> (and |feature#1e3ecf48-b9fd-455f-a201-45b492c62521#used| false)
+         (> |feature#1e3ecf48-b9fd-455f-a201-45b492c62521#child_cardinality| 0))
+     (=> (not |feature#1e3ecf48-b9fd-455f-a201-45b492c62521#used|)
+         (= |feature#1e3ecf48-b9fd-455f-a201-45b492c62521#child_cardinality| 0))
+     (= |feature#1e3ecf48-b9fd-455f-a201-45b492c62521#child_cardinality| 0)
+     (=> (and |feature#1e3ecf48-b9fd-455f-a201-45b492c62521#used| false)
+         (= |feature#1e3ecf48-b9fd-455f-a201-45b492c62521#child_cardinality| 1))
+     (=> (not |feature#FEATURE_DIAGRAM_EXTERNAL#used|)
+         (= |feature#4012fb3e-d5e5-4b5f-a22d-ac3d36ea060a#cardinality| 0))
+     (= |feature#4012fb3e-d5e5-4b5f-a22d-ac3d36ea060a#global_cardinality|
+        (* |feature#FEATURE_DIAGRAM_EXTERNAL#global_cardinality|
+           |feature#4012fb3e-d5e5-4b5f-a22d-ac3d36ea060a#cardinality|))
+     (=> |feature#4012fb3e-d5e5-4b5f-a22d-ac3d36ea060a#used|
+         |feature#FEATURE_DIAGRAM_EXTERNAL#used|)
+     (=> |feature#FEATURE_DIAGRAM_EXTERNAL#used|
+         (and (>= |feature#4012fb3e-d5e5-4b5f-a22d-ac3d36ea060a#cardinality| 0)
+              (<= |feature#4012fb3e-d5e5-4b5f-a22d-ac3d36ea060a#cardinality| 1)))
+     (>= |feature#4012fb3e-d5e5-4b5f-a22d-ac3d36ea060a#cardinality| 0)
+     (= (> |feature#4012fb3e-d5e5-4b5f-a22d-ac3d36ea060a#cardinality| 0)
+        |feature#4012fb3e-d5e5-4b5f-a22d-ac3d36ea060a#used|)
+     (=> (and |feature#4012fb3e-d5e5-4b5f-a22d-ac3d36ea060a#used| true)
+         (> |feature#4012fb3e-d5e5-4b5f-a22d-ac3d36ea060a#child_cardinality| 0))
+     (=> (not |feature#4012fb3e-d5e5-4b5f-a22d-ac3d36ea060a#used|)
+         (= |feature#4012fb3e-d5e5-4b5f-a22d-ac3d36ea060a#child_cardinality| 0))
+     (= |feature#4012fb3e-d5e5-4b5f-a22d-ac3d36ea060a#child_cardinality|
+        (+ (ite |feature#c35ababc-9bc2-4e1a-b990-8fe8dc46febb#used| 1 0)))
+     (=> (and |feature#4012fb3e-d5e5-4b5f-a22d-ac3d36ea060a#used| true)
+         (= |feature#4012fb3e-d5e5-4b5f-a22d-ac3d36ea060a#child_cardinality| 1))
+     (=> (not |feature#4012fb3e-d5e5-4b5f-a22d-ac3d36ea060a#used|)
+         (= |feature#c35ababc-9bc2-4e1a-b990-8fe8dc46febb#cardinality| 0))
+     (= |feature#c35ababc-9bc2-4e1a-b990-8fe8dc46febb#global_cardinality|
+        (* |feature#4012fb3e-d5e5-4b5f-a22d-ac3d36ea060a#global_cardinality|
+           |feature#c35ababc-9bc2-4e1a-b990-8fe8dc46febb#cardinality|))
+     (=> |feature#c35ababc-9bc2-4e1a-b990-8fe8dc46febb#used|
+         |feature#4012fb3e-d5e5-4b5f-a22d-ac3d36ea060a#used|)
+     (=> |feature#4012fb3e-d5e5-4b5f-a22d-ac3d36ea060a#used|
+         (and (>= |feature#c35ababc-9bc2-4e1a-b990-8fe8dc46febb#cardinality| 0)
+              (<= |feature#c35ababc-9bc2-4e1a-b990-8fe8dc46febb#cardinality| 1)))
+     (>= |feature#c35ababc-9bc2-4e1a-b990-8fe8dc46febb#cardinality| 0)
+     (= (> |feature#c35ababc-9bc2-4e1a-b990-8fe8dc46febb#cardinality| 0)
+        |feature#c35ababc-9bc2-4e1a-b990-8fe8dc46febb#used|)
+     (=> (and |feature#c35ababc-9bc2-4e1a-b990-8fe8dc46febb#used| false)
+         (> |feature#c35ababc-9bc2-4e1a-b990-8fe8dc46febb#child_cardinality| 0))
+     (=> (not |feature#c35ababc-9bc2-4e1a-b990-8fe8dc46febb#used|)
+         (= |feature#c35ababc-9bc2-4e1a-b990-8fe8dc46febb#child_cardinality| 0))
+     (= |feature#c35ababc-9bc2-4e1a-b990-8fe8dc46febb#child_cardinality| 0)
+     (=> (and |feature#c35ababc-9bc2-4e1a-b990-8fe8dc46febb#used| false)
+         (= |feature#c35ababc-9bc2-4e1a-b990-8fe8dc46febb#child_cardinality| 1))
+     (= |feature#FEATURE_DIAGRAM_INTERNAL#global_cardinality|
+        |feature#FEATURE_DIAGRAM_INTERNAL#cardinality|)
+     (= |feature#FEATURE_DIAGRAM_INTERNAL#cardinality| 1)
+     (>= |feature#FEATURE_DIAGRAM_INTERNAL#cardinality| 0)
+     (= (> |feature#FEATURE_DIAGRAM_INTERNAL#cardinality| 0)
+        |feature#FEATURE_DIAGRAM_INTERNAL#used|)
+     (=> (and |feature#FEATURE_DIAGRAM_INTERNAL#used| true)
+         (> |feature#FEATURE_DIAGRAM_INTERNAL#child_cardinality| 0))
+     (=> (not |feature#FEATURE_DIAGRAM_INTERNAL#used|)
+         (= |feature#FEATURE_DIAGRAM_INTERNAL#child_cardinality| 0))
+     (= |feature#FEATURE_DIAGRAM_INTERNAL#child_cardinality|
+        (+ (ite |feature#c0f83d43-3ec1-4ac8-8d5d-4c3c7307d5a0#used| 1 0)
+           (ite |feature#e7f0be8e-dd80-4b83-abe4-58c9819168c5#used| 1 0)
+           (ite |feature#abee5d8f-48f8-408d-b47d-fa4213292ecf#used| 1 0)
+           (ite |feature#2b7b047d-e963-4b6a-9ff7-ac2bda7504d5#used| 1 0)
+           (ite |feature#8a2764e2-d2d9-450b-b1c7-6e737bf9ffcb#used| 1 0)
+           (ite |feature#2a39dd1e-82b0-4855-8926-a8fae7505ca4#used| 1 0)
+           (ite |feature#4f6c7273-6bcb-4355-8b61-3380e03d6089#used| 1 0)
+           (ite |feature#75b35115-5ebe-413b-a4a2-2114309de1c7#used| 1 0)
+           (ite |feature#382ca6cb-f30d-447e-86f3-0d321ea6ce89#used| 1 0)
+           (ite |feature#188a84fb-e337-4cf4-86b5-81d97cbdfe02#used| 1 0)
+           (ite |feature#9aee274c-9745-4df7-882f-9b9b0bb93aa6#used| 1 0)
+           (ite |feature#544dc0af-bebf-4bef-8cc3-2cfdde1bb103#used| 1 0)
+           (ite |feature#a1c7af16-b865-41fa-962d-e50bacbbafa7#used| 1 0)))
+     (=> (and |feature#FEATURE_DIAGRAM_INTERNAL#used| true)
+         (and (>= |feature#FEATURE_DIAGRAM_INTERNAL#child_cardinality| 0)
+              (<= |feature#FEATURE_DIAGRAM_INTERNAL#child_cardinality| 13)))
+     (=> (not |feature#FEATURE_DIAGRAM_INTERNAL#used|)
+         (= |feature#c0f83d43-3ec1-4ac8-8d5d-4c3c7307d5a0#cardinality| 0))
+     (= |feature#c0f83d43-3ec1-4ac8-8d5d-4c3c7307d5a0#global_cardinality|
+        (* |feature#FEATURE_DIAGRAM_INTERNAL#global_cardinality|
+           |feature#c0f83d43-3ec1-4ac8-8d5d-4c3c7307d5a0#cardinality|))
+     (=> |feature#c0f83d43-3ec1-4ac8-8d5d-4c3c7307d5a0#used|
+         |feature#FEATURE_DIAGRAM_INTERNAL#used|)
+     (=> |feature#FEATURE_DIAGRAM_INTERNAL#used|
+         (and (>= |feature#c0f83d43-3ec1-4ac8-8d5d-4c3c7307d5a0#cardinality| 0)
+              (<= |feature#c0f83d43-3ec1-4ac8-8d5d-4c3c7307d5a0#cardinality| 1)))
+     (>= |feature#c0f83d43-3ec1-4ac8-8d5d-4c3c7307d5a0#cardinality| 0)
+     (= (> |feature#c0f83d43-3ec1-4ac8-8d5d-4c3c7307d5a0#cardinality| 0)
+        |feature#c0f83d43-3ec1-4ac8-8d5d-4c3c7307d5a0#used|)
+     (=> (and |feature#c0f83d43-3ec1-4ac8-8d5d-4c3c7307d5a0#used| true)
+         (> |feature#c0f83d43-3ec1-4ac8-8d5d-4c3c7307d5a0#child_cardinality| 0))
+     (=> (not |feature#c0f83d43-3ec1-4ac8-8d5d-4c3c7307d5a0#used|)
+         (= |feature#c0f83d43-3ec1-4ac8-8d5d-4c3c7307d5a0#child_cardinality| 0))
+     (= |feature#c0f83d43-3ec1-4ac8-8d5d-4c3c7307d5a0#child_cardinality|
+        (+ (ite |feature#9d83319d-bd64-40f9-b439-53e267f71f3a#used| 1 0)))
+     (=> (and |feature#c0f83d43-3ec1-4ac8-8d5d-4c3c7307d5a0#used| true)
+         (= |feature#c0f83d43-3ec1-4ac8-8d5d-4c3c7307d5a0#child_cardinality| 1))
+     (=> (not |feature#c0f83d43-3ec1-4ac8-8d5d-4c3c7307d5a0#used|)
+         (= |feature#9d83319d-bd64-40f9-b439-53e267f71f3a#cardinality| 0))
+     (= |feature#9d83319d-bd64-40f9-b439-53e267f71f3a#global_cardinality|
+        (* |feature#c0f83d43-3ec1-4ac8-8d5d-4c3c7307d5a0#global_cardinality|
+           |feature#9d83319d-bd64-40f9-b439-53e267f71f3a#cardinality|))
+     (=> |feature#9d83319d-bd64-40f9-b439-53e267f71f3a#used|
+         |feature#c0f83d43-3ec1-4ac8-8d5d-4c3c7307d5a0#used|)
+     (=> |feature#c0f83d43-3ec1-4ac8-8d5d-4c3c7307d5a0#used|
+         (and (>= |feature#9d83319d-bd64-40f9-b439-53e267f71f3a#cardinality| 0)
+              (<= |feature#9d83319d-bd64-40f9-b439-53e267f71f3a#cardinality| 1)))
+     (>= |feature#9d83319d-bd64-40f9-b439-53e267f71f3a#cardinality| 0)
+     (= (> |feature#9d83319d-bd64-40f9-b439-53e267f71f3a#cardinality| 0)
+        |feature#9d83319d-bd64-40f9-b439-53e267f71f3a#used|)
+     (=> (and |feature#9d83319d-bd64-40f9-b439-53e267f71f3a#used| false)
+         (> |feature#9d83319d-bd64-40f9-b439-53e267f71f3a#child_cardinality| 0))
+     (=> (not |feature#9d83319d-bd64-40f9-b439-53e267f71f3a#used|)
+         (= |feature#9d83319d-bd64-40f9-b439-53e267f71f3a#child_cardinality| 0))
+     (= |feature#9d83319d-bd64-40f9-b439-53e267f71f3a#child_cardinality| 0)
+     (=> (and |feature#9d83319d-bd64-40f9-b439-53e267f71f3a#used| false)
+         (= |feature#9d83319d-bd64-40f9-b439-53e267f71f3a#child_cardinality| 1))
+     (=> (not |feature#FEATURE_DIAGRAM_INTERNAL#used|)
+         (= |feature#e7f0be8e-dd80-4b83-abe4-58c9819168c5#cardinality| 0))
+     (= |feature#e7f0be8e-dd80-4b83-abe4-58c9819168c5#global_cardinality|
+        (* |feature#FEATURE_DIAGRAM_INTERNAL#global_cardinality|
+           |feature#e7f0be8e-dd80-4b83-abe4-58c9819168c5#cardinality|))
+     (=> |feature#e7f0be8e-dd80-4b83-abe4-58c9819168c5#used|
+         |feature#FEATURE_DIAGRAM_INTERNAL#used|)
+     (=> |feature#FEATURE_DIAGRAM_INTERNAL#used|
+         (= |feature#e7f0be8e-dd80-4b83-abe4-58c9819168c5#cardinality| 1))
+     (>= |feature#e7f0be8e-dd80-4b83-abe4-58c9819168c5#cardinality| 0)
+     (= (> |feature#e7f0be8e-dd80-4b83-abe4-58c9819168c5#cardinality| 0)
+        |feature#e7f0be8e-dd80-4b83-abe4-58c9819168c5#used|)
+     (=> (and |feature#e7f0be8e-dd80-4b83-abe4-58c9819168c5#used| true)
+         (> |feature#e7f0be8e-dd80-4b83-abe4-58c9819168c5#child_cardinality| 0))
+     (=> (not |feature#e7f0be8e-dd80-4b83-abe4-58c9819168c5#used|)
+         (= |feature#e7f0be8e-dd80-4b83-abe4-58c9819168c5#child_cardinality| 0))
+     (= |feature#e7f0be8e-dd80-4b83-abe4-58c9819168c5#child_cardinality|
+        (+ (ite |feature#2bdcdfeb-db17-4b67-9798-5db7ed10e5e1#used| 1 0)
+           (ite |feature#0755f27d-4ff6-46eb-b64f-aa7f049ce564#used| 1 0)
+           (ite |feature#648ec7b0-7439-4547-a090-a2b9eb0ba2a8#used| 1 0)))
+     (=> (and |feature#e7f0be8e-dd80-4b83-abe4-58c9819168c5#used| true)
+         (and (>= |feature#e7f0be8e-dd80-4b83-abe4-58c9819168c5#child_cardinality|
+                  1)
+              (<= |feature#e7f0be8e-dd80-4b83-abe4-58c9819168c5#child_cardinality|
+                  3)))
+     (=> (not |feature#e7f0be8e-dd80-4b83-abe4-58c9819168c5#used|)
+         (= |feature#2bdcdfeb-db17-4b67-9798-5db7ed10e5e1#cardinality| 0))
+     (= |feature#2bdcdfeb-db17-4b67-9798-5db7ed10e5e1#global_cardinality|
+        (* |feature#e7f0be8e-dd80-4b83-abe4-58c9819168c5#global_cardinality|
+           |feature#2bdcdfeb-db17-4b67-9798-5db7ed10e5e1#cardinality|))
+     (=> |feature#2bdcdfeb-db17-4b67-9798-5db7ed10e5e1#used|
+         |feature#e7f0be8e-dd80-4b83-abe4-58c9819168c5#used|)
+     (=> |feature#e7f0be8e-dd80-4b83-abe4-58c9819168c5#used|
+         (= |feature#2bdcdfeb-db17-4b67-9798-5db7ed10e5e1#cardinality| 1))
+     (>= |feature#2bdcdfeb-db17-4b67-9798-5db7ed10e5e1#cardinality| 0)
+     (= (> |feature#2bdcdfeb-db17-4b67-9798-5db7ed10e5e1#cardinality| 0)
+        |feature#2bdcdfeb-db17-4b67-9798-5db7ed10e5e1#used|)
+     (=> (and |feature#2bdcdfeb-db17-4b67-9798-5db7ed10e5e1#used| true)
+         (> |feature#2bdcdfeb-db17-4b67-9798-5db7ed10e5e1#child_cardinality| 0))
+     (=> (not |feature#2bdcdfeb-db17-4b67-9798-5db7ed10e5e1#used|)
+         (= |feature#2bdcdfeb-db17-4b67-9798-5db7ed10e5e1#child_cardinality| 0))
+     (= |feature#2bdcdfeb-db17-4b67-9798-5db7ed10e5e1#child_cardinality|
+        (+ (ite |feature#c96ae0c1-d312-4261-9f1a-71e89ad8ec19#used| 1 0)))
+     (=> (and |feature#2bdcdfeb-db17-4b67-9798-5db7ed10e5e1#used| true)
+         (= |feature#2bdcdfeb-db17-4b67-9798-5db7ed10e5e1#child_cardinality| 1))
+     (=> (not |feature#2bdcdfeb-db17-4b67-9798-5db7ed10e5e1#used|)
+         (= |feature#c96ae0c1-d312-4261-9f1a-71e89ad8ec19#cardinality| 0))
+     (= |feature#c96ae0c1-d312-4261-9f1a-71e89ad8ec19#global_cardinality|
+        (* |feature#2bdcdfeb-db17-4b67-9798-5db7ed10e5e1#global_cardinality|
+           |feature#c96ae0c1-d312-4261-9f1a-71e89ad8ec19#cardinality|))
+     (=> |feature#c96ae0c1-d312-4261-9f1a-71e89ad8ec19#used|
+         |feature#2bdcdfeb-db17-4b67-9798-5db7ed10e5e1#used|)
+     (=> |feature#2bdcdfeb-db17-4b67-9798-5db7ed10e5e1#used|
+         (and (>= |feature#c96ae0c1-d312-4261-9f1a-71e89ad8ec19#cardinality| 0)
+              (<= |feature#c96ae0c1-d312-4261-9f1a-71e89ad8ec19#cardinality| 1)))
+     (>= |feature#c96ae0c1-d312-4261-9f1a-71e89ad8ec19#cardinality| 0)
+     (= (> |feature#c96ae0c1-d312-4261-9f1a-71e89ad8ec19#cardinality| 0)
+        |feature#c96ae0c1-d312-4261-9f1a-71e89ad8ec19#used|)
+     (=> (and |feature#c96ae0c1-d312-4261-9f1a-71e89ad8ec19#used| false)
+         (> |feature#c96ae0c1-d312-4261-9f1a-71e89ad8ec19#child_cardinality| 0))
+     (=> (not |feature#c96ae0c1-d312-4261-9f1a-71e89ad8ec19#used|)
+         (= |feature#c96ae0c1-d312-4261-9f1a-71e89ad8ec19#child_cardinality| 0))
+     (= |feature#c96ae0c1-d312-4261-9f1a-71e89ad8ec19#child_cardinality| 0)
+     (=> (and |feature#c96ae0c1-d312-4261-9f1a-71e89ad8ec19#used| false)
+         (= |feature#c96ae0c1-d312-4261-9f1a-71e89ad8ec19#child_cardinality| 1))
+     (=> (not |feature#e7f0be8e-dd80-4b83-abe4-58c9819168c5#used|)
+         (= |feature#0755f27d-4ff6-46eb-b64f-aa7f049ce564#cardinality| 0))
+     (= |feature#0755f27d-4ff6-46eb-b64f-aa7f049ce564#global_cardinality|
+        (* |feature#e7f0be8e-dd80-4b83-abe4-58c9819168c5#global_cardinality|
+           |feature#0755f27d-4ff6-46eb-b64f-aa7f049ce564#cardinality|))
+     (=> |feature#0755f27d-4ff6-46eb-b64f-aa7f049ce564#used|
+         |feature#e7f0be8e-dd80-4b83-abe4-58c9819168c5#used|)
+     (=> |feature#e7f0be8e-dd80-4b83-abe4-58c9819168c5#used|
+         (= |feature#0755f27d-4ff6-46eb-b64f-aa7f049ce564#cardinality| 1))
+     (>= |feature#0755f27d-4ff6-46eb-b64f-aa7f049ce564#cardinality| 0)
+     (= (> |feature#0755f27d-4ff6-46eb-b64f-aa7f049ce564#cardinality| 0)
+        |feature#0755f27d-4ff6-46eb-b64f-aa7f049ce564#used|)
+     (=> (and |feature#0755f27d-4ff6-46eb-b64f-aa7f049ce564#used| true)
+         (> |feature#0755f27d-4ff6-46eb-b64f-aa7f049ce564#child_cardinality| 0))
+     (=> (not |feature#0755f27d-4ff6-46eb-b64f-aa7f049ce564#used|)
+         (= |feature#0755f27d-4ff6-46eb-b64f-aa7f049ce564#child_cardinality| 0))
+     (= |feature#0755f27d-4ff6-46eb-b64f-aa7f049ce564#child_cardinality|
+        (+ (ite |feature#f97445c5-f214-4149-a0c5-9d3a31601c9c#used| 1 0)))
+     (=> (and |feature#0755f27d-4ff6-46eb-b64f-aa7f049ce564#used| true)
+         (= |feature#0755f27d-4ff6-46eb-b64f-aa7f049ce564#child_cardinality| 1))
+     (=> (not |feature#0755f27d-4ff6-46eb-b64f-aa7f049ce564#used|)
+         (= |feature#f97445c5-f214-4149-a0c5-9d3a31601c9c#cardinality| 0))
+     (= |feature#f97445c5-f214-4149-a0c5-9d3a31601c9c#global_cardinality|
+        (* |feature#0755f27d-4ff6-46eb-b64f-aa7f049ce564#global_cardinality|
+           |feature#f97445c5-f214-4149-a0c5-9d3a31601c9c#cardinality|))
+     (=> |feature#f97445c5-f214-4149-a0c5-9d3a31601c9c#used|
+         |feature#0755f27d-4ff6-46eb-b64f-aa7f049ce564#used|)
+     (=> |feature#0755f27d-4ff6-46eb-b64f-aa7f049ce564#used|
+         (and (>= |feature#f97445c5-f214-4149-a0c5-9d3a31601c9c#cardinality| 0)
+              (<= |feature#f97445c5-f214-4149-a0c5-9d3a31601c9c#cardinality| 1)))
+     (>= |feature#f97445c5-f214-4149-a0c5-9d3a31601c9c#cardinality| 0)
+     (= (> |feature#f97445c5-f214-4149-a0c5-9d3a31601c9c#cardinality| 0)
+        |feature#f97445c5-f214-4149-a0c5-9d3a31601c9c#used|)
+     (=> (and |feature#f97445c5-f214-4149-a0c5-9d3a31601c9c#used| false)
+         (> |feature#f97445c5-f214-4149-a0c5-9d3a31601c9c#child_cardinality| 0))
+     (=> (not |feature#f97445c5-f214-4149-a0c5-9d3a31601c9c#used|)
+         (= |feature#f97445c5-f214-4149-a0c5-9d3a31601c9c#child_cardinality| 0))
+     (= |feature#f97445c5-f214-4149-a0c5-9d3a31601c9c#child_cardinality| 0)
+     (=> (and |feature#f97445c5-f214-4149-a0c5-9d3a31601c9c#used| false)
+         (= |feature#f97445c5-f214-4149-a0c5-9d3a31601c9c#child_cardinality| 1))
+     (=> (not |feature#e7f0be8e-dd80-4b83-abe4-58c9819168c5#used|)
+         (= |feature#648ec7b0-7439-4547-a090-a2b9eb0ba2a8#cardinality| 0))
+     (= |feature#648ec7b0-7439-4547-a090-a2b9eb0ba2a8#global_cardinality|
+        (* |feature#e7f0be8e-dd80-4b83-abe4-58c9819168c5#global_cardinality|
+           |feature#648ec7b0-7439-4547-a090-a2b9eb0ba2a8#cardinality|))
+     (=> |feature#648ec7b0-7439-4547-a090-a2b9eb0ba2a8#used|
+         |feature#e7f0be8e-dd80-4b83-abe4-58c9819168c5#used|)
+     (=> |feature#e7f0be8e-dd80-4b83-abe4-58c9819168c5#used|
+         (= |feature#648ec7b0-7439-4547-a090-a2b9eb0ba2a8#cardinality| 1))
+     (>= |feature#648ec7b0-7439-4547-a090-a2b9eb0ba2a8#cardinality| 0)
+     (= (> |feature#648ec7b0-7439-4547-a090-a2b9eb0ba2a8#cardinality| 0)
+        |feature#648ec7b0-7439-4547-a090-a2b9eb0ba2a8#used|)
+     (=> (and |feature#648ec7b0-7439-4547-a090-a2b9eb0ba2a8#used| true)
+         (> |feature#648ec7b0-7439-4547-a090-a2b9eb0ba2a8#child_cardinality| 0))
+     (=> (not |feature#648ec7b0-7439-4547-a090-a2b9eb0ba2a8#used|)
+         (= |feature#648ec7b0-7439-4547-a090-a2b9eb0ba2a8#child_cardinality| 0))
+     (= |feature#648ec7b0-7439-4547-a090-a2b9eb0ba2a8#child_cardinality|
+        (+ (ite |feature#c83a2e43-7930-4442-bdfa-ab4285e7388e#used| 1 0)))
+     (=> (and |feature#648ec7b0-7439-4547-a090-a2b9eb0ba2a8#used| true)
+         (= |feature#648ec7b0-7439-4547-a090-a2b9eb0ba2a8#child_cardinality| 1))
+     (=> (not |feature#648ec7b0-7439-4547-a090-a2b9eb0ba2a8#used|)
+         (= |feature#c83a2e43-7930-4442-bdfa-ab4285e7388e#cardinality| 0))
+     (= |feature#c83a2e43-7930-4442-bdfa-ab4285e7388e#global_cardinality|
+        (* |feature#648ec7b0-7439-4547-a090-a2b9eb0ba2a8#global_cardinality|
+           |feature#c83a2e43-7930-4442-bdfa-ab4285e7388e#cardinality|))
+     (=> |feature#c83a2e43-7930-4442-bdfa-ab4285e7388e#used|
+         |feature#648ec7b0-7439-4547-a090-a2b9eb0ba2a8#used|)
+     (=> |feature#648ec7b0-7439-4547-a090-a2b9eb0ba2a8#used|
+         (and (>= |feature#c83a2e43-7930-4442-bdfa-ab4285e7388e#cardinality| 0)
+              (<= |feature#c83a2e43-7930-4442-bdfa-ab4285e7388e#cardinality| 1)))
+     (>= |feature#c83a2e43-7930-4442-bdfa-ab4285e7388e#cardinality| 0)
+     (= (> |feature#c83a2e43-7930-4442-bdfa-ab4285e7388e#cardinality| 0)
+        |feature#c83a2e43-7930-4442-bdfa-ab4285e7388e#used|)
+     (=> (and |feature#c83a2e43-7930-4442-bdfa-ab4285e7388e#used| false)
+         (> |feature#c83a2e43-7930-4442-bdfa-ab4285e7388e#child_cardinality| 0))
+     (=> (not |feature#c83a2e43-7930-4442-bdfa-ab4285e7388e#used|)
+         (= |feature#c83a2e43-7930-4442-bdfa-ab4285e7388e#child_cardinality| 0))
+     (= |feature#c83a2e43-7930-4442-bdfa-ab4285e7388e#child_cardinality| 0)
+     (=> (and |feature#c83a2e43-7930-4442-bdfa-ab4285e7388e#used| false)
+         (= |feature#c83a2e43-7930-4442-bdfa-ab4285e7388e#child_cardinality| 1))
+     (=> (not |feature#FEATURE_DIAGRAM_INTERNAL#used|)
+         (= |feature#abee5d8f-48f8-408d-b47d-fa4213292ecf#cardinality| 0))
+     (= |feature#abee5d8f-48f8-408d-b47d-fa4213292ecf#global_cardinality|
+        (* |feature#FEATURE_DIAGRAM_INTERNAL#global_cardinality|
+           |feature#abee5d8f-48f8-408d-b47d-fa4213292ecf#cardinality|))
+     (=> |feature#abee5d8f-48f8-408d-b47d-fa4213292ecf#used|
+         |feature#FEATURE_DIAGRAM_INTERNAL#used|)
+     (=> |feature#FEATURE_DIAGRAM_INTERNAL#used|
+         (= |feature#abee5d8f-48f8-408d-b47d-fa4213292ecf#cardinality| 1))
+     (>= |feature#abee5d8f-48f8-408d-b47d-fa4213292ecf#cardinality| 0)
+     (= (> |feature#abee5d8f-48f8-408d-b47d-fa4213292ecf#cardinality| 0)
+        |feature#abee5d8f-48f8-408d-b47d-fa4213292ecf#used|)
+     (=> (and |feature#abee5d8f-48f8-408d-b47d-fa4213292ecf#used| true)
+         (> |feature#abee5d8f-48f8-408d-b47d-fa4213292ecf#child_cardinality| 0))
+     (=> (not |feature#abee5d8f-48f8-408d-b47d-fa4213292ecf#used|)
+         (= |feature#abee5d8f-48f8-408d-b47d-fa4213292ecf#child_cardinality| 0))
+     (= |feature#abee5d8f-48f8-408d-b47d-fa4213292ecf#child_cardinality|
+        (+ (ite |feature#f05d0797-c3df-499b-9b69-cb49b720d705#used| 1 0)
+           (ite |feature#e2a4ab97-2fe4-45cf-83e7-5b528c0b5ce2#used| 1 0)))
+     (=> (and |feature#abee5d8f-48f8-408d-b47d-fa4213292ecf#used| true)
+         (= |feature#abee5d8f-48f8-408d-b47d-fa4213292ecf#child_cardinality| 1))
+     (=> (not |feature#abee5d8f-48f8-408d-b47d-fa4213292ecf#used|)
+         (= |feature#f05d0797-c3df-499b-9b69-cb49b720d705#cardinality| 0))
+     (= |feature#f05d0797-c3df-499b-9b69-cb49b720d705#global_cardinality|
+        (* |feature#abee5d8f-48f8-408d-b47d-fa4213292ecf#global_cardinality|
+           |feature#f05d0797-c3df-499b-9b69-cb49b720d705#cardinality|))
+     (=> |feature#f05d0797-c3df-499b-9b69-cb49b720d705#used|
+         |feature#abee5d8f-48f8-408d-b47d-fa4213292ecf#used|)
+     (=> |feature#abee5d8f-48f8-408d-b47d-fa4213292ecf#used|
+         (and (>= |feature#f05d0797-c3df-499b-9b69-cb49b720d705#cardinality| 0)
+              (<= |feature#f05d0797-c3df-499b-9b69-cb49b720d705#cardinality| 1)))
+     (>= |feature#f05d0797-c3df-499b-9b69-cb49b720d705#cardinality| 0)
+     (= (> |feature#f05d0797-c3df-499b-9b69-cb49b720d705#cardinality| 0)
+        |feature#f05d0797-c3df-499b-9b69-cb49b720d705#used|)
+     (=> (and |feature#f05d0797-c3df-499b-9b69-cb49b720d705#used| false)
+         (> |feature#f05d0797-c3df-499b-9b69-cb49b720d705#child_cardinality| 0))
+     (=> (not |feature#f05d0797-c3df-499b-9b69-cb49b720d705#used|)
+         (= |feature#f05d0797-c3df-499b-9b69-cb49b720d705#child_cardinality| 0))
+     (= |feature#f05d0797-c3df-499b-9b69-cb49b720d705#child_cardinality| 0)
+     (=> (and |feature#f05d0797-c3df-499b-9b69-cb49b720d705#used| false)
+         (= |feature#f05d0797-c3df-499b-9b69-cb49b720d705#child_cardinality| 1))
+     (=> (not |feature#abee5d8f-48f8-408d-b47d-fa4213292ecf#used|)
+         (= |feature#e2a4ab97-2fe4-45cf-83e7-5b528c0b5ce2#cardinality| 0))
+     (= |feature#e2a4ab97-2fe4-45cf-83e7-5b528c0b5ce2#global_cardinality|
+        (* |feature#abee5d8f-48f8-408d-b47d-fa4213292ecf#global_cardinality|
+           |feature#e2a4ab97-2fe4-45cf-83e7-5b528c0b5ce2#cardinality|))
+     (=> |feature#e2a4ab97-2fe4-45cf-83e7-5b528c0b5ce2#used|
+         |feature#abee5d8f-48f8-408d-b47d-fa4213292ecf#used|)
+     (=> |feature#abee5d8f-48f8-408d-b47d-fa4213292ecf#used|
+         (and (>= |feature#e2a4ab97-2fe4-45cf-83e7-5b528c0b5ce2#cardinality| 0)
+              (<= |feature#e2a4ab97-2fe4-45cf-83e7-5b528c0b5ce2#cardinality| 1)))
+     (>= |feature#e2a4ab97-2fe4-45cf-83e7-5b528c0b5ce2#cardinality| 0)
+     (= (> |feature#e2a4ab97-2fe4-45cf-83e7-5b528c0b5ce2#cardinality| 0)
+        |feature#e2a4ab97-2fe4-45cf-83e7-5b528c0b5ce2#used|)
+     (=> (and |feature#e2a4ab97-2fe4-45cf-83e7-5b528c0b5ce2#used| false)
+         (> |feature#e2a4ab97-2fe4-45cf-83e7-5b528c0b5ce2#child_cardinality| 0))
+     (=> (not |feature#e2a4ab97-2fe4-45cf-83e7-5b528c0b5ce2#used|)
+         (= |feature#e2a4ab97-2fe4-45cf-83e7-5b528c0b5ce2#child_cardinality| 0))
+     (= |feature#e2a4ab97-2fe4-45cf-83e7-5b528c0b5ce2#child_cardinality| 0)
+     (=> (and |feature#e2a4ab97-2fe4-45cf-83e7-5b528c0b5ce2#used| false)
+         (= |feature#e2a4ab97-2fe4-45cf-83e7-5b528c0b5ce2#child_cardinality| 1))
+     (=> (not |feature#FEATURE_DIAGRAM_INTERNAL#used|)
+         (= |feature#2b7b047d-e963-4b6a-9ff7-ac2bda7504d5#cardinality| 0))
+     (= |feature#2b7b047d-e963-4b6a-9ff7-ac2bda7504d5#global_cardinality|
+        (* |feature#FEATURE_DIAGRAM_INTERNAL#global_cardinality|
+           |feature#2b7b047d-e963-4b6a-9ff7-ac2bda7504d5#cardinality|))
+     (=> |feature#2b7b047d-e963-4b6a-9ff7-ac2bda7504d5#used|
+         |feature#FEATURE_DIAGRAM_INTERNAL#used|)
+     (=> |feature#FEATURE_DIAGRAM_INTERNAL#used|
+         (= |feature#2b7b047d-e963-4b6a-9ff7-ac2bda7504d5#cardinality| 1))
+     (>= |feature#2b7b047d-e963-4b6a-9ff7-ac2bda7504d5#cardinality| 0)
+     (= (> |feature#2b7b047d-e963-4b6a-9ff7-ac2bda7504d5#cardinality| 0)
+        |feature#2b7b047d-e963-4b6a-9ff7-ac2bda7504d5#used|)
+     (=> (and |feature#2b7b047d-e963-4b6a-9ff7-ac2bda7504d5#used| true)
+         (> |feature#2b7b047d-e963-4b6a-9ff7-ac2bda7504d5#child_cardinality| 0))
+     (=> (not |feature#2b7b047d-e963-4b6a-9ff7-ac2bda7504d5#used|)
+         (= |feature#2b7b047d-e963-4b6a-9ff7-ac2bda7504d5#child_cardinality| 0))
+     (= |feature#2b7b047d-e963-4b6a-9ff7-ac2bda7504d5#child_cardinality|
+        (+ (ite |feature#5051b8d3-fa1d-4e4e-ac16-398a816e6aa4#used| 1 0)
+           (ite |feature#54745be9-90da-41ed-9b84-5fa1c1d5f88b#used| 1 0)
+           (ite |feature#fa5e2245-364a-4c9d-9615-3f9c12da95a8#used| 1 0)))
+     (=> (and |feature#2b7b047d-e963-4b6a-9ff7-ac2bda7504d5#used| true)
+         (and (>= |feature#2b7b047d-e963-4b6a-9ff7-ac2bda7504d5#child_cardinality|
+                  1)
+              (<= |feature#2b7b047d-e963-4b6a-9ff7-ac2bda7504d5#child_cardinality|
+                  3)))
+     (=> (not |feature#2b7b047d-e963-4b6a-9ff7-ac2bda7504d5#used|)
+         (= |feature#5051b8d3-fa1d-4e4e-ac16-398a816e6aa4#cardinality| 0))
+     (= |feature#5051b8d3-fa1d-4e4e-ac16-398a816e6aa4#global_cardinality|
+        (* |feature#2b7b047d-e963-4b6a-9ff7-ac2bda7504d5#global_cardinality|
+           |feature#5051b8d3-fa1d-4e4e-ac16-398a816e6aa4#cardinality|))
+     (=> |feature#5051b8d3-fa1d-4e4e-ac16-398a816e6aa4#used|
+         |feature#2b7b047d-e963-4b6a-9ff7-ac2bda7504d5#used|)
+     (=> |feature#2b7b047d-e963-4b6a-9ff7-ac2bda7504d5#used|
+         (= |feature#5051b8d3-fa1d-4e4e-ac16-398a816e6aa4#cardinality| 1))
+     (>= |feature#5051b8d3-fa1d-4e4e-ac16-398a816e6aa4#cardinality| 0)
+     (= (> |feature#5051b8d3-fa1d-4e4e-ac16-398a816e6aa4#cardinality| 0)
+        |feature#5051b8d3-fa1d-4e4e-ac16-398a816e6aa4#used|)
+     (=> (and |feature#5051b8d3-fa1d-4e4e-ac16-398a816e6aa4#used| true)
+         (> |feature#5051b8d3-fa1d-4e4e-ac16-398a816e6aa4#child_cardinality| 0))
+     (=> (not |feature#5051b8d3-fa1d-4e4e-ac16-398a816e6aa4#used|)
+         (= |feature#5051b8d3-fa1d-4e4e-ac16-398a816e6aa4#child_cardinality| 0))
+     (= |feature#5051b8d3-fa1d-4e4e-ac16-398a816e6aa4#child_cardinality|
+        (+ (ite |feature#9b213f90-f733-41f4-9db5-96a881b185d5#used| 1 0)))
+     (=> (and |feature#5051b8d3-fa1d-4e4e-ac16-398a816e6aa4#used| true)
+         (= |feature#5051b8d3-fa1d-4e4e-ac16-398a816e6aa4#child_cardinality| 1))
+     (=> (not |feature#5051b8d3-fa1d-4e4e-ac16-398a816e6aa4#used|)
+         (= |feature#9b213f90-f733-41f4-9db5-96a881b185d5#cardinality| 0))
+     (= |feature#9b213f90-f733-41f4-9db5-96a881b185d5#global_cardinality|
+        (* |feature#5051b8d3-fa1d-4e4e-ac16-398a816e6aa4#global_cardinality|
+           |feature#9b213f90-f733-41f4-9db5-96a881b185d5#cardinality|))
+     (=> |feature#9b213f90-f733-41f4-9db5-96a881b185d5#used|
+         |feature#5051b8d3-fa1d-4e4e-ac16-398a816e6aa4#used|)
+     (=> |feature#5051b8d3-fa1d-4e4e-ac16-398a816e6aa4#used|
+         (and (>= |feature#9b213f90-f733-41f4-9db5-96a881b185d5#cardinality| 0)
+              (<= |feature#9b213f90-f733-41f4-9db5-96a881b185d5#cardinality| 1)))
+     (>= |feature#9b213f90-f733-41f4-9db5-96a881b185d5#cardinality| 0)
+     (= (> |feature#9b213f90-f733-41f4-9db5-96a881b185d5#cardinality| 0)
+        |feature#9b213f90-f733-41f4-9db5-96a881b185d5#used|)
+     (=> (and |feature#9b213f90-f733-41f4-9db5-96a881b185d5#used| false)
+         (> |feature#9b213f90-f733-41f4-9db5-96a881b185d5#child_cardinality| 0))
+     (=> (not |feature#9b213f90-f733-41f4-9db5-96a881b185d5#used|)
+         (= |feature#9b213f90-f733-41f4-9db5-96a881b185d5#child_cardinality| 0))
+     (= |feature#9b213f90-f733-41f4-9db5-96a881b185d5#child_cardinality| 0)
+     (=> (and |feature#9b213f90-f733-41f4-9db5-96a881b185d5#used| false)
+         (= |feature#9b213f90-f733-41f4-9db5-96a881b185d5#child_cardinality| 1))
+     (=> (not |feature#2b7b047d-e963-4b6a-9ff7-ac2bda7504d5#used|)
+         (= |feature#54745be9-90da-41ed-9b84-5fa1c1d5f88b#cardinality| 0))
+     (= |feature#54745be9-90da-41ed-9b84-5fa1c1d5f88b#global_cardinality|
+        (* |feature#2b7b047d-e963-4b6a-9ff7-ac2bda7504d5#global_cardinality|
+           |feature#54745be9-90da-41ed-9b84-5fa1c1d5f88b#cardinality|))
+     (=> |feature#54745be9-90da-41ed-9b84-5fa1c1d5f88b#used|
+         |feature#2b7b047d-e963-4b6a-9ff7-ac2bda7504d5#used|)
+     (=> |feature#2b7b047d-e963-4b6a-9ff7-ac2bda7504d5#used|
+         (= |feature#54745be9-90da-41ed-9b84-5fa1c1d5f88b#cardinality| 1))
+     (>= |feature#54745be9-90da-41ed-9b84-5fa1c1d5f88b#cardinality| 0)
+     (= (> |feature#54745be9-90da-41ed-9b84-5fa1c1d5f88b#cardinality| 0)
+        |feature#54745be9-90da-41ed-9b84-5fa1c1d5f88b#used|)
+     (=> (and |feature#54745be9-90da-41ed-9b84-5fa1c1d5f88b#used| true)
+         (> |feature#54745be9-90da-41ed-9b84-5fa1c1d5f88b#child_cardinality| 0))
+     (=> (not |feature#54745be9-90da-41ed-9b84-5fa1c1d5f88b#used|)
+         (= |feature#54745be9-90da-41ed-9b84-5fa1c1d5f88b#child_cardinality| 0))
+     (= |feature#54745be9-90da-41ed-9b84-5fa1c1d5f88b#child_cardinality|
+        (+ (ite |feature#0fc943fb-fb26-4d7d-a581-e94fe4f94703#used| 1 0)))
+     (=> (and |feature#54745be9-90da-41ed-9b84-5fa1c1d5f88b#used| true)
+         (= |feature#54745be9-90da-41ed-9b84-5fa1c1d5f88b#child_cardinality| 1))
+     (=> (not |feature#54745be9-90da-41ed-9b84-5fa1c1d5f88b#used|)
+         (= |feature#0fc943fb-fb26-4d7d-a581-e94fe4f94703#cardinality| 0))
+     (= |feature#0fc943fb-fb26-4d7d-a581-e94fe4f94703#global_cardinality|
+        (* |feature#54745be9-90da-41ed-9b84-5fa1c1d5f88b#global_cardinality|
+           |feature#0fc943fb-fb26-4d7d-a581-e94fe4f94703#cardinality|))
+     (=> |feature#0fc943fb-fb26-4d7d-a581-e94fe4f94703#used|
+         |feature#54745be9-90da-41ed-9b84-5fa1c1d5f88b#used|)
+     (=> |feature#54745be9-90da-41ed-9b84-5fa1c1d5f88b#used|
+         (and (>= |feature#0fc943fb-fb26-4d7d-a581-e94fe4f94703#cardinality| 0)
+              (<= |feature#0fc943fb-fb26-4d7d-a581-e94fe4f94703#cardinality| 1)))
+     (>= |feature#0fc943fb-fb26-4d7d-a581-e94fe4f94703#cardinality| 0)
+     (= (> |feature#0fc943fb-fb26-4d7d-a581-e94fe4f94703#cardinality| 0)
+        |feature#0fc943fb-fb26-4d7d-a581-e94fe4f94703#used|)
+     (=> (and |feature#0fc943fb-fb26-4d7d-a581-e94fe4f94703#used| false)
+         (> |feature#0fc943fb-fb26-4d7d-a581-e94fe4f94703#child_cardinality| 0))
+     (=> (not |feature#0fc943fb-fb26-4d7d-a581-e94fe4f94703#used|)
+         (= |feature#0fc943fb-fb26-4d7d-a581-e94fe4f94703#child_cardinality| 0))
+     (= |feature#0fc943fb-fb26-4d7d-a581-e94fe4f94703#child_cardinality| 0)
+     (=> (and |feature#0fc943fb-fb26-4d7d-a581-e94fe4f94703#used| false)
+         (= |feature#0fc943fb-fb26-4d7d-a581-e94fe4f94703#child_cardinality| 1))
+     (=> (not |feature#2b7b047d-e963-4b6a-9ff7-ac2bda7504d5#used|)
+         (= |feature#fa5e2245-364a-4c9d-9615-3f9c12da95a8#cardinality| 0))
+     (= |feature#fa5e2245-364a-4c9d-9615-3f9c12da95a8#global_cardinality|
+        (* |feature#2b7b047d-e963-4b6a-9ff7-ac2bda7504d5#global_cardinality|
+           |feature#fa5e2245-364a-4c9d-9615-3f9c12da95a8#cardinality|))
+     (=> |feature#fa5e2245-364a-4c9d-9615-3f9c12da95a8#used|
+         |feature#2b7b047d-e963-4b6a-9ff7-ac2bda7504d5#used|)
+     (=> |feature#2b7b047d-e963-4b6a-9ff7-ac2bda7504d5#used|
+         (= |feature#fa5e2245-364a-4c9d-9615-3f9c12da95a8#cardinality| 1))
+     (>= |feature#fa5e2245-364a-4c9d-9615-3f9c12da95a8#cardinality| 0)
+     (= (> |feature#fa5e2245-364a-4c9d-9615-3f9c12da95a8#cardinality| 0)
+        |feature#fa5e2245-364a-4c9d-9615-3f9c12da95a8#used|)
+     (=> (and |feature#fa5e2245-364a-4c9d-9615-3f9c12da95a8#used| true)
+         (> |feature#fa5e2245-364a-4c9d-9615-3f9c12da95a8#child_cardinality| 0))
+     (=> (not |feature#fa5e2245-364a-4c9d-9615-3f9c12da95a8#used|)
+         (= |feature#fa5e2245-364a-4c9d-9615-3f9c12da95a8#child_cardinality| 0))
+     (= |feature#fa5e2245-364a-4c9d-9615-3f9c12da95a8#child_cardinality|
+        (+ (ite |feature#905f65d8-78ff-4b55-99c0-2f066e909c02#used| 1 0)))
+     (=> (and |feature#fa5e2245-364a-4c9d-9615-3f9c12da95a8#used| true)
+         (= |feature#fa5e2245-364a-4c9d-9615-3f9c12da95a8#child_cardinality| 1))
+     (=> (not |feature#fa5e2245-364a-4c9d-9615-3f9c12da95a8#used|)
+         (= |feature#905f65d8-78ff-4b55-99c0-2f066e909c02#cardinality| 0))
+     (= |feature#905f65d8-78ff-4b55-99c0-2f066e909c02#global_cardinality|
+        (* |feature#fa5e2245-364a-4c9d-9615-3f9c12da95a8#global_cardinality|
+           |feature#905f65d8-78ff-4b55-99c0-2f066e909c02#cardinality|))
+     (=> |feature#905f65d8-78ff-4b55-99c0-2f066e909c02#used|
+         |feature#fa5e2245-364a-4c9d-9615-3f9c12da95a8#used|)
+     (=> |feature#fa5e2245-364a-4c9d-9615-3f9c12da95a8#used|
+         (and (>= |feature#905f65d8-78ff-4b55-99c0-2f066e909c02#cardinality| 0)
+              (<= |feature#905f65d8-78ff-4b55-99c0-2f066e909c02#cardinality| 1)))
+     (>= |feature#905f65d8-78ff-4b55-99c0-2f066e909c02#cardinality| 0)
+     (= (> |feature#905f65d8-78ff-4b55-99c0-2f066e909c02#cardinality| 0)
+        |feature#905f65d8-78ff-4b55-99c0-2f066e909c02#used|)
+     (=> (and |feature#905f65d8-78ff-4b55-99c0-2f066e909c02#used| false)
+         (> |feature#905f65d8-78ff-4b55-99c0-2f066e909c02#child_cardinality| 0))
+     (=> (not |feature#905f65d8-78ff-4b55-99c0-2f066e909c02#used|)
+         (= |feature#905f65d8-78ff-4b55-99c0-2f066e909c02#child_cardinality| 0))
+     (= |feature#905f65d8-78ff-4b55-99c0-2f066e909c02#child_cardinality| 0)
+     (=> (and |feature#905f65d8-78ff-4b55-99c0-2f066e909c02#used| false)
+         (= |feature#905f65d8-78ff-4b55-99c0-2f066e909c02#child_cardinality| 1))
+     (=> (not |feature#FEATURE_DIAGRAM_INTERNAL#used|)
+         (= |feature#8a2764e2-d2d9-450b-b1c7-6e737bf9ffcb#cardinality| 0))
+     (= |feature#8a2764e2-d2d9-450b-b1c7-6e737bf9ffcb#global_cardinality|
+        (* |feature#FEATURE_DIAGRAM_INTERNAL#global_cardinality|
+           |feature#8a2764e2-d2d9-450b-b1c7-6e737bf9ffcb#cardinality|))
+     (=> |feature#8a2764e2-d2d9-450b-b1c7-6e737bf9ffcb#used|
+         |feature#FEATURE_DIAGRAM_INTERNAL#used|)
+     (=> |feature#FEATURE_DIAGRAM_INTERNAL#used|
+         (= |feature#8a2764e2-d2d9-450b-b1c7-6e737bf9ffcb#cardinality| 1))
+     (>= |feature#8a2764e2-d2d9-450b-b1c7-6e737bf9ffcb#cardinality| 0)
+     (= (> |feature#8a2764e2-d2d9-450b-b1c7-6e737bf9ffcb#cardinality| 0)
+        |feature#8a2764e2-d2d9-450b-b1c7-6e737bf9ffcb#used|)
+     (=> (and |feature#8a2764e2-d2d9-450b-b1c7-6e737bf9ffcb#used| true)
+         (> |feature#8a2764e2-d2d9-450b-b1c7-6e737bf9ffcb#child_cardinality| 0))
+     (=> (not |feature#8a2764e2-d2d9-450b-b1c7-6e737bf9ffcb#used|)
+         (= |feature#8a2764e2-d2d9-450b-b1c7-6e737bf9ffcb#child_cardinality| 0))
+     (= |feature#8a2764e2-d2d9-450b-b1c7-6e737bf9ffcb#child_cardinality|
+        (+ (ite |feature#8e013254-f29c-41d8-9688-df9d713ddb54#used| 1 0)))
+     (=> (and |feature#8a2764e2-d2d9-450b-b1c7-6e737bf9ffcb#used| true)
+         (= |feature#8a2764e2-d2d9-450b-b1c7-6e737bf9ffcb#child_cardinality| 1))
+     (=> (not |feature#8a2764e2-d2d9-450b-b1c7-6e737bf9ffcb#used|)
+         (= |feature#8e013254-f29c-41d8-9688-df9d713ddb54#cardinality| 0))
+     (= |feature#8e013254-f29c-41d8-9688-df9d713ddb54#global_cardinality|
+        (* |feature#8a2764e2-d2d9-450b-b1c7-6e737bf9ffcb#global_cardinality|
+           |feature#8e013254-f29c-41d8-9688-df9d713ddb54#cardinality|))
+     (=> |feature#8e013254-f29c-41d8-9688-df9d713ddb54#used|
+         |feature#8a2764e2-d2d9-450b-b1c7-6e737bf9ffcb#used|)
+     (=> |feature#8a2764e2-d2d9-450b-b1c7-6e737bf9ffcb#used|
+         (and (>= |feature#8e013254-f29c-41d8-9688-df9d713ddb54#cardinality| 0)
+              (<= |feature#8e013254-f29c-41d8-9688-df9d713ddb54#cardinality| 1)))
+     (>= |feature#8e013254-f29c-41d8-9688-df9d713ddb54#cardinality| 0)
+     (= (> |feature#8e013254-f29c-41d8-9688-df9d713ddb54#cardinality| 0)
+        |feature#8e013254-f29c-41d8-9688-df9d713ddb54#used|)
+     (=> (and |feature#8e013254-f29c-41d8-9688-df9d713ddb54#used| false)
+         (> |feature#8e013254-f29c-41d8-9688-df9d713ddb54#child_cardinality| 0))
+     (=> (not |feature#8e013254-f29c-41d8-9688-df9d713ddb54#used|)
+         (= |feature#8e013254-f29c-41d8-9688-df9d713ddb54#child_cardinality| 0))
+     (= |feature#8e013254-f29c-41d8-9688-df9d713ddb54#child_cardinality| 0)
+     (=> (and |feature#8e013254-f29c-41d8-9688-df9d713ddb54#used| false)
+         (= |feature#8e013254-f29c-41d8-9688-df9d713ddb54#child_cardinality| 1))
+     (=> (not |feature#FEATURE_DIAGRAM_INTERNAL#used|)
+         (= |feature#2a39dd1e-82b0-4855-8926-a8fae7505ca4#cardinality| 0))
+     (= |feature#2a39dd1e-82b0-4855-8926-a8fae7505ca4#global_cardinality|
+        (* |feature#FEATURE_DIAGRAM_INTERNAL#global_cardinality|
+           |feature#2a39dd1e-82b0-4855-8926-a8fae7505ca4#cardinality|))
+     (=> |feature#2a39dd1e-82b0-4855-8926-a8fae7505ca4#used|
+         |feature#FEATURE_DIAGRAM_INTERNAL#used|)
+     (=> |feature#FEATURE_DIAGRAM_INTERNAL#used|
+         (= |feature#2a39dd1e-82b0-4855-8926-a8fae7505ca4#cardinality| 1))
+     (>= |feature#2a39dd1e-82b0-4855-8926-a8fae7505ca4#cardinality| 0)
+     (= (> |feature#2a39dd1e-82b0-4855-8926-a8fae7505ca4#cardinality| 0)
+        |feature#2a39dd1e-82b0-4855-8926-a8fae7505ca4#used|)
+     (=> (and |feature#2a39dd1e-82b0-4855-8926-a8fae7505ca4#used| true)
+         (> |feature#2a39dd1e-82b0-4855-8926-a8fae7505ca4#child_cardinality| 0))
+     (=> (not |feature#2a39dd1e-82b0-4855-8926-a8fae7505ca4#used|)
+         (= |feature#2a39dd1e-82b0-4855-8926-a8fae7505ca4#child_cardinality| 0))
+     (= |feature#2a39dd1e-82b0-4855-8926-a8fae7505ca4#child_cardinality|
+        (+ (ite |feature#d1edd52a-07a1-4694-a2ff-d18ceeffd251#used| 1 0)
+           (ite |feature#9d2fdcc7-cb41-45b8-91b5-5c3b0cf8aed8#used| 1 0)
+           (ite |feature#dea185d5-9061-405b-adf2-0d8dafdbb787#used| 1 0)
+           (ite |feature#d08e5919-29b6-4328-9eaf-69363b09d587#used| 1 0)))
+     (=> (and |feature#2a39dd1e-82b0-4855-8926-a8fae7505ca4#used| true)
+         (and (>= |feature#2a39dd1e-82b0-4855-8926-a8fae7505ca4#child_cardinality|
+                  1)
+              (<= |feature#2a39dd1e-82b0-4855-8926-a8fae7505ca4#child_cardinality|
+                  4)))
+     (=> (not |feature#2a39dd1e-82b0-4855-8926-a8fae7505ca4#used|)
+         (= |feature#d1edd52a-07a1-4694-a2ff-d18ceeffd251#cardinality| 0))
+     (= |feature#d1edd52a-07a1-4694-a2ff-d18ceeffd251#global_cardinality|
+        (* |feature#2a39dd1e-82b0-4855-8926-a8fae7505ca4#global_cardinality|
+           |feature#d1edd52a-07a1-4694-a2ff-d18ceeffd251#cardinality|))
+     (=> |feature#d1edd52a-07a1-4694-a2ff-d18ceeffd251#used|
+         |feature#2a39dd1e-82b0-4855-8926-a8fae7505ca4#used|)
+     (=> |feature#2a39dd1e-82b0-4855-8926-a8fae7505ca4#used|
+         (= |feature#d1edd52a-07a1-4694-a2ff-d18ceeffd251#cardinality| 1))
+     (>= |feature#d1edd52a-07a1-4694-a2ff-d18ceeffd251#cardinality| 0)
+     (= (> |feature#d1edd52a-07a1-4694-a2ff-d18ceeffd251#cardinality| 0)
+        |feature#d1edd52a-07a1-4694-a2ff-d18ceeffd251#used|)
+     (=> (and |feature#d1edd52a-07a1-4694-a2ff-d18ceeffd251#used| true)
+         (> |feature#d1edd52a-07a1-4694-a2ff-d18ceeffd251#child_cardinality| 0))
+     (=> (not |feature#d1edd52a-07a1-4694-a2ff-d18ceeffd251#used|)
+         (= |feature#d1edd52a-07a1-4694-a2ff-d18ceeffd251#child_cardinality| 0))
+     (= |feature#d1edd52a-07a1-4694-a2ff-d18ceeffd251#child_cardinality|
+        (+ (ite |feature#d94f8f64-69bb-4faa-b6a3-4ad3f86466c5#used| 1 0)))
+     (=> (and |feature#d1edd52a-07a1-4694-a2ff-d18ceeffd251#used| true)
+         (= |feature#d1edd52a-07a1-4694-a2ff-d18ceeffd251#child_cardinality| 1))
+     (=> (not |feature#d1edd52a-07a1-4694-a2ff-d18ceeffd251#used|)
+         (= |feature#d94f8f64-69bb-4faa-b6a3-4ad3f86466c5#cardinality| 0))
+     (= |feature#d94f8f64-69bb-4faa-b6a3-4ad3f86466c5#global_cardinality|
+        (* |feature#d1edd52a-07a1-4694-a2ff-d18ceeffd251#global_cardinality|
+           |feature#d94f8f64-69bb-4faa-b6a3-4ad3f86466c5#cardinality|))
+     (=> |feature#d94f8f64-69bb-4faa-b6a3-4ad3f86466c5#used|
+         |feature#d1edd52a-07a1-4694-a2ff-d18ceeffd251#used|)
+     (=> |feature#d1edd52a-07a1-4694-a2ff-d18ceeffd251#used|
+         (and (>= |feature#d94f8f64-69bb-4faa-b6a3-4ad3f86466c5#cardinality| 0)
+              (<= |feature#d94f8f64-69bb-4faa-b6a3-4ad3f86466c5#cardinality| 1)))
+     (>= |feature#d94f8f64-69bb-4faa-b6a3-4ad3f86466c5#cardinality| 0)
+     (= (> |feature#d94f8f64-69bb-4faa-b6a3-4ad3f86466c5#cardinality| 0)
+        |feature#d94f8f64-69bb-4faa-b6a3-4ad3f86466c5#used|)
+     (=> (and |feature#d94f8f64-69bb-4faa-b6a3-4ad3f86466c5#used| false)
+         (> |feature#d94f8f64-69bb-4faa-b6a3-4ad3f86466c5#child_cardinality| 0))
+     (=> (not |feature#d94f8f64-69bb-4faa-b6a3-4ad3f86466c5#used|)
+         (= |feature#d94f8f64-69bb-4faa-b6a3-4ad3f86466c5#child_cardinality| 0))
+     (= |feature#d94f8f64-69bb-4faa-b6a3-4ad3f86466c5#child_cardinality| 0)
+     (=> (and |feature#d94f8f64-69bb-4faa-b6a3-4ad3f86466c5#used| false)
+         (= |feature#d94f8f64-69bb-4faa-b6a3-4ad3f86466c5#child_cardinality| 1))
+     (=> (not |feature#2a39dd1e-82b0-4855-8926-a8fae7505ca4#used|)
+         (= |feature#9d2fdcc7-cb41-45b8-91b5-5c3b0cf8aed8#cardinality| 0))
+     (= |feature#9d2fdcc7-cb41-45b8-91b5-5c3b0cf8aed8#global_cardinality|
+        (* |feature#2a39dd1e-82b0-4855-8926-a8fae7505ca4#global_cardinality|
+           |feature#9d2fdcc7-cb41-45b8-91b5-5c3b0cf8aed8#cardinality|))
+     (=> |feature#9d2fdcc7-cb41-45b8-91b5-5c3b0cf8aed8#used|
+         |feature#2a39dd1e-82b0-4855-8926-a8fae7505ca4#used|)
+     (=> |feature#2a39dd1e-82b0-4855-8926-a8fae7505ca4#used|
+         (= |feature#9d2fdcc7-cb41-45b8-91b5-5c3b0cf8aed8#cardinality| 1))
+     (>= |feature#9d2fdcc7-cb41-45b8-91b5-5c3b0cf8aed8#cardinality| 0)
+     (= (> |feature#9d2fdcc7-cb41-45b8-91b5-5c3b0cf8aed8#cardinality| 0)
+        |feature#9d2fdcc7-cb41-45b8-91b5-5c3b0cf8aed8#used|)
+     (=> (and |feature#9d2fdcc7-cb41-45b8-91b5-5c3b0cf8aed8#used| true)
+         (> |feature#9d2fdcc7-cb41-45b8-91b5-5c3b0cf8aed8#child_cardinality| 0))
+     (=> (not |feature#9d2fdcc7-cb41-45b8-91b5-5c3b0cf8aed8#used|)
+         (= |feature#9d2fdcc7-cb41-45b8-91b5-5c3b0cf8aed8#child_cardinality| 0))
+     (= |feature#9d2fdcc7-cb41-45b8-91b5-5c3b0cf8aed8#child_cardinality|
+        (+ (ite |feature#9498c562-69d0-428c-b7f6-98b80f8d8b40#used| 1 0)))
+     (=> (and |feature#9d2fdcc7-cb41-45b8-91b5-5c3b0cf8aed8#used| true)
+         (= |feature#9d2fdcc7-cb41-45b8-91b5-5c3b0cf8aed8#child_cardinality| 1))
+     (=> (not |feature#9d2fdcc7-cb41-45b8-91b5-5c3b0cf8aed8#used|)
+         (= |feature#9498c562-69d0-428c-b7f6-98b80f8d8b40#cardinality| 0))
+     (= |feature#9498c562-69d0-428c-b7f6-98b80f8d8b40#global_cardinality|
+        (* |feature#9d2fdcc7-cb41-45b8-91b5-5c3b0cf8aed8#global_cardinality|
+           |feature#9498c562-69d0-428c-b7f6-98b80f8d8b40#cardinality|))
+     (=> |feature#9498c562-69d0-428c-b7f6-98b80f8d8b40#used|
+         |feature#9d2fdcc7-cb41-45b8-91b5-5c3b0cf8aed8#used|)
+     (=> |feature#9d2fdcc7-cb41-45b8-91b5-5c3b0cf8aed8#used|
+         (and (>= |feature#9498c562-69d0-428c-b7f6-98b80f8d8b40#cardinality| 0)
+              (<= |feature#9498c562-69d0-428c-b7f6-98b80f8d8b40#cardinality| 1)))
+     (>= |feature#9498c562-69d0-428c-b7f6-98b80f8d8b40#cardinality| 0)
+     (= (> |feature#9498c562-69d0-428c-b7f6-98b80f8d8b40#cardinality| 0)
+        |feature#9498c562-69d0-428c-b7f6-98b80f8d8b40#used|)
+     (=> (and |feature#9498c562-69d0-428c-b7f6-98b80f8d8b40#used| false)
+         (> |feature#9498c562-69d0-428c-b7f6-98b80f8d8b40#child_cardinality| 0))
+     (=> (not |feature#9498c562-69d0-428c-b7f6-98b80f8d8b40#used|)
+         (= |feature#9498c562-69d0-428c-b7f6-98b80f8d8b40#child_cardinality| 0))
+     (= |feature#9498c562-69d0-428c-b7f6-98b80f8d8b40#child_cardinality| 0)
+     (=> (and |feature#9498c562-69d0-428c-b7f6-98b80f8d8b40#used| false)
+         (= |feature#9498c562-69d0-428c-b7f6-98b80f8d8b40#child_cardinality| 1))
+     (=> (not |feature#2a39dd1e-82b0-4855-8926-a8fae7505ca4#used|)
+         (= |feature#dea185d5-9061-405b-adf2-0d8dafdbb787#cardinality| 0))
+     (= |feature#dea185d5-9061-405b-adf2-0d8dafdbb787#global_cardinality|
+        (* |feature#2a39dd1e-82b0-4855-8926-a8fae7505ca4#global_cardinality|
+           |feature#dea185d5-9061-405b-adf2-0d8dafdbb787#cardinality|))
+     (=> |feature#dea185d5-9061-405b-adf2-0d8dafdbb787#used|
+         |feature#2a39dd1e-82b0-4855-8926-a8fae7505ca4#used|)
+     (=> |feature#2a39dd1e-82b0-4855-8926-a8fae7505ca4#used|
+         (= |feature#dea185d5-9061-405b-adf2-0d8dafdbb787#cardinality| 1))
+     (>= |feature#dea185d5-9061-405b-adf2-0d8dafdbb787#cardinality| 0)
+     (= (> |feature#dea185d5-9061-405b-adf2-0d8dafdbb787#cardinality| 0)
+        |feature#dea185d5-9061-405b-adf2-0d8dafdbb787#used|)
+     (=> (and |feature#dea185d5-9061-405b-adf2-0d8dafdbb787#used| true)
+         (> |feature#dea185d5-9061-405b-adf2-0d8dafdbb787#child_cardinality| 0))
+     (=> (not |feature#dea185d5-9061-405b-adf2-0d8dafdbb787#used|)
+         (= |feature#dea185d5-9061-405b-adf2-0d8dafdbb787#child_cardinality| 0))
+     (= |feature#dea185d5-9061-405b-adf2-0d8dafdbb787#child_cardinality|
+        (+ (ite |feature#7ea3c1ad-9cf5-4f7f-a2fb-9ba646e8268d#used| 1 0)))
+     (=> (and |feature#dea185d5-9061-405b-adf2-0d8dafdbb787#used| true)
+         (= |feature#dea185d5-9061-405b-adf2-0d8dafdbb787#child_cardinality| 1))
+     (=> (not |feature#dea185d5-9061-405b-adf2-0d8dafdbb787#used|)
+         (= |feature#7ea3c1ad-9cf5-4f7f-a2fb-9ba646e8268d#cardinality| 0))
+     (= |feature#7ea3c1ad-9cf5-4f7f-a2fb-9ba646e8268d#global_cardinality|
+        (* |feature#dea185d5-9061-405b-adf2-0d8dafdbb787#global_cardinality|
+           |feature#7ea3c1ad-9cf5-4f7f-a2fb-9ba646e8268d#cardinality|))
+     (=> |feature#7ea3c1ad-9cf5-4f7f-a2fb-9ba646e8268d#used|
+         |feature#dea185d5-9061-405b-adf2-0d8dafdbb787#used|)
+     (=> |feature#dea185d5-9061-405b-adf2-0d8dafdbb787#used|
+         (and (>= |feature#7ea3c1ad-9cf5-4f7f-a2fb-9ba646e8268d#cardinality| 0)
+              (<= |feature#7ea3c1ad-9cf5-4f7f-a2fb-9ba646e8268d#cardinality| 1)))
+     (>= |feature#7ea3c1ad-9cf5-4f7f-a2fb-9ba646e8268d#cardinality| 0)
+     (= (> |feature#7ea3c1ad-9cf5-4f7f-a2fb-9ba646e8268d#cardinality| 0)
+        |feature#7ea3c1ad-9cf5-4f7f-a2fb-9ba646e8268d#used|)
+     (=> (and |feature#7ea3c1ad-9cf5-4f7f-a2fb-9ba646e8268d#used| false)
+         (> |feature#7ea3c1ad-9cf5-4f7f-a2fb-9ba646e8268d#child_cardinality| 0))
+     (=> (not |feature#7ea3c1ad-9cf5-4f7f-a2fb-9ba646e8268d#used|)
+         (= |feature#7ea3c1ad-9cf5-4f7f-a2fb-9ba646e8268d#child_cardinality| 0))
+     (= |feature#7ea3c1ad-9cf5-4f7f-a2fb-9ba646e8268d#child_cardinality| 0)
+     (=> (and |feature#7ea3c1ad-9cf5-4f7f-a2fb-9ba646e8268d#used| false)
+         (= |feature#7ea3c1ad-9cf5-4f7f-a2fb-9ba646e8268d#child_cardinality| 1))
+     (=> (not |feature#2a39dd1e-82b0-4855-8926-a8fae7505ca4#used|)
+         (= |feature#d08e5919-29b6-4328-9eaf-69363b09d587#cardinality| 0))
+     (= |feature#d08e5919-29b6-4328-9eaf-69363b09d587#global_cardinality|
+        (* |feature#2a39dd1e-82b0-4855-8926-a8fae7505ca4#global_cardinality|
+           |feature#d08e5919-29b6-4328-9eaf-69363b09d587#cardinality|))
+     (=> |feature#d08e5919-29b6-4328-9eaf-69363b09d587#used|
+         |feature#2a39dd1e-82b0-4855-8926-a8fae7505ca4#used|)
+     (=> |feature#2a39dd1e-82b0-4855-8926-a8fae7505ca4#used|
+         (= |feature#d08e5919-29b6-4328-9eaf-69363b09d587#cardinality| 1))
+     (>= |feature#d08e5919-29b6-4328-9eaf-69363b09d587#cardinality| 0)
+     (= (> |feature#d08e5919-29b6-4328-9eaf-69363b09d587#cardinality| 0)
+        |feature#d08e5919-29b6-4328-9eaf-69363b09d587#used|)
+     (=> (and |feature#d08e5919-29b6-4328-9eaf-69363b09d587#used| true)
+         (> |feature#d08e5919-29b6-4328-9eaf-69363b09d587#child_cardinality| 0))
+     (=> (not |feature#d08e5919-29b6-4328-9eaf-69363b09d587#used|)
+         (= |feature#d08e5919-29b6-4328-9eaf-69363b09d587#child_cardinality| 0))
+     (= |feature#d08e5919-29b6-4328-9eaf-69363b09d587#child_cardinality|
+        (+ (ite |feature#237bd3a4-368d-4e93-9573-87302b08464b#used| 1 0)))
+     (=> (and |feature#d08e5919-29b6-4328-9eaf-69363b09d587#used| true)
+         (= |feature#d08e5919-29b6-4328-9eaf-69363b09d587#child_cardinality| 1))
+     (=> (not |feature#d08e5919-29b6-4328-9eaf-69363b09d587#used|)
+         (= |feature#237bd3a4-368d-4e93-9573-87302b08464b#cardinality| 0))
+     (= |feature#237bd3a4-368d-4e93-9573-87302b08464b#global_cardinality|
+        (* |feature#d08e5919-29b6-4328-9eaf-69363b09d587#global_cardinality|
+           |feature#237bd3a4-368d-4e93-9573-87302b08464b#cardinality|))
+     (=> |feature#237bd3a4-368d-4e93-9573-87302b08464b#used|
+         |feature#d08e5919-29b6-4328-9eaf-69363b09d587#used|)
+     (=> |feature#d08e5919-29b6-4328-9eaf-69363b09d587#used|
+         (and (>= |feature#237bd3a4-368d-4e93-9573-87302b08464b#cardinality| 0)
+              (<= |feature#237bd3a4-368d-4e93-9573-87302b08464b#cardinality| 1)))
+     (>= |feature#237bd3a4-368d-4e93-9573-87302b08464b#cardinality| 0)
+     (= (> |feature#237bd3a4-368d-4e93-9573-87302b08464b#cardinality| 0)
+        |feature#237bd3a4-368d-4e93-9573-87302b08464b#used|)
+     (=> (and |feature#237bd3a4-368d-4e93-9573-87302b08464b#used| false)
+         (> |feature#237bd3a4-368d-4e93-9573-87302b08464b#child_cardinality| 0))
+     (=> (not |feature#237bd3a4-368d-4e93-9573-87302b08464b#used|)
+         (= |feature#237bd3a4-368d-4e93-9573-87302b08464b#child_cardinality| 0))
+     (= |feature#237bd3a4-368d-4e93-9573-87302b08464b#child_cardinality| 0)
+     (=> (and |feature#237bd3a4-368d-4e93-9573-87302b08464b#used| false)
+         (= |feature#237bd3a4-368d-4e93-9573-87302b08464b#child_cardinality| 1))
+     (=> (not |feature#FEATURE_DIAGRAM_INTERNAL#used|)
+         (= |feature#4f6c7273-6bcb-4355-8b61-3380e03d6089#cardinality| 0))
+     (= |feature#4f6c7273-6bcb-4355-8b61-3380e03d6089#global_cardinality|
+        (* |feature#FEATURE_DIAGRAM_INTERNAL#global_cardinality|
+           |feature#4f6c7273-6bcb-4355-8b61-3380e03d6089#cardinality|))
+     (=> |feature#4f6c7273-6bcb-4355-8b61-3380e03d6089#used|
+         |feature#FEATURE_DIAGRAM_INTERNAL#used|)
+     (=> |feature#FEATURE_DIAGRAM_INTERNAL#used|
+         (= |feature#4f6c7273-6bcb-4355-8b61-3380e03d6089#cardinality| 1))
+     (>= |feature#4f6c7273-6bcb-4355-8b61-3380e03d6089#cardinality| 0)
+     (= (> |feature#4f6c7273-6bcb-4355-8b61-3380e03d6089#cardinality| 0)
+        |feature#4f6c7273-6bcb-4355-8b61-3380e03d6089#used|)
+     (=> (and |feature#4f6c7273-6bcb-4355-8b61-3380e03d6089#used| true)
+         (> |feature#4f6c7273-6bcb-4355-8b61-3380e03d6089#child_cardinality| 0))
+     (=> (not |feature#4f6c7273-6bcb-4355-8b61-3380e03d6089#used|)
+         (= |feature#4f6c7273-6bcb-4355-8b61-3380e03d6089#child_cardinality| 0))
+     (= |feature#4f6c7273-6bcb-4355-8b61-3380e03d6089#child_cardinality|
+        (+ (ite |feature#99a5e6f0-a865-4500-aac8-5c8ff2415f90#used| 1 0)))
+     (=> (and |feature#4f6c7273-6bcb-4355-8b61-3380e03d6089#used| true)
+         (= |feature#4f6c7273-6bcb-4355-8b61-3380e03d6089#child_cardinality| 1))
+     (=> (not |feature#4f6c7273-6bcb-4355-8b61-3380e03d6089#used|)
+         (= |feature#99a5e6f0-a865-4500-aac8-5c8ff2415f90#cardinality| 0))
+     (= |feature#99a5e6f0-a865-4500-aac8-5c8ff2415f90#global_cardinality|
+        (* |feature#4f6c7273-6bcb-4355-8b61-3380e03d6089#global_cardinality|
+           |feature#99a5e6f0-a865-4500-aac8-5c8ff2415f90#cardinality|))
+     (=> |feature#99a5e6f0-a865-4500-aac8-5c8ff2415f90#used|
+         |feature#4f6c7273-6bcb-4355-8b61-3380e03d6089#used|)
+     (=> |feature#4f6c7273-6bcb-4355-8b61-3380e03d6089#used|
+         (and (>= |feature#99a5e6f0-a865-4500-aac8-5c8ff2415f90#cardinality| 0)
+              (<= |feature#99a5e6f0-a865-4500-aac8-5c8ff2415f90#cardinality| 1)))
+     (>= |feature#99a5e6f0-a865-4500-aac8-5c8ff2415f90#cardinality| 0)
+     (= (> |feature#99a5e6f0-a865-4500-aac8-5c8ff2415f90#cardinality| 0)
+        |feature#99a5e6f0-a865-4500-aac8-5c8ff2415f90#used|)
+     (=> (and |feature#99a5e6f0-a865-4500-aac8-5c8ff2415f90#used| false)
+         (> |feature#99a5e6f0-a865-4500-aac8-5c8ff2415f90#child_cardinality| 0))
+     (=> (not |feature#99a5e6f0-a865-4500-aac8-5c8ff2415f90#used|)
+         (= |feature#99a5e6f0-a865-4500-aac8-5c8ff2415f90#child_cardinality| 0))
+     (= |feature#99a5e6f0-a865-4500-aac8-5c8ff2415f90#child_cardinality| 0)
+     (=> (and |feature#99a5e6f0-a865-4500-aac8-5c8ff2415f90#used| false)
+         (= |feature#99a5e6f0-a865-4500-aac8-5c8ff2415f90#child_cardinality| 1))
+     (=> (not |feature#FEATURE_DIAGRAM_INTERNAL#used|)
+         (= |feature#75b35115-5ebe-413b-a4a2-2114309de1c7#cardinality| 0))
+     (= |feature#75b35115-5ebe-413b-a4a2-2114309de1c7#global_cardinality|
+        (* |feature#FEATURE_DIAGRAM_INTERNAL#global_cardinality|
+           |feature#75b35115-5ebe-413b-a4a2-2114309de1c7#cardinality|))
+     (=> |feature#75b35115-5ebe-413b-a4a2-2114309de1c7#used|
+         |feature#FEATURE_DIAGRAM_INTERNAL#used|)
+     (=> |feature#FEATURE_DIAGRAM_INTERNAL#used|
+         (= |feature#75b35115-5ebe-413b-a4a2-2114309de1c7#cardinality| 1))
+     (>= |feature#75b35115-5ebe-413b-a4a2-2114309de1c7#cardinality| 0)
+     (= (> |feature#75b35115-5ebe-413b-a4a2-2114309de1c7#cardinality| 0)
+        |feature#75b35115-5ebe-413b-a4a2-2114309de1c7#used|)
+     (=> (and |feature#75b35115-5ebe-413b-a4a2-2114309de1c7#used| true)
+         (> |feature#75b35115-5ebe-413b-a4a2-2114309de1c7#child_cardinality| 0))
+     (=> (not |feature#75b35115-5ebe-413b-a4a2-2114309de1c7#used|)
+         (= |feature#75b35115-5ebe-413b-a4a2-2114309de1c7#child_cardinality| 0))
+     (= |feature#75b35115-5ebe-413b-a4a2-2114309de1c7#child_cardinality|
+        (+ (ite |feature#b0fc7b05-4cb6-431e-b973-45f5431c9169#used| 1 0)
+           (ite |feature#efbb64d5-3002-411a-86cc-521f6bd9c367#used| 1 0)
+           (ite |feature#49f80289-4b06-4e9f-8212-9f672af7a6bc#used| 1 0)
+           (ite |feature#e165cd49-c095-44e7-9592-c613f92faedd#used| 1 0)
+           (ite |feature#81b23e17-4303-4778-9e19-05e65787b69d#used| 1 0)
+           (ite |feature#8a56f61f-a5a9-4e26-ac20-e773c98568b6#used| 1 0)
+           (ite |feature#b15793f9-343a-4918-9e75-01032530016b#used| 1 0)))
+     (=> (and |feature#75b35115-5ebe-413b-a4a2-2114309de1c7#used| true)
+         (and (>= |feature#75b35115-5ebe-413b-a4a2-2114309de1c7#child_cardinality|
+                  1)
+              (<= |feature#75b35115-5ebe-413b-a4a2-2114309de1c7#child_cardinality|
+                  7)))
+     (=> (not |feature#75b35115-5ebe-413b-a4a2-2114309de1c7#used|)
+         (= |feature#b0fc7b05-4cb6-431e-b973-45f5431c9169#cardinality| 0))
+     (= |feature#b0fc7b05-4cb6-431e-b973-45f5431c9169#global_cardinality|
+        (* |feature#75b35115-5ebe-413b-a4a2-2114309de1c7#global_cardinality|
+           |feature#b0fc7b05-4cb6-431e-b973-45f5431c9169#cardinality|))
+     (=> |feature#b0fc7b05-4cb6-431e-b973-45f5431c9169#used|
+         |feature#75b35115-5ebe-413b-a4a2-2114309de1c7#used|)
+     (=> |feature#75b35115-5ebe-413b-a4a2-2114309de1c7#used|
+         (and (>= |feature#b0fc7b05-4cb6-431e-b973-45f5431c9169#cardinality| 0)
+              (<= |feature#b0fc7b05-4cb6-431e-b973-45f5431c9169#cardinality| 1)))
+     (>= |feature#b0fc7b05-4cb6-431e-b973-45f5431c9169#cardinality| 0)
+     (= (> |feature#b0fc7b05-4cb6-431e-b973-45f5431c9169#cardinality| 0)
+        |feature#b0fc7b05-4cb6-431e-b973-45f5431c9169#used|)
+     (=> (and |feature#b0fc7b05-4cb6-431e-b973-45f5431c9169#used| true)
+         (> |feature#b0fc7b05-4cb6-431e-b973-45f5431c9169#child_cardinality| 0))
+     (=> (not |feature#b0fc7b05-4cb6-431e-b973-45f5431c9169#used|)
+         (= |feature#b0fc7b05-4cb6-431e-b973-45f5431c9169#child_cardinality| 0))
+     (= |feature#b0fc7b05-4cb6-431e-b973-45f5431c9169#child_cardinality|
+        (+ (ite |feature#9f5a8c62-a1a7-426a-a691-2226795f0446#used| 1 0)
+           (ite |feature#1aa71ed1-d18b-47ca-be4b-7d890ed51d05#used| 1 0)))
+     (=> (and |feature#b0fc7b05-4cb6-431e-b973-45f5431c9169#used| true)
+         (= |feature#b0fc7b05-4cb6-431e-b973-45f5431c9169#child_cardinality| 1))
+     (=> (not |feature#b0fc7b05-4cb6-431e-b973-45f5431c9169#used|)
+         (= |feature#9f5a8c62-a1a7-426a-a691-2226795f0446#cardinality| 0))
+     (= |feature#9f5a8c62-a1a7-426a-a691-2226795f0446#global_cardinality|
+        (* |feature#b0fc7b05-4cb6-431e-b973-45f5431c9169#global_cardinality|
+           |feature#9f5a8c62-a1a7-426a-a691-2226795f0446#cardinality|))
+     (=> |feature#9f5a8c62-a1a7-426a-a691-2226795f0446#used|
+         |feature#b0fc7b05-4cb6-431e-b973-45f5431c9169#used|)
+     (=> |feature#b0fc7b05-4cb6-431e-b973-45f5431c9169#used|
+         (and (>= |feature#9f5a8c62-a1a7-426a-a691-2226795f0446#cardinality| 0)
+              (<= |feature#9f5a8c62-a1a7-426a-a691-2226795f0446#cardinality| 1)))
+     (>= |feature#9f5a8c62-a1a7-426a-a691-2226795f0446#cardinality| 0)
+     (= (> |feature#9f5a8c62-a1a7-426a-a691-2226795f0446#cardinality| 0)
+        |feature#9f5a8c62-a1a7-426a-a691-2226795f0446#used|)
+     (=> (and |feature#9f5a8c62-a1a7-426a-a691-2226795f0446#used| false)
+         (> |feature#9f5a8c62-a1a7-426a-a691-2226795f0446#child_cardinality| 0))
+     (=> (not |feature#9f5a8c62-a1a7-426a-a691-2226795f0446#used|)
+         (= |feature#9f5a8c62-a1a7-426a-a691-2226795f0446#child_cardinality| 0))
+     (= |feature#9f5a8c62-a1a7-426a-a691-2226795f0446#child_cardinality| 0)
+     (=> (and |feature#9f5a8c62-a1a7-426a-a691-2226795f0446#used| false)
+         (= |feature#9f5a8c62-a1a7-426a-a691-2226795f0446#child_cardinality| 1))
+     (=> (not |feature#b0fc7b05-4cb6-431e-b973-45f5431c9169#used|)
+         (= |feature#1aa71ed1-d18b-47ca-be4b-7d890ed51d05#cardinality| 0))
+     (= |feature#1aa71ed1-d18b-47ca-be4b-7d890ed51d05#global_cardinality|
+        (* |feature#b0fc7b05-4cb6-431e-b973-45f5431c9169#global_cardinality|
+           |feature#1aa71ed1-d18b-47ca-be4b-7d890ed51d05#cardinality|))
+     (=> |feature#1aa71ed1-d18b-47ca-be4b-7d890ed51d05#used|
+         |feature#b0fc7b05-4cb6-431e-b973-45f5431c9169#used|)
+     (=> |feature#b0fc7b05-4cb6-431e-b973-45f5431c9169#used|
+         (and (>= |feature#1aa71ed1-d18b-47ca-be4b-7d890ed51d05#cardinality| 0)
+              (<= |feature#1aa71ed1-d18b-47ca-be4b-7d890ed51d05#cardinality| 1)))
+     (>= |feature#1aa71ed1-d18b-47ca-be4b-7d890ed51d05#cardinality| 0)
+     (= (> |feature#1aa71ed1-d18b-47ca-be4b-7d890ed51d05#cardinality| 0)
+        |feature#1aa71ed1-d18b-47ca-be4b-7d890ed51d05#used|)
+     (=> (and |feature#1aa71ed1-d18b-47ca-be4b-7d890ed51d05#used| false)
+         (> |feature#1aa71ed1-d18b-47ca-be4b-7d890ed51d05#child_cardinality| 0))
+     (=> (not |feature#1aa71ed1-d18b-47ca-be4b-7d890ed51d05#used|)
+         (= |feature#1aa71ed1-d18b-47ca-be4b-7d890ed51d05#child_cardinality| 0))
+     (= |feature#1aa71ed1-d18b-47ca-be4b-7d890ed51d05#child_cardinality| 0)
+     (=> (and |feature#1aa71ed1-d18b-47ca-be4b-7d890ed51d05#used| false)
+         (= |feature#1aa71ed1-d18b-47ca-be4b-7d890ed51d05#child_cardinality| 1))
+     (=> (not |feature#75b35115-5ebe-413b-a4a2-2114309de1c7#used|)
+         (= |feature#efbb64d5-3002-411a-86cc-521f6bd9c367#cardinality| 0))
+     (= |feature#efbb64d5-3002-411a-86cc-521f6bd9c367#global_cardinality|
+        (* |feature#75b35115-5ebe-413b-a4a2-2114309de1c7#global_cardinality|
+           |feature#efbb64d5-3002-411a-86cc-521f6bd9c367#cardinality|))
+     (=> |feature#efbb64d5-3002-411a-86cc-521f6bd9c367#used|
+         |feature#75b35115-5ebe-413b-a4a2-2114309de1c7#used|)
+     (=> |feature#75b35115-5ebe-413b-a4a2-2114309de1c7#used|
+         (and (>= |feature#efbb64d5-3002-411a-86cc-521f6bd9c367#cardinality| 0)
+              (<= |feature#efbb64d5-3002-411a-86cc-521f6bd9c367#cardinality| 1)))
+     (>= |feature#efbb64d5-3002-411a-86cc-521f6bd9c367#cardinality| 0)
+     (= (> |feature#efbb64d5-3002-411a-86cc-521f6bd9c367#cardinality| 0)
+        |feature#efbb64d5-3002-411a-86cc-521f6bd9c367#used|)
+     (=> (and |feature#efbb64d5-3002-411a-86cc-521f6bd9c367#used| true)
+         (> |feature#efbb64d5-3002-411a-86cc-521f6bd9c367#child_cardinality| 0))
+     (=> (not |feature#efbb64d5-3002-411a-86cc-521f6bd9c367#used|)
+         (= |feature#efbb64d5-3002-411a-86cc-521f6bd9c367#child_cardinality| 0))
+     (= |feature#efbb64d5-3002-411a-86cc-521f6bd9c367#child_cardinality|
+        (+ (ite |feature#be756e9c-1b0d-4704-b8cb-be9dd3e82b52#used| 1 0)))
+     (=> (and |feature#efbb64d5-3002-411a-86cc-521f6bd9c367#used| true)
+         (= |feature#efbb64d5-3002-411a-86cc-521f6bd9c367#child_cardinality| 1))
+     (=> (not |feature#efbb64d5-3002-411a-86cc-521f6bd9c367#used|)
+         (= |feature#be756e9c-1b0d-4704-b8cb-be9dd3e82b52#cardinality| 0))
+     (= |feature#be756e9c-1b0d-4704-b8cb-be9dd3e82b52#global_cardinality|
+        (* |feature#efbb64d5-3002-411a-86cc-521f6bd9c367#global_cardinality|
+           |feature#be756e9c-1b0d-4704-b8cb-be9dd3e82b52#cardinality|))
+     (=> |feature#be756e9c-1b0d-4704-b8cb-be9dd3e82b52#used|
+         |feature#efbb64d5-3002-411a-86cc-521f6bd9c367#used|)
+     (=> |feature#efbb64d5-3002-411a-86cc-521f6bd9c367#used|
+         (and (>= |feature#be756e9c-1b0d-4704-b8cb-be9dd3e82b52#cardinality| 0)
+              (<= |feature#be756e9c-1b0d-4704-b8cb-be9dd3e82b52#cardinality| 1)))
+     (>= |feature#be756e9c-1b0d-4704-b8cb-be9dd3e82b52#cardinality| 0)
+     (= (> |feature#be756e9c-1b0d-4704-b8cb-be9dd3e82b52#cardinality| 0)
+        |feature#be756e9c-1b0d-4704-b8cb-be9dd3e82b52#used|)
+     (=> (and |feature#be756e9c-1b0d-4704-b8cb-be9dd3e82b52#used| false)
+         (> |feature#be756e9c-1b0d-4704-b8cb-be9dd3e82b52#child_cardinality| 0))
+     (=> (not |feature#be756e9c-1b0d-4704-b8cb-be9dd3e82b52#used|)
+         (= |feature#be756e9c-1b0d-4704-b8cb-be9dd3e82b52#child_cardinality| 0))
+     (= |feature#be756e9c-1b0d-4704-b8cb-be9dd3e82b52#child_cardinality| 0)
+     (=> (and |feature#be756e9c-1b0d-4704-b8cb-be9dd3e82b52#used| false)
+         (= |feature#be756e9c-1b0d-4704-b8cb-be9dd3e82b52#child_cardinality| 1))
+     (=> (not |feature#75b35115-5ebe-413b-a4a2-2114309de1c7#used|)
+         (= |feature#49f80289-4b06-4e9f-8212-9f672af7a6bc#cardinality| 0))
+     (= |feature#49f80289-4b06-4e9f-8212-9f672af7a6bc#global_cardinality|
+        (* |feature#75b35115-5ebe-413b-a4a2-2114309de1c7#global_cardinality|
+           |feature#49f80289-4b06-4e9f-8212-9f672af7a6bc#cardinality|))
+     (=> |feature#49f80289-4b06-4e9f-8212-9f672af7a6bc#used|
+         |feature#75b35115-5ebe-413b-a4a2-2114309de1c7#used|)
+     (=> |feature#75b35115-5ebe-413b-a4a2-2114309de1c7#used|
+         (= |feature#49f80289-4b06-4e9f-8212-9f672af7a6bc#cardinality| 1))
+     (>= |feature#49f80289-4b06-4e9f-8212-9f672af7a6bc#cardinality| 0)
+     (= (> |feature#49f80289-4b06-4e9f-8212-9f672af7a6bc#cardinality| 0)
+        |feature#49f80289-4b06-4e9f-8212-9f672af7a6bc#used|)
+     (=> (and |feature#49f80289-4b06-4e9f-8212-9f672af7a6bc#used| true)
+         (> |feature#49f80289-4b06-4e9f-8212-9f672af7a6bc#child_cardinality| 0))
+     (=> (not |feature#49f80289-4b06-4e9f-8212-9f672af7a6bc#used|)
+         (= |feature#49f80289-4b06-4e9f-8212-9f672af7a6bc#child_cardinality| 0))
+     (= |feature#49f80289-4b06-4e9f-8212-9f672af7a6bc#child_cardinality|
+        (+ (ite |feature#0066001f-6b20-4164-aa5f-fc4b926daec9#used| 1 0)))
+     (=> (and |feature#49f80289-4b06-4e9f-8212-9f672af7a6bc#used| true)
+         (= |feature#49f80289-4b06-4e9f-8212-9f672af7a6bc#child_cardinality| 1))
+     (=> (not |feature#49f80289-4b06-4e9f-8212-9f672af7a6bc#used|)
+         (= |feature#0066001f-6b20-4164-aa5f-fc4b926daec9#cardinality| 0))
+     (= |feature#0066001f-6b20-4164-aa5f-fc4b926daec9#global_cardinality|
+        (* |feature#49f80289-4b06-4e9f-8212-9f672af7a6bc#global_cardinality|
+           |feature#0066001f-6b20-4164-aa5f-fc4b926daec9#cardinality|))
+     (=> |feature#0066001f-6b20-4164-aa5f-fc4b926daec9#used|
+         |feature#49f80289-4b06-4e9f-8212-9f672af7a6bc#used|)
+     (=> |feature#49f80289-4b06-4e9f-8212-9f672af7a6bc#used|
+         (and (>= |feature#0066001f-6b20-4164-aa5f-fc4b926daec9#cardinality| 0)
+              (<= |feature#0066001f-6b20-4164-aa5f-fc4b926daec9#cardinality| 1)))
+     (>= |feature#0066001f-6b20-4164-aa5f-fc4b926daec9#cardinality| 0)
+     (= (> |feature#0066001f-6b20-4164-aa5f-fc4b926daec9#cardinality| 0)
+        |feature#0066001f-6b20-4164-aa5f-fc4b926daec9#used|)
+     (=> (and |feature#0066001f-6b20-4164-aa5f-fc4b926daec9#used| false)
+         (> |feature#0066001f-6b20-4164-aa5f-fc4b926daec9#child_cardinality| 0))
+     (=> (not |feature#0066001f-6b20-4164-aa5f-fc4b926daec9#used|)
+         (= |feature#0066001f-6b20-4164-aa5f-fc4b926daec9#child_cardinality| 0))
+     (= |feature#0066001f-6b20-4164-aa5f-fc4b926daec9#child_cardinality| 0)
+     (=> (and |feature#0066001f-6b20-4164-aa5f-fc4b926daec9#used| false)
+         (= |feature#0066001f-6b20-4164-aa5f-fc4b926daec9#child_cardinality| 1))
+     (=> (not |feature#75b35115-5ebe-413b-a4a2-2114309de1c7#used|)
+         (= |feature#e165cd49-c095-44e7-9592-c613f92faedd#cardinality| 0))
+     (= |feature#e165cd49-c095-44e7-9592-c613f92faedd#global_cardinality|
+        (* |feature#75b35115-5ebe-413b-a4a2-2114309de1c7#global_cardinality|
+           |feature#e165cd49-c095-44e7-9592-c613f92faedd#cardinality|))
+     (=> |feature#e165cd49-c095-44e7-9592-c613f92faedd#used|
+         |feature#75b35115-5ebe-413b-a4a2-2114309de1c7#used|)
+     (=> |feature#75b35115-5ebe-413b-a4a2-2114309de1c7#used|
+         (= |feature#e165cd49-c095-44e7-9592-c613f92faedd#cardinality| 1))
+     (>= |feature#e165cd49-c095-44e7-9592-c613f92faedd#cardinality| 0)
+     (= (> |feature#e165cd49-c095-44e7-9592-c613f92faedd#cardinality| 0)
+        |feature#e165cd49-c095-44e7-9592-c613f92faedd#used|)
+     (=> (and |feature#e165cd49-c095-44e7-9592-c613f92faedd#used| true)
+         (> |feature#e165cd49-c095-44e7-9592-c613f92faedd#child_cardinality| 0))
+     (=> (not |feature#e165cd49-c095-44e7-9592-c613f92faedd#used|)
+         (= |feature#e165cd49-c095-44e7-9592-c613f92faedd#child_cardinality| 0))
+     (= |feature#e165cd49-c095-44e7-9592-c613f92faedd#child_cardinality|
+        (+ (ite |feature#f4680373-0cdf-4071-bf75-b12f8e1cb595#used| 1 0)))
+     (=> (and |feature#e165cd49-c095-44e7-9592-c613f92faedd#used| true)
+         (= |feature#e165cd49-c095-44e7-9592-c613f92faedd#child_cardinality| 1))
+     (=> (not |feature#e165cd49-c095-44e7-9592-c613f92faedd#used|)
+         (= |feature#f4680373-0cdf-4071-bf75-b12f8e1cb595#cardinality| 0))
+     (= |feature#f4680373-0cdf-4071-bf75-b12f8e1cb595#global_cardinality|
+        (* |feature#e165cd49-c095-44e7-9592-c613f92faedd#global_cardinality|
+           |feature#f4680373-0cdf-4071-bf75-b12f8e1cb595#cardinality|))
+     (=> |feature#f4680373-0cdf-4071-bf75-b12f8e1cb595#used|
+         |feature#e165cd49-c095-44e7-9592-c613f92faedd#used|)
+     (=> |feature#e165cd49-c095-44e7-9592-c613f92faedd#used|
+         (and (>= |feature#f4680373-0cdf-4071-bf75-b12f8e1cb595#cardinality| 0)
+              (<= |feature#f4680373-0cdf-4071-bf75-b12f8e1cb595#cardinality| 1)))
+     (>= |feature#f4680373-0cdf-4071-bf75-b12f8e1cb595#cardinality| 0)
+     (= (> |feature#f4680373-0cdf-4071-bf75-b12f8e1cb595#cardinality| 0)
+        |feature#f4680373-0cdf-4071-bf75-b12f8e1cb595#used|)
+     (=> (and |feature#f4680373-0cdf-4071-bf75-b12f8e1cb595#used| false)
+         (> |feature#f4680373-0cdf-4071-bf75-b12f8e1cb595#child_cardinality| 0))
+     (=> (not |feature#f4680373-0cdf-4071-bf75-b12f8e1cb595#used|)
+         (= |feature#f4680373-0cdf-4071-bf75-b12f8e1cb595#child_cardinality| 0))
+     (= |feature#f4680373-0cdf-4071-bf75-b12f8e1cb595#child_cardinality| 0)
+     (=> (and |feature#f4680373-0cdf-4071-bf75-b12f8e1cb595#used| false)
+         (= |feature#f4680373-0cdf-4071-bf75-b12f8e1cb595#child_cardinality| 1))
+     (=> (not |feature#75b35115-5ebe-413b-a4a2-2114309de1c7#used|)
+         (= |feature#81b23e17-4303-4778-9e19-05e65787b69d#cardinality| 0))
+     (= |feature#81b23e17-4303-4778-9e19-05e65787b69d#global_cardinality|
+        (* |feature#75b35115-5ebe-413b-a4a2-2114309de1c7#global_cardinality|
+           |feature#81b23e17-4303-4778-9e19-05e65787b69d#cardinality|))
+     (=> |feature#81b23e17-4303-4778-9e19-05e65787b69d#used|
+         |feature#75b35115-5ebe-413b-a4a2-2114309de1c7#used|)
+     (=> |feature#75b35115-5ebe-413b-a4a2-2114309de1c7#used|
+         (= |feature#81b23e17-4303-4778-9e19-05e65787b69d#cardinality| 1))
+     (>= |feature#81b23e17-4303-4778-9e19-05e65787b69d#cardinality| 0)
+     (= (> |feature#81b23e17-4303-4778-9e19-05e65787b69d#cardinality| 0)
+        |feature#81b23e17-4303-4778-9e19-05e65787b69d#used|)
+     (=> (and |feature#81b23e17-4303-4778-9e19-05e65787b69d#used| true)
+         (> |feature#81b23e17-4303-4778-9e19-05e65787b69d#child_cardinality| 0))
+     (=> (not |feature#81b23e17-4303-4778-9e19-05e65787b69d#used|)
+         (= |feature#81b23e17-4303-4778-9e19-05e65787b69d#child_cardinality| 0))
+     (= |feature#81b23e17-4303-4778-9e19-05e65787b69d#child_cardinality|
+        (+ (ite |feature#eebd2986-a552-4d43-a1cf-bbdad747b0bb#used| 1 0)))
+     (=> (and |feature#81b23e17-4303-4778-9e19-05e65787b69d#used| true)
+         (= |feature#81b23e17-4303-4778-9e19-05e65787b69d#child_cardinality| 1))
+     (=> (not |feature#81b23e17-4303-4778-9e19-05e65787b69d#used|)
+         (= |feature#eebd2986-a552-4d43-a1cf-bbdad747b0bb#cardinality| 0))
+     (= |feature#eebd2986-a552-4d43-a1cf-bbdad747b0bb#global_cardinality|
+        (* |feature#81b23e17-4303-4778-9e19-05e65787b69d#global_cardinality|
+           |feature#eebd2986-a552-4d43-a1cf-bbdad747b0bb#cardinality|))
+     (=> |feature#eebd2986-a552-4d43-a1cf-bbdad747b0bb#used|
+         |feature#81b23e17-4303-4778-9e19-05e65787b69d#used|)
+     (=> |feature#81b23e17-4303-4778-9e19-05e65787b69d#used|
+         (and (>= |feature#eebd2986-a552-4d43-a1cf-bbdad747b0bb#cardinality| 0)
+              (<= |feature#eebd2986-a552-4d43-a1cf-bbdad747b0bb#cardinality| 1)))
+     (>= |feature#eebd2986-a552-4d43-a1cf-bbdad747b0bb#cardinality| 0)
+     (= (> |feature#eebd2986-a552-4d43-a1cf-bbdad747b0bb#cardinality| 0)
+        |feature#eebd2986-a552-4d43-a1cf-bbdad747b0bb#used|)
+     (=> (and |feature#eebd2986-a552-4d43-a1cf-bbdad747b0bb#used| false)
+         (> |feature#eebd2986-a552-4d43-a1cf-bbdad747b0bb#child_cardinality| 0))
+     (=> (not |feature#eebd2986-a552-4d43-a1cf-bbdad747b0bb#used|)
+         (= |feature#eebd2986-a552-4d43-a1cf-bbdad747b0bb#child_cardinality| 0))
+     (= |feature#eebd2986-a552-4d43-a1cf-bbdad747b0bb#child_cardinality| 0)
+     (=> (and |feature#eebd2986-a552-4d43-a1cf-bbdad747b0bb#used| false)
+         (= |feature#eebd2986-a552-4d43-a1cf-bbdad747b0bb#child_cardinality| 1))
+     (=> (not |feature#75b35115-5ebe-413b-a4a2-2114309de1c7#used|)
+         (= |feature#8a56f61f-a5a9-4e26-ac20-e773c98568b6#cardinality| 0))
+     (= |feature#8a56f61f-a5a9-4e26-ac20-e773c98568b6#global_cardinality|
+        (* |feature#75b35115-5ebe-413b-a4a2-2114309de1c7#global_cardinality|
+           |feature#8a56f61f-a5a9-4e26-ac20-e773c98568b6#cardinality|))
+     (=> |feature#8a56f61f-a5a9-4e26-ac20-e773c98568b6#used|
+         |feature#75b35115-5ebe-413b-a4a2-2114309de1c7#used|)
+     (=> |feature#75b35115-5ebe-413b-a4a2-2114309de1c7#used|
+         (= |feature#8a56f61f-a5a9-4e26-ac20-e773c98568b6#cardinality| 1))
+     (>= |feature#8a56f61f-a5a9-4e26-ac20-e773c98568b6#cardinality| 0)
+     (= (> |feature#8a56f61f-a5a9-4e26-ac20-e773c98568b6#cardinality| 0)
+        |feature#8a56f61f-a5a9-4e26-ac20-e773c98568b6#used|)
+     (=> (and |feature#8a56f61f-a5a9-4e26-ac20-e773c98568b6#used| true)
+         (> |feature#8a56f61f-a5a9-4e26-ac20-e773c98568b6#child_cardinality| 0))
+     (=> (not |feature#8a56f61f-a5a9-4e26-ac20-e773c98568b6#used|)
+         (= |feature#8a56f61f-a5a9-4e26-ac20-e773c98568b6#child_cardinality| 0))
+     (= |feature#8a56f61f-a5a9-4e26-ac20-e773c98568b6#child_cardinality|
+        (+ (ite |feature#a8bf78fd-1555-43f2-b8c7-05f71fedfd58#used| 1 0)
+           (ite |feature#2b09c974-4632-4637-a499-97c5eee433ed#used| 1 0)))
+     (=> (and |feature#8a56f61f-a5a9-4e26-ac20-e773c98568b6#used| true)
+         (= |feature#8a56f61f-a5a9-4e26-ac20-e773c98568b6#child_cardinality| 1))
+     (=> (not |feature#8a56f61f-a5a9-4e26-ac20-e773c98568b6#used|)
+         (= |feature#a8bf78fd-1555-43f2-b8c7-05f71fedfd58#cardinality| 0))
+     (= |feature#a8bf78fd-1555-43f2-b8c7-05f71fedfd58#global_cardinality|
+        (* |feature#8a56f61f-a5a9-4e26-ac20-e773c98568b6#global_cardinality|
+           |feature#a8bf78fd-1555-43f2-b8c7-05f71fedfd58#cardinality|))
+     (=> |feature#a8bf78fd-1555-43f2-b8c7-05f71fedfd58#used|
+         |feature#8a56f61f-a5a9-4e26-ac20-e773c98568b6#used|)
+     (=> |feature#8a56f61f-a5a9-4e26-ac20-e773c98568b6#used|
+         (and (>= |feature#a8bf78fd-1555-43f2-b8c7-05f71fedfd58#cardinality| 0)
+              (<= |feature#a8bf78fd-1555-43f2-b8c7-05f71fedfd58#cardinality| 1)))
+     (>= |feature#a8bf78fd-1555-43f2-b8c7-05f71fedfd58#cardinality| 0)
+     (= (> |feature#a8bf78fd-1555-43f2-b8c7-05f71fedfd58#cardinality| 0)
+        |feature#a8bf78fd-1555-43f2-b8c7-05f71fedfd58#used|)
+     (=> (and |feature#a8bf78fd-1555-43f2-b8c7-05f71fedfd58#used| false)
+         (> |feature#a8bf78fd-1555-43f2-b8c7-05f71fedfd58#child_cardinality| 0))
+     (=> (not |feature#a8bf78fd-1555-43f2-b8c7-05f71fedfd58#used|)
+         (= |feature#a8bf78fd-1555-43f2-b8c7-05f71fedfd58#child_cardinality| 0))
+     (= |feature#a8bf78fd-1555-43f2-b8c7-05f71fedfd58#child_cardinality| 0)
+     (=> (and |feature#a8bf78fd-1555-43f2-b8c7-05f71fedfd58#used| false)
+         (= |feature#a8bf78fd-1555-43f2-b8c7-05f71fedfd58#child_cardinality| 1))
+     (=> (not |feature#8a56f61f-a5a9-4e26-ac20-e773c98568b6#used|)
+         (= |feature#2b09c974-4632-4637-a499-97c5eee433ed#cardinality| 0))
+     (= |feature#2b09c974-4632-4637-a499-97c5eee433ed#global_cardinality|
+        (* |feature#8a56f61f-a5a9-4e26-ac20-e773c98568b6#global_cardinality|
+           |feature#2b09c974-4632-4637-a499-97c5eee433ed#cardinality|))
+     (=> |feature#2b09c974-4632-4637-a499-97c5eee433ed#used|
+         |feature#8a56f61f-a5a9-4e26-ac20-e773c98568b6#used|)
+     (=> |feature#8a56f61f-a5a9-4e26-ac20-e773c98568b6#used|
+         (and (>= |feature#2b09c974-4632-4637-a499-97c5eee433ed#cardinality| 0)
+              (<= |feature#2b09c974-4632-4637-a499-97c5eee433ed#cardinality| 1)))
+     (>= |feature#2b09c974-4632-4637-a499-97c5eee433ed#cardinality| 0)
+     (= (> |feature#2b09c974-4632-4637-a499-97c5eee433ed#cardinality| 0)
+        |feature#2b09c974-4632-4637-a499-97c5eee433ed#used|)
+     (=> (and |feature#2b09c974-4632-4637-a499-97c5eee433ed#used| false)
+         (> |feature#2b09c974-4632-4637-a499-97c5eee433ed#child_cardinality| 0))
+     (=> (not |feature#2b09c974-4632-4637-a499-97c5eee433ed#used|)
+         (= |feature#2b09c974-4632-4637-a499-97c5eee433ed#child_cardinality| 0))
+     (= |feature#2b09c974-4632-4637-a499-97c5eee433ed#child_cardinality| 0)
+     (=> (and |feature#2b09c974-4632-4637-a499-97c5eee433ed#used| false)
+         (= |feature#2b09c974-4632-4637-a499-97c5eee433ed#child_cardinality| 1))
+     (=> (not |feature#75b35115-5ebe-413b-a4a2-2114309de1c7#used|)
+         (= |feature#b15793f9-343a-4918-9e75-01032530016b#cardinality| 0))
+     (= |feature#b15793f9-343a-4918-9e75-01032530016b#global_cardinality|
+        (* |feature#75b35115-5ebe-413b-a4a2-2114309de1c7#global_cardinality|
+           |feature#b15793f9-343a-4918-9e75-01032530016b#cardinality|))
+     (=> |feature#b15793f9-343a-4918-9e75-01032530016b#used|
+         |feature#75b35115-5ebe-413b-a4a2-2114309de1c7#used|)
+     (=> |feature#75b35115-5ebe-413b-a4a2-2114309de1c7#used|
+         (= |feature#b15793f9-343a-4918-9e75-01032530016b#cardinality| 1))
+     (>= |feature#b15793f9-343a-4918-9e75-01032530016b#cardinality| 0)
+     (= (> |feature#b15793f9-343a-4918-9e75-01032530016b#cardinality| 0)
+        |feature#b15793f9-343a-4918-9e75-01032530016b#used|)
+     (=> (and |feature#b15793f9-343a-4918-9e75-01032530016b#used| true)
+         (> |feature#b15793f9-343a-4918-9e75-01032530016b#child_cardinality| 0))
+     (=> (not |feature#b15793f9-343a-4918-9e75-01032530016b#used|)
+         (= |feature#b15793f9-343a-4918-9e75-01032530016b#child_cardinality| 0))
+     (= |feature#b15793f9-343a-4918-9e75-01032530016b#child_cardinality|
+        (+ (ite |feature#1569fadb-9413-426c-8086-7414851af3fa#used| 1 0)
+           (ite |feature#b44f91b8-bc29-46a1-b46a-3a9c7eca5498#used| 1 0)))
+     (=> (and |feature#b15793f9-343a-4918-9e75-01032530016b#used| true)
+         (= |feature#b15793f9-343a-4918-9e75-01032530016b#child_cardinality| 1))
+     (=> (not |feature#b15793f9-343a-4918-9e75-01032530016b#used|)
+         (= |feature#1569fadb-9413-426c-8086-7414851af3fa#cardinality| 0))
+     (= |feature#1569fadb-9413-426c-8086-7414851af3fa#global_cardinality|
+        (* |feature#b15793f9-343a-4918-9e75-01032530016b#global_cardinality|
+           |feature#1569fadb-9413-426c-8086-7414851af3fa#cardinality|))
+     (=> |feature#1569fadb-9413-426c-8086-7414851af3fa#used|
+         |feature#b15793f9-343a-4918-9e75-01032530016b#used|)
+     (=> |feature#b15793f9-343a-4918-9e75-01032530016b#used|
+         (and (>= |feature#1569fadb-9413-426c-8086-7414851af3fa#cardinality| 0)
+              (<= |feature#1569fadb-9413-426c-8086-7414851af3fa#cardinality| 1)))
+     (>= |feature#1569fadb-9413-426c-8086-7414851af3fa#cardinality| 0)
+     (= (> |feature#1569fadb-9413-426c-8086-7414851af3fa#cardinality| 0)
+        |feature#1569fadb-9413-426c-8086-7414851af3fa#used|)
+     (=> (and |feature#1569fadb-9413-426c-8086-7414851af3fa#used| false)
+         (> |feature#1569fadb-9413-426c-8086-7414851af3fa#child_cardinality| 0))
+     (=> (not |feature#1569fadb-9413-426c-8086-7414851af3fa#used|)
+         (= |feature#1569fadb-9413-426c-8086-7414851af3fa#child_cardinality| 0))
+     (= |feature#1569fadb-9413-426c-8086-7414851af3fa#child_cardinality| 0)
+     (=> (and |feature#1569fadb-9413-426c-8086-7414851af3fa#used| false)
+         (= |feature#1569fadb-9413-426c-8086-7414851af3fa#child_cardinality| 1))
+     (=> (not |feature#b15793f9-343a-4918-9e75-01032530016b#used|)
+         (= |feature#b44f91b8-bc29-46a1-b46a-3a9c7eca5498#cardinality| 0))
+     (= |feature#b44f91b8-bc29-46a1-b46a-3a9c7eca5498#global_cardinality|
+        (* |feature#b15793f9-343a-4918-9e75-01032530016b#global_cardinality|
+           |feature#b44f91b8-bc29-46a1-b46a-3a9c7eca5498#cardinality|))
+     (=> |feature#b44f91b8-bc29-46a1-b46a-3a9c7eca5498#used|
+         |feature#b15793f9-343a-4918-9e75-01032530016b#used|)
+     (=> |feature#b15793f9-343a-4918-9e75-01032530016b#used|
+         (and (>= |feature#b44f91b8-bc29-46a1-b46a-3a9c7eca5498#cardinality| 0)
+              (<= |feature#b44f91b8-bc29-46a1-b46a-3a9c7eca5498#cardinality| 1)))
+     (>= |feature#b44f91b8-bc29-46a1-b46a-3a9c7eca5498#cardinality| 0)
+     (= (> |feature#b44f91b8-bc29-46a1-b46a-3a9c7eca5498#cardinality| 0)
+        |feature#b44f91b8-bc29-46a1-b46a-3a9c7eca5498#used|)
+     (=> (and |feature#b44f91b8-bc29-46a1-b46a-3a9c7eca5498#used| false)
+         (> |feature#b44f91b8-bc29-46a1-b46a-3a9c7eca5498#child_cardinality| 0))
+     (=> (not |feature#b44f91b8-bc29-46a1-b46a-3a9c7eca5498#used|)
+         (= |feature#b44f91b8-bc29-46a1-b46a-3a9c7eca5498#child_cardinality| 0))
+     (= |feature#b44f91b8-bc29-46a1-b46a-3a9c7eca5498#child_cardinality| 0)
+     (=> (and |feature#b44f91b8-bc29-46a1-b46a-3a9c7eca5498#used| false)
+         (= |feature#b44f91b8-bc29-46a1-b46a-3a9c7eca5498#child_cardinality| 1))
+     (=> (not |feature#FEATURE_DIAGRAM_INTERNAL#used|)
+         (= |feature#382ca6cb-f30d-447e-86f3-0d321ea6ce89#cardinality| 0))
+     (= |feature#382ca6cb-f30d-447e-86f3-0d321ea6ce89#global_cardinality|
+        (* |feature#FEATURE_DIAGRAM_INTERNAL#global_cardinality|
+           |feature#382ca6cb-f30d-447e-86f3-0d321ea6ce89#cardinality|))
+     (=> |feature#382ca6cb-f30d-447e-86f3-0d321ea6ce89#used|
+         |feature#FEATURE_DIAGRAM_INTERNAL#used|)
+     (=> |feature#FEATURE_DIAGRAM_INTERNAL#used|
+         (= |feature#382ca6cb-f30d-447e-86f3-0d321ea6ce89#cardinality| 1))
+     (>= |feature#382ca6cb-f30d-447e-86f3-0d321ea6ce89#cardinality| 0)
+     (= (> |feature#382ca6cb-f30d-447e-86f3-0d321ea6ce89#cardinality| 0)
+        |feature#382ca6cb-f30d-447e-86f3-0d321ea6ce89#used|)
+     (=> (and |feature#382ca6cb-f30d-447e-86f3-0d321ea6ce89#used| true)
+         (> |feature#382ca6cb-f30d-447e-86f3-0d321ea6ce89#child_cardinality| 0))
+     (=> (not |feature#382ca6cb-f30d-447e-86f3-0d321ea6ce89#used|)
+         (= |feature#382ca6cb-f30d-447e-86f3-0d321ea6ce89#child_cardinality| 0))
+     (= |feature#382ca6cb-f30d-447e-86f3-0d321ea6ce89#child_cardinality|
+        (+ (ite |feature#bd8bf70f-e2b7-4040-bb7b-1da610f1f5e9#used| 1 0)))
+     (=> (and |feature#382ca6cb-f30d-447e-86f3-0d321ea6ce89#used| true)
+         (= |feature#382ca6cb-f30d-447e-86f3-0d321ea6ce89#child_cardinality| 1))
+     (=> (not |feature#382ca6cb-f30d-447e-86f3-0d321ea6ce89#used|)
+         (= |feature#bd8bf70f-e2b7-4040-bb7b-1da610f1f5e9#cardinality| 0))
+     (= |feature#bd8bf70f-e2b7-4040-bb7b-1da610f1f5e9#global_cardinality|
+        (* |feature#382ca6cb-f30d-447e-86f3-0d321ea6ce89#global_cardinality|
+           |feature#bd8bf70f-e2b7-4040-bb7b-1da610f1f5e9#cardinality|))
+     (=> |feature#bd8bf70f-e2b7-4040-bb7b-1da610f1f5e9#used|
+         |feature#382ca6cb-f30d-447e-86f3-0d321ea6ce89#used|)
+     (=> |feature#382ca6cb-f30d-447e-86f3-0d321ea6ce89#used|
+         (and (>= |feature#bd8bf70f-e2b7-4040-bb7b-1da610f1f5e9#cardinality| 0)
+              (<= |feature#bd8bf70f-e2b7-4040-bb7b-1da610f1f5e9#cardinality| 1)))
+     (>= |feature#bd8bf70f-e2b7-4040-bb7b-1da610f1f5e9#cardinality| 0)
+     (= (> |feature#bd8bf70f-e2b7-4040-bb7b-1da610f1f5e9#cardinality| 0)
+        |feature#bd8bf70f-e2b7-4040-bb7b-1da610f1f5e9#used|)
+     (=> (and |feature#bd8bf70f-e2b7-4040-bb7b-1da610f1f5e9#used| false)
+         (> |feature#bd8bf70f-e2b7-4040-bb7b-1da610f1f5e9#child_cardinality| 0))
+     (=> (not |feature#bd8bf70f-e2b7-4040-bb7b-1da610f1f5e9#used|)
+         (= |feature#bd8bf70f-e2b7-4040-bb7b-1da610f1f5e9#child_cardinality| 0))
+     (= |feature#bd8bf70f-e2b7-4040-bb7b-1da610f1f5e9#child_cardinality| 0)
+     (=> (and |feature#bd8bf70f-e2b7-4040-bb7b-1da610f1f5e9#used| false)
+         (= |feature#bd8bf70f-e2b7-4040-bb7b-1da610f1f5e9#child_cardinality| 1))
+     (=> (not |feature#FEATURE_DIAGRAM_INTERNAL#used|)
+         (= |feature#188a84fb-e337-4cf4-86b5-81d97cbdfe02#cardinality| 0))
+     (= |feature#188a84fb-e337-4cf4-86b5-81d97cbdfe02#global_cardinality|
+        (* |feature#FEATURE_DIAGRAM_INTERNAL#global_cardinality|
+           |feature#188a84fb-e337-4cf4-86b5-81d97cbdfe02#cardinality|))
+     (=> |feature#188a84fb-e337-4cf4-86b5-81d97cbdfe02#used|
+         |feature#FEATURE_DIAGRAM_INTERNAL#used|)
+     (=> |feature#FEATURE_DIAGRAM_INTERNAL#used|
+         (= |feature#188a84fb-e337-4cf4-86b5-81d97cbdfe02#cardinality| 1))
+     (>= |feature#188a84fb-e337-4cf4-86b5-81d97cbdfe02#cardinality| 0)
+     (= (> |feature#188a84fb-e337-4cf4-86b5-81d97cbdfe02#cardinality| 0)
+        |feature#188a84fb-e337-4cf4-86b5-81d97cbdfe02#used|)
+     (=> (and |feature#188a84fb-e337-4cf4-86b5-81d97cbdfe02#used| true)
+         (> |feature#188a84fb-e337-4cf4-86b5-81d97cbdfe02#child_cardinality| 0))
+     (=> (not |feature#188a84fb-e337-4cf4-86b5-81d97cbdfe02#used|)
+         (= |feature#188a84fb-e337-4cf4-86b5-81d97cbdfe02#child_cardinality| 0))
+     (= |feature#188a84fb-e337-4cf4-86b5-81d97cbdfe02#child_cardinality|
+        (+ (ite |feature#e526639b-c896-4491-a361-4c3331d542e5#used| 1 0)
+           (ite |feature#be01eab2-975c-404c-93f3-7748adebc97d#used| 1 0)))
+     (=> (and |feature#188a84fb-e337-4cf4-86b5-81d97cbdfe02#used| true)
+         (= |feature#188a84fb-e337-4cf4-86b5-81d97cbdfe02#child_cardinality| 1))
+     (=> (not |feature#188a84fb-e337-4cf4-86b5-81d97cbdfe02#used|)
+         (= |feature#e526639b-c896-4491-a361-4c3331d542e5#cardinality| 0))
+     (= |feature#e526639b-c896-4491-a361-4c3331d542e5#global_cardinality|
+        (* |feature#188a84fb-e337-4cf4-86b5-81d97cbdfe02#global_cardinality|
+           |feature#e526639b-c896-4491-a361-4c3331d542e5#cardinality|))
+     (=> |feature#e526639b-c896-4491-a361-4c3331d542e5#used|
+         |feature#188a84fb-e337-4cf4-86b5-81d97cbdfe02#used|)
+     (=> |feature#188a84fb-e337-4cf4-86b5-81d97cbdfe02#used|
+         (and (>= |feature#e526639b-c896-4491-a361-4c3331d542e5#cardinality| 0)
+              (<= |feature#e526639b-c896-4491-a361-4c3331d542e5#cardinality| 1)))
+     (>= |feature#e526639b-c896-4491-a361-4c3331d542e5#cardinality| 0)
+     (= (> |feature#e526639b-c896-4491-a361-4c3331d542e5#cardinality| 0)
+        |feature#e526639b-c896-4491-a361-4c3331d542e5#used|)
+     (=> (and |feature#e526639b-c896-4491-a361-4c3331d542e5#used| false)
+         (> |feature#e526639b-c896-4491-a361-4c3331d542e5#child_cardinality| 0))
+     (=> (not |feature#e526639b-c896-4491-a361-4c3331d542e5#used|)
+         (= |feature#e526639b-c896-4491-a361-4c3331d542e5#child_cardinality| 0))
+     (= |feature#e526639b-c896-4491-a361-4c3331d542e5#child_cardinality| 0)
+     (=> (and |feature#e526639b-c896-4491-a361-4c3331d542e5#used| false)
+         (= |feature#e526639b-c896-4491-a361-4c3331d542e5#child_cardinality| 1))
+     (=> (not |feature#188a84fb-e337-4cf4-86b5-81d97cbdfe02#used|)
+         (= |feature#be01eab2-975c-404c-93f3-7748adebc97d#cardinality| 0))
+     (= |feature#be01eab2-975c-404c-93f3-7748adebc97d#global_cardinality|
+        (* |feature#188a84fb-e337-4cf4-86b5-81d97cbdfe02#global_cardinality|
+           |feature#be01eab2-975c-404c-93f3-7748adebc97d#cardinality|))
+     (=> |feature#be01eab2-975c-404c-93f3-7748adebc97d#used|
+         |feature#188a84fb-e337-4cf4-86b5-81d97cbdfe02#used|)
+     (=> |feature#188a84fb-e337-4cf4-86b5-81d97cbdfe02#used|
+         (and (>= |feature#be01eab2-975c-404c-93f3-7748adebc97d#cardinality| 0)
+              (<= |feature#be01eab2-975c-404c-93f3-7748adebc97d#cardinality| 1)))
+     (>= |feature#be01eab2-975c-404c-93f3-7748adebc97d#cardinality| 0)
+     (= (> |feature#be01eab2-975c-404c-93f3-7748adebc97d#cardinality| 0)
+        |feature#be01eab2-975c-404c-93f3-7748adebc97d#used|)
+     (=> (and |feature#be01eab2-975c-404c-93f3-7748adebc97d#used| false)
+         (> |feature#be01eab2-975c-404c-93f3-7748adebc97d#child_cardinality| 0))
+     (=> (not |feature#be01eab2-975c-404c-93f3-7748adebc97d#used|)
+         (= |feature#be01eab2-975c-404c-93f3-7748adebc97d#child_cardinality| 0))
+     (= |feature#be01eab2-975c-404c-93f3-7748adebc97d#child_cardinality| 0)
+     (=> (and |feature#be01eab2-975c-404c-93f3-7748adebc97d#used| false)
+         (= |feature#be01eab2-975c-404c-93f3-7748adebc97d#child_cardinality| 1))
+     (=> (not |feature#FEATURE_DIAGRAM_INTERNAL#used|)
+         (= |feature#9aee274c-9745-4df7-882f-9b9b0bb93aa6#cardinality| 0))
+     (= |feature#9aee274c-9745-4df7-882f-9b9b0bb93aa6#global_cardinality|
+        (* |feature#FEATURE_DIAGRAM_INTERNAL#global_cardinality|
+           |feature#9aee274c-9745-4df7-882f-9b9b0bb93aa6#cardinality|))
+     (=> |feature#9aee274c-9745-4df7-882f-9b9b0bb93aa6#used|
+         |feature#FEATURE_DIAGRAM_INTERNAL#used|)
+     (=> |feature#FEATURE_DIAGRAM_INTERNAL#used|
+         (= |feature#9aee274c-9745-4df7-882f-9b9b0bb93aa6#cardinality| 1))
+     (>= |feature#9aee274c-9745-4df7-882f-9b9b0bb93aa6#cardinality| 0)
+     (= (> |feature#9aee274c-9745-4df7-882f-9b9b0bb93aa6#cardinality| 0)
+        |feature#9aee274c-9745-4df7-882f-9b9b0bb93aa6#used|)
+     (=> (and |feature#9aee274c-9745-4df7-882f-9b9b0bb93aa6#used| true)
+         (> |feature#9aee274c-9745-4df7-882f-9b9b0bb93aa6#child_cardinality| 0))
+     (=> (not |feature#9aee274c-9745-4df7-882f-9b9b0bb93aa6#used|)
+         (= |feature#9aee274c-9745-4df7-882f-9b9b0bb93aa6#child_cardinality| 0))
+     (= |feature#9aee274c-9745-4df7-882f-9b9b0bb93aa6#child_cardinality|
+        (+ (ite |feature#1d98581f-7f70-4c8b-819f-79c560a14846#used| 1 0)
+           (ite |feature#78387918-7e0f-4c05-a0bb-945d0b811943#used| 1 0)
+           (ite |feature#e1aa28ba-01d4-4d53-9c7d-62ead80c55f9#used| 1 0)
+           (ite |feature#5d65de92-1ad0-4a99-b6f3-a96e2eaac0b4#used| 1 0)))
+     (=> (and |feature#9aee274c-9745-4df7-882f-9b9b0bb93aa6#used| true)
+         (and (>= |feature#9aee274c-9745-4df7-882f-9b9b0bb93aa6#child_cardinality|
+                  1)
+              (<= |feature#9aee274c-9745-4df7-882f-9b9b0bb93aa6#child_cardinality|
+                  4)))
+     (=> (not |feature#9aee274c-9745-4df7-882f-9b9b0bb93aa6#used|)
+         (= |feature#1d98581f-7f70-4c8b-819f-79c560a14846#cardinality| 0))
+     (= |feature#1d98581f-7f70-4c8b-819f-79c560a14846#global_cardinality|
+        (* |feature#9aee274c-9745-4df7-882f-9b9b0bb93aa6#global_cardinality|
+           |feature#1d98581f-7f70-4c8b-819f-79c560a14846#cardinality|))
+     (=> |feature#1d98581f-7f70-4c8b-819f-79c560a14846#used|
+         |feature#9aee274c-9745-4df7-882f-9b9b0bb93aa6#used|)
+     (=> |feature#9aee274c-9745-4df7-882f-9b9b0bb93aa6#used|
+         (= |feature#1d98581f-7f70-4c8b-819f-79c560a14846#cardinality| 1))
+     (>= |feature#1d98581f-7f70-4c8b-819f-79c560a14846#cardinality| 0)
+     (= (> |feature#1d98581f-7f70-4c8b-819f-79c560a14846#cardinality| 0)
+        |feature#1d98581f-7f70-4c8b-819f-79c560a14846#used|)
+     (=> (and |feature#1d98581f-7f70-4c8b-819f-79c560a14846#used| true)
+         (> |feature#1d98581f-7f70-4c8b-819f-79c560a14846#child_cardinality| 0))
+     (=> (not |feature#1d98581f-7f70-4c8b-819f-79c560a14846#used|)
+         (= |feature#1d98581f-7f70-4c8b-819f-79c560a14846#child_cardinality| 0))
+     (= |feature#1d98581f-7f70-4c8b-819f-79c560a14846#child_cardinality|
+        (+ (ite |feature#02c163a4-8a32-4453-a051-a4b482c29e84#used| 1 0)))
+     (=> (and |feature#1d98581f-7f70-4c8b-819f-79c560a14846#used| true)
+         (= |feature#1d98581f-7f70-4c8b-819f-79c560a14846#child_cardinality| 1))
+     (=> (not |feature#1d98581f-7f70-4c8b-819f-79c560a14846#used|)
+         (= |feature#02c163a4-8a32-4453-a051-a4b482c29e84#cardinality| 0))
+     (= |feature#02c163a4-8a32-4453-a051-a4b482c29e84#global_cardinality|
+        (* |feature#1d98581f-7f70-4c8b-819f-79c560a14846#global_cardinality|
+           |feature#02c163a4-8a32-4453-a051-a4b482c29e84#cardinality|))
+     (=> |feature#02c163a4-8a32-4453-a051-a4b482c29e84#used|
+         |feature#1d98581f-7f70-4c8b-819f-79c560a14846#used|)
+     (=> |feature#1d98581f-7f70-4c8b-819f-79c560a14846#used|
+         (and (>= |feature#02c163a4-8a32-4453-a051-a4b482c29e84#cardinality| 0)
+              (<= |feature#02c163a4-8a32-4453-a051-a4b482c29e84#cardinality| 1)))
+     (>= |feature#02c163a4-8a32-4453-a051-a4b482c29e84#cardinality| 0)
+     (= (> |feature#02c163a4-8a32-4453-a051-a4b482c29e84#cardinality| 0)
+        |feature#02c163a4-8a32-4453-a051-a4b482c29e84#used|)
+     (=> (and |feature#02c163a4-8a32-4453-a051-a4b482c29e84#used| false)
+         (> |feature#02c163a4-8a32-4453-a051-a4b482c29e84#child_cardinality| 0))
+     (=> (not |feature#02c163a4-8a32-4453-a051-a4b482c29e84#used|)
+         (= |feature#02c163a4-8a32-4453-a051-a4b482c29e84#child_cardinality| 0))
+     (= |feature#02c163a4-8a32-4453-a051-a4b482c29e84#child_cardinality| 0)
+     (=> (and |feature#02c163a4-8a32-4453-a051-a4b482c29e84#used| false)
+         (= |feature#02c163a4-8a32-4453-a051-a4b482c29e84#child_cardinality| 1))
+     (=> (not |feature#9aee274c-9745-4df7-882f-9b9b0bb93aa6#used|)
+         (= |feature#78387918-7e0f-4c05-a0bb-945d0b811943#cardinality| 0))
+     (= |feature#78387918-7e0f-4c05-a0bb-945d0b811943#global_cardinality|
+        (* |feature#9aee274c-9745-4df7-882f-9b9b0bb93aa6#global_cardinality|
+           |feature#78387918-7e0f-4c05-a0bb-945d0b811943#cardinality|))
+     (=> |feature#78387918-7e0f-4c05-a0bb-945d0b811943#used|
+         |feature#9aee274c-9745-4df7-882f-9b9b0bb93aa6#used|)
+     (=> |feature#9aee274c-9745-4df7-882f-9b9b0bb93aa6#used|
+         (= |feature#78387918-7e0f-4c05-a0bb-945d0b811943#cardinality| 1))
+     (>= |feature#78387918-7e0f-4c05-a0bb-945d0b811943#cardinality| 0)
+     (= (> |feature#78387918-7e0f-4c05-a0bb-945d0b811943#cardinality| 0)
+        |feature#78387918-7e0f-4c05-a0bb-945d0b811943#used|)
+     (=> (and |feature#78387918-7e0f-4c05-a0bb-945d0b811943#used| true)
+         (> |feature#78387918-7e0f-4c05-a0bb-945d0b811943#child_cardinality| 0))
+     (=> (not |feature#78387918-7e0f-4c05-a0bb-945d0b811943#used|)
+         (= |feature#78387918-7e0f-4c05-a0bb-945d0b811943#child_cardinality| 0))
+     (= |feature#78387918-7e0f-4c05-a0bb-945d0b811943#child_cardinality|
+        (+ (ite |feature#0f02e073-b07a-4c1d-bdd0-64ae7945b339#used| 1 0)
+           (ite |feature#5b0b6b00-9636-4141-8baa-789ac828aabd#used| 1 0)
+           (ite |feature#90e19845-edc1-496a-baa3-b0a57d89e85c#used| 1 0)))
+     (=> (and |feature#78387918-7e0f-4c05-a0bb-945d0b811943#used| true)
+         (= |feature#78387918-7e0f-4c05-a0bb-945d0b811943#child_cardinality| 1))
+     (=> (not |feature#78387918-7e0f-4c05-a0bb-945d0b811943#used|)
+         (= |feature#0f02e073-b07a-4c1d-bdd0-64ae7945b339#cardinality| 0))
+     (= |feature#0f02e073-b07a-4c1d-bdd0-64ae7945b339#global_cardinality|
+        (* |feature#78387918-7e0f-4c05-a0bb-945d0b811943#global_cardinality|
+           |feature#0f02e073-b07a-4c1d-bdd0-64ae7945b339#cardinality|))
+     (=> |feature#0f02e073-b07a-4c1d-bdd0-64ae7945b339#used|
+         |feature#78387918-7e0f-4c05-a0bb-945d0b811943#used|)
+     (=> |feature#78387918-7e0f-4c05-a0bb-945d0b811943#used|
+         (and (>= |feature#0f02e073-b07a-4c1d-bdd0-64ae7945b339#cardinality| 0)
+              (<= |feature#0f02e073-b07a-4c1d-bdd0-64ae7945b339#cardinality| 1)))
+     (>= |feature#0f02e073-b07a-4c1d-bdd0-64ae7945b339#cardinality| 0)
+     (= (> |feature#0f02e073-b07a-4c1d-bdd0-64ae7945b339#cardinality| 0)
+        |feature#0f02e073-b07a-4c1d-bdd0-64ae7945b339#used|)
+     (=> (and |feature#0f02e073-b07a-4c1d-bdd0-64ae7945b339#used| false)
+         (> |feature#0f02e073-b07a-4c1d-bdd0-64ae7945b339#child_cardinality| 0))
+     (=> (not |feature#0f02e073-b07a-4c1d-bdd0-64ae7945b339#used|)
+         (= |feature#0f02e073-b07a-4c1d-bdd0-64ae7945b339#child_cardinality| 0))
+     (= |feature#0f02e073-b07a-4c1d-bdd0-64ae7945b339#child_cardinality| 0)
+     (=> (and |feature#0f02e073-b07a-4c1d-bdd0-64ae7945b339#used| false)
+         (= |feature#0f02e073-b07a-4c1d-bdd0-64ae7945b339#child_cardinality| 1))
+     (=> (not |feature#78387918-7e0f-4c05-a0bb-945d0b811943#used|)
+         (= |feature#5b0b6b00-9636-4141-8baa-789ac828aabd#cardinality| 0))
+     (= |feature#5b0b6b00-9636-4141-8baa-789ac828aabd#global_cardinality|
+        (* |feature#78387918-7e0f-4c05-a0bb-945d0b811943#global_cardinality|
+           |feature#5b0b6b00-9636-4141-8baa-789ac828aabd#cardinality|))
+     (=> |feature#5b0b6b00-9636-4141-8baa-789ac828aabd#used|
+         |feature#78387918-7e0f-4c05-a0bb-945d0b811943#used|)
+     (=> |feature#78387918-7e0f-4c05-a0bb-945d0b811943#used|
+         (and (>= |feature#5b0b6b00-9636-4141-8baa-789ac828aabd#cardinality| 0)
+              (<= |feature#5b0b6b00-9636-4141-8baa-789ac828aabd#cardinality| 1)))
+     (>= |feature#5b0b6b00-9636-4141-8baa-789ac828aabd#cardinality| 0)
+     (= (> |feature#5b0b6b00-9636-4141-8baa-789ac828aabd#cardinality| 0)
+        |feature#5b0b6b00-9636-4141-8baa-789ac828aabd#used|)
+     (=> (and |feature#5b0b6b00-9636-4141-8baa-789ac828aabd#used| false)
+         (> |feature#5b0b6b00-9636-4141-8baa-789ac828aabd#child_cardinality| 0))
+     (=> (not |feature#5b0b6b00-9636-4141-8baa-789ac828aabd#used|)
+         (= |feature#5b0b6b00-9636-4141-8baa-789ac828aabd#child_cardinality| 0))
+     (= |feature#5b0b6b00-9636-4141-8baa-789ac828aabd#child_cardinality| 0)
+     (=> (and |feature#5b0b6b00-9636-4141-8baa-789ac828aabd#used| false)
+         (= |feature#5b0b6b00-9636-4141-8baa-789ac828aabd#child_cardinality| 1))
+     (=> (not |feature#78387918-7e0f-4c05-a0bb-945d0b811943#used|)
+         (= |feature#90e19845-edc1-496a-baa3-b0a57d89e85c#cardinality| 0))
+     (= |feature#90e19845-edc1-496a-baa3-b0a57d89e85c#global_cardinality|
+        (* |feature#78387918-7e0f-4c05-a0bb-945d0b811943#global_cardinality|
+           |feature#90e19845-edc1-496a-baa3-b0a57d89e85c#cardinality|))
+     (=> |feature#90e19845-edc1-496a-baa3-b0a57d89e85c#used|
+         |feature#78387918-7e0f-4c05-a0bb-945d0b811943#used|)
+     (=> |feature#78387918-7e0f-4c05-a0bb-945d0b811943#used|
+         (and (>= |feature#90e19845-edc1-496a-baa3-b0a57d89e85c#cardinality| 0)
+              (<= |feature#90e19845-edc1-496a-baa3-b0a57d89e85c#cardinality| 1)))
+     (>= |feature#90e19845-edc1-496a-baa3-b0a57d89e85c#cardinality| 0)
+     (= (> |feature#90e19845-edc1-496a-baa3-b0a57d89e85c#cardinality| 0)
+        |feature#90e19845-edc1-496a-baa3-b0a57d89e85c#used|)
+     (=> (and |feature#90e19845-edc1-496a-baa3-b0a57d89e85c#used| false)
+         (> |feature#90e19845-edc1-496a-baa3-b0a57d89e85c#child_cardinality| 0))
+     (=> (not |feature#90e19845-edc1-496a-baa3-b0a57d89e85c#used|)
+         (= |feature#90e19845-edc1-496a-baa3-b0a57d89e85c#child_cardinality| 0))
+     (= |feature#90e19845-edc1-496a-baa3-b0a57d89e85c#child_cardinality| 0)
+     (=> (and |feature#90e19845-edc1-496a-baa3-b0a57d89e85c#used| false)
+         (= |feature#90e19845-edc1-496a-baa3-b0a57d89e85c#child_cardinality| 1))
+     (=> (not |feature#9aee274c-9745-4df7-882f-9b9b0bb93aa6#used|)
+         (= |feature#e1aa28ba-01d4-4d53-9c7d-62ead80c55f9#cardinality| 0))
+     (= |feature#e1aa28ba-01d4-4d53-9c7d-62ead80c55f9#global_cardinality|
+        (* |feature#9aee274c-9745-4df7-882f-9b9b0bb93aa6#global_cardinality|
+           |feature#e1aa28ba-01d4-4d53-9c7d-62ead80c55f9#cardinality|))
+     (=> |feature#e1aa28ba-01d4-4d53-9c7d-62ead80c55f9#used|
+         |feature#9aee274c-9745-4df7-882f-9b9b0bb93aa6#used|)
+     (=> |feature#9aee274c-9745-4df7-882f-9b9b0bb93aa6#used|
+         (= |feature#e1aa28ba-01d4-4d53-9c7d-62ead80c55f9#cardinality| 1))
+     (>= |feature#e1aa28ba-01d4-4d53-9c7d-62ead80c55f9#cardinality| 0)
+     (= (> |feature#e1aa28ba-01d4-4d53-9c7d-62ead80c55f9#cardinality| 0)
+        |feature#e1aa28ba-01d4-4d53-9c7d-62ead80c55f9#used|)
+     (=> (and |feature#e1aa28ba-01d4-4d53-9c7d-62ead80c55f9#used| true)
+         (> |feature#e1aa28ba-01d4-4d53-9c7d-62ead80c55f9#child_cardinality| 0))
+     (=> (not |feature#e1aa28ba-01d4-4d53-9c7d-62ead80c55f9#used|)
+         (= |feature#e1aa28ba-01d4-4d53-9c7d-62ead80c55f9#child_cardinality| 0))
+     (= |feature#e1aa28ba-01d4-4d53-9c7d-62ead80c55f9#child_cardinality|
+        (+ (ite |feature#b2f57575-2f21-41aa-a9d9-a311bf0f0116#used| 1 0)))
+     (=> (and |feature#e1aa28ba-01d4-4d53-9c7d-62ead80c55f9#used| true)
+         (= |feature#e1aa28ba-01d4-4d53-9c7d-62ead80c55f9#child_cardinality| 1))
+     (=> (not |feature#e1aa28ba-01d4-4d53-9c7d-62ead80c55f9#used|)
+         (= |feature#b2f57575-2f21-41aa-a9d9-a311bf0f0116#cardinality| 0))
+     (= |feature#b2f57575-2f21-41aa-a9d9-a311bf0f0116#global_cardinality|
+        (* |feature#e1aa28ba-01d4-4d53-9c7d-62ead80c55f9#global_cardinality|
+           |feature#b2f57575-2f21-41aa-a9d9-a311bf0f0116#cardinality|))
+     (=> |feature#b2f57575-2f21-41aa-a9d9-a311bf0f0116#used|
+         |feature#e1aa28ba-01d4-4d53-9c7d-62ead80c55f9#used|)
+     (=> |feature#e1aa28ba-01d4-4d53-9c7d-62ead80c55f9#used|
+         (and (>= |feature#b2f57575-2f21-41aa-a9d9-a311bf0f0116#cardinality| 0)
+              (<= |feature#b2f57575-2f21-41aa-a9d9-a311bf0f0116#cardinality| 1)))
+     (>= |feature#b2f57575-2f21-41aa-a9d9-a311bf0f0116#cardinality| 0)
+     (= (> |feature#b2f57575-2f21-41aa-a9d9-a311bf0f0116#cardinality| 0)
+        |feature#b2f57575-2f21-41aa-a9d9-a311bf0f0116#used|)
+     (=> (and |feature#b2f57575-2f21-41aa-a9d9-a311bf0f0116#used| false)
+         (> |feature#b2f57575-2f21-41aa-a9d9-a311bf0f0116#child_cardinality| 0))
+     (=> (not |feature#b2f57575-2f21-41aa-a9d9-a311bf0f0116#used|)
+         (= |feature#b2f57575-2f21-41aa-a9d9-a311bf0f0116#child_cardinality| 0))
+     (= |feature#b2f57575-2f21-41aa-a9d9-a311bf0f0116#child_cardinality| 0)
+     (=> (and |feature#b2f57575-2f21-41aa-a9d9-a311bf0f0116#used| false)
+         (= |feature#b2f57575-2f21-41aa-a9d9-a311bf0f0116#child_cardinality| 1))
+     (=> (not |feature#9aee274c-9745-4df7-882f-9b9b0bb93aa6#used|)
+         (= |feature#5d65de92-1ad0-4a99-b6f3-a96e2eaac0b4#cardinality| 0))
+     (= |feature#5d65de92-1ad0-4a99-b6f3-a96e2eaac0b4#global_cardinality|
+        (* |feature#9aee274c-9745-4df7-882f-9b9b0bb93aa6#global_cardinality|
+           |feature#5d65de92-1ad0-4a99-b6f3-a96e2eaac0b4#cardinality|))
+     (=> |feature#5d65de92-1ad0-4a99-b6f3-a96e2eaac0b4#used|
+         |feature#9aee274c-9745-4df7-882f-9b9b0bb93aa6#used|)
+     (=> |feature#9aee274c-9745-4df7-882f-9b9b0bb93aa6#used|
+         (= |feature#5d65de92-1ad0-4a99-b6f3-a96e2eaac0b4#cardinality| 1))
+     (>= |feature#5d65de92-1ad0-4a99-b6f3-a96e2eaac0b4#cardinality| 0)
+     (= (> |feature#5d65de92-1ad0-4a99-b6f3-a96e2eaac0b4#cardinality| 0)
+        |feature#5d65de92-1ad0-4a99-b6f3-a96e2eaac0b4#used|)
+     (=> (and |feature#5d65de92-1ad0-4a99-b6f3-a96e2eaac0b4#used| true)
+         (> |feature#5d65de92-1ad0-4a99-b6f3-a96e2eaac0b4#child_cardinality| 0))
+     (=> (not |feature#5d65de92-1ad0-4a99-b6f3-a96e2eaac0b4#used|)
+         (= |feature#5d65de92-1ad0-4a99-b6f3-a96e2eaac0b4#child_cardinality| 0))
+     (= |feature#5d65de92-1ad0-4a99-b6f3-a96e2eaac0b4#child_cardinality|
+        (+ (ite |feature#873b5ea0-071a-412e-89e7-371e7ec14048#used| 1 0)))
+     (=> (and |feature#5d65de92-1ad0-4a99-b6f3-a96e2eaac0b4#used| true)
+         (= |feature#5d65de92-1ad0-4a99-b6f3-a96e2eaac0b4#child_cardinality| 1))
+     (=> (not |feature#5d65de92-1ad0-4a99-b6f3-a96e2eaac0b4#used|)
+         (= |feature#873b5ea0-071a-412e-89e7-371e7ec14048#cardinality| 0))
+     (= |feature#873b5ea0-071a-412e-89e7-371e7ec14048#global_cardinality|
+        (* |feature#5d65de92-1ad0-4a99-b6f3-a96e2eaac0b4#global_cardinality|
+           |feature#873b5ea0-071a-412e-89e7-371e7ec14048#cardinality|))
+     (=> |feature#873b5ea0-071a-412e-89e7-371e7ec14048#used|
+         |feature#5d65de92-1ad0-4a99-b6f3-a96e2eaac0b4#used|)
+     (=> |feature#5d65de92-1ad0-4a99-b6f3-a96e2eaac0b4#used|
+         (and (>= |feature#873b5ea0-071a-412e-89e7-371e7ec14048#cardinality| 0)
+              (<= |feature#873b5ea0-071a-412e-89e7-371e7ec14048#cardinality| 1)))
+     (>= |feature#873b5ea0-071a-412e-89e7-371e7ec14048#cardinality| 0)
+     (= (> |feature#873b5ea0-071a-412e-89e7-371e7ec14048#cardinality| 0)
+        |feature#873b5ea0-071a-412e-89e7-371e7ec14048#used|)
+     (=> (and |feature#873b5ea0-071a-412e-89e7-371e7ec14048#used| false)
+         (> |feature#873b5ea0-071a-412e-89e7-371e7ec14048#child_cardinality| 0))
+     (=> (not |feature#873b5ea0-071a-412e-89e7-371e7ec14048#used|)
+         (= |feature#873b5ea0-071a-412e-89e7-371e7ec14048#child_cardinality| 0))
+     (= |feature#873b5ea0-071a-412e-89e7-371e7ec14048#child_cardinality| 0)
+     (=> (and |feature#873b5ea0-071a-412e-89e7-371e7ec14048#used| false)
+         (= |feature#873b5ea0-071a-412e-89e7-371e7ec14048#child_cardinality| 1))
+     (=> (not |feature#FEATURE_DIAGRAM_INTERNAL#used|)
+         (= |feature#544dc0af-bebf-4bef-8cc3-2cfdde1bb103#cardinality| 0))
+     (= |feature#544dc0af-bebf-4bef-8cc3-2cfdde1bb103#global_cardinality|
+        (* |feature#FEATURE_DIAGRAM_INTERNAL#global_cardinality|
+           |feature#544dc0af-bebf-4bef-8cc3-2cfdde1bb103#cardinality|))
+     (=> |feature#544dc0af-bebf-4bef-8cc3-2cfdde1bb103#used|
+         |feature#FEATURE_DIAGRAM_INTERNAL#used|)
+     (=> |feature#FEATURE_DIAGRAM_INTERNAL#used|
+         (= |feature#544dc0af-bebf-4bef-8cc3-2cfdde1bb103#cardinality| 1))
+     (>= |feature#544dc0af-bebf-4bef-8cc3-2cfdde1bb103#cardinality| 0)
+     (= (> |feature#544dc0af-bebf-4bef-8cc3-2cfdde1bb103#cardinality| 0)
+        |feature#544dc0af-bebf-4bef-8cc3-2cfdde1bb103#used|)
+     (=> (and |feature#544dc0af-bebf-4bef-8cc3-2cfdde1bb103#used| true)
+         (> |feature#544dc0af-bebf-4bef-8cc3-2cfdde1bb103#child_cardinality| 0))
+     (=> (not |feature#544dc0af-bebf-4bef-8cc3-2cfdde1bb103#used|)
+         (= |feature#544dc0af-bebf-4bef-8cc3-2cfdde1bb103#child_cardinality| 0))
+     (= |feature#544dc0af-bebf-4bef-8cc3-2cfdde1bb103#child_cardinality|
+        (+ (ite |feature#7b81713e-4d90-40de-b5b9-feafd5bc608f#used| 1 0)
+           (ite |feature#ffd263e7-7b87-41d5-9ed7-230ed5df25d2#used| 1 0)))
+     (=> (and |feature#544dc0af-bebf-4bef-8cc3-2cfdde1bb103#used| true)
+         (= |feature#544dc0af-bebf-4bef-8cc3-2cfdde1bb103#child_cardinality| 1))
+     (=> (not |feature#544dc0af-bebf-4bef-8cc3-2cfdde1bb103#used|)
+         (= |feature#7b81713e-4d90-40de-b5b9-feafd5bc608f#cardinality| 0))
+     (= |feature#7b81713e-4d90-40de-b5b9-feafd5bc608f#global_cardinality|
+        (* |feature#544dc0af-bebf-4bef-8cc3-2cfdde1bb103#global_cardinality|
+           |feature#7b81713e-4d90-40de-b5b9-feafd5bc608f#cardinality|))
+     (=> |feature#7b81713e-4d90-40de-b5b9-feafd5bc608f#used|
+         |feature#544dc0af-bebf-4bef-8cc3-2cfdde1bb103#used|)
+     (=> |feature#544dc0af-bebf-4bef-8cc3-2cfdde1bb103#used|
+         (and (>= |feature#7b81713e-4d90-40de-b5b9-feafd5bc608f#cardinality| 0)
+              (<= |feature#7b81713e-4d90-40de-b5b9-feafd5bc608f#cardinality| 1)))
+     (>= |feature#7b81713e-4d90-40de-b5b9-feafd5bc608f#cardinality| 0)
+     (= (> |feature#7b81713e-4d90-40de-b5b9-feafd5bc608f#cardinality| 0)
+        |feature#7b81713e-4d90-40de-b5b9-feafd5bc608f#used|)
+     (=> (and |feature#7b81713e-4d90-40de-b5b9-feafd5bc608f#used| false)
+         (> |feature#7b81713e-4d90-40de-b5b9-feafd5bc608f#child_cardinality| 0))
+     (=> (not |feature#7b81713e-4d90-40de-b5b9-feafd5bc608f#used|)
+         (= |feature#7b81713e-4d90-40de-b5b9-feafd5bc608f#child_cardinality| 0))
+     (= |feature#7b81713e-4d90-40de-b5b9-feafd5bc608f#child_cardinality| 0)
+     (=> (and |feature#7b81713e-4d90-40de-b5b9-feafd5bc608f#used| false)
+         (= |feature#7b81713e-4d90-40de-b5b9-feafd5bc608f#child_cardinality| 1))
+     (=> (not |feature#544dc0af-bebf-4bef-8cc3-2cfdde1bb103#used|)
+         (= |feature#ffd263e7-7b87-41d5-9ed7-230ed5df25d2#cardinality| 0))
+     (= |feature#ffd263e7-7b87-41d5-9ed7-230ed5df25d2#global_cardinality|
+        (* |feature#544dc0af-bebf-4bef-8cc3-2cfdde1bb103#global_cardinality|
+           |feature#ffd263e7-7b87-41d5-9ed7-230ed5df25d2#cardinality|))
+     (=> |feature#ffd263e7-7b87-41d5-9ed7-230ed5df25d2#used|
+         |feature#544dc0af-bebf-4bef-8cc3-2cfdde1bb103#used|)
+     (=> |feature#544dc0af-bebf-4bef-8cc3-2cfdde1bb103#used|
+         (and (>= |feature#ffd263e7-7b87-41d5-9ed7-230ed5df25d2#cardinality| 0)
+              (<= |feature#ffd263e7-7b87-41d5-9ed7-230ed5df25d2#cardinality| 1)))
+     (>= |feature#ffd263e7-7b87-41d5-9ed7-230ed5df25d2#cardinality| 0)
+     (= (> |feature#ffd263e7-7b87-41d5-9ed7-230ed5df25d2#cardinality| 0)
+        |feature#ffd263e7-7b87-41d5-9ed7-230ed5df25d2#used|)
+     (=> (and |feature#ffd263e7-7b87-41d5-9ed7-230ed5df25d2#used| false)
+         (> |feature#ffd263e7-7b87-41d5-9ed7-230ed5df25d2#child_cardinality| 0))
+     (=> (not |feature#ffd263e7-7b87-41d5-9ed7-230ed5df25d2#used|)
+         (= |feature#ffd263e7-7b87-41d5-9ed7-230ed5df25d2#child_cardinality| 0))
+     (= |feature#ffd263e7-7b87-41d5-9ed7-230ed5df25d2#child_cardinality| 0)
+     (=> (and |feature#ffd263e7-7b87-41d5-9ed7-230ed5df25d2#used| false)
+         (= |feature#ffd263e7-7b87-41d5-9ed7-230ed5df25d2#child_cardinality| 1))
+     (=> (not |feature#FEATURE_DIAGRAM_INTERNAL#used|)
+         (= |feature#a1c7af16-b865-41fa-962d-e50bacbbafa7#cardinality| 0))
+     (= |feature#a1c7af16-b865-41fa-962d-e50bacbbafa7#global_cardinality|
+        (* |feature#FEATURE_DIAGRAM_INTERNAL#global_cardinality|
+           |feature#a1c7af16-b865-41fa-962d-e50bacbbafa7#cardinality|))
+     (=> |feature#a1c7af16-b865-41fa-962d-e50bacbbafa7#used|
+         |feature#FEATURE_DIAGRAM_INTERNAL#used|)
+     (=> |feature#FEATURE_DIAGRAM_INTERNAL#used|
+         (= |feature#a1c7af16-b865-41fa-962d-e50bacbbafa7#cardinality| 1))
+     (>= |feature#a1c7af16-b865-41fa-962d-e50bacbbafa7#cardinality| 0)
+     (= (> |feature#a1c7af16-b865-41fa-962d-e50bacbbafa7#cardinality| 0)
+        |feature#a1c7af16-b865-41fa-962d-e50bacbbafa7#used|)
+     (=> (and |feature#a1c7af16-b865-41fa-962d-e50bacbbafa7#used| true)
+         (> |feature#a1c7af16-b865-41fa-962d-e50bacbbafa7#child_cardinality| 0))
+     (=> (not |feature#a1c7af16-b865-41fa-962d-e50bacbbafa7#used|)
+         (= |feature#a1c7af16-b865-41fa-962d-e50bacbbafa7#child_cardinality| 0))
+     (= |feature#a1c7af16-b865-41fa-962d-e50bacbbafa7#child_cardinality|
+        (+ (ite |feature#73801c0e-6bff-44c6-a735-acc4d7c73ae6#used| 1 0)
+           (ite |feature#75546e22-2e4f-46c4-8480-45fab69eb79a#used| 1 0)))
+     (=> (and |feature#a1c7af16-b865-41fa-962d-e50bacbbafa7#used| true)
+         (= |feature#a1c7af16-b865-41fa-962d-e50bacbbafa7#child_cardinality| 1))
+     (=> (not |feature#a1c7af16-b865-41fa-962d-e50bacbbafa7#used|)
+         (= |feature#73801c0e-6bff-44c6-a735-acc4d7c73ae6#cardinality| 0))
+     (= |feature#73801c0e-6bff-44c6-a735-acc4d7c73ae6#global_cardinality|
+        (* |feature#a1c7af16-b865-41fa-962d-e50bacbbafa7#global_cardinality|
+           |feature#73801c0e-6bff-44c6-a735-acc4d7c73ae6#cardinality|))
+     (=> |feature#73801c0e-6bff-44c6-a735-acc4d7c73ae6#used|
+         |feature#a1c7af16-b865-41fa-962d-e50bacbbafa7#used|)
+     (=> |feature#a1c7af16-b865-41fa-962d-e50bacbbafa7#used|
+         (and (>= |feature#73801c0e-6bff-44c6-a735-acc4d7c73ae6#cardinality| 0)
+              (<= |feature#73801c0e-6bff-44c6-a735-acc4d7c73ae6#cardinality| 1)))
+     (>= |feature#73801c0e-6bff-44c6-a735-acc4d7c73ae6#cardinality| 0)
+     (= (> |feature#73801c0e-6bff-44c6-a735-acc4d7c73ae6#cardinality| 0)
+        |feature#73801c0e-6bff-44c6-a735-acc4d7c73ae6#used|)
+     (=> (and |feature#73801c0e-6bff-44c6-a735-acc4d7c73ae6#used| false)
+         (> |feature#73801c0e-6bff-44c6-a735-acc4d7c73ae6#child_cardinality| 0))
+     (=> (not |feature#73801c0e-6bff-44c6-a735-acc4d7c73ae6#used|)
+         (= |feature#73801c0e-6bff-44c6-a735-acc4d7c73ae6#child_cardinality| 0))
+     (= |feature#73801c0e-6bff-44c6-a735-acc4d7c73ae6#child_cardinality| 0)
+     (=> (and |feature#73801c0e-6bff-44c6-a735-acc4d7c73ae6#used| false)
+         (= |feature#73801c0e-6bff-44c6-a735-acc4d7c73ae6#child_cardinality| 1))
+     (=> (not |feature#a1c7af16-b865-41fa-962d-e50bacbbafa7#used|)
+         (= |feature#75546e22-2e4f-46c4-8480-45fab69eb79a#cardinality| 0))
+     (= |feature#75546e22-2e4f-46c4-8480-45fab69eb79a#global_cardinality|
+        (* |feature#a1c7af16-b865-41fa-962d-e50bacbbafa7#global_cardinality|
+           |feature#75546e22-2e4f-46c4-8480-45fab69eb79a#cardinality|))
+     (=> |feature#75546e22-2e4f-46c4-8480-45fab69eb79a#used|
+         |feature#a1c7af16-b865-41fa-962d-e50bacbbafa7#used|)
+     (=> |feature#a1c7af16-b865-41fa-962d-e50bacbbafa7#used|
+         (and (>= |feature#75546e22-2e4f-46c4-8480-45fab69eb79a#cardinality| 0)
+              (<= |feature#75546e22-2e4f-46c4-8480-45fab69eb79a#cardinality| 1)))
+     (>= |feature#75546e22-2e4f-46c4-8480-45fab69eb79a#cardinality| 0)
+     (= (> |feature#75546e22-2e4f-46c4-8480-45fab69eb79a#cardinality| 0)
+        |feature#75546e22-2e4f-46c4-8480-45fab69eb79a#used|)
+     (=> (and |feature#75546e22-2e4f-46c4-8480-45fab69eb79a#used| false)
+         (> |feature#75546e22-2e4f-46c4-8480-45fab69eb79a#child_cardinality| 0))
+     (=> (not |feature#75546e22-2e4f-46c4-8480-45fab69eb79a#used|)
+         (= |feature#75546e22-2e4f-46c4-8480-45fab69eb79a#child_cardinality| 0))
+     (= |feature#75546e22-2e4f-46c4-8480-45fab69eb79a#child_cardinality| 0)
+     (=> (and |feature#75546e22-2e4f-46c4-8480-45fab69eb79a#used| false)
+         (= |feature#75546e22-2e4f-46c4-8480-45fab69eb79a#child_cardinality| 1))))
