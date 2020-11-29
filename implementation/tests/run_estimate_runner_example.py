@@ -18,7 +18,7 @@ if __name__ == "__main__":
 
     runner = EstimateRunner(
         base_params=EstimateBaseParams(
-            a=10,
+            a=1,
             q=1,
             bc=2*n,
             max_mc=None,

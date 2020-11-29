@@ -24,7 +24,7 @@ if __name__ == "__main__":
 
     formula_fe = deserialize_expression(ck_data["fe_assertions"])
     formula_const = deserialize_expression(ck_data["const_assertions"])
-    formula = formula_fe
+    formula = z3.And([formula_fe])
     variables = get_cquenz_conf_knowledge_feature_variables(ck_data["ck"])
 
     s2 = perf_counter()
@@ -32,7 +32,7 @@ if __name__ == "__main__":
 
     manager = InMemoryApproxExecutionManager(
         base_params=EstimateBaseParams(
-            a=35,
+            a=1,
             q=1,
             bc=sum([bc for _, bc in variables]),
             max_mc=max_mc,
@@ -51,7 +51,7 @@ if __name__ == "__main__":
     s = perf_counter()
 
     integrator = MultiProcessingEstimateIntegrator(
-        worker_count=cpu_count(),
+        worker_count=2,
         problem_params=EstimateProblemParams(
             formula=formula,
             variables=variables,
@@ -69,6 +69,7 @@ if __name__ == "__main__":
     print(scheduler.result())
     print(f"Binary search with multi processing took {perf_counter()-s2:.3f} seconds")
 
+    raise ValueError()
 
     s = perf_counter()
 

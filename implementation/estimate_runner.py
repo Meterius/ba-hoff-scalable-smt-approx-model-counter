@@ -4,7 +4,7 @@ from implementation.estimate_manager import EstimateDerivedBaseParams, EstimateB
     assert_estimate_base_params_is_valid, EstimateTaskResult, EstimateTask
 from implementation.helper import deserialize_expression, serialize_expression
 from typing import NamedTuple, Optional, List, Tuple, Dict, cast
-from math import floor
+from math import ceil, log2
 
 EstimateProblemParams = NamedTuple(
     "EstimateProblemParams",
@@ -72,32 +72,40 @@ class ReferenceEstimateRunner:
         variables = [(x.translate(ctx), bc) for x, bc in problem_params.variables]
 
         # map from formula variable to its encoding bits
-        bit_map = {
-            x: [z3.Bool(f"{x}_bit_{i}", ctx=ctx) for i in range(n)] for x, n in variables
-        }
+        bvs = [z3.BitVec(f"bv_{x}", bc, ctx=ctx) for x, bc in variables]
 
-        # formula that extends original formula with assertion that the bit_map encodes its corresponding variables
-        formula_e = z3.And([
+        formula = z3.And([
             formula,
-            z3.And([self._z3_make_assert_unsigned_binary_encoding(x, bit_map[x]) for x in bit_map]),
+            z3.And([
+                x == z3.BV2Int(bv) for x, bv in zip(map(lambda y: y[0], variables), bvs)
+            ])
         ])
 
-        formula_e_clone_data = self._z3_clone_expression(formula_e, self.params.q)
+        formula_clone_data = self._z3_clone_expression(formula, self.params.q)
 
-        q_bits = [
-            cast(z3.BoolRef, q_bit)
-            for x in bit_map
-            for bit in bit_map[x]
-            for q_bit in formula_e_clone_data.var_map[bit]
+        q_bvs = [
+            cast(z3.BitVecRef, q_bv)
+            for bv in bvs
+            for q_bv in formula_clone_data.var_map[bv]
         ]
 
-        # q times conjunction of clones of formula_e
-        formula_q = z3.And(formula_e_clone_data.clones)
+        # q times conjunction of clones of formula
+        formula_q = z3.And(formula_clone_data.clones)
 
         solver.add(formula_q)
 
         self._solver: z3.Solver = solver
-        self._q_bits: List[z3.BoolRef] = q_bits
+        self._q_bvs: List[z3.BitVecRef] = q_bvs
+
+    @staticmethod
+    def _z3_get_hamming_weight(bit_vector: z3.BitVecRef) -> z3.ArithRef:
+        return z3.Sum([
+            z3.ZeroExt(
+                int(ceil(log2(bit_vector.size()))),
+                z3.Extract(i, i, bit_vector)
+            )
+            for i in range(bit_vector.size())
+        ])
 
     def _z3_get_variables(self, expression: z3.ExprRef) -> List[z3.ExprRef]:
         """
@@ -170,19 +178,8 @@ class ReferenceEstimateRunner:
             var_map=var_map,
         )
 
-    @staticmethod
-    def _z3_make_assert_unsigned_binary_encoding(variable: z3.ArithRef, bits: List[z3.BoolRef]) -> z3.BoolRef:
-        """
-        Returns z3 formula that asserts that the bits are
-        an unsigned binary encoding of the variable.
-        :param variable:
-        :bits bits:
-        """
-
-        return z3.Sum([z3.If(bit, 2 ** i, 0) for i, bit in enumerate(bits)]) == variable
-
-    @staticmethod
-    def _z3_make_assert_random_pairwise_independent_hash_is_zero(bits: List[z3.BoolRef], m: int) -> z3.BoolRef:
+    @classmethod
+    def _z3_make_assert_random_pairwise_independent_hash_is_zero(cls, bvs: List[z3.BitVec], m: int) -> z3.BoolRef:
         """
         Returns z3 formula that asserts that the output of a randomly generated hash function
         is zero when given as input the specified bits. The random hash function needs to be
@@ -190,31 +187,19 @@ class ReferenceEstimateRunner:
         input i.e. Pr[h(x)=0] = 1/(2**m) = 2**(-m) for any x. The amount of input bits is len(bits).
         """
 
-        if len(bits) == 0:
+        if len(bvs) == 0:
             return z3.BoolVal(True)
 
-        ctx = bits[0].ctx
+        ctx = bvs[0].ctx
 
-        hash_is_zero_conditions = []
-
-        # creates m times the xor hash function from the smt paper to generate
-        # a pairwise independent random hash for the given m
-        for i in range(m):
-            # generates the xor hash function from the smt paper for the case m=1,
-            # it generates the xor sum by applying xor to the first two queue elements and
-            # appending the result to the end of the queue, when the queue only has one remaining item
-            # that item will be an xor sum of the original queue
-
-            queue = [z3.BoolVal(random.getrandbits(1), ctx=ctx)] + [bit for bit in bits if random.getrandbits(1)]
-
-            while len(queue) >= 2:
-                queue.append(
-                    z3.Xor(queue.pop(0), queue.pop(0))
+        return z3.And([
+            z3.Sum([
+                cls._z3_get_hamming_weight(
+                    bv & z3.BitVecVal(random.randint(0, 2**bv.size()-1), bv.size(), ctx=ctx)
                 )
-
-            hash_is_zero_conditions.append(queue[0])
-
-        return z3.And(hash_is_zero_conditions)
+                for bv in bvs
+            ]) % 2 == 0 for _ in range(m)
+        ])
 
     @staticmethod
     def _z3_limited_model_count(solver: z3.Solver, variables: List[z3.ExprRef], u: int) -> Optional[int]:
@@ -260,7 +245,7 @@ class ReferenceEstimateRunner:
         otherwise it returns None.
         """
 
-        return self._z3_limited_model_count(self._solver, self._q_bits, self.params.p + 1)
+        return self._z3_limited_model_count(self._solver, self._q_bvs, self.params.p + 1)
 
     def estimate(self, task: EstimateTask) -> EstimateTaskResult:
         """
@@ -272,12 +257,12 @@ class ReferenceEstimateRunner:
         self._solver.push()
         self._solver.add(
             self._z3_make_assert_random_pairwise_independent_hash_is_zero(
-                self._q_bits, task.m,
+                self._q_bvs, task.m,
             )
         )
 
         # is None if solver has at least a models for q_bits
-        lmc = self._z3_limited_model_count(self._solver, self._q_bits, self.params.a)
+        lmc = self._z3_limited_model_count(self._solver, self._q_bvs, self.params.a)
 
         self._solver.pop()
 
@@ -285,47 +270,7 @@ class ReferenceEstimateRunner:
 
 
 class EstimateRunner(ReferenceEstimateRunner):
-    @staticmethod
-    def _z3_make_assert_random_pairwise_independent_hash_is_zero(bits: List[z3.BoolRef], m: int) -> z3.BoolRef:
-        if len(bits) == 0:
-            return z3.BoolVal(True)
-
-        ctx = bits[0].ctx
-
-        hash_is_zero_conditions = []
-
-        xor_map = {}
-
-        def xor(a: Tuple[int, ...], left: int, right: int):
-            key = (a, left, right)
-            if key not in xor_map:
-                if left == right:
-                    return bits[left] if a[0] else z3.BoolVal(False, ctx=ctx)
-                else:
-                    middle = floor((left + right) / 2)
-
-                    left_a = a[0:(middle+1)-left]
-                    right_a = a[(middle+1)-left:(right+1)-left]
-
-                    xor_map[key] = z3.Bool(f"hxor{key}", ctx=ctx)
-                    hash_is_zero_conditions.append(
-                        z3.simplify(z3.Xor(xor(left_a, left, middle), xor(right_a, middle + 1, right)) == xor_map[key])
-                    )
-
-            return xor_map[key]
-
-        # creates m times the xor hash function from the smt paper to generate
-        # a pairwise independent random hash for the given m
-        for i in range(m):
-            # generates the xor hash function from the smt paper for the case m=1,
-            # it generates the xor sum by applying xor to the first two queue elements and
-            # appending the result to the end of the queue, when the queue only has one remaining item
-            # that item will be an xor sum of the original queue
-
-            a = tuple([random.getrandbits(1) for _ in range(len(bits))])
-            hash_is_zero_conditions.append(xor(a, 0, len(a) - 1) == z3.BoolVal(bool(random.getrandbits(1)), ctx=ctx))
-
-        return z3.simplify(z3.And(hash_is_zero_conditions))
+    pass
 
 
 SerializedEstimateProblemParams = NamedTuple(
