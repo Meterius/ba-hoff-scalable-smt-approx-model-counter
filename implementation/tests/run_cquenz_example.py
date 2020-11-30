@@ -2,7 +2,7 @@ from implementation.estimate_runner import EstimateProblemParams
 from alternatives.branching_counter import count_models_by_comparison_branching, count_models_by_branching
 from alternatives.exclusion_counter import count_models_by_exclusion
 from problem_generator.tree import get_tree_model_count_upper_bound, collect_tree, \
-    convert_cquenz_conf_knowledge_to_tree, get_cquenz_conf_knowledge_feature_variables
+    convert_cquenz_conf_knowledge_to_tree, get_cquenz_conf_knowledge_feature_variables, convert_problem
 from implementation.estimate_manager import InMemoryApproxExecutionManager, EstimateBaseParams
 from implementation.estimate_integrator import DirectEstimateIntegrator, MultiProcessingEstimateIntegrator
 from implementation.estimate_scheduler import ConfidentEdgeFinderBinarySearchEstimateScheduler
@@ -22,10 +22,7 @@ if __name__ == "__main__":
     print(f"Cquenz Model has {len(tree)-1} features and has a model count upper bound of >= 2 ** {floor(log2(max_mc))},"
           f" exactly {max_mc}")
 
-    formula_fe = deserialize_expression(ck_data["fe_assertions"])
-    formula_const = deserialize_expression(ck_data["const_assertions"])
-    formula = z3.And([formula_fe])
-    variables = get_cquenz_conf_knowledge_feature_variables(ck_data["ck"])
+    formula, cards, card_map = convert_problem((root, []))
 
     s2 = perf_counter()
     s = perf_counter()
@@ -33,8 +30,8 @@ if __name__ == "__main__":
     manager = InMemoryApproxExecutionManager(
         base_params=EstimateBaseParams(
             a=1,
-            q=1,
-            bc=sum([bc for _, bc in variables]),
+            q=2,
+            bc=sum([x.size() for x in cards]),
             max_mc=max_mc,
         ),
     )
@@ -50,11 +47,10 @@ if __name__ == "__main__":
     print(f"Initializing ConfidentEdgeFinderBinarySearchEstimateScheduler took {perf_counter() - s:.3f} seconds")
     s = perf_counter()
 
-    integrator = MultiProcessingEstimateIntegrator(
-        worker_count=2,
+    integrator = DirectEstimateIntegrator(
         problem_params=EstimateProblemParams(
             formula=formula,
-            variables=variables,
+            variables=[(x, x.size()) for x in cards],
         ),
         scheduler=scheduler,
     )

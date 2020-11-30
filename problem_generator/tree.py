@@ -24,12 +24,12 @@ def collect_tree(root: TreeNode) -> List[TreeNode]:
 
 def convert_problem(
     problem: Tuple[TreeNode, List[Constraint]],
-) -> Tuple[BoolRef, List[ArithRef], Dict[TreeNode, ArithRef]]:
+) -> Tuple[BoolRef, List[BitVecRef], Dict[TreeNode, BitVecRef]]:
     root, constraints = problem
     tree = collect_tree(root)
 
-    node_cardinality_map: Dict[TreeNode, ArithRef] = {
-        x: Int("cardinality_{id}".format(id=x.id)) for x in tree
+    node_cardinality_map: Dict[TreeNode, BitVecRef] = {
+        x: BitVec("cardinality_{id}".format(id=x.id), int(ceil(log2(x.cardinality_range[1] + 1)))) for x in tree
     }
 
     node_used_map: Dict[TreeNode, BoolRef] = {
@@ -38,16 +38,15 @@ def convert_problem(
 
     def collect_tree_conditions(root: TreeNode) -> BoolRef:
         parent_child_conditions = [
-            node_used_map[root] == (node_cardinality_map[root] > 0),
-            node_cardinality_map[root] >= 0,
+            node_used_map[root] == UGT(node_cardinality_map[root], 0),
         ] + [
             Implies(node_used_map[child], node_used_map[root]) for child in root.children
         ] + [
             Implies(
                 node_used_map[root],
                 And([
-                    child.cardinality_range[0] <= node_cardinality_map[child],
-                    node_cardinality_map[child] <= child.cardinality_range[1],
+                    ULE(child.cardinality_range[0], node_cardinality_map[child]),
+                    ULE(node_cardinality_map[child], child.cardinality_range[1]),
                 ])
             ) for child in root.children
         ] + ([
@@ -66,12 +65,12 @@ def convert_problem(
         )
 
     def convert_constraint_condition(constraint: Constraint) -> BoolRef:
-        return Implies(node_cardinality_map[constraint.source] > 0, node_cardinality_map[constraint.target] > 0)
+        return Implies(node_used_map[constraint.source], node_used_map[constraint.target])
 
     condition = And([
         And([
-            root.cardinality_range[0] <= node_cardinality_map[root],
-            node_cardinality_map[root] <= root.cardinality_range[1],
+            ULE(root.cardinality_range[0], node_cardinality_map[root]),
+            ULE(node_cardinality_map[root], root.cardinality_range[1]),
         ]),
         collect_tree_conditions(tree[0]),
         And([convert_constraint_condition(c) for c in constraints]),

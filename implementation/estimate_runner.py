@@ -66,26 +66,16 @@ class ReferenceEstimateRunner:
         # Solver and formula initialization
 
         ctx: z3.Context = z3.Context()
-        solver: z3.Solver = z3.Solver(ctx=ctx)
+        solver: z3.Solver = z3.SolverFor("QF_BV", ctx=ctx)
 
         formula = problem_params.formula.translate(ctx)
         variables = [(x.translate(ctx), bc) for x, bc in problem_params.variables]
-
-        # map from formula variable to its encoding bits
-        bvs = [z3.BitVec(f"bv_{x}", bc, ctx=ctx) for x, bc in variables]
-
-        formula = z3.And([
-            formula,
-            z3.And([
-                x == z3.BV2Int(bv) for x, bv in zip(map(lambda y: y[0], variables), bvs)
-            ])
-        ])
 
         formula_clone_data = self._z3_clone_expression(formula, self.params.q)
 
         q_bvs = [
             cast(z3.BitVecRef, q_bv)
-            for bv in bvs
+            for bv, _ in variables
             for q_bv in formula_clone_data.var_map[bv]
         ]
 
@@ -193,12 +183,12 @@ class ReferenceEstimateRunner:
         ctx = bvs[0].ctx
 
         return z3.And([
-            z3.Sum([
+            z3.URem(z3.Sum([
                 cls._z3_get_hamming_weight(
                     bv & z3.BitVecVal(random.randint(0, 2**bv.size()-1), bv.size(), ctx=ctx)
                 )
                 for bv in bvs
-            ]) % 2 == 0 for _ in range(m)
+            ]), 2) == random.getrandbits(1) for _ in range(m)
         ])
 
     @staticmethod
