@@ -66,7 +66,7 @@ class ReferenceEstimateRunner:
         # Solver and formula initialization
 
         ctx: z3.Context = z3.Context()
-        solver: z3.Solver = z3.SolverFor("QF_BV", ctx=ctx)
+        solver: z3.Solver = z3.Solver(ctx=ctx)
 
         formula = problem_params.formula.translate(ctx)
         variables = [(x.translate(ctx), bc) for x, bc in problem_params.variables]
@@ -281,5 +281,5 @@ def deserialize_estimate_problem_params(
 ) -> EstimateProblemParams:
     return EstimateProblemParams(
         formula=cast(z3.BoolRef, deserialize_expression(serialized_estimate_problem_params.serialized_formula)),
-        variables=[(z3.Int(name), bc) for name, bc in serialized_estimate_problem_params.serialized_variables],
+        variables=[(z3.BitVec(name, bc), bc) for name, bc in serialized_estimate_problem_params.serialized_variables],
     )

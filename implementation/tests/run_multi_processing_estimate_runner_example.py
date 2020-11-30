@@ -8,13 +8,13 @@ from os import cpu_count
 
 if __name__ == "__main__":
     n = 20
-    x, y, z = Ints("x y z")
+    x, y, z = BitVecs("x y z", n)
     f = And([
-        x >= 0,
-        y >= 0,
-        x % 4 == 0,
-        y % 5 == 0,
-        z < x + y,
+        UGE(x, 0),
+        UGE(y, 0),
+        URem(x, 4) == 0,
+        URem(y, 5) == 0,
+        ULT(z, x + y),
     ])
 
     s2 = perf_counter()

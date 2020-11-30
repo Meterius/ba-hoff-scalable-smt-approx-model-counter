@@ -22,7 +22,18 @@ if __name__ == "__main__":
     print(f"Cquenz Model has {len(tree)-1} features and has a model count upper bound of >= 2 ** {floor(log2(max_mc))},"
           f" exactly {max_mc}")
 
-    formula, cards, card_map = convert_problem((root, []))
+    cqz_variables = get_cquenz_conf_knowledge_feature_variables(ck_data["ck"])
+    variables = [z3.BitVec("bv_" + str(x), bc) for x, bc in cqz_variables]
+
+    formula_conv = z3.And([
+        z3.BV2Int(x, False) == cqz_x for x, (cqz_x, _) in zip(variables, cqz_variables)
+    ])
+    formula_fe = deserialize_expression(ck_data["fe_assertions"])
+    formula_const = deserialize_expression(ck_data["const_assertions"])
+    formula = z3.And([formula_fe, formula_conv])
+
+    formula, cards, _ = convert_problem((root, []))
+    variables = cards
 
     s2 = perf_counter()
     s = perf_counter()
@@ -31,7 +42,7 @@ if __name__ == "__main__":
         base_params=EstimateBaseParams(
             a=1,
             q=2,
-            bc=sum([x.size() for x in cards]),
+            bc=sum([x.size() for x in variables]),
             max_mc=max_mc,
         ),
     )
@@ -47,10 +58,11 @@ if __name__ == "__main__":
     print(f"Initializing ConfidentEdgeFinderBinarySearchEstimateScheduler took {perf_counter() - s:.3f} seconds")
     s = perf_counter()
 
-    integrator = DirectEstimateIntegrator(
+    integrator = MultiProcessingEstimateIntegrator(
+        worker_count=2,
         problem_params=EstimateProblemParams(
             formula=formula,
-            variables=[(x, x.size()) for x in cards],
+            variables=[(x, x.size()) for x in variables],
         ),
         scheduler=scheduler,
     )

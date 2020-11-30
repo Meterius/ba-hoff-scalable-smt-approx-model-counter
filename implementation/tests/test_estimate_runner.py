@@ -16,11 +16,11 @@ class TestReferenceEstimateRunner(unittest.TestCase):
         for n in (1, 4, 8):
             for a in (1, 10):
                 for q in (1, 2):
-                    x, y = Ints("x y")
+                    x, y = BitVecs("x y", n)
                     ux, uy = random.randint(0, 2 ** n), random.randint(1, 2 ** n)
                     formula = And([
-                        x < ux,
-                        y < uy,
+                        ULT(x, ux),
+                        ULT(y, uy),
                     ])
                     model_count = ux * uy
 
