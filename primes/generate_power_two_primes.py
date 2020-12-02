@@ -2,6 +2,21 @@ from itertools import count
 import random
 
 
+def is_prime(x):
+    if x == 2:
+        return True
+    elif x < 2:
+        return False
+    elif x & 1 == 0:
+        return False
+
+    for y in range(3, x, 2):
+        if x % y == 0:
+            return False
+
+    return True
+
+
 def is_probably_prime(x):
     return miller_rabin(x, 40)
 
