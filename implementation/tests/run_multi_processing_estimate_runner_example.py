@@ -1,14 +1,15 @@
-from implementation.estimate_runner import EstimateProblemParams
+from alternatives.branching_counter import count_models_by_branching
 from implementation.estimate_manager import InMemoryApproxExecutionManager, EstimateBaseParams
-from implementation.estimate_integrator import MultiProcessingEstimateIntegrator
+from implementation.estimate_runner_z3 import EstimateProblemParamsZ3
+from implementation.estimate_integrator_z3 import MultiProcessingEstimateIntegratorZ3
 from implementation.estimate_scheduler import ConfidentEdgeFinderBinarySearchEstimateScheduler
 from time import perf_counter
 from z3 import *
 from os import cpu_count
 
 if __name__ == "__main__":
-    n = 20
-    x, y, z = BitVecs("x y z", n)
+    k = 8
+    x, y, z = BitVecs("x y z", k)
     f = And([
         UGE(x, 0),
         UGE(y, 0),
@@ -22,9 +23,10 @@ if __name__ == "__main__":
 
     manager = InMemoryApproxExecutionManager(
         base_params=EstimateBaseParams(
-            a=10,
-            q=1,
-            bc=2 * n,
+            a=50,
+            q=2,
+            k=k,
+            n=2,
             max_mc=None,
         ),
     )
@@ -40,10 +42,10 @@ if __name__ == "__main__":
     print(f"Initializing ConfidentEdgeFinderBinarySearchEstimateScheduler took {perf_counter() - s:.3f} seconds")
     s = perf_counter()
 
-    integrator = MultiProcessingEstimateIntegrator(
-        problem_params=EstimateProblemParams(
+    integrator = MultiProcessingEstimateIntegratorZ3(
+        problem_params=EstimateProblemParamsZ3(
             formula=f,
-            variables=[(x, n), (y, n)],
+            variables=[x, y],
         ),
         scheduler=scheduler,
         worker_count=cpu_count(),
@@ -59,3 +61,5 @@ if __name__ == "__main__":
     print(f"Binary search with multi processing took {perf_counter()-s2:.3f} seconds")
 
     print(scheduler.result())
+
+    print(f"Exact count: {count_models_by_branching(f, [x, y])}")

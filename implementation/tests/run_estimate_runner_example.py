@@ -1,6 +1,7 @@
 from alternatives.exclusion_counter import count_models_by_exclusion
 from implementation.estimate_manager import EstimateBaseParams
-from implementation.estimate_runner import EstimateRunner, EstimateTask, EstimateProblemParams
+from implementation.estimate_runner import EstimateTask
+from implementation.estimate_runner_z3 import EstimateRunnerZ3, EstimateProblemParamsZ3
 from time import perf_counter
 from z3 import *
 
@@ -15,7 +16,7 @@ if __name__ == "__main__":
 
     s1 = perf_counter()
 
-    runner = EstimateRunner(
+    runner = EstimateRunnerZ3(
         base_params=EstimateBaseParams(
             a=35,
             q=3,
@@ -23,7 +24,7 @@ if __name__ == "__main__":
             n=2,
             max_mc=None,
         ),
-        problem_params=EstimateProblemParams(
+        problem_params=EstimateProblemParamsZ3(
             formula=f,
             variables=[x, y],
         )

@@ -1,11 +1,11 @@
-from implementation.estimate_runner import EstimateProblemParams
+from implementation.estimate_runner_z3 import EstimateProblemParamsZ3
 from problem_generator.generator import generate_random_flat_tree, generate_random_constraints
 from problem_generator.tree import convert_problem, get_tree_model_count_upper_bound, collect_tree
 from implementation.estimate_manager import InMemoryApproxExecutionManager, EstimateBaseParams
-from implementation.estimate_integrator import DirectEstimateIntegrator
+from implementation.estimate_integrator_z3 import DirectEstimateIntegratorZ3
 from implementation.estimate_scheduler import ConfidentEdgeFinderBinarySearchEstimateScheduler
 from time import perf_counter
-from math import log2, ceil, floor
+from math import log2, floor
 
 if __name__ == "__main__":
     root = generate_random_flat_tree(15, 3, 3)
@@ -17,11 +17,7 @@ if __name__ == "__main__":
     print(f"Tree has {len(tree)} nodes and has a model count upper bound of >= 2 ** {floor(log2(max_mc))}")
     print(f"{len(constraints)} constraints have been added")
 
-    formula, _, card_map = convert_problem((root, constraints))
-
-    variables = [
-        (card_map[node], card_map[node].size()) for node in card_map
-    ]
+    formula, cards, _ = convert_problem((root, constraints))
 
     s2 = perf_counter()
     s = perf_counter()
@@ -30,7 +26,8 @@ if __name__ == "__main__":
         base_params=EstimateBaseParams(
             a=1,
             q=1,
-            bc=sum([bc for _, bc in variables]),
+            n=len(cards),
+            k=max([x.size() for x in cards]),
             max_mc=max_mc,
         ),
     )
@@ -46,10 +43,10 @@ if __name__ == "__main__":
     print(f"Initializing ConfidentEdgeFinderBinarySearchEstimateScheduler took {perf_counter() - s:.3f} seconds")
     s = perf_counter()
 
-    integrator = DirectEstimateIntegrator(
-        problem_params=EstimateProblemParams(
+    integrator = DirectEstimateIntegratorZ3(
+        problem_params=EstimateProblemParamsZ3(
             formula=formula,
-            variables=variables,
+            variables=cards,
         ),
         scheduler=scheduler,
     )

@@ -103,6 +103,22 @@ class EstimateDerivedBaseParams:
 
         return num_cells * self.G < self.max_mc ** self.q
 
+    def assert_is_possible_c(self, c: Tuple[int, ...]):
+        """
+                Whether the c parameter can be used as an estimate task c parameter.
+                It cant be zero, all its elements must be greater or equal 0, it cant be partial and
+                if the number of cells determined by the c cannot be large enough
+                to be impossible to achieve a negative vote estimate return.
+                """
+
+        assert len(c) == self.cn + 1, "c has length of cn + 1"
+        assert all([cj >= 0 for cj in c]), "all elements in c are >= 0"
+        assert any([cj > 0 for cj in c]), "some element in c is > 0"
+
+        num_cells = self.get_num_cells_of_c(c)
+        assert num_cells * self.G < (self.max_mc ** self.q), "number of cells of c * G < (max_mc ** q), as otherwise" \
+                                                             "estimate would need to always return a negative vote"
+
     def get_num_cells_of_c(self, partial_c: Tuple[int, ...]) -> int:
         """
         Returns the number of outputs i.e. the cardinality of the range of a hash chosen from the
@@ -119,7 +135,7 @@ class EstimateDerivedBaseParams:
         num_cells = self.get_num_cells_of_c(tuple([
             partial_c[i] if i != j else 0 for i in range(len(partial_c))
         ]))
-        return int(floor(log((self.max_mc ** self.q) / (num_cells * self.G), self.p[j])))
+        return max(0, int(floor(log((self.max_mc ** self.q) / (num_cells * self.G), self.p[j]))))
 
     def get_possible_c(self):
         """
