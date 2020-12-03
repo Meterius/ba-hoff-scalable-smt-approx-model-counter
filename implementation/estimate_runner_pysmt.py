@@ -52,7 +52,7 @@ class EstimateRunnerPYSMT(BaseEstimateRunner[EstimateProblemParamsPYSMT]):
 
         # Solver and formula initialization
 
-        solver: Solver = Solver(name="msat")
+        solver: Solver = Solver()
 
         formula = problem_params.formula
         variables = problem_params.variables
