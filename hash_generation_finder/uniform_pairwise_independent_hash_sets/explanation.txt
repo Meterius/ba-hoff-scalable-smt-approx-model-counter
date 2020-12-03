@@ -1,4 +1,0 @@
-In the hash set files D is the hash domain size
-In the has set files C is the cardinality of the hash set
-In the hash set files n is s.t. D=2**n
-In the hash set files k is s.t. 2**k is the amount of hashes in the hash sets
