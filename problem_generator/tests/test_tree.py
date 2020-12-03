@@ -1,7 +1,6 @@
 from problem_generator.tree import get_tree_model_count_upper_bound, convert_problem, collect_tree
 from problem_generator.generator import generate_random_tree, generate_random_flat_tree
-from alternatives.branching_counter import count_models_by_comparison_branching
-from math import ceil, log2
+from alternatives.branching_counter import count_models_by_branching
 import unittest
 
 
@@ -13,12 +12,9 @@ class TestTree(unittest.TestCase):
                 tree = collect_tree(root)
                 cond, _, card_map = convert_problem((root, []))
 
-                bc = max([int(ceil(log2(node.cardinality_range[1] + 1))) for node in card_map])
-
-                mc = count_models_by_comparison_branching(
+                mc = count_models_by_branching(
                     cond,
                     [card_map[n] for n in tree],
-                    bc,
                 )
 
                 self.assertLessEqual(
@@ -35,17 +31,12 @@ class TestTree(unittest.TestCase):
                             tree = collect_tree(root)
                             cond, _, card_map = convert_problem((root, []))
 
-                            bc = max([int(ceil(log2(node.cardinality_range[1] + 1))) for node in card_map])
-
-                            mc = count_models_by_comparison_branching(
+                            mc = count_models_by_branching(
                                 cond,
                                 [card_map[n] for n in tree],
-                                bc,
                             )
 
                             self.assertLessEqual(
                                 mc, get_tree_model_count_upper_bound(root),
                                 msg="Upper bound should be upper bound"
                             )
-
-                            print(mc, get_tree_model_count_upper_bound(root))
