@@ -27,7 +27,7 @@ EstimateBaseParams = NamedTuple(
         ("a", int),
         # clones made of the formula (1 <= q)
         ("q", int),
-        # amount of bits per variable
+        # maximal amount of bits per variable
         ("k", int),
         # amount of variables that are counted with
         ("n", int),
@@ -45,11 +45,8 @@ def assert_estimate_base_params_is_valid(base_params: EstimateBaseParams):
     assert base_params.q >= 1, "Base parameter q >= 1"
     assert base_params.k >= 1, "Base parameter k >= 1"
     assert base_params.n >= 1, "Base parameter n >= 1"
-    assert base_params.max_mc is None or 2**(base_params.n * base_params.k) >= base_params.max_mc >= 0, \
+    assert base_params.max_mc is None or 2 ** (base_params.n * base_params.k) >= base_params.max_mc >= 0, \
         "Base parameter max_mc if specified is <= 2**(n*k) and >= 0"
-
-    # note that constraint can be lifted once the implementation properly supports it
-    assert log2(base_params.k).is_integer(), "Base parameter k is power of 2"
 
 
 class EstimateDerivedBaseParams:
@@ -64,12 +61,12 @@ class EstimateDerivedBaseParams:
         self.n: int = base_params.n
         self.k: int = base_params.k
 
-        self.cn: int = int(floor(log2(self.k)))
+        self.cn: int = int(ceil(log2(self.k)))
 
         self.g: float = (sqrt(self.a + 1) - 1) ** 2
         self.G: float = (sqrt(self.a + 1) + 1) ** 2
 
-        self.max_mc: int = base_params.max_mc if base_params.max_mc is not None else 2**(self.k * self.n)
+        self.max_mc: int = base_params.max_mc if base_params.max_mc is not None else 2 ** (self.k * self.n)
 
         # model count needs to be greater than t,
         # otherwise estimate would always correctly return No
@@ -77,7 +74,7 @@ class EstimateDerivedBaseParams:
         self.t: int = int(ceil((sqrt(self.a + 1) - 1) ** (2 / self.q)))
 
         self.p: Tuple[int, ...] = tuple([
-            get_smallest_prime_above_or_equal_power_of_two(self.k/(2**j)) for j in range(self.cn + 1)
+            get_smallest_prime_above_or_equal_power_of_two(int(ceil(self.k / (2 ** j)))) for j in range(self.cn + 1)
         ])
 
     def get_estimate_result_implication(self, task: EstimateTask, result: EstimateTaskResult) -> Tuple[bool, float]:
@@ -85,8 +82,9 @@ class EstimateDerivedBaseParams:
         Returns what the result means if the estimate was correct.
         The format is that the model count of the formula is (> if result[0] else <) (result[1]).
         """
-        return result.positive_vote,\
-               (self.get_num_cells_of_c(task.c) * (self.g if result.positive_vote else self.G)) ** (1 / self.q)
+
+        sep = (self.get_num_cells_of_c(task.c) * (self.g if result.positive_vote else self.G)) ** (1 / self.q)
+        return result.positive_vote, sep
 
     def is_possible_c(self, c: Tuple[int, ...]) -> bool:
         """
@@ -103,7 +101,7 @@ class EstimateDerivedBaseParams:
 
         num_cells = self.get_num_cells_of_c(c)
 
-        return num_cells * self.G < self.max_mc
+        return num_cells * self.G < self.max_mc ** self.q
 
     def get_num_cells_of_c(self, partial_c: Tuple[int, ...]) -> int:
         """
@@ -121,7 +119,7 @@ class EstimateDerivedBaseParams:
         num_cells = self.get_num_cells_of_c(tuple([
             partial_c[i] if i != j else 0 for i in range(len(partial_c))
         ]))
-        return int(floor(log(self.max_mc / (num_cells * self.G), self.p[j])))
+        return int(floor(log((self.max_mc ** self.q) / (num_cells * self.G), self.p[j])))
 
     def get_possible_c(self):
         """

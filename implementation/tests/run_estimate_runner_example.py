@@ -5,7 +5,7 @@ from time import perf_counter
 from z3 import *
 
 if __name__ == "__main__":
-    k = 8
+    k = 6
     x, y, z = BitVecs("x y z", k)
     f = And([
         URem(x, 4) == 0,
@@ -18,7 +18,7 @@ if __name__ == "__main__":
     runner = EstimateRunner(
         base_params=EstimateBaseParams(
             a=35,
-            q=2,
+            q=3,
             k=k,
             n=2,
             max_mc=None,

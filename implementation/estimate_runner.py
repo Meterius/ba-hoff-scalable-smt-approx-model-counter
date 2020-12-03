@@ -34,7 +34,7 @@ def assert_estimate_problem_and_base_params_are_valid(
     assert_estimate_problem_params_is_valid(problem_params)
 
     assert len(problem_params.variables) == base_params.n, "Amount of variables equals base params n"
-    assert all([x.size() == base_params.k for x in problem_params.variables]), "Variables must have bit size of k"
+    assert all([x.size() <= base_params.k for x in problem_params.variables]), "Variables must have bit size at most k"
 
 
 Z3CloneExpressionOutput = NamedTuple("Z3CloneExpressionOutput", [
@@ -173,12 +173,26 @@ class EstimateRunner:
             var_map=var_map,
         )
 
-    def _z3_get_XJ(self, xs: List[z3.BitVecRef], j: int, m: int) -> z3.BitVecRef:
-        i = int(floor(m / (2 ** j)))
-        s = (m % (2 ** j)) * int(self.params.k / (2 ** j))
-        t = s + int(self.params.k / (2 ** j)) - 1
+    def _z3_get_XJM_slices(self, xs: List[z3.BitVecRef], j: int) -> List[z3.BitVecRef]:
+        slices = []
+        slice_size = int(ceil(self.params.k / (2 ** j)))
 
-        return z3.Extract(t, s, xs[i])
+        for x in xs:
+            for i in range(x.size() // slice_size):
+                slices.append(
+                    z3.Extract(i * slice_size + slice_size - 1, i * slice_size, x)
+                )
+
+            if (x.size() // slice_size) * slice_size != x.size():
+                rem_slice_size = x.size() % slice_size
+                slices.append(
+                    z3.ZeroExt(
+                        slice_size - rem_slice_size,
+                        z3.Extract(x.size() - 1, x.size() - 1 - rem_slice_size, x)
+                    )
+                )
+
+        return slices
 
     def _z3_make_hash_from_HJ(self, xs: List[z3.BitVecRef], j: int) -> z3.BitVecRef:
         p = self.params.p[j]
@@ -187,9 +201,11 @@ class EstimateRunner:
         def get_random_coefficient():
             return z3.BitVecVal(self._get_random_int(0, p - 1), pbc)
 
+        slices = self._z3_get_XJM_slices(xs, j)
+
         return z3.URem(
             z3.Sum([
-                self._z3_get_XJ(xs, j, m) * get_random_coefficient() for m in range(self.params.n * (2 ** j))
+                s * get_random_coefficient() for s in slices
             ]) + get_random_coefficient(),
             self.params.p[j]
         )
