@@ -8,7 +8,7 @@ from typing import NamedTuple, Optional, List, Tuple, Dict, cast
 from math import ceil, log2
 
 EstimateProblemParamsZ3 = NamedTuple(
-    "EstimateProblemParams",
+    "EstimateProblemParamsZ3",
     [("formula", z3.BoolRef), ("variables", List[z3.BitVecRef])]
 )
 
