@@ -3,7 +3,7 @@ from problem_generator.generator import generate_random_flat_tree, generate_rand
 from problem_generator.tree import convert_problem, get_tree_model_count_upper_bound, collect_tree
 from implementation.estimate_manager import InMemoryApproxExecutionManager, EstimateBaseParams
 from implementation.estimate_integrator_z3 import DirectEstimateIntegratorZ3
-from implementation.estimate_scheduler import ConfidentEdgeFinderBinarySearchEstimateScheduler
+from implementation.estimate_scheduler import XORConfidentEdgeFinderBinarySearchEstimateScheduler
 from time import perf_counter
 from math import log2, floor
 
@@ -35,7 +35,7 @@ if __name__ == "__main__":
     print(f"Initializing InMemoryApproxExecutionManager took {perf_counter() - s:.3f} seconds")
     s = perf_counter()
 
-    scheduler = ConfidentEdgeFinderBinarySearchEstimateScheduler(
+    scheduler = XORConfidentEdgeFinderBinarySearchEstimateScheduler(
         manager=manager,
         confidence=0.75,
     )

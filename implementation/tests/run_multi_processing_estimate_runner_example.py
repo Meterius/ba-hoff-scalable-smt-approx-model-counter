@@ -2,7 +2,7 @@ from alternatives.branching_counter import count_models_by_branching
 from implementation.estimate_manager import InMemoryApproxExecutionManager, EstimateBaseParams
 from implementation.estimate_runner_z3 import EstimateProblemParamsZ3
 from implementation.estimate_integrator_z3 import MultiProcessingEstimateIntegratorZ3
-from implementation.estimate_scheduler import ConfidentEdgeFinderBinarySearchEstimateScheduler
+from implementation.estimate_scheduler import XORConfidentEdgeFinderBinarySearchEstimateScheduler
 from time import perf_counter
 from z3 import *
 from os import cpu_count
@@ -34,7 +34,7 @@ if __name__ == "__main__":
     print(f"Initializing InMemoryApproxExecutionManager took {perf_counter() - s:.3f} seconds")
     s = perf_counter()
 
-    scheduler = ConfidentEdgeFinderBinarySearchEstimateScheduler(
+    scheduler = XORConfidentEdgeFinderBinarySearchEstimateScheduler(
         manager=manager,
         confidence=0.75,
     )

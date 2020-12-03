@@ -77,14 +77,30 @@ class EstimateDerivedBaseParams:
             get_smallest_prime_above_or_equal_power_of_two(int(ceil(self.k / (2 ** j)))) for j in range(self.cn + 1)
         ])
 
+    def get_estimate_result_model_count_strict_upper_bound_on_negative_vote(self, task: EstimateTask) -> float:
+        """
+        Returns the upper bound for the formula model count if an estimate call were
+        to return a negative vote and is correct.
+        """
+
+        return (self.get_num_cells_of_c(task.c) * self.G) ** (1 / self.q)
+
+    def get_estimate_result_model_count_strict_lower_bound_on_positive_vote(self, task: EstimateTask) -> float:
+        """
+        Returns the lower bound for the formula model count if an estimate call were
+        to return a positive vote and is correct.
+        """
+
+        return (self.get_num_cells_of_c(task.c) * self.g) ** (1 / self.q)
+
     def get_estimate_result_implication(self, task: EstimateTask, result: EstimateTaskResult) -> Tuple[bool, float]:
         """
         Returns what the result means if the estimate was correct.
         The format is that the model count of the formula is (> if result[0] else <) (result[1]).
         """
 
-        sep = (self.get_num_cells_of_c(task.c) * (self.g if result.positive_vote else self.G)) ** (1 / self.q)
-        return result.positive_vote, sep
+        return result.positive_vote, self.get_estimate_result_model_count_strict_lower_bound_on_positive_vote(task) \
+            if result.positive_vote else self.get_estimate_result_model_count_strict_upper_bound_on_negative_vote(task)
 
     def is_possible_c(self, c: Tuple[int, ...]) -> bool:
         """
@@ -96,7 +112,7 @@ class EstimateDerivedBaseParams:
 
         # all elements in c must be greater or equal zero,
         # and at least one must be greater 0
-        if not all([cj >= 0 for cj in c]) or all([cj == 0 for cj in c]) or len(c) != self.cn + 1:
+        if not all([cj >= 0 for cj in c]) or len(c) != self.cn + 1:
             return False
 
         num_cells = self.get_num_cells_of_c(c)

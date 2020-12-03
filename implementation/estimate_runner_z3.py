@@ -180,7 +180,7 @@ class EstimateRunnerZ3(BaseEstimateRunner[EstimateProblemParamsZ3]):
 
         return z3.URem(
             z3.Sum([
-                s * get_random_coefficient() for s in slices
+                z3.ZeroExt(pbc - s.size(), s) * get_random_coefficient() for s in slices
             ]) + get_random_coefficient(),
             self.params.p[j]
         )
