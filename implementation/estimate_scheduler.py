@@ -84,13 +84,18 @@ class ConfidentEdgeFinderBinarySearchEstimateScheduler(BaseEstimateScheduler[Tup
         self.params: EstimateDerivedBaseParams = EstimateDerivedBaseParams(manager.execution.estimate_base_params)
 
     def _apply_binary_search(self) -> Union[Tuple[float, float], List[EstimateTask]]:
+        mp = self.params.get_max_cj_of_possible_c(tuple(), self.params.cn)
+
         left = 1
-        right = self.params.mp
+        right = mp
+
+        def task(m: int) -> EstimateTask:
+            return EstimateTask(c=(0,) * self.params.cn + (m,))
 
         alpha = 1 - self.confidence
 
         # modified to account for reduced amount of steps due to binary search
-        r = int(ceil(8 * log((1 / alpha) * ceil(log2(self.params.mp)))))
+        r = int(ceil(8 * log((1 / alpha) * ceil(log2(mp)))))
 
         def estimate(task: EstimateTask) -> Union[bool, int]:
             nonlocal self
@@ -113,20 +118,20 @@ class ConfidentEdgeFinderBinarySearchEstimateScheduler(BaseEstimateScheduler[Tup
         while left <= right:
             m = floor((left + right) / 2)
 
-            estimate_base = estimate(EstimateTask(m=m))
+            estimate_base = estimate(task(m))
             if type(estimate_base) == int:
-                return [EstimateTask(m=m)] * estimate_base
+                return [task(m)] * estimate_base
 
             if m == 1 and not estimate_base:
                 comparison = 0
-            elif m == self.params.mp:
+            elif m == mp:
                 comparison = 0 if estimate_base else -1
             elif estimate_base:
                 comparison = 1
             else:
-                estimate_prev = estimate(EstimateTask(m=m-1))
+                estimate_prev = estimate(task(m=m-1))
                 if type(estimate_prev) == int:
-                    return [EstimateTask(m=m-1)] * estimate_prev
+                    return [task(m=m-1)] * estimate_prev
 
                 comparison = 0 if estimate_prev else -1
 
@@ -137,7 +142,7 @@ class ConfidentEdgeFinderBinarySearchEstimateScheduler(BaseEstimateScheduler[Tup
             else:
                 break
 
-        q_interval = (self.params.p + 1, 2 * self.params.G) if\
+        q_interval = (self.params.t + 1, 2 * self.params.G) if\
             m == 1 else (2 ** (m - 1) * self.params.g, 2 ** m * self.params.G)
 
         return (

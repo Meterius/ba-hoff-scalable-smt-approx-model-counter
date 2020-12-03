@@ -167,5 +167,5 @@ class MultiProcessingEstimateIntegrator(BaseEstimateIntegrator):
                 tasks_in_progress[task] = tasks_in_progress.get(task, 0) + 1
                 self.task_queue.put(task)
 
-        print(f"Completed {completed_task_count} tasks in {perf_counter()-s:.3f} seconds")
+        print_debug(f"Completed {completed_task_count} tasks in {perf_counter()-s:.3f} seconds")
 

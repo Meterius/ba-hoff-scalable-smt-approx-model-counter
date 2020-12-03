@@ -4,11 +4,11 @@ from implementation.estimate_manager import EstimateDerivedBaseParams, EstimateB
     assert_estimate_base_params_is_valid, EstimateTaskResult, EstimateTask
 from implementation.helper import deserialize_expression, serialize_expression
 from typing import NamedTuple, Optional, List, Tuple, Dict, cast
-from math import ceil, log2
+from math import ceil, log2, floor
 
 EstimateProblemParams = NamedTuple(
     "EstimateProblemParams",
-    [("formula", z3.BoolRef), ("variables", List[Tuple[z3.ArithRef, int]])]
+    [("formula", z3.BoolRef), ("variables", List[z3.BitVecRef])]
 )
 """
 The estimate problem specifies the data that is missing from the base params,
@@ -23,8 +23,7 @@ This data characterizes the model count and is expected to stay equivalent acros
 
 
 def assert_estimate_problem_params_is_valid(problem_params: EstimateProblemParams):
-    for x, bc in problem_params.variables:
-        assert bc > 0, "Each problem variable has a positive bit count"
+    pass
 
 
 def assert_estimate_problem_and_base_params_are_valid(
@@ -34,8 +33,8 @@ def assert_estimate_problem_and_base_params_are_valid(
     assert_estimate_base_params_is_valid(base_params)
     assert_estimate_problem_params_is_valid(problem_params)
 
-    assert sum([bc for x, bc in problem_params.variables]) == base_params.bc, \
-        "Amount of bits in problem variables equals base params bit count"
+    assert len(problem_params.variables) == base_params.n, "Amount of variables equals base params n"
+    assert all([x.size() == base_params.k for x in problem_params.variables]), "Variables must have bit size of k"
 
 
 Z3CloneExpressionOutput = NamedTuple("Z3CloneExpressionOutput", [
@@ -43,7 +42,7 @@ Z3CloneExpressionOutput = NamedTuple("Z3CloneExpressionOutput", [
 ])
 
 
-class ReferenceEstimateRunner:
+class EstimateRunner:
     """
     Implements estimate function.
     """
@@ -53,9 +52,6 @@ class ReferenceEstimateRunner:
         base_params: EstimateBaseParams,
         problem_params: EstimateProblemParams,
     ):
-        """
-        :params approx_params:
-        """
         self.params: EstimateDerivedBaseParams = EstimateDerivedBaseParams(base_params)
         self.problem_params: EstimateProblemParams = problem_params
 
@@ -65,17 +61,16 @@ class ReferenceEstimateRunner:
 
         # Solver and formula initialization
 
-        ctx: z3.Context = z3.Context()
-        solver: z3.Solver = z3.Solver(ctx=ctx)
+        solver: z3.Solver = z3.Solver()
 
-        formula = problem_params.formula.translate(ctx)
-        variables = [(x.translate(ctx), bc) for x, bc in problem_params.variables]
+        formula = problem_params.formula
+        variables = problem_params.variables
 
         formula_clone_data = self._z3_clone_expression(formula, self.params.q)
 
         q_bvs = [
             cast(z3.BitVecRef, q_bv)
-            for bv, _ in variables
+            for bv in variables
             for q_bv in formula_clone_data.var_map[bv]
         ]
 
@@ -88,16 +83,25 @@ class ReferenceEstimateRunner:
         self._q_bvs: List[z3.BitVecRef] = q_bvs
 
     @staticmethod
-    def _z3_get_hamming_weight(bit_vector: z3.BitVecRef) -> z3.ArithRef:
+    def _get_random_int(a: int, b: int) -> int:
+        """
+        Returns a random integer from the inclusive interval [a, b]
+        """
+
+        return random.randint(a, b)
+
+    @staticmethod
+    def _z3_get_hamming_weight(x: z3.BitVecRef) -> z3.ArithRef:
         return z3.Sum([
             z3.ZeroExt(
-                int(ceil(log2(bit_vector.size()))),
-                z3.Extract(i, i, bit_vector)
+                int(ceil(log2(x.size()))),
+                z3.Extract(i, i, x)
             )
-            for i in range(bit_vector.size())
+            for i in range(x.size())
         ])
 
-    def _z3_get_variables(self, expression: z3.ExprRef) -> List[z3.ExprRef]:
+    @staticmethod
+    def _z3_get_variables(expression: z3.ExprRef) -> List[z3.ExprRef]:
         """
         Returns all variables that are contained in the expression.
         :param expression: Expression from which variables are extracted
@@ -144,7 +148,8 @@ class ReferenceEstimateRunner:
 
         return z3.Const(f"{key}_{variable}", variable.sort())
 
-    def _z3_clone_expression(self, expression: z3.ExprRef, q: int) -> Z3CloneExpressionOutput:
+    @classmethod
+    def _z3_clone_expression(cls, expression: z3.ExprRef, q: int) -> Z3CloneExpressionOutput:
         """
         Clones expression by generating q instances of the expression where each
         variable is substituted by a unique newly generated variable for each variable in each clone.
@@ -155,10 +160,10 @@ class ReferenceEstimateRunner:
         :param q: Amount of clones created
         """
 
-        variables = self._z3_get_variables(expression)
+        variables = cls._z3_get_variables(expression)
 
         var_map = {
-            x: [self._z3_recreate_variable(f"clone{{{i}}}", x) for i in range(q)] for x in variables
+            x: [cls._z3_recreate_variable(f"clone{{{i}}}", x) for i in range(q)] for x in variables
         }
 
         clones = [z3.substitute(expression, [(x, var_map[x][i]) for x in variables]) for i in range(q)]
@@ -168,27 +173,44 @@ class ReferenceEstimateRunner:
             var_map=var_map,
         )
 
-    @classmethod
-    def _z3_make_assert_random_pairwise_independent_hash_is_zero(cls, bvs: List[z3.BitVec], m: int) -> z3.BoolRef:
-        """
-        Returns z3 formula that asserts that the output of a randomly generated hash function
-        is zero when given as input the specified bits. The random hash function needs to be
-        generated pairwise independently and have probability 1/(2**m) of being zero for any
-        input i.e. Pr[h(x)=0] = 1/(2**m) = 2**(-m) for any x. The amount of input bits is len(bits).
-        """
+    def _z3_get_XJ(self, xs: List[z3.BitVecRef], j: int, m: int) -> z3.BitVecRef:
+        i = int(floor(m / (2 ** j)))
+        s = (m % (2 ** j)) * int(self.params.k / (2 ** j))
+        t = s + int(self.params.k / (2 ** j)) - 1
 
-        if len(bvs) == 0:
-            return z3.BoolVal(True)
+        return z3.Extract(t, s, xs[i])
 
-        ctx = bvs[0].ctx
+    def _z3_make_hash_from_HJ(self, xs: List[z3.BitVecRef], j: int) -> z3.BitVecRef:
+        p = self.params.p[j]
+        pbc = int(ceil(log2(p)))
+
+        def get_random_coefficient():
+            return z3.BitVecVal(self._get_random_int(0, p - 1), pbc)
+
+        return z3.URem(
+            z3.Sum([
+                self._z3_get_XJ(xs, j, m) * get_random_coefficient() for m in range(self.params.n * (2 ** j))
+            ]) + get_random_coefficient(),
+            self.params.p[j]
+        )
+
+    def _z3_make_hash_from_H(self, xs: List[z3.BitVecRef], c: Tuple[int, ...]) -> List[List[z3.BitVecRef]]:
+        return [
+            [self._z3_make_hash_from_HJ(xs, j) for _ in range(c[j])]
+            for j in range(self.params.cn + 1)
+        ]
+
+    def _z3_make_hash_equality_from_H(self, xs: List[z3.BitVecRef], c: Tuple[int, ...]) -> z3.BoolRef:
+        alpha = [
+            [self._get_random_int(0, self.params.p[j] - 1) for _ in range(c[j])]
+            for j in range(self.params.cn + 1)
+        ]
+
+        h = self._z3_make_hash_from_H(xs, c)
 
         return z3.And([
-            z3.URem(z3.Sum([
-                cls._z3_get_hamming_weight(
-                    bv & z3.BitVecVal(random.randint(0, 2**bv.size()-1), bv.size(), ctx=ctx)
-                )
-                for bv in bvs
-            ]), 2) == random.getrandbits(1) for _ in range(m)
+            z3.And([h[j][i] == alpha[j][i] for i in range(c[j])])
+            for j in range(self.params.cn + 1)
         ])
 
     @staticmethod
@@ -229,13 +251,13 @@ class ReferenceEstimateRunner:
 
         return None
 
-    def exact_model_count_if_less_or_equal_p(self) -> Optional[int]:
+    def exact_model_count_if_less_or_equal_t(self) -> Optional[int]:
         """
-        If the formula has <= p models this will return the exact model count,
+        If the formula has <= t models this will return the exact model count,
         otherwise it returns None.
         """
 
-        return self._z3_limited_model_count(self._solver, self._q_bvs, self.params.p + 1)
+        return self._z3_limited_model_count(self._solver, self._q_bvs, self.params.t + 1)
 
     def estimate(self, task: EstimateTask) -> EstimateTaskResult:
         """
@@ -244,10 +266,12 @@ class ReferenceEstimateRunner:
         :param task:
         """
 
+        assert self.params.is_possible_c(task.c), "Estimate Task c must be a possible c"
+
         self._solver.push()
         self._solver.add(
-            self._z3_make_assert_random_pairwise_independent_hash_is_zero(
-                self._q_bvs, task.m,
+            self._z3_make_hash_equality_from_H(
+                self._q_bvs, task.c,
             )
         )
 
@@ -259,10 +283,6 @@ class ReferenceEstimateRunner:
         return EstimateTaskResult(positive_vote=lmc is None)
 
 
-class EstimateRunner(ReferenceEstimateRunner):
-    pass
-
-
 SerializedEstimateProblemParams = NamedTuple(
     "SerializedEstimateProblemParams",
     [("serialized_formula", str), ("serialized_variables", List[Tuple[str, int]])],
@@ -272,7 +292,7 @@ SerializedEstimateProblemParams = NamedTuple(
 def serialize_estimate_problem_params(problem_params: EstimateProblemParams) -> SerializedEstimateProblemParams:
     return SerializedEstimateProblemParams(
         serialized_formula=serialize_expression(problem_params.formula),
-        serialized_variables=[(str(x), bc) for x, bc in problem_params.variables],
+        serialized_variables=[(str(x), x.size()) for x in problem_params.variables],
     )
 
 
@@ -281,5 +301,5 @@ def deserialize_estimate_problem_params(
 ) -> EstimateProblemParams:
     return EstimateProblemParams(
         formula=cast(z3.BoolRef, deserialize_expression(serialized_estimate_problem_params.serialized_formula)),
-        variables=[(z3.BitVec(name, bc), bc) for name, bc in serialized_estimate_problem_params.serialized_variables],
+        variables=[z3.BitVec(name, k) for name, k in serialized_estimate_problem_params.serialized_variables],
     )

@@ -1,9 +1,12 @@
 from abc import ABC, abstractmethod
-from math import ceil, sqrt, log2, floor
-from typing import NamedTuple, Dict, Optional
+from math import ceil, sqrt, log2, floor, prod, log
+from itertools import chain
+from typing import NamedTuple, Dict, Optional, Tuple, Set
 from dataclasses import dataclass
 
-EstimateTask = NamedTuple("EstimateTask", [("m", int)])
+from implementation.primes import get_smallest_prime_above_or_equal_power_of_two
+
+EstimateTask = NamedTuple("EstimateTask", [("c", Tuple[int, ...])])
 """ Parameters for a single estimate call """
 
 EstimateTaskResult = NamedTuple("EstimateTaskResult", [("positive_vote", bool)])
@@ -24,8 +27,10 @@ EstimateBaseParams = NamedTuple(
         ("a", int),
         # clones made of the formula (1 <= q)
         ("q", int),
-        # amount of bits used to encode the formulas variables (1 <= bc)
-        ("bc", int),
+        # amount of bits per variable
+        ("k", int),
+        # amount of variables that are counted with
+        ("n", int),
         # if known an upper bound on the model count, if not specified is set to 2**bc,
         # this can be used if the formula is known to have an upper bound on the model count,
         # which will be used to reduce unnecessary operations
@@ -38,9 +43,13 @@ EstimateBaseParams = NamedTuple(
 def assert_estimate_base_params_is_valid(base_params: EstimateBaseParams):
     assert base_params.a >= 1, "Base parameter a >= 1"
     assert base_params.q >= 1, "Base parameter q >= 1"
-    assert base_params.bc >= 1, "Base parameter bc >= 1"
-    assert base_params.max_mc is None or 2**base_params.bc >= base_params.max_mc >= 0, \
-        "Base parameter max_mc if specified is <= 2**bc and >= 0"
+    assert base_params.k >= 1, "Base parameter k >= 1"
+    assert base_params.n >= 1, "Base parameter n >= 1"
+    assert base_params.max_mc is None or 2**(base_params.n * base_params.k) >= base_params.max_mc >= 0, \
+        "Base parameter max_mc if specified is <= 2**(n*k) and >= 0"
+
+    # note that constraint can be lifted once the implementation properly supports it
+    assert log2(base_params.k).is_integer(), "Base parameter k is power of 2"
 
 
 class EstimateDerivedBaseParams:
@@ -51,24 +60,94 @@ class EstimateDerivedBaseParams:
 
         self.a: int = base_params.a
         self.q: int = base_params.q
-        self.bc: int = base_params.bc
-        self.n: int = self.bc * self.q
+
+        self.n: int = base_params.n
+        self.k: int = base_params.k
+
+        self.cn: int = int(floor(log2(self.k)))
 
         self.g: float = (sqrt(self.a + 1) - 1) ** 2
         self.G: float = (sqrt(self.a + 1) + 1) ** 2
 
-        self.max_mc: int = base_params.max_mc if base_params.max_mc is not None else 2**self.n
+        self.max_mc: int = base_params.max_mc if base_params.max_mc is not None else 2**(self.k * self.n)
 
-        # self.mp: int = int(floor(self.n - log2(self.G)))
-        self.mp: int = max(1, int(floor(log2(self.max_mc**self.q) - log2(self.G))))
+        # model count needs to be greater than t,
+        # otherwise estimate would always correctly return No
+        # (note in the paper CDM-2017 this parameter is called p)
+        self.t: int = int(ceil((sqrt(self.a + 1) - 1) ** (2 / self.q)))
 
-        self.p: int = int(ceil((sqrt(self.a + 1) - 1) ** (2 / self.q)))
+        self.p: Tuple[int, ...] = tuple([
+            get_smallest_prime_above_or_equal_power_of_two(self.k/(2**j)) for j in range(self.cn + 1)
+        ])
+
+    def get_estimate_result_implication(self, task: EstimateTask, result: EstimateTaskResult) -> Tuple[bool, float]:
+        """
+        Returns what the result means if the estimate was correct.
+        The format is that the model count of the formula is (> if result[0] else <) (result[1]).
+        """
+        return result.positive_vote,\
+               (self.get_num_cells_of_c(task.c) * (self.g if result.positive_vote else self.G)) ** (1 / self.q)
+
+    def is_possible_c(self, c: Tuple[int, ...]) -> bool:
+        """
+        Whether the c parameter can be used as an estimate task c parameter.
+        It cant be zero, all its elements must be greater or equal 0, it cant be partial and
+        if the number of cells determined by the c cannot be large enough
+        to be impossible to achieve a negative vote estimate return.
+        """
+
+        # all elements in c must be greater or equal zero,
+        # and at least one must be greater 0
+        if not all([cj >= 0 for cj in c]) or all([cj == 0 for cj in c]) or len(c) != self.cn + 1:
+            return False
+
+        num_cells = self.get_num_cells_of_c(c)
+
+        return num_cells * self.G < self.max_mc
+
+    def get_num_cells_of_c(self, partial_c: Tuple[int, ...]) -> int:
+        """
+        Returns the number of outputs i.e. the cardinality of the range of a hash chosen from the
+        hash family with this c parameter.
+        """
+
+        return prod([self.p[j] ** partial_c[j] for j in range(len(partial_c))])
+
+    def get_max_cj_of_possible_c(self, partial_c: Tuple[int, ...], j: int) -> int:
+        """
+        Returns the maximum value c[j] could have if it were replaced or set in the partial_c.
+        """
+
+        num_cells = self.get_num_cells_of_c(tuple([
+            partial_c[i] if i != j else 0 for i in range(len(partial_c))
+        ]))
+        return int(floor(log(self.max_mc / (num_cells * self.G), self.p[j])))
+
+    def get_possible_c(self):
+        """
+        Returns all possible c parameters i.e. all c that would return True for is_possible_c(c).
+        """
+
+        def get_possible_c_ref(partial_c: Tuple[int, ...]) -> Set[Tuple[int, ...]]:
+            if len(partial_c) == self.cn + 1:
+                # ensure the c is not zero
+                return {partial_c} if any([cj > 0 for cj in partial_c]) else set()
+
+            j = len(partial_c)
+            cj_max = self.get_max_cj_of_possible_c(partial_c, j)
+
+            return set(chain.from_iterable([
+                get_possible_c_ref(partial_c + (cj,)) for cj in range(cj_max + 1)
+            ]))
+
+        return get_possible_c_ref(tuple())
 
     def as_base_params(self) -> EstimateBaseParams:
         return EstimateBaseParams(
             q=self.q,
             a=self.a,
-            bc=self.bc,
+            k=self.k,
+            n=self.n,
             max_mc=self.max_mc,
         )
 
@@ -105,10 +184,10 @@ class BaseApproxExecutionManager(ABC):
         self.execution: ApproxExecution = ApproxExecution(
             estimate_base_params=base_params,
             estimate_tasks_combined_results={
-                EstimateTask(m=m): EstimateTaskCombinedResults(
+                EstimateTask(c=c): EstimateTaskCombinedResults(
                     positive_voters=0,
                     negative_voters=0,
-                ) for m in range(1, derived_params.mp + 1)
+                ) for c in derived_params.get_possible_c()
             },
         )
 
