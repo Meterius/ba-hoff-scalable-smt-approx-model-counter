@@ -1,3 +1,5 @@
+from collections import Counter
+
 from implementation.estimate_runner_z3 import EstimateProblemParamsZ3
 from problem_generator.generator import generate_random_flat_tree, generate_random_constraints
 from problem_generator.tree import convert_problem, get_tree_model_count_upper_bound, collect_tree
@@ -26,8 +28,7 @@ if __name__ == "__main__":
         base_params=EstimateBaseParams(
             a=1,
             q=1,
-            n=len(cards),
-            k=max([x.size() for x in cards]),
+            km=dict(Counter([x.size() for x in cards])),
             max_mc=max_mc,
         ),
     )

@@ -1,5 +1,6 @@
 from abc import abstractmethod, ABC
-from implementation.estimate_manager import BaseApproxExecutionManager, EstimateDerivedBaseParams, EstimateTask
+from implementation.estimate_manager import BaseApproxExecutionManager, EstimateDerivedBaseParams, EstimateTask, \
+    EstimateTaskCombinedResults
 from typing import List, Generic, TypeVar, Tuple, Optional, Union, Dict
 from math import floor, log2, log, ceil
 
@@ -100,7 +101,9 @@ class XORConfidentEdgeFinderBinarySearchEstimateScheduler(BaseEstimateScheduler[
         def estimate(task: EstimateTask) -> Union[bool, int]:
             nonlocal self
 
-            estimate_data = self.manager.execution.estimate_tasks_combined_results[task]
+            estimate_data = self.manager.execution.estimate_tasks_combined_results.get(
+                task, EstimateTaskCombinedResults()
+            )
 
             rr = max(0, r - (estimate_data.positive_voters + estimate_data.negative_voters))
 
@@ -146,6 +149,8 @@ class XORConfidentEdgeFinderBinarySearchEstimateScheduler(BaseEstimateScheduler[
             # TODO: properly handle case of too little model count
             raise ValueError("less than minimally detectable amount of estimate models")
 
+        print(f"Result: {((self.params.a * (2 ** (m - 0.5))) ** (1 / self.params.q)):.2f}")
+
         lower_bound = self.params.get_estimate_result_model_count_strict_lower_bound_on_positive_vote(
             EstimateTask(
                 c=(0,) * self.params.cn + (m,)
@@ -182,20 +187,15 @@ class ConfidentEdgeFinderLinearSearchEstimateScheduler(BaseEstimateScheduler[Tup
         self.params: EstimateDerivedBaseParams = EstimateDerivedBaseParams(manager.execution.estimate_base_params)
 
     def _apply_linear_search(self) -> Union[Tuple[float, float], List[EstimateTask]]:
-        mp = self.params.get_max_cj_of_possible_c(tuple(), self.params.cn)
-
-        left = 1
-        right = mp
-
-        alpha = 1 - self.confidence
-
         # TODO: calculate proper required majority vote count
-        r = 20
+        r = 10
 
         def estimate(task: EstimateTask) -> Union[bool, int]:
             nonlocal self
 
-            estimate_data = self.manager.execution.estimate_tasks_combined_results[task]
+            estimate_data = self.manager.execution.estimate_tasks_combined_results.get(
+                task, EstimateTaskCombinedResults(),
+            )
 
             rr = max(0, r - (estimate_data.positive_voters + estimate_data.negative_voters))
 
@@ -209,12 +209,21 @@ class ConfidentEdgeFinderLinearSearchEstimateScheduler(BaseEstimateScheduler[Tup
 
             return rr
 
-        partial_c = [1]
+        partial_c = [0, 1]
 
         def make_c():
             return tuple(partial_c) + (0,) * (self.params.cn + 1 - len(partial_c))
 
         while True:
+            if not self.params.is_possible_c(make_c()):
+                if len(partial_c) == self.params.cn + 1:
+                    partial_c[-1] -= 1
+                    break
+                else:
+                    partial_c[-1] -= 1
+                    partial_c.append(1)
+                    continue
+
             j = len(partial_c) - 1
 
             task = EstimateTask(c=make_c())
@@ -223,11 +232,10 @@ class ConfidentEdgeFinderLinearSearchEstimateScheduler(BaseEstimateScheduler[Tup
                 return [task] * ret
 
             if ret:
-                partial_c[j] += 1
-
-                if not self.params.is_possible_c(make_c()):
-                    partial_c[j] -= 1
-                    break
+                if j == self.params.cn:
+                    partial_c[j] += 1
+                else:
+                    partial_c.append(1)
             else:
                 if j == self.params.cn:
                     partial_c[j] -= 1

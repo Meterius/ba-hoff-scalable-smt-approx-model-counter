@@ -1,11 +1,13 @@
+from collections import Counter
 from alternatives.branching_counter import count_models_by_branching
 from alternatives.exclusion_counter import count_models_by_exclusion
-from implementation.estimate_integrator_z3 import MultiProcessingEstimateIntegratorZ3
+from implementation.estimate_integrator_z3 import MultiProcessingEstimateIntegratorZ3, DirectEstimateIntegratorZ3
 from implementation.estimate_runner_z3 import EstimateProblemParamsZ3
 from problem_generator.tree import get_tree_model_count_upper_bound, collect_tree, \
     convert_cquenz_conf_knowledge_to_tree, get_cquenz_conf_knowledge_feature_variables, convert_problem
 from implementation.estimate_manager import InMemoryApproxExecutionManager, EstimateBaseParams
-from implementation.estimate_scheduler import XORConfidentEdgeFinderBinarySearchEstimateScheduler
+from implementation.estimate_scheduler import XORConfidentEdgeFinderBinarySearchEstimateScheduler, \
+    ConfidentEdgeFinderLinearSearchEstimateScheduler
 from implementation.helper import deserialize_expression
 from time import perf_counter
 from z3 import *
@@ -42,8 +44,7 @@ if __name__ == "__main__":
         base_params=EstimateBaseParams(
             a=50,
             q=1,
-            k=max([x.size() for x in variables]),
-            n=len(variables),
+            km=dict(Counter([x.size() for x in cards])),
             max_mc=max_mc,
         ),
     )
@@ -51,7 +52,7 @@ if __name__ == "__main__":
     print(f"Initializing InMemoryApproxExecutionManager took {perf_counter() - s:.3f} seconds")
     s = perf_counter()
 
-    scheduler = XORConfidentEdgeFinderBinarySearchEstimateScheduler(
+    scheduler = ConfidentEdgeFinderLinearSearchEstimateScheduler(
         manager=manager,
         confidence=0.75,
     )

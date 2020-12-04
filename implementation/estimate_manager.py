@@ -4,7 +4,7 @@ from itertools import chain
 from typing import NamedTuple, Dict, Optional, Tuple, Set
 from dataclasses import dataclass
 
-from implementation.primes import get_smallest_prime_above_or_equal_power_of_two
+from implementation.primes import get_smallest_prime_above_or_equal_power_of_two, get_highest_power_two_key_in_dict
 
 EstimateTask = NamedTuple("EstimateTask", [("c", Tuple[int, ...])])
 """ Parameters for a single estimate call """
@@ -16,8 +16,8 @@ EstimateTaskResult = NamedTuple("EstimateTaskResult", [("positive_vote", bool)])
 @dataclass
 class EstimateTaskCombinedResults:
     """ Combined results from multiple estimate calls with the same task """
-    positive_voters: int
-    negative_voters: int
+    positive_voters: int = 0
+    negative_voters: int = 0
 
 
 EstimateBaseParams = NamedTuple(
@@ -27,10 +27,8 @@ EstimateBaseParams = NamedTuple(
         ("a", int),
         # clones made of the formula (1 <= q)
         ("q", int),
-        # maximal amount of bits per variable
-        ("k", int),
-        # amount of variables that are counted with
-        ("n", int),
+        # map from bit count to amount of variables that have that bit count
+        ("km", Dict[int, int]),
         # if known an upper bound on the model count, if not specified is set to 2**bc,
         # this can be used if the formula is known to have an upper bound on the model count,
         # which will be used to reduce unnecessary operations
@@ -43,10 +41,13 @@ EstimateBaseParams = NamedTuple(
 def assert_estimate_base_params_is_valid(base_params: EstimateBaseParams):
     assert base_params.a >= 1, "Base parameter a >= 1"
     assert base_params.q >= 1, "Base parameter q >= 1"
-    assert base_params.k >= 1, "Base parameter k >= 1"
-    assert base_params.n >= 1, "Base parameter n >= 1"
-    assert base_params.max_mc is None or 2 ** (base_params.n * base_params.k) >= base_params.max_mc >= 0, \
-        "Base parameter max_mc if specified is <= 2**(n*k) and >= 0"
+    assert all([k >= 1 for k in base_params.km.keys()]) >= 1, "Every key of base parameter km is >= 1 " \
+                                                              "(i.e. no bit count is < 1)"
+    assert sum(base_params.km.values()) >= 1, "Summed values of base parameter km is >= 1 (i.e. at least " \
+                                              "one variable is counted)"
+    theoretical_max_mc = prod([(2**k)**kc for k, kc in base_params.km.items()])
+    assert base_params.max_mc is None or theoretical_max_mc >= base_params.max_mc >= 0, \
+        "Base parameter max_mc if specified is in inclusive interval [0, theoretical maximal model count]"
 
 
 class EstimateDerivedBaseParams:
@@ -58,15 +59,18 @@ class EstimateDerivedBaseParams:
         self.a: int = base_params.a
         self.q: int = base_params.q
 
-        self.n: int = base_params.n
-        self.k: int = base_params.k
+        self.km: Dict[int, int] = base_params.km
+        self.kn: int = sum([k * kc for k, kc in self.km.items()])
+        self.n: int = sum(self.km.values())
 
-        self.cn: int = int(ceil(log2(self.k)))
+        # TODO: decide how to handle lack of available power two prime
+        self.cn: int = min(int(ceil(log2(self.kn))), get_highest_power_two_key_in_dict())
 
         self.g: float = (sqrt(self.a + 1) - 1) ** 2
         self.G: float = (sqrt(self.a + 1) + 1) ** 2
 
-        self.max_mc: int = base_params.max_mc if base_params.max_mc is not None else 2 ** (self.k * self.n)
+        theoretical_max_mc = prod([(2**k)**kc for k, kc in base_params.km.items()])
+        self.max_mc: int = base_params.max_mc if base_params.max_mc is not None else theoretical_max_mc
 
         # model count needs to be greater than t,
         # otherwise estimate would always correctly return No
@@ -74,7 +78,7 @@ class EstimateDerivedBaseParams:
         self.t: int = int(ceil((sqrt(self.a + 1) - 1) ** (2 / self.q)))
 
         self.p: Tuple[int, ...] = tuple([
-            get_smallest_prime_above_or_equal_power_of_two(int(ceil(self.k / (2 ** j)))) for j in range(self.cn + 1)
+            get_smallest_prime_above_or_equal_power_of_two(int(ceil(self.kn / (2 ** j)))) for j in range(self.cn + 1)
         ])
 
     def get_estimate_result_model_count_strict_upper_bound_on_negative_vote(self, task: EstimateTask) -> float:
@@ -132,7 +136,7 @@ class EstimateDerivedBaseParams:
         assert any([cj > 0 for cj in c]), "some element in c is > 0"
 
         num_cells = self.get_num_cells_of_c(c)
-        assert num_cells * self.G < (self.max_mc ** self.q), "number of cells of c * G < (max_mc ** q), as otherwise" \
+        assert num_cells * self.G < (self.max_mc ** self.q), "number of cells of c * G < (max_mc ** q), as otherwise " \
                                                              "estimate would need to always return a negative vote"
 
     def get_num_cells_of_c(self, partial_c: Tuple[int, ...]) -> int:
@@ -176,8 +180,7 @@ class EstimateDerivedBaseParams:
         return EstimateBaseParams(
             q=self.q,
             a=self.a,
-            k=self.k,
-            n=self.n,
+            km=self.km,
             max_mc=self.max_mc,
         )
 
@@ -208,17 +211,11 @@ class BaseApproxExecutionManager(ABC):
     """
 
     def __init__(self, base_params: EstimateBaseParams):
-        # assert_estimate_base_params_is_valid(base_params) is not needed as it is performed in the derived params init
-        derived_params = EstimateDerivedBaseParams(base_params)
+        assert_estimate_base_params_is_valid(base_params)
 
         self.execution: ApproxExecution = ApproxExecution(
             estimate_base_params=base_params,
-            estimate_tasks_combined_results={
-                EstimateTask(c=c): EstimateTaskCombinedResults(
-                    positive_voters=0,
-                    negative_voters=0,
-                ) for c in derived_params.get_possible_c()
-            },
+            estimate_tasks_combined_results={},
         )
 
         self.analyser = ApproxExecutionAnalyser(self.execution)
@@ -241,7 +238,12 @@ class InMemoryApproxExecutionManager(BaseApproxExecutionManager):
         pass
 
     def add_estimate_result_and_sync(self, task: EstimateTask, result: EstimateTaskResult):
+        combined_result = self.execution.estimate_tasks_combined_results.get(task, EstimateTaskCombinedResults())
+
         if result.positive_vote:
-            self.execution.estimate_tasks_combined_results[task].positive_voters += 1
+            combined_result.positive_voters += 1
         else:
-            self.execution.estimate_tasks_combined_results[task].negative_voters += 1
+            combined_result.negative_voters += 1
+
+        if task not in self.execution.estimate_tasks_combined_results:
+            self.execution.estimate_tasks_combined_results[task] = combined_result

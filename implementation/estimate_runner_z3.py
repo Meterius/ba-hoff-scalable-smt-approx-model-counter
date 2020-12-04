@@ -1,3 +1,5 @@
+from collections import Counter
+
 import z3
 import random
 from implementation.estimate_manager import EstimateBaseParams,\
@@ -63,9 +65,8 @@ class EstimateRunnerZ3(BaseEstimateRunner[EstimateProblemParamsZ3]):
         base_params: EstimateBaseParams,
         problem_params: EstimateProblemParamsZ3,
     ):
-        assert len(problem_params.variables) == base_params.n, "Amount of variables equals base params n"
-        assert all(
-            [x.size() <= base_params.k for x in problem_params.variables]), "Variables must have bit size at most k"
+        assert dict(Counter([x.size() for x in problem_params.variables])) == base_params.km, \
+               "Variables match base parameter km"
 
     @staticmethod
     def _get_random_int(a: int, b: int) -> int:
@@ -150,22 +151,34 @@ class EstimateRunnerZ3(BaseEstimateRunner[EstimateProblemParamsZ3]):
 
     def _z3_get_XJM_slices(self, xs: List[z3.BitVecRef], j: int) -> List[z3.BitVecRef]:
         slices = []
-        slice_size = int(ceil(self.params.k / (2 ** j)))
+        slice_size = int(ceil(self.params.kn / (2 ** j)))
 
-        for x in xs:
-            for i in range(x.size() // slice_size):
-                slices.append(
-                    z3.Extract(i * slice_size + slice_size - 1, i * slice_size, x)
-                )
+        queue = xs.copy()
 
-            if (x.size() // slice_size) * slice_size != x.size():
-                rem_slice_size = x.size() % slice_size
-                slices.append(
-                    z3.ZeroExt(
-                        slice_size - rem_slice_size,
-                        z3.Extract(x.size() - 1, x.size() - rem_slice_size, x)
+        while len(queue) > 0:
+            x = queue.pop(0)
+
+            if x.size() >= slice_size:
+                for i in range(x.size() // slice_size):
+                    slices.append(
+                        z3.Extract(i * slice_size + slice_size - 1, i * slice_size, x)
                     )
-                )
+
+                if (x.size() // slice_size) * slice_size != x.size():
+                    rem_slice_size = x.size() % slice_size
+                    slices.append(
+                        z3.ZeroExt(
+                            slice_size - rem_slice_size,
+                            z3.Extract(x.size() - 1, x.size() - rem_slice_size, x)
+                        )
+                    )
+            else:
+                slice = [x]
+
+                while len(queue) > 0 and sum([y.size() for y in slice]) + queue[0].size() <= slice_size:
+                    slice.append(queue.pop(0))
+
+                slices.append(z3.Concat(slice))
 
         return slices
 

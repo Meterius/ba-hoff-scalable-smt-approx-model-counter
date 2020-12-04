@@ -19,8 +19,7 @@ if __name__ == "__main__":
         base_params=EstimateBaseParams(
             a=100,
             q=1,
-            k=k,
-            n=2,
+            km={k: 2},
             max_mc=None,
         ),
     )

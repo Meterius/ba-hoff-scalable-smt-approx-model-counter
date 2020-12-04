@@ -1,7 +1,8 @@
+from collections import Counter
 from time import perf_counter
 
 from implementation.estimate_manager import InMemoryApproxExecutionManager, EstimateBaseParams
-from implementation.estimate_scheduler import XORConfidentEdgeFinderBinarySearchEstimateScheduler, ConfidentEdgeFinderLinearSearchEstimateScheduler
+from implementation.estimate_scheduler import ConfidentEdgeFinderLinearSearchEstimateScheduler
 from implementation.estimate_integrator_z3 import DirectEstimateIntegratorZ3
 from benchmarking.convert_benchmark_z3 import get_benchmark_problem
 
@@ -12,8 +13,7 @@ if __name__ == "__main__":
         base_params=EstimateBaseParams(
             a=100,
             q=1,
-            k=max([x.size() for x in problem.variables]),
-            n=len(problem.variables),
+            km=dict(Counter([x.size() for x in problem.variables])),
             max_mc=None,
         )
     )
