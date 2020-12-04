@@ -163,7 +163,7 @@ class EstimateRunnerZ3(BaseEstimateRunner[EstimateProblemParamsZ3]):
                 slices.append(
                     z3.ZeroExt(
                         slice_size - rem_slice_size,
-                        z3.Extract(x.size() - 1, x.size() - 1 - rem_slice_size, x)
+                        z3.Extract(x.size() - 1, x.size() - rem_slice_size, x)
                     )
                 )
 
