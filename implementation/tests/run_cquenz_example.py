@@ -78,6 +78,7 @@ if __name__ == "__main__":
     print(scheduler.result())
     print(f"Binary search with multi processing took {perf_counter()-s2:.3f} seconds")
 
+    """
     s = perf_counter()
 
     print(
@@ -99,3 +100,4 @@ if __name__ == "__main__":
     )
 
     print(f"Model exclusion took {perf_counter() - s:.3f} seconds")
+    """

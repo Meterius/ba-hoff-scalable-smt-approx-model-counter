@@ -142,13 +142,23 @@ class XORConfidentEdgeFinderBinarySearchEstimateScheduler(BaseEstimateScheduler[
             else:
                 break
 
-        q_interval = (self.params.t + 1, 2 * self.params.G) if \
-            m == 1 else (2 ** (m - 1) * self.params.g, 2 ** m * self.params.G)
+        if m == 1:
+            # TODO: properly handle case of too little model count
+            raise ValueError("less than minimally detectable amount of estimate models")
 
-        return (
-            q_interval[0] ** (1 / self.params.q),
-            q_interval[1] ** (1 / self.params.q),
+        lower_bound = self.params.get_estimate_result_model_count_strict_lower_bound_on_positive_vote(
+            EstimateTask(
+                c=(0,) * self.params.cn + (m,)
+            )
         )
+
+        upper_bound = self.params.get_estimate_result_model_count_strict_upper_bound_on_negative_vote(
+            EstimateTask(
+                c=(0,) * self.params.cn + (m + 1,)
+            )
+        ) if m != mp else self.params.max_mc
+
+        return lower_bound, upper_bound
 
     def _available_estimate_tasks(self) -> List[EstimateTask]:
         res = self._apply_binary_search()
