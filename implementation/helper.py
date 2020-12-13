@@ -9,7 +9,7 @@ def serialize_expression(expression: z3.ExprRef) -> str:
 
 
 def deserialize_expression(serialized_expression: str, ctx: Optional[z3.Context] = None) -> z3.ExprRef:
-    return z3.parse_smt2_string(serialized_expression, ctx=ctx)[0]
+    return z3.And(z3.parse_smt2_string(serialized_expression, ctx=ctx))
 
 
 def get_variables(expression: z3.ExprRef) -> List[z3.ExprRef]:

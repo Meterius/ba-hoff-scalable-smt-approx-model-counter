@@ -187,8 +187,8 @@ class ConfidentEdgeFinderLinearSearchEstimateScheduler(BaseEstimateScheduler[Tup
         self.params: EstimateDerivedBaseParams = EstimateDerivedBaseParams(manager.execution.estimate_base_params)
 
     def _apply_linear_search(self) -> Union[Tuple[float, float], List[EstimateTask]]:
-        # TODO: calculate proper required majority vote count
-        r = 10
+        alpha = 1 - self.confidence
+        r = int(ceil(8 * log2((1 / alpha) * ceil(log2(self.params.get_max_cj_of_possible_c(tuple(), self.params.cn))))))
 
         def estimate(task: EstimateTask) -> Union[bool, int]:
             nonlocal self

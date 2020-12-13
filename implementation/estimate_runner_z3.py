@@ -178,7 +178,7 @@ class EstimateRunnerZ3(BaseEstimateRunner[EstimateProblemParamsZ3]):
                 while len(queue) > 0 and sum([y.size() for y in slice]) + queue[0].size() <= slice_size:
                     slice.append(queue.pop(0))
 
-                slices.append(z3.Concat(slice))
+                slices.append(z3.Concat(slice) if len(slice) > 1 else slice[0])
 
         return slices
 

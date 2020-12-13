@@ -125,31 +125,7 @@ class BaseMultiProcessingEstimateIntegrator(Generic[PP, SPP], BaseEstimateIntegr
 
     def __init__(self, scheduler: BaseEstimateScheduler, problem_params: PP, worker_count: int):
         super().__init__(scheduler, problem_params)
-
-        self.task_queue = SimpleQueue()
-        self.result_queue = SimpleQueue()
-        self.stdio_lock = Lock()
-
         self.worker_count = worker_count
-
-        self.processes = [
-            Process(
-                target=self._run_worker,
-                kwargs={
-                    "worker_idx": worker_idx,
-                    "worker_count": worker_count,
-                    "stdio_lock": self.stdio_lock,
-                    "task_queue": self.task_queue,
-                    "result_queue": self.result_queue,
-                    "base_params": scheduler.manager.execution.estimate_base_params,
-                    "serialized_problem_params": self.serialize_problem_params(problem_params),
-                },
-                daemon=True,
-            ) for worker_idx in range(worker_count)
-        ]
-
-        for process in self.processes:
-            process.start()
 
     def run(self):
         """
@@ -163,31 +139,58 @@ class BaseMultiProcessingEstimateIntegrator(Generic[PP, SPP], BaseEstimateIntegr
 
         print_debug("Starting integrator run")
 
-        s = perf_counter()
+        task_queue = SimpleQueue()
+        result_queue = SimpleQueue()
+        stdio_lock = Lock()
 
-        completed_task_count = 0
-        tasks_in_progress: Dict[EstimateTask, int] = {}
-        tasks = self.scheduler.available_estimate_tasks()[:self.worker_count]
+        processes = [
+            Process(
+                target=self._run_worker,
+                kwargs={
+                    "worker_idx": worker_idx,
+                    "worker_count": self.worker_count,
+                    "stdio_lock": stdio_lock,
+                    "task_queue": task_queue,
+                    "result_queue": result_queue,
+                    "base_params": self.scheduler.manager.execution.estimate_base_params,
+                    "serialized_problem_params": self.serialize_problem_params(self.problem_params),
+                },
+                daemon=True,
+            ) for worker_idx in range(self.worker_count)
+        ]
 
-        for task in tasks:
-            tasks_in_progress[task] = tasks_in_progress.get(task, 0) + 1
-            self.task_queue.put(task)
+        for process in processes:
+            process.start()
 
-        while any(map(lambda x: x > 0, tasks_in_progress.values())):
-            task, result = self.result_queue.get()
+        try:
+            s = perf_counter()
 
-            completed_task_count += 1
-
-            self.scheduler.manager.add_estimate_result_and_sync(task, result)
-
-            tasks_in_progress[task] = tasks_in_progress.get(task, 0) - 1
-
-            tasks = self.scheduler.available_estimate_tasks(
-                tasks_in_progress,
-            )[:self.worker_count - sum(tasks_in_progress.values())]
+            completed_task_count = 0
+            tasks_in_progress: Dict[EstimateTask, int] = {}
+            tasks = self.scheduler.available_estimate_tasks()[:self.worker_count]
 
             for task in tasks:
                 tasks_in_progress[task] = tasks_in_progress.get(task, 0) + 1
-                self.task_queue.put(task)
+                task_queue.put(task)
 
-        print_debug(f"Completed {completed_task_count} tasks in {perf_counter() - s:.3f} seconds")
+            while any(map(lambda x: x > 0, tasks_in_progress.values())):
+                task, result = result_queue.get()
+
+                completed_task_count += 1
+
+                self.scheduler.manager.add_estimate_result_and_sync(task, result)
+
+                tasks_in_progress[task] = tasks_in_progress.get(task, 0) - 1
+
+                tasks = self.scheduler.available_estimate_tasks(
+                    tasks_in_progress,
+                )[:self.worker_count - sum(tasks_in_progress.values())]
+
+                for task in tasks:
+                    tasks_in_progress[task] = tasks_in_progress.get(task, 0) + 1
+                    task_queue.put(task)
+
+            print_debug(f"Completed {completed_task_count} tasks in {perf_counter() - s:.3f} seconds")
+        finally:
+            for process in processes:
+                process.terminate()
