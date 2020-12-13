@@ -8,7 +8,7 @@ def resolve(*path: Iterable[str]) -> str:
 
 
 def get_benchmark_list():
-    return os.listdir(resolve("benchmarks"))
+    return list(sorted(os.listdir(resolve("benchmarks"))))
 
 
 def get_benchmark_smt2(benchmark: str) -> str:
