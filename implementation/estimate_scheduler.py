@@ -68,6 +68,101 @@ class BaseEstimateScheduler(ABC, Generic[R]):
         pass
 
 
+class XORConfidentEdgeFinderLinearEstimateScheduler(BaseEstimateScheduler[Tuple[int, int]]):
+    """
+    This estimate scheduler will find via binary search an estimate m parameter for which the predecessor or successor
+    is unequal for the value at m with sufficient confidence. This will yield as the result an interval in which
+    the model count is contained that is as precise as the execution will allow and is correct with probability given
+    as the confidence parameter.
+    """
+
+    def __init__(self, manager: BaseApproxExecutionManager, confidence: float):
+        super().__init__(manager)
+
+        assert 0 <= confidence < 1, "Confidence is < 1 and >= 0"
+
+        self.confidence: float = confidence
+        self.params: EstimateDerivedBaseParams = EstimateDerivedBaseParams(manager.execution.estimate_base_params)
+
+    def _apply_binary_search(self) -> Union[Tuple[float, float], List[EstimateTask]]:
+        mp = self.params.get_max_cj_of_possible_c(tuple(), self.params.cn)
+
+        left = 1
+        right = mp
+
+        def task(m: int) -> EstimateTask:
+            return EstimateTask(c=(0,) * self.params.cn + (m,))
+
+        alpha = 1 - self.confidence
+
+        # modified to account for reduced amount of steps due to binary search
+        r = int(ceil(8 * log((1 / alpha) * ceil(log2(mp)))))
+
+        def estimate(task: EstimateTask) -> Union[bool, int]:
+            nonlocal self
+
+            estimate_data = self.manager.execution.estimate_tasks_combined_results.get(
+                task, EstimateTaskCombinedResults()
+            )
+
+            rr = max(0, r - (estimate_data.positive_voters + estimate_data.negative_voters))
+
+            if estimate_data.positive_voters >= estimate_data.negative_voters and \
+                estimate_data.positive_voters >= estimate_data.negative_voters + rr:
+                return True
+
+            if estimate_data.negative_voters > estimate_data.positive_voters and \
+                estimate_data.negative_voters > estimate_data.positive_voters + rr:
+                return False
+
+            return rr
+
+        m = 1
+        while True:
+            estimate_base = estimate(task(m))
+            if type(estimate_base) == int:
+                return [task(m)] * estimate_base
+
+            if m == mp:
+                break
+            elif not estimate_base:
+                m -= 1
+                break
+            else:
+                m += 1
+
+        if m == 0:
+            # TODO: properly handle case of too little model count
+            raise ValueError("less than minimally detectable amount of estimate models")
+
+        print(f"Result: {((self.params.a * (2 ** ((m + 1) - 0.5))) ** (1 / self.params.q)):.2f}")
+
+        lower_bound = self.params.get_estimate_result_model_count_strict_lower_bound_on_positive_vote(
+            EstimateTask(
+                c=(0,) * self.params.cn + (m,)
+            )
+        )
+
+        upper_bound = self.params.get_estimate_result_model_count_strict_upper_bound_on_negative_vote(
+            EstimateTask(
+                c=(0,) * self.params.cn + (m + 1,)
+            )
+        ) if m != mp else self.params.max_mc
+
+        return lower_bound, upper_bound
+
+    def _available_estimate_tasks(self) -> List[EstimateTask]:
+        res = self._apply_binary_search()
+        return [] if type(res) == tuple else res
+
+    def predicted_estimate_tasks(self) -> List[EstimateTask]:
+        return []
+
+    def result(self) -> Optional[Tuple[int, int]]:
+        res = self._apply_binary_search()
+        return res if type(res) == tuple else None
+
+
 class XORConfidentEdgeFinderBinarySearchEstimateScheduler(BaseEstimateScheduler[Tuple[int, int]]):
     """
     This estimate scheduler will find via binary search an estimate m parameter for which the predecessor or successor
