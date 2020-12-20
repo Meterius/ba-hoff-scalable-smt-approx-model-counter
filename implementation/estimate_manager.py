@@ -52,14 +52,13 @@ class EstimateDerivedBaseParams:
         self.kn: int = sum([k * kc for k, kc in self.km.items()])
         self.n: int = sum(self.km.values())
 
-        # TODO: decide how to handle lack of available power two prime
-        self.cn: int = min(int(ceil(log2(self.kn))), get_highest_power_two_key_in_dict())
+        theoretical_max_mc = prod([(2**k)**kc for k, kc in base_params.km.items()])
+        self.max_mc: int = base_params.max_mc if base_params.max_mc is not None else theoretical_max_mc
+
+        self.cn: int = int(ceil(log2(log2(self.max_mc ** self.q))))
 
         self.g: Callable[[int], float] = lambda a: (sqrt(a + 1) - 1) ** 2
         self.G: Callable[[int], float] = lambda a: (sqrt(a + 1) + 1) ** 2
-
-        theoretical_max_mc = prod([(2**k)**kc for k, kc in base_params.km.items()])
-        self.max_mc: int = base_params.max_mc if base_params.max_mc is not None else theoretical_max_mc
 
         # model count needs to be greater than t,
         # otherwise estimate would always correctly return No
