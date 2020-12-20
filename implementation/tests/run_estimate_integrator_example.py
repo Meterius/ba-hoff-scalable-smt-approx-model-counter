@@ -15,9 +15,10 @@ if __name__ == "__main__":
         ULT(z, x + y),
     ])
 
+    a = 100
+
     manager = InMemoryApproxExecutionManager(
         base_params=EstimateBaseParams(
-            a=100,
             q=1,
             km={k: 2},
             max_mc=None,
@@ -27,6 +28,7 @@ if __name__ == "__main__":
     scheduler1 = ConfidentEdgeFinderLinearSearchEstimateScheduler(
         manager=manager,
         confidence=0.75,
+        a=a,
     )
 
     integrator1 = DirectEstimateIntegratorZ3(
@@ -40,6 +42,7 @@ if __name__ == "__main__":
     scheduler2 = XORConfidentEdgeFinderBinarySearchEstimateScheduler(
         manager=manager,
         confidence=0.75,
+        a=a,
     )
 
     integrator2 = DirectEstimateIntegratorZ3(

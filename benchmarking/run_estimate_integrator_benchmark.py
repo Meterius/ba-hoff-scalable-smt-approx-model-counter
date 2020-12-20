@@ -1,12 +1,9 @@
 from typing import Tuple, List
 from collections import Counter
 from time import perf_counter
-from alternatives.branching_counter import count_models_by_branching
-from benchmarking.benchmark import get_benchmark_list
 from implementation.estimate_manager import InMemoryApproxExecutionManager, EstimateBaseParams
-from implementation.estimate_scheduler import ConfidentEdgeFinderLinearSearchEstimateScheduler, \
-    XORConfidentEdgeFinderBinarySearchEstimateScheduler, XORConfidentEdgeFinderLinearEstimateScheduler
-from implementation.estimate_integrator_z3 import MultiProcessingEstimateIntegratorZ3, DirectEstimateIntegratorZ3
+from implementation.estimate_scheduler import ConfidentEdgeFinderLinearSearchEstimateScheduler
+from implementation.estimate_integrator_z3 import MultiProcessingEstimateIntegratorZ3
 from benchmarking.convert_benchmark_z3 import get_benchmark_problem
 import os
 
@@ -16,9 +13,10 @@ def run_benchmark(benchmark: str) -> Tuple[float, Tuple[float, float]]:
 
     print(f"Retrieved benchmark problem {benchmark}")
 
+    a = 100
+
     manager = InMemoryApproxExecutionManager(
         base_params=EstimateBaseParams(
-            a=100,
             q=1,
             km=dict(Counter([x.size() for x in problem.variables])),
             max_mc=None,
@@ -30,6 +28,7 @@ def run_benchmark(benchmark: str) -> Tuple[float, Tuple[float, float]]:
     scheduler = ConfidentEdgeFinderLinearSearchEstimateScheduler(
         manager=manager,
         confidence=0.75,
+        a=a,
     )
 
     print("Setup Scheduler")

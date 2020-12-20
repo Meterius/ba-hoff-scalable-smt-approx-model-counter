@@ -6,6 +6,7 @@ from time import perf_counter
 from z3 import *
 
 if __name__ == "__main__":
+    a = 35
     k = 6
     x, y, z = BitVecs("x y z", k)
     f = And([
@@ -18,7 +19,6 @@ if __name__ == "__main__":
 
     runner = EstimateRunnerZ3(
         base_params=EstimateBaseParams(
-            a=35,
             q=3,
             km={k: 2},
             max_mc=None,
@@ -31,11 +31,11 @@ if __name__ == "__main__":
 
     print(f"Initialize took {perf_counter()-s1:.3f} seconds")
 
-    mp = runner.params.get_max_cj_of_possible_c(tuple(), runner.params.cn)
+    mp = runner.params.get_max_cj_of_possible_c(tuple(), a, runner.params.cn)
 
     for m in range(1, mp + 1):
         s = perf_counter()
-        task = EstimateTask(c=(0,) * runner.params.cn + (m,))
+        task = EstimateTask(c=(0,) * runner.params.cn + (m,), a=a)
         result = runner.estimate(task)
         imp = runner.params.get_estimate_result_implication(task, result)
         print(f"{result} which implies mc {'>' if imp[0] else '<'} {imp[1]:.1f}")

@@ -21,9 +21,10 @@ if __name__ == "__main__":
     s2 = perf_counter()
     s = perf_counter()
 
+    a = 50
+
     manager = InMemoryApproxExecutionManager(
         base_params=EstimateBaseParams(
-            a=50,
             q=2,
             km={k: 2},
             max_mc=None,
@@ -36,6 +37,7 @@ if __name__ == "__main__":
     scheduler = XORConfidentEdgeFinderBinarySearchEstimateScheduler(
         manager=manager,
         confidence=0.75,
+        a=a,
     )
 
     print(f"Initializing ConfidentEdgeFinderBinarySearchEstimateScheduler took {perf_counter() - s:.3f} seconds")

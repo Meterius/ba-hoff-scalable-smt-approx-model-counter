@@ -255,13 +255,13 @@ class EstimateRunnerZ3(BaseEstimateRunner[EstimateProblemParamsZ3]):
 
         return None
 
-    def exact_model_count_if_less_or_equal_t(self) -> Optional[int]:
+    def exact_model_count_if_less_or_equal_t(self, a: int) -> Optional[int]:
         """
         If the formula has <= t models this will return the exact model count,
         otherwise it returns None.
         """
 
-        return self._z3_limited_model_count(self._solver, self._q_bvs, self.params.t + 1)
+        return self._z3_limited_model_count(self._solver, self._q_bvs, self.params.t(a) + 1)
 
     def estimate(self, task: EstimateTask) -> EstimateTaskResult:
         """
@@ -270,7 +270,7 @@ class EstimateRunnerZ3(BaseEstimateRunner[EstimateProblemParamsZ3]):
         :param task:
         """
 
-        self.params.assert_is_possible_c(task.c)
+        self.params.assert_is_possible_c(task.c, task.a)
 
         self._solver.push()
         self._solver.add(
@@ -280,11 +280,11 @@ class EstimateRunnerZ3(BaseEstimateRunner[EstimateProblemParamsZ3]):
         )
 
         # is None if solver has at least a models for q_bits
-        lmc = self._z3_limited_model_count(self._solver, self._q_bvs, self.params.a)
+        lmc = self._z3_limited_model_count(self._solver, self._q_bvs, task.a)
 
         self._solver.pop()
 
-        return EstimateTaskResult(positive_vote=lmc is None)
+        return EstimateTaskResult(lmc=lmc)
 
 
 SerializedEstimateProblemParamsZ3 = NamedTuple(

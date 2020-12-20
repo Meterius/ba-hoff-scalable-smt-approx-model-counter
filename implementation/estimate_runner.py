@@ -21,7 +21,7 @@ class BaseEstimateRunner(ABC, Generic[PP]):
         raise NotImplementedError
 
     @abstractmethod
-    def exact_model_count_if_less_or_equal_t(self) -> Optional[int]:
+    def exact_model_count_if_less_or_equal_t(self, a: int) -> Optional[int]:
         """
         If the formula has <= t models this will return the exact model count,
         otherwise it returns None.

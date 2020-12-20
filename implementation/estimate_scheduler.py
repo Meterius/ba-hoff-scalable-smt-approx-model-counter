@@ -1,10 +1,13 @@
 from abc import abstractmethod, ABC
-from implementation.estimate_manager import BaseApproxExecutionManager, EstimateDerivedBaseParams, EstimateTask, \
-    EstimateTaskCombinedResults
-from typing import List, Generic, TypeVar, Tuple, Optional, Union, Dict
+from implementation.estimate_manager import BaseApproxExecutionManager, EstimateDerivedBaseParams, EstimateTask
+from typing import List, Generic, TypeVar, Tuple, Optional, Union, Dict, NamedTuple
 from math import floor, log2, log, ceil
 
 R = TypeVar("R")
+
+EstimateTaskCombinedResults = NamedTuple(
+    "EstimateTaskCombinedResults", [("positive_voters", int), ("negative_voters", int)]
+)
 
 
 class BaseEstimateScheduler(ABC, Generic[R]):
@@ -18,6 +21,18 @@ class BaseEstimateScheduler(ABC, Generic[R]):
 
     def __init__(self, manager: BaseApproxExecutionManager):
         self.manager = manager
+
+    def _get_estimate_task_combined_results(self, task: EstimateTask) -> EstimateTaskCombinedResults:
+        return EstimateTaskCombinedResults(
+            positive_voters=len([
+                result for result in self.manager.execution.estimate_tasks_results.get(task, [])
+                if result.lmc is None
+            ]),
+            negative_voters=len([
+                result for result in self.manager.execution.estimate_tasks_results.get(task, [])
+                if result.lmc is not None
+            ]),
+        )
 
     def available_estimate_tasks(
         self,
@@ -76,22 +91,20 @@ class XORConfidentEdgeFinderLinearEstimateScheduler(BaseEstimateScheduler[Tuple[
     as the confidence parameter.
     """
 
-    def __init__(self, manager: BaseApproxExecutionManager, confidence: float):
+    def __init__(self, manager: BaseApproxExecutionManager, a: int, confidence: float):
         super().__init__(manager)
 
         assert 0 <= confidence < 1, "Confidence is < 1 and >= 0"
 
+        self.a: int = a
         self.confidence: float = confidence
         self.params: EstimateDerivedBaseParams = EstimateDerivedBaseParams(manager.execution.estimate_base_params)
 
     def _apply_binary_search(self) -> Union[Tuple[float, float], List[EstimateTask]]:
-        mp = self.params.get_max_cj_of_possible_c(tuple(), self.params.cn)
-
-        left = 1
-        right = mp
+        mp = self.params.get_max_cj_of_possible_c(tuple(), self.params.cn, self.a)
 
         def task(m: int) -> EstimateTask:
-            return EstimateTask(c=(0,) * self.params.cn + (m,))
+            return EstimateTask(c=(0,) * self.params.cn + (m,), a=self.a)
 
         alpha = 1 - self.confidence
 
@@ -101,18 +114,16 @@ class XORConfidentEdgeFinderLinearEstimateScheduler(BaseEstimateScheduler[Tuple[
         def estimate(task: EstimateTask) -> Union[bool, int]:
             nonlocal self
 
-            estimate_data = self.manager.execution.estimate_tasks_combined_results.get(
-                task, EstimateTaskCombinedResults()
-            )
+            estimate_data = self._get_estimate_task_combined_results(task)
 
             rr = max(0, r - (estimate_data.positive_voters + estimate_data.negative_voters))
 
             if estimate_data.positive_voters >= estimate_data.negative_voters and \
-                estimate_data.positive_voters >= estimate_data.negative_voters + rr:
+               estimate_data.positive_voters >= estimate_data.negative_voters + rr:
                 return True
 
             if estimate_data.negative_voters > estimate_data.positive_voters and \
-                estimate_data.negative_voters > estimate_data.positive_voters + rr:
+               estimate_data.negative_voters > estimate_data.positive_voters + rr:
                 return False
 
             return rr
@@ -135,17 +146,17 @@ class XORConfidentEdgeFinderLinearEstimateScheduler(BaseEstimateScheduler[Tuple[
             # TODO: properly handle case of too little model count
             raise ValueError("less than minimally detectable amount of estimate models")
 
-        print(f"Result: {((self.params.a * (2 ** ((m + 1) - 0.5))) ** (1 / self.params.q)):.2f}")
+        print(f"Result: {((self.a * (2 ** ((m + 1) - 0.5))) ** (1 / self.params.q)):.2f}")
 
         lower_bound = self.params.get_estimate_result_model_count_strict_lower_bound_on_positive_vote(
             EstimateTask(
-                c=(0,) * self.params.cn + (m,)
+                c=(0,) * self.params.cn + (m,), a=self.a,
             )
         )
 
         upper_bound = self.params.get_estimate_result_model_count_strict_upper_bound_on_negative_vote(
             EstimateTask(
-                c=(0,) * self.params.cn + (m + 1,)
+                c=(0,) * self.params.cn + (m + 1,), a=self.a,
             )
         ) if m != mp else self.params.max_mc
 
@@ -171,22 +182,24 @@ class XORConfidentEdgeFinderBinarySearchEstimateScheduler(BaseEstimateScheduler[
     as the confidence parameter.
     """
 
-    def __init__(self, manager: BaseApproxExecutionManager, confidence: float):
+    def __init__(self, manager: BaseApproxExecutionManager, a: int, confidence: float):
         super().__init__(manager)
 
+        assert a >= 1, "a >= 1"
         assert 0 <= confidence < 1, "Confidence is < 1 and >= 0"
 
+        self.a: int = a
         self.confidence: float = confidence
         self.params: EstimateDerivedBaseParams = EstimateDerivedBaseParams(manager.execution.estimate_base_params)
 
     def _apply_binary_search(self) -> Union[Tuple[float, float], List[EstimateTask]]:
-        mp = self.params.get_max_cj_of_possible_c(tuple(), self.params.cn)
+        mp = self.params.get_max_cj_of_possible_c(tuple(), self.a, self.params.cn)
 
         left = 1
         right = mp
 
         def task(m: int) -> EstimateTask:
-            return EstimateTask(c=(0,) * self.params.cn + (m,))
+            return EstimateTask(c=(0,) * self.params.cn + (m,), a=self.a)
 
         alpha = 1 - self.confidence
 
@@ -196,9 +209,7 @@ class XORConfidentEdgeFinderBinarySearchEstimateScheduler(BaseEstimateScheduler[
         def estimate(task: EstimateTask) -> Union[bool, int]:
             nonlocal self
 
-            estimate_data = self.manager.execution.estimate_tasks_combined_results.get(
-                task, EstimateTaskCombinedResults()
-            )
+            estimate_data = self._get_estimate_task_combined_results(task)
 
             rr = max(0, r - (estimate_data.positive_voters + estimate_data.negative_voters))
 
@@ -244,17 +255,17 @@ class XORConfidentEdgeFinderBinarySearchEstimateScheduler(BaseEstimateScheduler[
             # TODO: properly handle case of too little model count
             raise ValueError("less than minimally detectable amount of estimate models")
 
-        print(f"Result: {((self.params.a * (2 ** (m - 0.5))) ** (1 / self.params.q)):.2f}")
+        print(f"Result: {((self.a * (2 ** (m - 0.5))) ** (1 / self.params.q)):.2f}")
 
         lower_bound = self.params.get_estimate_result_model_count_strict_lower_bound_on_positive_vote(
             EstimateTask(
-                c=(0,) * self.params.cn + (m,)
+                c=(0,) * self.params.cn + (m,), a=self.a,
             )
         )
 
         upper_bound = self.params.get_estimate_result_model_count_strict_upper_bound_on_negative_vote(
             EstimateTask(
-                c=(0,) * self.params.cn + (m + 1,)
+                c=(0,) * self.params.cn + (m + 1,), a=self.a,
             )
         ) if m != mp else self.params.max_mc
 
@@ -273,33 +284,35 @@ class XORConfidentEdgeFinderBinarySearchEstimateScheduler(BaseEstimateScheduler[
 
 
 class ConfidentEdgeFinderLinearSearchEstimateScheduler(BaseEstimateScheduler[Tuple[int, int]]):
-    def __init__(self, manager: BaseApproxExecutionManager, confidence: float):
+    def __init__(self, manager: BaseApproxExecutionManager, a: int, confidence: float):
         super().__init__(manager)
 
+        assert a >= 1, "a >= 1"
         assert 0 <= confidence < 1, "Confidence is < 1 and >= 0"
 
+        self.a: int = a
         self.confidence: float = confidence
         self.params: EstimateDerivedBaseParams = EstimateDerivedBaseParams(manager.execution.estimate_base_params)
 
     def _apply_linear_search(self) -> Union[Tuple[float, float], List[EstimateTask]]:
         alpha = 1 - self.confidence
-        r = int(ceil(8 * log2((1 / alpha) * ceil(log2(self.params.get_max_cj_of_possible_c(tuple(), self.params.cn))))))
+        r = int(ceil(8 * log2((1 / alpha) * ceil(log2(
+            self.params.get_max_cj_of_possible_c(tuple(), self.a, self.params.cn)
+        )))))
 
         def estimate(task: EstimateTask) -> Union[bool, int]:
             nonlocal self
 
-            estimate_data = self.manager.execution.estimate_tasks_combined_results.get(
-                task, EstimateTaskCombinedResults(),
-            )
+            estimate_data = self._get_estimate_task_combined_results(task)
 
             rr = max(0, r - (estimate_data.positive_voters + estimate_data.negative_voters))
 
             if estimate_data.positive_voters >= estimate_data.negative_voters and \
-                estimate_data.positive_voters >= estimate_data.negative_voters + rr:
+               estimate_data.positive_voters >= estimate_data.negative_voters + rr:
                 return True
 
             if estimate_data.negative_voters > estimate_data.positive_voters and \
-                estimate_data.negative_voters > estimate_data.positive_voters + rr:
+               estimate_data.negative_voters > estimate_data.positive_voters + rr:
                 return False
 
             return rr
@@ -310,7 +323,7 @@ class ConfidentEdgeFinderLinearSearchEstimateScheduler(BaseEstimateScheduler[Tup
             return tuple(partial_c) + (0,) * (self.params.cn + 1 - len(partial_c))
 
         while True:
-            if not self.params.is_possible_c(make_c()):
+            if not self.params.is_possible_c(make_c(), self.a):
                 if len(partial_c) == self.params.cn + 1:
                     partial_c[-1] -= 1
                     break
@@ -321,7 +334,7 @@ class ConfidentEdgeFinderLinearSearchEstimateScheduler(BaseEstimateScheduler[Tup
 
             j = len(partial_c) - 1
 
-            task = EstimateTask(c=make_c())
+            task = EstimateTask(c=make_c(), a=self.a)
             ret = estimate(task)
             if type(ret) == int:
                 return [task] * ret
@@ -345,15 +358,15 @@ class ConfidentEdgeFinderLinearSearchEstimateScheduler(BaseEstimateScheduler[Tup
                     partial_c.append(1)
 
         lower_bound = self.params.get_estimate_result_model_count_strict_lower_bound_on_positive_vote(
-            EstimateTask(c=make_c())
+            EstimateTask(c=make_c(), a=self.a)
         )
 
         # test if could have been minimally increased, if it could have been the estimate for it was a negative vote,
         # if it was already maximal the maximal model count must have been smaller than the minimal increase
         partial_c[-1] += 1
-        if self.params.is_possible_c(make_c()):
+        if self.params.is_possible_c(make_c(), self.a):
             upper_bound = self.params.get_estimate_result_model_count_strict_upper_bound_on_negative_vote(
-                EstimateTask(c=make_c())
+                EstimateTask(c=make_c(), a=self.a)
             )
         else:
             upper_bound = self.params.max_mc

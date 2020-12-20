@@ -40,9 +40,10 @@ if __name__ == "__main__":
     s2 = perf_counter()
     s = perf_counter()
 
+    a = 50
+
     manager = InMemoryApproxExecutionManager(
         base_params=EstimateBaseParams(
-            a=50,
             q=1,
             km=dict(Counter([x.size() for x in cards])),
             max_mc=max_mc,
@@ -55,6 +56,7 @@ if __name__ == "__main__":
     scheduler = ConfidentEdgeFinderLinearSearchEstimateScheduler(
         manager=manager,
         confidence=0.75,
+        a=a,
     )
 
     print(f"Initializing ConfidentEdgeFinderBinarySearchEstimateScheduler took {perf_counter() - s:.3f} seconds")
