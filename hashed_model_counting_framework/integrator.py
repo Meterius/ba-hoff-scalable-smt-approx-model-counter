@@ -1,0 +1,34 @@
+from abc import abstractmethod, ABC
+from typing import Generator, Generic
+from hashed_model_counting_framework.runner import FormulaParams
+from hashed_model_counting_framework.scheduler import SchedulerBase, IntermediateResult, Result
+from hashed_model_counting_framework.store import StoreBase
+
+
+class IntegratorBase(ABC, Generic[IntermediateResult, Result]):
+    def __init__(self, formula_params: FormulaParams):
+        self.formula_params = formula_params
+
+    @abstractmethod
+    def run(self, scheduler: SchedulerBase[IntermediateResult, Result]) -> Generator[IntermediateResult, None, Result]:
+        """
+        Runs the scheduler algorithm and orchestrates runners to execute the tasks that are required for
+        its completion. Thus this runs the scheduler algorithm and only returns the intermediate results and the end
+        result.
+        """
+
+        raise NotImplementedError()
+
+    def run_all(self, scheduler: SchedulerBase[IntermediateResult, Result]) -> Result:
+        """
+        Like run, but will discard intermediate results and thus instead of being a generator this is
+        a proper function that will only return the end result.
+        """
+
+        run_generator = self.run(scheduler)
+
+        try:
+            while True:
+                next(run_generator)
+        except StopIteration as err:
+            return err.value
