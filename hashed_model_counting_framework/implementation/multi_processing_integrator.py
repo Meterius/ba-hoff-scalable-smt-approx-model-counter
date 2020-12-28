@@ -93,7 +93,7 @@ class MultiProcessingIntegratorBase(
             s = perf_counter()
             result = runner.hbmc(task)
             result_queue.put((task, result))
-            debug_print(f"Ran estimate for {task} which took {perf_counter() - s:.3f} seconds")
+            debug_print(f"Ran {task} returning {result} which took {perf_counter() - s:.3f} seconds")
 
             task = task_queue.get()
 
