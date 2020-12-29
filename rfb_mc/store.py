@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import Dict, Counter, Iterable, Tuple
 from dataclasses import dataclass, field
-from hashed_model_counting_framework.types import Params, HBmcTask, HBmcResult
+from psb_mc.types import Params, HBmcTask, HBmcResult
 
 
 @dataclass

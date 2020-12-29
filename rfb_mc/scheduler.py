@@ -1,8 +1,8 @@
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from typing import Counter, Generic, TypeVar, Generator
-from hashed_model_counting_framework.store import StoreBase
-from hashed_model_counting_framework.types import HBmcTask
+from psb_mc.store import StoreBase
+from psb_mc.types import HBmcTask
 
 
 IntermediateResult = TypeVar("IntermediateResult")

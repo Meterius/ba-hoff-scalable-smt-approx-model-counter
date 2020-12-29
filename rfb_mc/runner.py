@@ -1,5 +1,7 @@
+import random
 from abc import ABC, abstractmethod
 from typing import TypeVar, Generic
+from hashed_model_counting_framework.eamp_hash_family import get_cn, get_p
 from hashed_model_counting_framework.types import Params, HBmcTask, HBmcResult
 
 FormulaParams = TypeVar("FormulaParams")
@@ -11,6 +13,16 @@ class RunnerBase(ABC, Generic[FormulaParams]):
 
         self.params: Params = params
         self.formula_params: FormulaParams = formula_params
+
+        # parameters for the eamp hash family
+        # TODO: replace by generic hash family
+        self.cn = get_cn(self.params.bit_width_counter)
+        self.p = get_p(self.cn)
+
+    @staticmethod
+    def get_random_int(a: int, b: int) -> int:
+        # TODO: replace by proper random source
+        return random.randint(a, b)
 
     @classmethod
     @abstractmethod

@@ -1,8 +1,8 @@
 from abc import abstractmethod, ABC
 from typing import Generator, Generic
-from hashed_model_counting_framework.runner import FormulaParams
-from hashed_model_counting_framework.scheduler import SchedulerBase, IntermediateResult, Result
-from hashed_model_counting_framework.store import StoreBase
+from psb_mc.runner import FormulaParams
+from psb_mc.scheduler import SchedulerBase, IntermediateResult, Result
+from psb_mc.store import StoreBase
 
 
 class IntegratorBase(ABC, Generic[IntermediateResult, Result]):
