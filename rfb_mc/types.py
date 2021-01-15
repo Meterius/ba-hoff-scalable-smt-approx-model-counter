@@ -1,11 +1,13 @@
 from dataclasses import dataclass
-from typing import NamedTuple, Tuple, Optional, Counter
+from typing import NamedTuple, Optional, Counter, Any
 
-HBmcTask = NamedTuple("HBmcTask", [("c", Tuple[int, ...]), ("a", int), ("q", int)])
-""" Parameters for a single hashed bounded model counting call """
+RfBmcTask = NamedTuple("RfBmcTask", [
+    ("rf_module_uid", str), ("rf_module_param", Any), ("a", int), ("q", int)
+])
+""" Parameters for a single restrictive formula bounded model counting call """
 
-HBmcResult = NamedTuple("HBmcResult", [("bmc", Optional[int])])
-""" Result of a single hashed bounded model counting call """
+RfBmcResult = NamedTuple("RfBmcResult", [("bmc", Optional[int])])
+""" Result of a single restrictive formula bounded model counting call """
 
 
 @dataclass

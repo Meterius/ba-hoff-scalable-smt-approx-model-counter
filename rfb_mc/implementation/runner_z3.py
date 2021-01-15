@@ -1,18 +1,17 @@
 import z3
 from collections import Counter
 from typing import NamedTuple, Optional, List, Tuple, Dict, cast
-from math import ceil, log2
-from hashed_model_counting_framework.eamp_hash_family import get_variable_domain_size_max_bits, \
-    generate_partial_hash_parameters
-from hashed_model_counting_framework.implementation.helper.z3_helper import clone_expression, deserialize_expression, \
+from rfb_mc.implementation.helper.z3_helper import clone_expression, deserialize_expression, \
     serialize_expression
-from hashed_model_counting_framework.runner import RunnerBase
-from hashed_model_counting_framework.types import Params, HBmcTask, HBmcResult
+from rfb_mc.runner import RunnerBase
+from rfb_mc.types import Params, RfBmcTask, RfBmcResult
 
 FormulaParamsZ3 = NamedTuple("FormulaParamsZ3", [("formula", z3.BoolRef), ("variables", List[z3.BitVecRef])])
 
+RfmiGenerationArgsZ3 = NamedTuple("RfmiGenerationArgsZ3", [("variables", List[z3.BitVecRef])])
 
-class RunnerZ3(RunnerBase[FormulaParamsZ3]):
+
+class RunnerZ3(RunnerBase[FormulaParamsZ3, RfmiGenerationArgsZ3, z3.BoolRef]):
     def __init__(
         self,
         params: Params,
@@ -48,7 +47,7 @@ class RunnerZ3(RunnerBase[FormulaParamsZ3]):
         return self._solver_map[q]
 
     @classmethod
-    def assert_params_and_problem_params_compatible(
+    def check_params_and_formula_params_compatibility(
         cls,
         params: Params,
         formula_params: FormulaParamsZ3,
@@ -56,73 +55,6 @@ class RunnerZ3(RunnerBase[FormulaParamsZ3]):
         formula_variable_counter = Counter([x.size() for x in formula_params.variables])
         assert formula_variable_counter == params.bit_width_counter, \
                "bit widths of the formula params must match bit widths of the params"
-
-    def _z3_get_XJM_slices(self, xs: List[z3.BitVecRef], j: int) -> List[z3.BitVecRef]:
-        slices = []
-        slice_size = get_variable_domain_size_max_bits(j)
-
-        queue = xs.copy()
-
-        while len(queue) > 0:
-            x = queue.pop(0)
-
-            if x.size() >= slice_size:
-                for i in range(x.size() // slice_size):
-                    slices.append(
-                        z3.Extract(i * slice_size + slice_size - 1, i * slice_size, x)
-                    )
-
-                if (x.size() // slice_size) * slice_size != x.size():
-                    rem_slice_size = x.size() % slice_size
-                    slices.append(
-                        z3.ZeroExt(
-                            slice_size - rem_slice_size,
-                            z3.Extract(x.size() - 1, x.size() - rem_slice_size, x)
-                        )
-                    )
-            else:
-                slice_item = [x]
-
-                while len(queue) > 0 and sum([y.size() for y in slice_item]) + queue[0].size() <= slice_size:
-                    slice_item.append(queue.pop(0))
-
-                slices.append(z3.Concat(slice_item) if len(slice_item) > 1 else slice_item[0])
-
-        return slices
-
-    def _z3_make_hash_from_HJ(self, xs: List[z3.BitVecRef], j: int) -> z3.BitVecRef:
-        pj = self.p[j]
-
-        # bit count for the operations that ensures each variable can be stored and
-        # accommodate the value pj
-        vbc = max(int(ceil(log2(pj + 1))), get_variable_domain_size_max_bits(j))
-
-        # slices the variable s.t. each can is allowed for the domain specified by the partial hash
-        slices = self._z3_get_XJM_slices(xs, j)
-        # generates the random coefficients used for the hash
-        a, b = generate_partial_hash_parameters(self.get_random_int, len(slices), pj)
-
-        return z3.URem(
-            z3.Sum([
-                z3.ZeroExt(vbc - s.size(), s) * z3.BitVecVal(a[i], vbc) for i, s in enumerate(slices)
-            ]) + z3.BitVecVal(b, vbc),
-            pj
-        )
-
-    def _z3_make_hash_from_H(self, xs: List[z3.BitVecRef], c: Tuple[int, ...]) -> List[List[z3.BitVecRef]]:
-        return [
-            # repeat each j-th partial hash c[j] times, as the eamp hash family instructs
-            [self._z3_make_hash_from_HJ(xs, j) for _ in range(c[j])]
-            for j in range(len(c))
-        ]
-
-    def _z3_make_hash_equality_from_H(self, xs: List[z3.BitVecRef], c: Tuple[int, ...]) -> z3.BoolRef:
-        h = self._z3_make_hash_from_H(xs, c)
-
-        return z3.And([
-            z3.And([h[j][i] == 0 for i in range(c[j])])
-            for j in range(len(c))
-        ])
 
     @staticmethod
     def _z3_bounded_model_count(solver: z3.Solver, variables: List[z3.ExprRef], u: int) -> Optional[int]:
@@ -162,16 +94,21 @@ class RunnerZ3(RunnerBase[FormulaParamsZ3]):
 
         return None
 
-    def hmbc(self, task: HBmcTask) -> HBmcResult:
+    def get_restrictive_formula_instance_generation_args(self, q: int) -> RfmiGenerationArgsZ3:
+        _, variables = self._get_solver(q)
+
+        return RfmiGenerationArgsZ3(
+            variables=variables,
+        )
+
+    def rf_bmc(self, task: RfBmcTask) -> RfBmcResult:
         solver, variables = self._get_solver(task.q)
 
         # TODO: ensure solver stack is maintained correctly even on error
 
         solver.push()
         solver.add(
-            self._z3_make_hash_equality_from_H(
-                variables, task.c,
-            )
+            self.generate_restrictive_formula_instance(task.rf_module_uid, task.rf_module_param, task.q)
         )
 
         # is None if solver has at least a models for q_bits
@@ -179,7 +116,7 @@ class RunnerZ3(RunnerBase[FormulaParamsZ3]):
 
         solver.pop()
 
-        return HBmcResult(bmc=bmc)
+        return RfBmcResult(bmc=bmc)
 
 
 SerializedFormulaParamsZ3 = NamedTuple(

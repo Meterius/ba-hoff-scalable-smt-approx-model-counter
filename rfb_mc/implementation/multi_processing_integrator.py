@@ -1,20 +1,19 @@
-from abc import ABC, abstractmethod
+from abc import abstractmethod
 from datetime import datetime
-from multiprocessing import Lock
-from multiprocessing.context import Process
-from queue import SimpleQueue
+from multiprocessing import Lock, Queue, Process
+from queue import Empty
 from time import perf_counter
-from typing import Generic, Iterable, Type, TypeVar, Counter
-from hashed_model_counting_framework.runner import FormulaParams, RunnerBase
-from hashed_model_counting_framework.integrator import IntegratorBase, IntermediateResult, Result
-from hashed_model_counting_framework.scheduler import SchedulerBase
-from hashed_model_counting_framework.types import Params, HBmcTask
+from collections import Counter
+from typing import Generic, Iterable, Type, TypeVar, Any
+from rfb_mc.runner import FormulaParams, RunnerBase
+from rfb_mc.integrator import IntegratorBase, IntermediateResult, Result
+from rfb_mc.scheduler import SchedulerBase
+from rfb_mc.types import Params, RfBmcTask
 
 SerializedFormulaParams = TypeVar("SerializedFormulaParams")
 
 
 class MultiProcessingIntegratorBase(
-    ABC,
     Generic[IntermediateResult, Result, FormulaParams, SerializedFormulaParams],
     IntegratorBase[IntermediateResult, Result]
 ):
@@ -37,7 +36,7 @@ class MultiProcessingIntegratorBase(
 
     @classmethod
     @abstractmethod
-    def get_runner_class(cls) -> Type[RunnerBase[FormulaParams]]:
+    def get_runner_class(cls) -> Type[RunnerBase[FormulaParams, Any, Any]]:
         """
         Returns class used for the runner in worker processes.
         """
@@ -66,14 +65,14 @@ class MultiProcessingIntegratorBase(
         worker_idx: int,
         worker_count: int,
         stdio_lock: Lock,
-        task_queue: SimpleQueue,
-        result_queue: SimpleQueue,
+        task_queue: Queue,
+        result_queue: Queue,
         params: Params,
         serialized_formula_params: FormulaParams,
     ):
         worker_number = worker_idx + 1
 
-        def debug_print(*messages: Iterable[str]):
+        def print_debug(*messages: Iterable[str]):
             if cls.PRINT_DEBUG and stdio_lock is not None:
                 with stdio_lock:
                     cls._print_debug(
@@ -85,15 +84,15 @@ class MultiProcessingIntegratorBase(
             formula_params=cls.deserialize_formula_params(serialized_formula_params),
         )
 
-        debug_print("Initialized")
+        print_debug("Initialized")
 
         task = task_queue.get()
 
         while task is not None:
             s = perf_counter()
-            result = runner.hbmc(task)
+            result = runner.rf_bmc(task)
             result_queue.put((task, result))
-            debug_print(f"Ran {task} returning {result} which took {perf_counter() - s:.3f} seconds")
+            print_debug(f"Ran {task} returning {result} which took {perf_counter() - s:.3f} seconds")
 
             task = task_queue.get()
 
@@ -109,10 +108,8 @@ class MultiProcessingIntegratorBase(
 
         print_debug("Starting integrator run")
 
-        s0 = perf_counter()
-
-        task_queue = SimpleQueue()
-        result_queue = SimpleQueue()
+        task_queue = Queue()
+        result_queue = Queue()
         stdio_lock = Lock()
 
         processes = [
@@ -124,7 +121,7 @@ class MultiProcessingIntegratorBase(
                     "stdio_lock": stdio_lock,
                     "task_queue": task_queue,
                     "result_queue": result_queue,
-                    "params": self.scheduler.manager.execution.estimate_base_params,
+                    "params": scheduler.store.data.params,
                     "serialized_formula_params": self.serialize_formula_params(self.formula_params),
                 },
                 daemon=True,
@@ -134,13 +131,10 @@ class MultiProcessingIntegratorBase(
         for process in processes:
             process.start()
 
-        d0 = perf_counter() - s0
-        print_debug(f"Initializing processes took {d0:.2f} seconds")
-
         s1 = perf_counter()
 
         try:
-            tasks_in_progress: Counter[HBmcTask] = Counter[HBmcTask]()
+            tasks_in_progress: Counter[RfBmcTask] = Counter()
 
             algorithm_generator = scheduler.run()
             prev_intermediate_result = None
@@ -162,16 +156,16 @@ class MultiProcessingIntegratorBase(
                     # determine how many tasks should be queued, by first considering what tasks
                     # are not yet in progress and how many idle workers exist
                     required_tasks = algorithm_yield.required_tasks - tasks_in_progress
-                    idle_workers = sum(tasks_in_progress.values()) - self.worker_count
+                    idle_workers = self.worker_count - sum(tasks_in_progress.values())
                     tasks_to_queue = min(sum(required_tasks.values()), idle_workers)
 
                     # queue as many tasks as are available and can be directly forwarded to an idle worker
                     if tasks_to_queue > 0:
                         for _ in range(tasks_to_queue):
-                            task = [task for task, count in required_tasks if count > 0]
+                            task = [task for task, count in required_tasks.items() if count > 0][0]
 
-                            required_tasks -= [task]
-                            tasks_in_progress += [task]
+                            required_tasks -= Counter([task])
+                            tasks_in_progress += Counter([task])
                             task_queue.put(task)
 
                     # if tasks are in progress we wait until a result is available, since either all workers are
@@ -182,13 +176,21 @@ class MultiProcessingIntegratorBase(
                         task_result = result_queue.get()
                         while task_result is not None:
                             task_results.append(task_result)
-                            task_result = result_queue.get_nowait()
+
+                            try:
+                                task_result = result_queue.get_nowait()
+                            except Empty as err:
+                                task_result = None
 
                         # add all results to the store
                         # TODO: handle adding the results blocking the integrator from scheduling more tasks
-                        scheduler.store.add_hbmc_results(task_results)
+                        scheduler.store.add_rf_bmc_results(task_results)
+
+                        # remove accomplished tasks from in progress counter
+                        for task, result in task_results:
+                            tasks_in_progress -= Counter([task])
             except StopIteration as err:
-                d1 = s1 - perf_counter()
+                d1 = perf_counter() - s1
                 print_debug(f"Running schedulers tasks until result was available took {d1:.2f} seconds")
                 print_debug(f"Result: {err.value}")
 

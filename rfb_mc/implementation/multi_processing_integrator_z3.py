@@ -1,7 +1,7 @@
 from typing import Generic
-from hashed_model_counting_framework.implementation.multi_processing_integrator import MultiProcessingIntegratorBase, \
+from rfb_mc.implementation.multi_processing_integrator import MultiProcessingIntegratorBase, \
     IntermediateResult, Result
-from hashed_model_counting_framework.implementation.runner_z3 import RunnerZ3, FormulaParamsZ3, \
+from rfb_mc.implementation.runner_z3 import RunnerZ3, FormulaParamsZ3, \
     serialize_formula_params_z3, deserialize_formula_params_z3, SerializedFormulaParamsZ3
 
 

@@ -1,14 +1,13 @@
 from abc import ABC, abstractmethod
 from datetime import datetime
 from time import perf_counter
-from typing import Generic, Iterable, Type
-from hashed_model_counting_framework.runner import FormulaParams, RunnerBase
-from hashed_model_counting_framework.integrator import IntegratorBase, IntermediateResult, Result
-from hashed_model_counting_framework.scheduler import SchedulerBase
+from typing import Generic, Iterable, Type, Any
+from rfb_mc.runner import FormulaParams, RunnerBase
+from rfb_mc.integrator import IntegratorBase, IntermediateResult, Result
+from rfb_mc.scheduler import SchedulerBase
 
 
 class DirectIntegratorBase(
-    ABC,
     Generic[IntermediateResult, Result, FormulaParams],
     IntegratorBase[IntermediateResult, Result]
 ):
@@ -29,7 +28,7 @@ class DirectIntegratorBase(
 
     @classmethod
     @abstractmethod
-    def get_runner_class(cls) -> Type[RunnerBase[FormulaParams]]:
+    def get_runner_class(cls) -> Type[RunnerBase[FormulaParams, Any, Any]]:
         """
         Returns class used for the runner in worker processes.
         """
@@ -62,18 +61,18 @@ class DirectIntegratorBase(
 
                 if sum(algorithm_yield.required_tasks.values()) > 0:
                     # get a runnable task and run it
-                    task = [task for task, count in algorithm_yield.required_tasks.keys() if count > 0][0]
+                    task = [task for task, count in algorithm_yield.required_tasks.items() if count > 0][0]
 
                     s = perf_counter()
-                    result = runner.hbmc(task)
-                    self.debug_print(f"Ran {task} returning {result} which took {perf_counter() - s:.3f} seconds")
+                    result = runner.rf_bmc(task)
+                    self._print_debug(f"Ran {task} returning {result} which took {perf_counter() - s:.3f} seconds")
 
                     # add all result to the store
                     # TODO: handle adding the result blocking the integrator from running more tasks
-                    scheduler.store.add_hbmc_results([(task, result)])
+                    scheduler.store.add_rf_bmc_results([(task, result)])
         except StopIteration as err:
-            d1 = s1 - perf_counter()
-            self.print_debug(f"Running schedulers tasks until result was available took {d1:.2f} seconds")
-            self.print_debug(f"Result: {err.value}")
+            d1 = perf_counter() - s1
+            self._print_debug(f"Running schedulers tasks until result was available took {d1:.2f} seconds")
+            self._print_debug(f"Result: {err.value}")
 
             return err.value

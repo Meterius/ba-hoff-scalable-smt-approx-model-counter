@@ -1,28 +1,33 @@
-import random
 from abc import ABC, abstractmethod
-from typing import TypeVar, Generic
-from hashed_model_counting_framework.eamp_hash_family import get_cn, get_p
-from hashed_model_counting_framework.types import Params, HBmcTask, HBmcResult
+from typing import TypeVar, Generic, Dict, Any, Type
+from rfb_mc.restrictive_formula_module_implementation import RestrictiveFormulaModuleImplementationBase, \
+    RestrictiveFormulaInstance
+from rfb_mc.runner_random import RunnerRandom
+from rfb_mc.types import Params, RfBmcTask, RfBmcResult
 
 FormulaParams = TypeVar("FormulaParams")
 
+RestrictiveFormulaInstanceGenerationArgs = TypeVar("RestrictiveFormulaInstanceGenerationArgs")
 
-class RunnerBase(ABC, Generic[FormulaParams]):
+
+class RunnerBase(ABC, Generic[FormulaParams, RestrictiveFormulaInstanceGenerationArgs, RestrictiveFormulaInstance]):
     def __init__(self, params: Params, formula_params: FormulaParams):
         self.check_params_and_formula_params_compatibility(params, formula_params)
+
+        # random class used to introduce randomness to the restrictive formula implementors
+        self.random: RunnerRandom = RunnerRandom()
 
         self.params: Params = params
         self.formula_params: FormulaParams = formula_params
 
-        # parameters for the eamp hash family
-        # TODO: replace by generic hash family
-        self.cn = get_cn(self.params.bit_width_counter)
-        self.p = get_p(self.cn)
+    restrictive_formula_module_implementation_map: Dict[str, Type[RestrictiveFormulaModuleImplementationBase]] = {}
+    """
+    Map from restrictive formula module uid to implementation class.
+    """
 
-    @staticmethod
-    def get_random_int(a: int, b: int) -> int:
-        # TODO: replace by proper random source
-        return random.randint(a, b)
+    @classmethod
+    def add_restrictive_formula_module_implementation(cls, rfmi: Type[RestrictiveFormulaModuleImplementationBase]):
+        cls.restrictive_formula_module_implementation_map[rfmi.get_restrictive_formula_module().get_uid()] = rfmi
 
     @classmethod
     @abstractmethod
@@ -34,11 +39,33 @@ class RunnerBase(ABC, Generic[FormulaParams]):
         raise NotImplementedError()
 
     @abstractmethod
-    def hbmc(self, task: HBmcTask) -> HBmcResult:
+    def get_restrictive_formula_instance_generation_args(self, q: int) -> RestrictiveFormulaInstanceGenerationArgs:
+        """
+        Returns additional arguments required for generating the restrictive formula instance from the params.
+        """
+
+        raise NotImplementedError()
+
+    def generate_restrictive_formula_instance(self, rfm_uid: str, rf_params: Any, q: int) -> RestrictiveFormulaInstance:
+        imp_map = self.restrictive_formula_module_implementation_map
+
+        if rfm_uid not in imp_map:
+            raise RuntimeError(f"Restrictive Formula Module \"{rfm_uid}\" is not implemented")
+
+        rfmi = imp_map[rfm_uid]
+        rfm = rfmi.get_restrictive_formula_module()
+
+        instance_params = rfm.generate_restrictive_formula_instance_params(self.params, rf_params, q, self.random)
+        instance_args = self.get_restrictive_formula_instance_generation_args(q)
+
+        return rfmi.generate_restrictive_formula(self.params, instance_params, instance_args)
+
+    @abstractmethod
+    def rf_bmc(self, task: RfBmcTask) -> RfBmcResult:
         """
         Performs bounded model counting on the formula resulting from
         first replicating the original formula q-times and
-        then introducing a hash equation condition.
+        then introducing a restrictive formula condition.
         """
 
         raise NotImplementedError()

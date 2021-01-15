@@ -1,7 +1,7 @@
 from typing import Generic
-from hashed_model_counting_framework.implementation.direct_integrator import DirectIntegratorBase, IntermediateResult,\
+from rfb_mc.implementation.direct_integrator import DirectIntegratorBase, IntermediateResult,\
     Result
-from hashed_model_counting_framework.implementation.runner_z3 import RunnerZ3, FormulaParamsZ3
+from rfb_mc.implementation.runner_z3 import RunnerZ3, FormulaParamsZ3
 
 
 class DirectIntegratorZ3(

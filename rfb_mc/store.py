@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import Dict, Counter, Iterable, Tuple
 from dataclasses import dataclass, field
-from psb_mc.types import Params, HBmcTask, HBmcResult
+from rfb_mc.types import Params, RfBmcTask, RfBmcResult
 
 
 @dataclass
@@ -9,7 +9,7 @@ class StoreData:
     # general and problem specific parameter for the hash based model counting framework
     params: Params
     # results from hashed bounded model counting calls
-    hbmc_results_map: Dict[HBmcTask, Counter[HBmcResult]] = field(default_factory=dict)
+    hbmc_results_map: Dict[RfBmcTask, Counter[RfBmcResult]] = field(default_factory=dict)
 
 
 class StoreBase(ABC):
@@ -27,9 +27,9 @@ class StoreBase(ABC):
 
         raise NotImplementedError()
 
-    def add_hbmc_results(self, task_results: Iterable[Tuple[HBmcTask, HBmcResult]]):
+    def add_rf_bmc_results(self, task_results: Iterable[Tuple[RfBmcTask, RfBmcResult]]):
         """
-        Adds a result of a hbmc call to the data.
+        Adds a result of a rf bmc call to the data.
         Based on the store implementation this operation should also
         synchronize with the storage location.
 
@@ -38,6 +38,15 @@ class StoreBase(ABC):
 
         for task, result in task_results:
             if task not in self.data.hbmc_results_map:
-                self.data.hbmc_results_map[task] = Counter[HBmcResult]()
+                self.data.hbmc_results_map[task] = Counter[RfBmcResult]()
 
             self.data.hbmc_results_map[task][result] += 1
+
+
+class InMemoryStore(StoreBase):
+    """
+    Only stores the
+    """
+
+    def sync(self):
+        pass

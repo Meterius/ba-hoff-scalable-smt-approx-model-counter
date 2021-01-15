@@ -1,23 +1,10 @@
-from fractions import Fraction
 from abc import ABC, abstractmethod
-from typing import Generic, TypeVar, Tuple
-from itertools import dropwhile
+from typing import Generic, TypeVar, Hashable
 
-
+from rfb_mc.runner_random import RunnerRandom
 from rfb_mc.types import Params
 
-
-class RestrictiveFormulaParamsBase(ABC):
-    @abstractmethod
-    def get_key(self) -> str:
-        """
-        Returns a string hash of this object that can differentiate
-        every different parameter.
-        """
-
-        raise NotImplementedError()
-
-RestrictiveFormulaParams = TypeVar("RestrictiveFormulaParams", bound=RestrictiveFormulaParamsBase)
+RestrictiveFormulaParams = TypeVar("RestrictiveFormulaParams", bound=Hashable)
 # parameter that determines all formula generation related values
 
 RestrictiveFormulaProperties = TypeVar("RestrictiveFormulaProperties")
@@ -60,71 +47,94 @@ class RestrictiveFormulaModuleBase(
 
         raise NotImplementedError()
 
-
-class UPI_RestrictiveFormulaProperties:
-    """
-    Property format for UPI_RestrictiveFormulaModuleBase implementations
-    """
-
-    def __init__(self, probability: Fraction):
-        self.probability: Fraction = probability
+    @classmethod
+    @abstractmethod
+    def generate_restrictive_formula_instance_params(
+        cls,
+        params: Params,
+        restrictive_formula_params: RestrictiveFormulaParams,
+        q: int,
+        random: RunnerRandom,
+    ) -> RestrictiveFormulaInstanceParams:
         """
-        probability for each formula assignment to be included in the model set of the generated restrictive formula
-        instance
+        Generate the restrictive formula instance params for the given params using randomness from the random runner
+        class.
         """
 
-UPI_RestrictiveFormulaPropertiesType = TypeVar(
-    "UPI_RestrictiveFormulaPropertiesType", bound=UPI_RestrictiveFormulaProperties
-)
+        raise NotImplementedError()
 
-
-class UPI_RestrictiveFormulaModuleBase(
-    Generic[RestrictiveFormulaParams, UPI_RestrictiveFormulaPropertiesType, RestrictiveFormulaInstanceParams],
-    ABC,
-    RestrictiveFormulaModuleBase[
-        RestrictiveFormulaParams, UPI_RestrictiveFormulaPropertiesType, RestrictiveFormulaInstanceParams
-    ],
-):
-    """
-    Modules that implement restrictive formula generation of which
-    the events that any two variable assignments are satisfying are independent (i.e. the set of these kind of events is
-    pairwise independent) and each variable assignment has exactly the same probability of being satisfying.
-
-    UPI = Uniform Pairwise Independent
-    """
-
-    pass
-
-
-class DPIS_UPI_RestrictiveFormulaParams(RestrictiveFormulaParamsBase):
-    def __init__(self, c: Tuple[int, ...]):
-        self.c: Tuple[int, ...] = c
-
-    def get_key(self) -> str:
-        # c that has dropped all zeros at the end
-        c = tuple(reversed(
-            dropwhile(lambda cj: cj == 0, reversed(self.c)),
-        ))
-
-        return str(c)
-
-
-class DPIS_UPI_RestrictiveFormulaModuleBase(
-    Generic[UPI_RestrictiveFormulaPropertiesType, RestrictiveFormulaInstanceParams],
-    ABC,
-    UPI_RestrictiveFormulaModuleBase[
-        DPIS_UPI_RestrictiveFormulaParams,
-        UPI_RestrictiveFormulaPropertiesType,
-        RestrictiveFormulaInstanceParams,
-    ],
-):
-    """
-    Modules that implement UPI restrictive formula generation based on the UPI_RestrictiveFormulaModuleBase and
-    use as parameters a sequence of integers which have the property that incrementing an entry decreases the inclusion
-    probability and incrementing the entry at a higher index will decrease the probability more than incrementing it
-    on a lower entry.
-
-    DPIS = Decreasing Probability Integer Sequence
-    """
-
-    def get_j_
+#
+# class UPI_RestrictiveFormulaProperties:
+#     """
+#     Property format for UPI_RestrictiveFormulaModuleBase implementations
+#     """
+#
+#     def __init__(self, probability: Fraction):
+#         self.probability: Fraction = probability
+#         """
+#         probability for each formula assignment to be included in the model set of the generated restrictive formula
+#         instance
+#         """
+#
+#
+# UPI_RestrictiveFormulaPropertiesType = TypeVar(
+#     "UPI_RestrictiveFormulaPropertiesType", bound=UPI_RestrictiveFormulaProperties
+# )
+#
+#
+# class UPI_RestrictiveFormulaModuleBase(
+#     Generic[RestrictiveFormulaParams, UPI_RestrictiveFormulaPropertiesType, RestrictiveFormulaInstanceParams],
+#     ABC,
+#     RestrictiveFormulaModuleBase[
+#         RestrictiveFormulaParams, UPI_RestrictiveFormulaPropertiesType, RestrictiveFormulaInstanceParams
+#     ],
+# ):
+#     """
+#     Modules that implement restrictive formula generation of which
+#     the events that any two variable assignments are satisfying are independent (i.e. the set of these kind of events is
+#     pairwise independent) and each variable assignment has exactly the same probability of being satisfying.
+#
+#     UPI = Uniform Pairwise Independent
+#     """
+#
+#     pass
+#
+#
+# @dataclass
+# class DPIS_UPI_RestrictiveFormulaParams:
+#     c: Tuple[int, ...]
+#
+#     def __post_init__(self):
+#         self.c = tuple(reversed(
+#             dropwhile(lambda cj: cj == 0, reversed(self.c))
+#         ))
+#
+#
+# class DPIS_UPI_RestrictiveFormulaModuleBase(
+#     Generic[UPI_RestrictiveFormulaPropertiesType, RestrictiveFormulaInstanceParams],
+#     ABC,
+#     UPI_RestrictiveFormulaModuleBase[
+#         DPIS_UPI_RestrictiveFormulaParams,
+#         UPI_RestrictiveFormulaPropertiesType,
+#         RestrictiveFormulaInstanceParams,
+#     ],
+# ):
+#     """
+#     Modules that implement UPI restrictive formula generation based on the UPI_RestrictiveFormulaModuleBase and
+#     use as parameters a sequence of integers which have the property that incrementing an entry decreases the inclusion
+#     probability and incrementing the entry at a higher index will decrease the probability more than incrementing it
+#     on a lower entry.
+#
+#     DPIS = Decreasing Probability Integer Sequence
+#     """
+#
+#     @abstractmethod
+#     def get_minimal_c_index_that_results_in_lower_probability(
+#         self, cj: int, max_probability: Fraction,
+#     ) -> int:
+#         """
+#         Returns j s.t. (0, ..., cj) where cj is located at j will result in a
+#         probability lower or equal the max_probability.
+#         """
+#
+#         raise NotImplementedError()

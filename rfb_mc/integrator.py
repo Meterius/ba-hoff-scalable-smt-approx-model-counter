@@ -1,8 +1,8 @@
 from abc import abstractmethod, ABC
-from typing import Generator, Generic
-from psb_mc.runner import FormulaParams
-from psb_mc.scheduler import SchedulerBase, IntermediateResult, Result
-from psb_mc.store import StoreBase
+from typing import Generator, Generic, Any
+from rfb_mc.runner import FormulaParams
+from rfb_mc.scheduler import SchedulerBase, IntermediateResult, Result
+from rfb_mc.store import StoreBase
 
 
 class IntegratorBase(ABC, Generic[IntermediateResult, Result]):
@@ -10,7 +10,7 @@ class IntegratorBase(ABC, Generic[IntermediateResult, Result]):
         self.formula_params = formula_params
 
     @abstractmethod
-    def run(self, scheduler: SchedulerBase[IntermediateResult, Result]) -> Generator[IntermediateResult, None, Result]:
+    def run(self, scheduler: SchedulerBase[IntermediateResult, Result, Any]) -> Generator[IntermediateResult, None, Result]:
         """
         Runs the scheduler algorithm and orchestrates runners to execute the tasks that are required for
         its completion. Thus this runs the scheduler algorithm and only returns the intermediate results and the end
@@ -19,7 +19,7 @@ class IntegratorBase(ABC, Generic[IntermediateResult, Result]):
 
         raise NotImplementedError()
 
-    def run_all(self, scheduler: SchedulerBase[IntermediateResult, Result]) -> Result:
+    def run_all(self, scheduler: SchedulerBase[IntermediateResult, Result, Any]) -> Result:
         """
         Like run, but will discard intermediate results and thus instead of being a generator this is
         a proper function that will only return the end result.
