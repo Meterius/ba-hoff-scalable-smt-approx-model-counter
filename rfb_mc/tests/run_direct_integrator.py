@@ -35,7 +35,7 @@ if __name__ == "__main__":
         store=store,
         confidence=Fraction(0.75),
         a=a,
-        q=2,
+        q=1,
     )
 
     integrator = DirectIntegratorZ3(

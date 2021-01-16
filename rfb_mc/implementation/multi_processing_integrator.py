@@ -4,6 +4,7 @@ from multiprocessing import Lock, Queue, Process
 from queue import Empty
 from time import perf_counter
 from collections import Counter
+from threading import Thread
 from typing import Generic, Iterable, Type, TypeVar, Any
 from rfb_mc.runner import FormulaParams, RunnerBase
 from rfb_mc.integrator import IntegratorBase, IntermediateResult, Result
@@ -183,8 +184,12 @@ class MultiProcessingIntegratorBase(
                                 task_result = None
 
                         # add all results to the store
-                        # TODO: handle adding the results blocking the integrator from scheduling more tasks
-                        scheduler.store.add_rf_bmc_results(task_results)
+                        Thread(
+                            target=scheduler.store.add_rf_bmc_results,
+                            kwargs={
+                                "task_results": task_results,
+                            },
+                        ).start()
 
                         # remove accomplished tasks from in progress counter
                         for task, result in task_results:

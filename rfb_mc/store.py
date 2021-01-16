@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 from typing import Dict, Counter, Iterable, Tuple
 from dataclasses import dataclass, field
 from rfb_mc.types import Params, RfBmcTask, RfBmcResult
+from threading import Lock
 
 
 @dataclass
@@ -15,6 +16,7 @@ class StoreData:
 class StoreBase(ABC):
     def __init__(self, data: StoreData):
         self.data = data
+        self.data_lock = Lock()
 
     @abstractmethod
     def sync(self):
@@ -27,6 +29,14 @@ class StoreBase(ABC):
 
         raise NotImplementedError()
 
+    @abstractmethod
+    def _add_rf_bmc_results(self, task_results: Iterable[Tuple[RfBmcTask, RfBmcResult]]):
+        """
+        Should implement adding the results and synchronizing the external store.
+        """
+
+        raise NotImplementedError()
+
     def add_rf_bmc_results(self, task_results: Iterable[Tuple[RfBmcTask, RfBmcResult]]):
         """
         Adds a result of a rf bmc call to the data.
@@ -35,18 +45,23 @@ class StoreBase(ABC):
 
         (Possibly causes a blocking operation)
         """
+        with self.data_lock:
+            for task, result in task_results:
+                if task not in self.data.hbmc_results_map:
+                    self.data.hbmc_results_map[task] = Counter[RfBmcResult]()
 
-        for task, result in task_results:
-            if task not in self.data.hbmc_results_map:
-                self.data.hbmc_results_map[task] = Counter[RfBmcResult]()
+                self.data.hbmc_results_map[task][result] += 1
 
-            self.data.hbmc_results_map[task][result] += 1
+        self._add_rf_bmc_results(task_results)
 
 
 class InMemoryStore(StoreBase):
     """
-    Only stores the
+    Only stores in memory
     """
 
     def sync(self):
+        pass
+
+    def _add_rf_bmc_results(self, task_results: Iterable[Tuple[RfBmcTask, RfBmcResult]]):
         pass
