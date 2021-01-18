@@ -10,7 +10,7 @@ class StoreData:
     # general and problem specific parameter for the hash based model counting framework
     params: Params
     # results from hashed bounded model counting calls
-    hbmc_results_map: Dict[RfBmcTask, Counter[RfBmcResult]] = field(default_factory=dict)
+    rf_bmc_results_map: Dict[RfBmcTask, Counter[RfBmcResult]] = field(default_factory=dict)
 
 
 class StoreBase(ABC):
@@ -47,10 +47,10 @@ class StoreBase(ABC):
         """
         with self.data_lock:
             for task, result in task_results:
-                if task not in self.data.hbmc_results_map:
-                    self.data.hbmc_results_map[task] = Counter[RfBmcResult]()
+                if task not in self.data.rf_bmc_results_map:
+                    self.data.rf_bmc_results_map[task] = Counter[RfBmcResult]()
 
-                self.data.hbmc_results_map[task][result] += 1
+                self.data.rf_bmc_results_map[task][result] += 1
 
         self._add_rf_bmc_results(task_results)
 

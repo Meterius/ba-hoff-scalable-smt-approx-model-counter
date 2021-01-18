@@ -106,7 +106,10 @@ class EampEdgeScheduler(SchedulerBase[EampEdgeInterval, EampEdgeInterval, EampRf
         def majority_vote_estimate(c: List[int]):
             while True:
                 rf_bmc_task = make_rf_bmc_task(make_eamp_params(c))
-                rf_bmc_results: Counter[RfBmcResult] = self.store.data.hbmc_results_map.get(rf_bmc_task, Counter())
+
+                # copies the required results data in order for it not to be modified while using them
+                rf_bmc_results: Counter[RfBmcResult] = \
+                    self.store.data.rf_bmc_results_map.get(rf_bmc_task, Counter()).copy()
 
                 positive_voters = sum([
                     count
