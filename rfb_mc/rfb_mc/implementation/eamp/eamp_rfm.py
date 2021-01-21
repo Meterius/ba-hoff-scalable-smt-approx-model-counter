@@ -1,14 +1,15 @@
-from enum import Enum
-from math import prod, ceil, log2, floor
-from typing import NamedTuple, Tuple, Counter
+from enum import Enum, unique
+from math import prod, log2, floor
+from typing import NamedTuple, Tuple, Any
 from rfb_mc.implementation.eamp.primes import get_smallest_prime_above_or_equal_power_of_two
 from rfb_mc.restrictive_formula_module import RestrictiveFormulaModuleBase
 from rfb_mc.runner import RunnerRandom
 from rfb_mc.types import Params
 
 
+@unique
 class EampTransformMethod(Enum):
-    SORTED_ROLLING_WINDOW = "SORTED_ROLLING_WINDOW"
+    SORTED_ROLLING_WINDOW = "SRW"
 
 
 EampParams = NamedTuple("EampParams", [
@@ -28,8 +29,30 @@ EampInstanceParams = NamedTuple("EampInstanceParams", [
 
 class EampRfm(RestrictiveFormulaModuleBase[EampParams, EampParamProperties, EampInstanceParams]):
     @classmethod
-    def get_uid(cls):
+    def get_guid(cls):
         return "eamp-rfm"
+
+    @classmethod
+    def encode_restrictive_formula_params(
+        cls,
+        params: EampParams,
+    ) -> Any:
+        return (
+            params.c,
+            params.transform_method.value
+        )
+
+    @classmethod
+    def decode_restrictive_formula_params(
+        cls,
+        params: Any,
+    ) -> EampParams:
+        c, transform_method = params
+
+        return EampParams(
+            c=c,
+            transform_method=EampTransformMethod(transform_method)
+        )
 
     @classmethod
     def get_restrictive_formula_properties(

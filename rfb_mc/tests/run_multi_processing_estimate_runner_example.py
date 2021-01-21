@@ -10,7 +10,7 @@ from rfb_mc.implementation.runner_z3 import RunnerZ3, FormulaParamsZ3
 from rfb_mc.store import InMemoryStore, StoreData
 from rfb_mc.types import Params
 
-RunnerZ3.add_restrictive_formula_module_implementation(EampRfmiZ3)
+RunnerZ3.register_restrictive_formula_module_implementation(EampRfmiZ3)
 
 if __name__ == "__main__":
     k = 8

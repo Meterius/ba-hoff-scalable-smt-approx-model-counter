@@ -108,7 +108,7 @@ class RunnerZ3(RunnerBase[FormulaParamsZ3, RfmiGenerationArgsZ3, z3.BoolRef]):
 
         solver.push()
         solver.add(
-            self.generate_restrictive_formula_instance(task.rf_module_uid, task.rf_module_param, task.q)
+            self.generate_restrictive_formula_instance(task.rfm_guid, task.rfm_formula_params, task.q)
         )
 
         # is None if solver has at least a models for q_bits

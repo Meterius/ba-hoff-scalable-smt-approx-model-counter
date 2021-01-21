@@ -1,6 +1,6 @@
 from fractions import Fraction
-from math import sqrt, prod, log2, ceil, log
-from typing import NamedTuple, Tuple, Type, Optional, Iterable, List
+from math import sqrt, prod, log2, ceil
+from typing import NamedTuple, Tuple, Optional, Iterable, List
 from collections import Counter
 from rfb_mc.implementation.eamp.eamp_rfm import EampRfm, get_cn, EampParams, EampTransformMethod, get_pj
 from rfb_mc.implementation.eamp.utility import multi_majority_vote_iteration_count_to_ensure_beta, \
@@ -37,7 +37,7 @@ class EampEdgeScheduler(SchedulerBase[EampEdgeInterval, EampEdgeInterval, EampRf
             (2 ** bit_width) ** count for bit_width, count in self.store.data.params.bit_width_counter.items()
         ])
 
-    def _run_algorithm(self):
+    def _run_algorithm_once(self):
         g = (sqrt(self.a + 1) - 1) ** 2
         G = (sqrt(self.a + 1) + 1) ** 2
 
@@ -71,13 +71,13 @@ class EampEdgeScheduler(SchedulerBase[EampEdgeInterval, EampEdgeInterval, EampRf
 
         def make_rf_bmc_task(eamp_params: EampParams):
             return RfBmcTask(
-                rf_module_uid=self.rf_module.get_uid(),
-                rf_module_param=eamp_params,
+                rfm_guid=self.rf_module.get_guid(),
+                rfm_formula_params=eamp_params,
                 a=self.a,
                 q=self.q,
             )
 
-        def r(c: Iterable[int]):
+        def range_size(c: Iterable[int]):
             return self.rf_module.get_restrictive_formula_properties(
                 self.store.data.params, make_eamp_params(c),
             ).range_size
@@ -85,13 +85,13 @@ class EampEdgeScheduler(SchedulerBase[EampEdgeInterval, EampEdgeInterval, EampRf
         def pre_estimate(c: List[int]) -> Optional[bool]:
             max_mc = self.max_model_count ** self.q
 
-            if max_mc < r(c) * G:
+            if max_mc < range_size(c) * G:
                 return False
-            elif r(c) == 0:
+            elif range_size(c) == 0:
                 return True
-            elif c_neg is not None and r(c_neg) <= r(c):
+            elif c_neg is not None and range_size(c_neg) <= range_size(c):
                 return False
-            elif c_pos is not None and r(c) <= r(c_pos):
+            elif c_pos is not None and range_size(c) <= range_size(c_pos):
                 return True
             else:
                 return None
@@ -106,15 +106,15 @@ class EampEdgeScheduler(SchedulerBase[EampEdgeInterval, EampEdgeInterval, EampRf
         mv_error_probabilities: List[Fraction] = []
 
         def get_edge_interval():
-            r_c_pos = r(c_pos) if c_pos is not None else None
+            r_c_pos = range_size(c_pos) if c_pos is not None else None
 
-            r_c_neg = r(c_neg) if c_neg is not None else None
+            r_c_neg = range_size(c_neg) if c_neg is not None else None
 
             # TODO: investigate precision of q-th root
             return EampEdgeInterval(
                 interval=(
                     (r_c_pos * g) ** (1 / self.q) if r_c_pos is not None else 0,
-                    min(self.max_model_count, (r_c_neg.range_size * G) ** (1 / self.q))
+                    min(self.max_model_count, (r_c_neg * G) ** (1 / self.q))
                     if r_c_neg is not None else self.max_model_count
                 ),
                 # probability of error is lower than the sum of the majority vote counting error probabilities
@@ -193,3 +193,8 @@ class EampEdgeScheduler(SchedulerBase[EampEdgeInterval, EampEdgeInterval, EampRf
                     j -= 1
 
         return get_edge_interval()
+
+    def _run_algorithm(self):
+        yield from self._run_algorithm_once()
+        # second iteration ensures updated results are used
+        return (yield from self._run_algorithm_once())

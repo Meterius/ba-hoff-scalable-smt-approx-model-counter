@@ -2,7 +2,6 @@ from abc import abstractmethod, ABC
 from typing import Generator, Generic, Any
 from rfb_mc.runner import FormulaParams
 from rfb_mc.scheduler import SchedulerBase, IntermediateResult, Result
-from rfb_mc.store import StoreBase
 
 
 class IntegratorBase(ABC, Generic[IntermediateResult, Result]):

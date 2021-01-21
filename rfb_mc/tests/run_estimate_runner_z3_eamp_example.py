@@ -6,7 +6,7 @@ from rfb_mc.implementation.eamp.eamp_rfmi_z3 import EampRfmiZ3
 from rfb_mc.implementation.runner_z3 import RunnerZ3, FormulaParamsZ3
 from rfb_mc.types import Params, RfBmcTask
 
-RunnerZ3.add_restrictive_formula_module_implementation(EampRfmiZ3)
+RunnerZ3.register_restrictive_formula_module_implementation(EampRfmiZ3)
 
 if __name__ == "__main__":
     a = 35

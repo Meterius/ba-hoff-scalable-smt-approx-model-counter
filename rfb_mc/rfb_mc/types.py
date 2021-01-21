@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from typing import NamedTuple, Optional, Counter, Any
 
 RfBmcTask = NamedTuple("RfBmcTask", [
-    ("rf_module_uid", str), ("rf_module_param", Any), ("a", int), ("q", int)
+    ("rfm_guid", str), ("rfm_formula_params", Any), ("a", int), ("q", int)
 ])
 """ Parameters for a single restrictive formula bounded model counting call """
 

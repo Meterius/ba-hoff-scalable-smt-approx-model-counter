@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 from typing import TypeVar, Generic, Dict, Any, Type
+from rfb_mc.restrictive_formula_module import register_restrictive_formula_module
 from rfb_mc.restrictive_formula_module_implementation import RestrictiveFormulaModuleImplementationBase, \
     RestrictiveFormulaInstance
 from rfb_mc.runner_random import RunnerRandom
@@ -26,8 +27,12 @@ class RunnerBase(ABC, Generic[FormulaParams, RestrictiveFormulaInstanceGeneratio
     """
 
     @classmethod
-    def add_restrictive_formula_module_implementation(cls, rfmi: Type[RestrictiveFormulaModuleImplementationBase]):
-        cls.restrictive_formula_module_implementation_map[rfmi.get_restrictive_formula_module().get_uid()] = rfmi
+    def register_restrictive_formula_module_implementation(cls, rfmi: Type[RestrictiveFormulaModuleImplementationBase]):
+        register_restrictive_formula_module(
+            rfmi.get_restrictive_formula_module(),
+        )
+
+        cls.restrictive_formula_module_implementation_map[rfmi.get_restrictive_formula_module().get_guid()] = rfmi
 
     @classmethod
     @abstractmethod
@@ -46,7 +51,9 @@ class RunnerBase(ABC, Generic[FormulaParams, RestrictiveFormulaInstanceGeneratio
 
         raise NotImplementedError()
 
-    def generate_restrictive_formula_instance(self, rfm_uid: str, rf_params: Any, q: int) -> RestrictiveFormulaInstance:
+    def generate_restrictive_formula_instance(
+        self, rfm_uid: str, rfm_formula_params: Any, q: int,
+    ) -> RestrictiveFormulaInstance:
         imp_map = self.restrictive_formula_module_implementation_map
 
         if rfm_uid not in imp_map:
@@ -55,7 +62,9 @@ class RunnerBase(ABC, Generic[FormulaParams, RestrictiveFormulaInstanceGeneratio
         rfmi = imp_map[rfm_uid]
         rfm = rfmi.get_restrictive_formula_module()
 
-        instance_params = rfm.generate_restrictive_formula_instance_params(self.params, rf_params, q, self.random)
+        instance_params = rfm.generate_restrictive_formula_instance_params(
+            self.params, rfm_formula_params, q, self.random,
+        )
         instance_args = self.get_restrictive_formula_instance_generation_args(q)
 
         return rfmi.generate_restrictive_formula(self.params, instance_params, instance_args)

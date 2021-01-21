@@ -1,15 +1,11 @@
 from abc import abstractmethod
 from datetime import datetime
 from time import perf_counter, sleep
-from collections import Counter
-from typing import Generic, Iterable, Type, Any, Tuple, List, Optional
+from typing import Generic, Iterable, Type, Any
 from rfb_mc.runner import FormulaParams, RunnerBase
 from rfb_mc.integrator import IntegratorBase, IntermediateResult, Result
 from rfb_mc.scheduler import SchedulerBase
-from threading import Thread, Lock
-from queue import SimpleQueue, Empty
-
-from rfb_mc.types import RfBmcTask, RfBmcResult
+from threading import Thread
 
 
 class DirectIntegratorBase(

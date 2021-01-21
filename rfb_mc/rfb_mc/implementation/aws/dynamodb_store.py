@@ -1,17 +1,37 @@
 from ast import literal_eval
 from collections import Counter
-from typing import TypedDict, Optional, Literal, Dict, Any, Iterable, Tuple
+from decimal import Decimal
+from operator import itemgetter
+from typing import TypedDict, Optional, Literal, Dict, Any, Iterable, Tuple, List
 import uuid
+
+from rfb_mc.restrictive_formula_module import get_restrictive_formula_module
 from rfb_mc.store import StoreBase, StoreData
 from rfb_mc.types import RfBmcTask, RfBmcResult, Params
 
 
 def v1_encode_rf_bmc_task(task: RfBmcTask) -> str:
-    return repr(tuple(task))
+    return repr((
+        task.rfm_guid,
+        get_restrictive_formula_module(task.rfm_guid).encode_restrictive_formula_params(
+            task.rfm_formula_params,
+        ),
+        task.a,
+        task.q
+    ))
 
 
 def v1_decode_rf_bmc_task(task: str) -> RfBmcTask:
-    return RfBmcTask(*literal_eval(task))
+    rfm_guid, rfm_formula_params, a, q = literal_eval(task)
+
+    return RfBmcTask(
+        rfm_guid=rfm_guid,
+        rfm_formula_params=get_restrictive_formula_module(rfm_guid).decode_restrictive_formula_params(
+            rfm_formula_params,
+        ),
+        a=a,
+        q=q
+    )
 
 
 def v1_encode_rf_bmc_result(result: RfBmcResult) -> str:
@@ -22,46 +42,70 @@ def v1_decode_rf_bmc_result(result: str) -> RfBmcResult:
     return RfBmcResult(*literal_eval(result))
 
 
-DynamodbV1RfBmcResultsMap = Dict[str, Dict[str, int]]
+def v1_encode_rf_bmc_task_result(task_result: Tuple[RfBmcTask, RfBmcResult]) -> str:
+    return repr((
+        v1_encode_rf_bmc_task(task_result[0]),
+        v1_encode_rf_bmc_result(task_result[1])
+    ))
+
+
+def v1_decode_rf_bmc_task_result(task_result: str) -> Tuple[RfBmcTask, RfBmcResult]:
+    task, result = literal_eval(task_result)
+
+    return (
+        v1_decode_rf_bmc_task(task),
+        v1_decode_rf_bmc_result(result),
+    )
+
+
+DynamodbV1RfBmcResultsMap = Dict[str, Decimal]
 
 
 def v1_encode_rf_bmc_results_map(
     rf_bmc_results_map: Dict[RfBmcTask, Counter[RfBmcResult]],
 ) -> DynamodbV1RfBmcResultsMap:
     return {
-        v1_encode_rf_bmc_task(task): {
-            v1_encode_rf_bmc_result(result): rf_bmc_results_map[task][result]
-            for result in rf_bmc_results_map[task]
-        }
+        v1_encode_rf_bmc_task_result((task, result)): Decimal(rf_bmc_results_map[task][result])
         for task in rf_bmc_results_map
+        for result in rf_bmc_results_map[task]
     }
 
 
 def v1_decode_rf_bmc_results_map(
     rf_bmc_results_map: DynamodbV1RfBmcResultsMap,
 ) -> Dict[RfBmcTask, Counter[RfBmcResult]]:
+    task_results = list(map(v1_decode_rf_bmc_task_result, rf_bmc_results_map.keys()))
+
+    tasks = set(map(itemgetter(0), task_results))
+
     return {
-        v1_decode_rf_bmc_task(task): Counter({
-            v1_decode_rf_bmc_result(result): rf_bmc_results_map[task][result]
-            for result in rf_bmc_results_map[task]
+        task: Counter({
+            result: int(rf_bmc_results_map[v1_encode_rf_bmc_task_result((task, result))])
+            for result in [task_result[1] for task_result in task_results if task_result[0] == task]
         })
-        for task in rf_bmc_results_map
+        for task in tasks
     }
 
 
 class DynamodbV1Params(TypedDict):
-    bit_width_counter: Dict[int, int]
+    bit_width_counter: Dict[str, Decimal]
 
 
 def v1_encode_params(params: Params) -> DynamodbV1Params:
     return {
-        "bit_width_counter": dict(params.bit_width_counter)
+        "bit_width_counter": {
+            str(key): Decimal(params.bit_width_counter[key])
+            for key in params.bit_width_counter.keys()
+        }
     }
 
 
 def v1_decode_params(params: DynamodbV1Params) -> Params:
     return Params(
-        bit_width_counter=Counter(params["bit_width_counter"])
+        bit_width_counter=Counter({
+            int(key): int(params["bit_width_counter"][key])
+            for key in params["bit_width_counter"]
+        })
     )
 
 
@@ -69,7 +113,7 @@ class DynamodbV1StoreData(TypedDict):
     id: str
     version: Literal[1]
     params: DynamodbV1Params
-    rf_bmc_results_map: Dict[str, Dict[str, int]]
+    rf_bmc_results_map: DynamodbV1RfBmcResultsMap
 
 
 def v1_encode_store_data(ident: str, data: StoreData) -> DynamodbV1StoreData:
@@ -138,49 +182,39 @@ class DynamodbStore(StoreBase):
 
         task_results_increments = Counter(task_results)
 
-        update_expression = ""
+        update_expression_set: List[str] = []
+        update_expression_add: List[str] = []
+
         expression_attribute_names = {}
         expression_attribute_values = {
-            "version": DynamodbStore.VERSION,
-            "empty_map": {},
-            "zero": 0,
+            ":version": DynamodbStore.VERSION,
         }
 
-        tasks = tuple(set([task for task, _ in task_results]))
+        for idx, task_result in enumerate(task_results):
+            update_expression_add.append(
+                f"rf_bmc_results_map.#task_result_{idx} :inc_task_result_{idx}"
+            )
 
-        for idx, task in enumerate(tasks):
-            update_expression += f"SET rf_bmc_results_map.#task_{idx} " \
-                                 f"= if_not_exists(rf_bmc_results_map.#task_{idx}, :empty_map), "
+            expression_attribute_values[f":inc_task_result_{idx}"] = task_results_increments[task_result]
+            expression_attribute_names[f"#task_result_{idx}"] = v1_encode_rf_bmc_task_result(task_result)
 
-            expression_attribute_names[f"task_{idx}"] = v1_encode_rf_bmc_task(task)
-
-            results = tuple(set([
-                task_result for task_result in task_results if task_result[0] == task
-            ]))
-
-            for jdx, result in enumerate(results):
-                update_expression += f"SET rf_bmc_results_map.#task_{idx}.#task_{idx}_result_{jdx}" \
-                                     f" = if_not_exists(" \
-                                     f"rf_bmc_results_map.#task_{idx}.#task_{idx}_result_{jdx}, :zero), "
-
-                update_expression += f"ADD rf_bmc_results_map.#task_{idx}.#task_{idx}_result_{jdx} " \
-                                     f":inc_task_{idx}_result_{jdx}, "
-
-                expression_attribute_values[f"inc_task_{idx}_result_{jdx}"] = task_results_increments[(task, result)]
-                expression_attribute_names[f"task_{idx}_result_{jdx}"] = v1_encode_rf_bmc_result(result)
+        update_expression = "".join([
+            "SET " + ", ".join(update_expression_set) + " " if update_expression_set else "",
+            "ADD " + ", ".join(update_expression_add) + " " if update_expression_add else "",
+        ])
 
         # increments the necessary counters and retrieves the previous store data that was stored
-        response = self.table.put_item(
+        response = self.table.update_item(
             Key={"id": self.ident},
             UpdateExpression=update_expression,
             ConditionExpression="attribute_exists(id) AND version = :version",
-            ExpressionAttirbuteValues=expression_attribute_values,
+            ExpressionAttributeValues=expression_attribute_values,
             ExpressionAttributeNames=expression_attribute_names,
             ReturnValues="ALL_OLD"
         )
 
         # data object that was previously stored in the data entry before increment updates where performed
-        data = decode_store_data(response.Attributes)[1]
+        data = decode_store_data(response["Attributes"])[1]
 
         # update the store data according to database updates
         for task, result in task_results:
@@ -227,7 +261,7 @@ class DynamodbStore(StoreBase):
             Key={
                 "id": ident,
             }
-        ).Item
+        )["Item"]
 
         return decode_store_data(item)
 
@@ -258,8 +292,20 @@ class DynamodbStore(StoreBase):
         table,
         params: Params,
         ident: Optional[str] = None,
+        accept_existing: bool = False,
     ) -> str:
-        ident = ident if ident is not None else uuid.uuid4()
+        """
+        Creates an empty store entry.
+        If the ident is specified it will be used, otherwise a uuid4 id will be generated.
+        If accept_existing is True and the ident is specified it will not raise an error if there already
+        exist a store entry with the given ident.
+        Note that if ident is not specified, this method will retry until an ident is generated that does not already
+        exist.
+        """
+
+        ident_specified = ident is not None
+        # a generated uuid4 id is highly unlikely to collide with existing ids
+        ident = ident if ident_specified else str(uuid.uuid4())
 
         item: DynamodbV1StoreData = DynamodbV1StoreData(
             id=ident,
@@ -268,9 +314,21 @@ class DynamodbStore(StoreBase):
             rf_bmc_results_map={},
         )
 
-        table.put_item(
-            Item=item,
-            ConditionExpression="attribute_not_exists(id)",
-        )
+        try:
+            table.put_item(
+                Item=item,
+                ConditionExpression="attribute_not_exists(id)",
+            )
+        except table.meta.client.exceptions.ConditionalCheckFailedException as err:
+            if ident_specified:
+                if accept_existing:
+                    return ident
+                else:
+                    raise RuntimeError(f"Store entry with ident \"{ident}\" already exists")
+            else:
+                # retry creating a store entry since the id was already generated before
+                return DynamodbStore.create_store_data_entry(
+                    table, params, None, accept_existing
+                )
 
         return ident
