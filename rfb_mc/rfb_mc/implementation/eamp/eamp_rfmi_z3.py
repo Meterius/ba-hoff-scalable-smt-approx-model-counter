@@ -1,8 +1,7 @@
 import z3
 from math import log2, ceil
 from typing import Type, List, Tuple
-from rfb_mc.implementation.eamp.eamp_rfm import EampInstanceParams, EampRfm, EampTransformMethod, \
-    get_variable_domain_size_max_bits, get_pj
+from rfb_mc.implementation.eamp.eamp_rfm import EampInstanceParams, EampRfm, EampTransformMethod
 from rfb_mc.implementation.runner_z3 import RfmiGenerationArgsZ3
 from rfb_mc.restrictive_formula_module_implementation import RestrictiveFormulaModuleImplementationBase
 from rfb_mc.types import Params
@@ -60,10 +59,9 @@ class EampRfmiZ3(RestrictiveFormulaModuleImplementationBase[EampInstanceParams, 
             else:
                 raise RuntimeError(f"Not implemented transform method {instance_params.params.transform_method}")
 
-        def make_hash_equation(j: int, var_b: Tuple[int], b1: int, b2: int):
-            pj = get_pj(j)
-            domain_bit_count = get_variable_domain_size_max_bits(j)
-            bc = max(int(ceil(log2(pj + 1))), get_variable_domain_size_max_bits(j))
+        def make_hash_equation(pj: int, var_b: Tuple[int], b1: int, b2: int):
+            domain_bit_count = int(ceil(log2(pj)))
+            bc = int(ceil(log2(pj + 1)))
             slices = get_slices(domain_bit_count)
 
             return z3.URem(
@@ -74,7 +72,7 @@ class EampRfmiZ3(RestrictiveFormulaModuleImplementationBase[EampInstanceParams, 
             ) == z3.BitVecVal(b2, bc)
 
         return z3.And([
-            make_hash_equation(j, var_b, b1, b2)
-            for j in range(len(instance_params.coefficients))
+            make_hash_equation(instance_params.p[j], var_b, b1, b2)
+            for j in range(len(instance_params.p))
             for var_b, b1, b2 in instance_params.coefficients[j]
         ])

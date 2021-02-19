@@ -1,10 +1,11 @@
 from fractions import Fraction
-from math import sqrt, prod, log2, ceil
+from math import sqrt, prod, log2, ceil, floor
 from typing import NamedTuple, Tuple, Optional, Iterable, List
 from collections import Counter
-from rfb_mc.implementation.eamp.eamp_rfm import EampRfm, get_cn, EampParams, EampTransformMethod, get_pj
+from rfb_mc.implementation.eamp.primes import get_pj
+from rfb_mc.implementation.eamp.eamp_rfm import EampRfm, EampParams, EampTransformMethod
 from rfb_mc.implementation.eamp.utility import multi_majority_vote_iteration_count_to_ensure_beta, \
-    majority_vote_error_probability
+    majority_vote_error_probability, probability_of_any_error
 from rfb_mc.scheduler import SchedulerBase
 from rfb_mc.store import StoreBase
 from rfb_mc.types import RfBmcTask, RfBmcResult
@@ -34,25 +35,33 @@ class EampEdgeScheduler(SchedulerBase[EampEdgeInterval, EampEdgeInterval, EampRf
         self.a: int = a
         self.q: int = q
         self.max_model_count = max_model_count if max_model_count is not None else prod([
-            (2 ** bit_width) ** count for bit_width, count in self.store.data.params.bit_width_counter.items()
+            2 ** (bit_width * count) for bit_width, count in self.store.data.params.bit_width_counter.items()
         ])
 
     def _run_algorithm_once(self):
+        if self.max_model_count == 0:
+            return EampEdgeInterval(interval=(0, 0), confidence=1)
+
         g = (sqrt(self.a + 1) - 1) ** 2
         G = (sqrt(self.a + 1) + 1) ** 2
 
-        cn = get_cn(self.max_model_count ** self.q, G)
+        strictly_lower_cn = log2(log2(self.max_model_count ** self.q / G)) + 1
+        cn = max(int(floor(strictly_lower_cn + 1)), 1)
+
+        p = tuple([
+            get_pj(j) for j in range(cn)
+        ])
 
         beta = 1 - self.confidence
 
-        # maximum amount of k values that need to be iterated for c[0]
-        max_k = max(int(ceil(max([
-            log2(get_pj(i) / prod([get_pj(j) for j in range(1, i)]))
+        # maximum amount of values that need to be iterated for c[0]
+        max_c0 = max(int(ceil(max([
+            log2(p[i] / prod([p[j] for j in range(1, i)]))
             for i in range(1, cn)
         ]))) - 1, 1) if cn > 1 else 1
 
         # maximum amount of expected majority vote counting procedures
-        max_majority_vote_countings = cn - 1 + max_k
+        max_majority_vote_countings = cn - 1 + max_c0
 
         # probability that an estimate call returns the less likely result
         alpha = Fraction(1, 4)
@@ -66,6 +75,7 @@ class EampEdgeScheduler(SchedulerBase[EampEdgeInterval, EampEdgeInterval, EampRf
         def make_eamp_params(c: Iterable[int]):
             return EampParams(
                 c=tuple(c),
+                p=p,
                 transform_method=EampTransformMethod.SORTED_ROLLING_WINDOW,
             )
 
@@ -83,9 +93,7 @@ class EampEdgeScheduler(SchedulerBase[EampEdgeInterval, EampEdgeInterval, EampRf
             ).range_size
 
         def pre_estimate(c: List[int]) -> Optional[bool]:
-            max_mc = self.max_model_count ** self.q
-
-            if max_mc < range_size(c) * G:
+            if self.max_model_count ** self.q < range_size(c) * G:
                 return False
             elif range_size(c) == 0:
                 return True
@@ -96,30 +104,21 @@ class EampEdgeScheduler(SchedulerBase[EampEdgeInterval, EampEdgeInterval, EampRf
             else:
                 return None
 
-        # TODO: handle model count being too small
-
         c_pos: Optional[List[int]] = None
 
         c_neg: Optional[List[int]] = None
 
-        # errors majority vote countings have introduced
-        mv_error_probabilities: List[Fraction] = []
+        # error probability of the independent probabilistic execution that have occurred
+        error_probabilities: List[Fraction] = []
 
         def get_edge_interval():
-            r_c_pos = range_size(c_pos) if c_pos is not None else None
-
-            r_c_neg = range_size(c_neg) if c_neg is not None else None
-
-            # TODO: investigate precision of q-th root
             return EampEdgeInterval(
                 interval=(
-                    (r_c_pos * g) ** (1 / self.q) if r_c_pos is not None else 0,
-                    min(self.max_model_count, (r_c_neg * G) ** (1 / self.q))
-                    if r_c_neg is not None else self.max_model_count
+                    (range_size(c_pos) * g) ** (1 / self.q) if c_pos is not None else 0,
+                    min(self.max_model_count, (range_size(c_neg) * G) ** (1 / self.q))
+                    if c_neg is not None else self.max_model_count
                 ),
-                # probability of error is lower than the sum of the majority vote counting error probabilities
-                confidence=1.0 if len(mv_error_probabilities) == 0
-                else float(1 - sum(mv_error_probabilities)),
+                confidence=1 - probability_of_any_error(error_probabilities),
             )
 
         def majority_vote_estimate(c: List[int]):
@@ -142,16 +141,18 @@ class EampEdgeScheduler(SchedulerBase[EampEdgeInterval, EampEdgeInterval, EampRf
                     if result.bmc is not None
                 ])
 
-                rr = max(0, r - (positive_voters + negative_voters))
+                remaining = max(0, r - (positive_voters + negative_voters))
 
-                if positive_voters >= negative_voters and positive_voters >= negative_voters + rr:
-                    return True, majority_vote_error_probability(alpha, positive_voters, negative_voters)
+                if positive_voters >= negative_voters and positive_voters >= negative_voters + remaining:
+                    r_eff = positive_voters + negative_voters + abs(negative_voters - positive_voters)
+                    return True, majority_vote_error_probability(alpha, r_eff)
 
-                if negative_voters > positive_voters and negative_voters > positive_voters + rr:
-                    return False, majority_vote_error_probability(alpha, positive_voters, negative_voters)
+                if negative_voters > positive_voters and negative_voters > positive_voters + remaining:
+                    r_eff = positive_voters + negative_voters + abs(negative_voters - positive_voters)
+                    return False, majority_vote_error_probability(alpha, r_eff)
 
                 yield EampEdgeScheduler.AlgorithmYield(
-                    required_tasks=Counter(rr * [rf_bmc_task]),
+                    required_tasks=Counter(remaining * [rf_bmc_task]),
                     predicted_required_tasks=Counter(),
                     intermediate_result=get_edge_interval(),
                 )
@@ -172,7 +173,7 @@ class EampEdgeScheduler(SchedulerBase[EampEdgeInterval, EampEdgeInterval, EampRf
                 break
 
             mv_estimate, mv_error_prob = yield from majority_vote_estimate(c)
-            mv_error_probabilities.append(mv_error_prob)
+            error_probabilities.append(mv_error_prob)
 
             if mv_estimate:
                 c_pos = c.copy()
@@ -191,6 +192,8 @@ class EampEdgeScheduler(SchedulerBase[EampEdgeInterval, EampEdgeInterval, EampRf
                     c[j] = 0
                     c[j - 1] = 1
                     j -= 1
+
+        # TODO: implement BMC tasks and catch case of c_pos = None
 
         return get_edge_interval()
 

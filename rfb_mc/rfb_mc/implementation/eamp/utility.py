@@ -1,34 +1,26 @@
+from collections import Iterable
 from fractions import Fraction
-from math import ceil, comb
+from math import ceil, comb, prod
 
 
-def majority_vote_error_probability_native(
+def probability_of_any_error(
+    error_probabilities: Iterable[Fraction],
+) -> Fraction:
+    """
+    Takes in the error probabilities of independent probabilistic execution.
+    Returns the probability of an error occurring in any of them.
+    """
+
+    return Fraction(1 - prod([1 - err_prob for err_prob in error_probabilities]))
+
+
+def majority_vote_error_probability(
     alpha: Fraction, r: int,
 ) -> Fraction:
     return sum([
         comb(r, rj) * (alpha ** r) * ((1 - alpha) ** (r - rj))
         for rj in range(ceil(r / 2), r + 1)
     ])
-
-
-def majority_vote_error_probability(
-    alpha: Fraction, positive_votes: int, negative_votes: int,
-) -> Fraction:
-    """
-    Returns bound on error probability of majority vote outcome.
-    :param alpha: Error probability of procedure
-    :param positive_votes:
-    :param negative_votes:
-    """
-
-    # amount of votes that could have been added to the loosing side that would still have lost
-    margin = abs(positive_votes - negative_votes)
-
-    # amount of votes the majority vote has effectively had, considering how many could have been added without
-    # possibility of changing the outcome
-    r = positive_votes + negative_votes + margin
-
-    return majority_vote_error_probability_native(alpha, r)
 
 
 def multi_majority_vote_iteration_count_to_ensure_beta(
@@ -43,7 +35,7 @@ def multi_majority_vote_iteration_count_to_ensure_beta(
     """
 
     r = 1
-    while max_majority_voting_countings * majority_vote_error_probability_native(alpha, r) > beta:
+    while max_majority_voting_countings * majority_vote_error_probability(alpha, r) > beta:
         r += 1
 
     return r

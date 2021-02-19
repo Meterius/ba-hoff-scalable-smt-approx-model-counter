@@ -32,9 +32,9 @@ if __name__ == "__main__":
 
     scheduler = EampEdgeScheduler(
         store=store,
-        confidence=Fraction(0.75),
+        confidence=Fraction(0.9),
         a=a,
-        q=1,
+        q=2,
     )
 
     integrator = DirectIntegratorZ3(
@@ -52,9 +52,10 @@ if __name__ == "__main__":
 
     try:
         while True:
-            print(f"Intermediate Result: {next(run)}")
+            int_res = next(run)
+            print(f"Intermediate Result: {int_res} (Confidence {float(int_res.confidence):.5f})")
     except StopIteration as err:
-        print(f"Result: {err.value}")
+        print(f"Result: {err.value} (Confidence {float(err.value.confidence):.5f})")
 
     d1 = perf_counter() - s1
 
