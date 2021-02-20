@@ -34,7 +34,7 @@ def run_benchmark(benchmark: str) -> Tuple[float, Tuple[float, float]]:
 
     scheduler = EampEdgeScheduler(
         store=store,
-        confidence=Fraction(0.75),
+        confidence=Fraction(0.995),
         a=100,
         q=1,
     )

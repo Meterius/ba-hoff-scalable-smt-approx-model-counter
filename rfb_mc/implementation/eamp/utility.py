@@ -1,4 +1,4 @@
-from collections import Iterable
+from typing import Iterable
 from fractions import Fraction
 from math import ceil, comb, prod
 
