@@ -25,18 +25,21 @@ def read_benchmark_file(content: str):
     return benchmark_map
 
 if __name__ == "__main__":
-    with open("C:\\Users\\jonah\\Desktop\\output_rfmbi_full\\benchmark_results.txt", "r") as f:
-        content_rfmbi = f.read()
-    with open("C:\\Users\\jonah\\Desktop\\output_estimate\\benchmark_results.txt", "r") as f:
-        content_est = f.read()
+    file_a = ""
+    file_b = ""
 
-    est = read_benchmark_file(content_est)
-    rfmbi = read_benchmark_file(content_rfmbi)
+    with open(file_a, "r") as f:
+        content_a = f.read()
+    with open(file_b, "r") as f:
+        content_b = f.read()
 
-    for bm in est:
-        print("Estimate:")
-        print(est[bm]["avg_duration"])
-        print(est[bm]["result"])
-        print("Rfmbi:")
-        print(rfmbi[bm]["avg_duration"])
-        print(rfmbi[bm]["result"])
+    a = read_benchmark_file(content_a)
+    b = read_benchmark_file(content_b)
+
+    for bm in a:
+        print("Content A:")
+        print(a[bm]["avg_duration"])
+        print(a[bm]["result"])
+        print("Content B:")
+        print(b[bm]["avg_duration"])
+        print(b[bm]["result"])

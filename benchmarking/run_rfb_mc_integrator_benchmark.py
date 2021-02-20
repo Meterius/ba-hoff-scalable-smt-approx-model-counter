@@ -14,15 +14,13 @@ from rfb_mc.store import InMemoryStore, StoreData
 from rfb_mc.types import Params
 
 
-RunnerZ3.add_restrictive_formula_module_implementation(EampRfmiZ3)
+RunnerZ3.register_restrictive_formula_module_implementation(EampRfmiZ3)
 
 
 def run_benchmark(benchmark: str) -> Tuple[float, Tuple[float, float]]:
     formula, variables = get_benchmark_formula(benchmark)
 
     print(f"Retrieved benchmark problem {benchmark}")
-
-    a = 100
 
     store = InMemoryStore(
         data=StoreData(
@@ -37,7 +35,7 @@ def run_benchmark(benchmark: str) -> Tuple[float, Tuple[float, float]]:
     scheduler = EampEdgeScheduler(
         store=store,
         confidence=Fraction(0.75),
-        a=a,
+        a=100,
         q=1,
     )
 
