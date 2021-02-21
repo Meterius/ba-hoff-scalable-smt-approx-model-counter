@@ -27,7 +27,7 @@ if __name__ == "__main__":
     s2 = perf_counter()
     s = perf_counter()
 
-    a = 50
+    a = 100
 
     store = InMemoryStore(
         data=StoreData(
@@ -42,7 +42,7 @@ if __name__ == "__main__":
 
     scheduler = EampEdgeScheduler(
         store=store,
-        confidence=Fraction(0.75),
+        confidence=Fraction(0.999),
         a=a,
         q=1,
     )

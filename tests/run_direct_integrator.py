@@ -21,8 +21,6 @@ if __name__ == "__main__":
         z3.ULT(z, x + y),
     ])
 
-    a = 100
-
     store = InMemoryStore(
         data=StoreData(
             params=Params(
@@ -33,9 +31,9 @@ if __name__ == "__main__":
 
     scheduler = EampEdgeScheduler(
         store=store,
-        confidence=Fraction(0.9),
-        a=a,
-        q=2,
+        confidence=Fraction(0.99),
+        a=100,
+        q=1,
     )
 
     integrator = DirectIntegratorZ3(
