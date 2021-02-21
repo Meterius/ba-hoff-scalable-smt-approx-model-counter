@@ -21,7 +21,7 @@ def read_primes_dict() -> Dict[int, int]:
 
 def get_pj(j: int) -> int:
     """
-    Returns the smallest prime that above or equal 2 ** (2 ** t)
+    Returns the smallest prime that above or equal 2 ** (2 ** j)
     """
 
     primes_dict = read_primes_dict()
