@@ -1,2 +1,0 @@
-pi - Pairwise Independent (Pairwise independent with distribution based on context)
-upi - Uniform Pairwise Independent (Pairwise independent when using uniform distribution)
