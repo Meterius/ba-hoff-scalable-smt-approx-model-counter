@@ -2,7 +2,7 @@ from abc import abstractmethod
 from datetime import datetime
 from multiprocessing import Lock, Queue, Process
 from queue import Empty
-from time import perf_counter
+from time import perf_counter, sleep
 from collections import Counter
 from threading import Thread
 from typing import Generic, Iterable, Type, TypeVar, Any
@@ -19,13 +19,14 @@ class MultiProcessingIntegratorBase(
     IntegratorBase[IntermediateResult, Result]
 ):
     """
-    Class that implements instantiating runners in processes thus enabling parallel
-    execution of scheduler tasks.
+    Class that implements instantiating runners in created processes thus enabling parallel
+    execution of scheduler tasks on multiple CPU cores.
 
-    Class is abstract since the runner that is used must be specified and how the formula params
+    Class is abstract since the runner that is used must be specified and it must be specified how the formula params
     are serialized to enable them being transferred using the python multiprocessing process arguments.
     """
 
+    # whether the integrator should print debug information
     PRINT_DEBUG: bool = True
 
     @classmethod
@@ -74,7 +75,14 @@ class MultiProcessingIntegratorBase(
         worker_number = worker_idx + 1
 
         def print_debug(*messages: Iterable[str]):
-            if cls.PRINT_DEBUG and stdio_lock is not None:
+            """
+            Print debug version that ensures only one source is writing to the standard input output at a time
+            """
+
+            # PRINT_DEBUG is checked because even tough it is already enforced in _print_debug,
+            # using it here will prevent the lock from being acquired as it would waste time if
+            # printing is not used
+            if cls.PRINT_DEBUG:
                 with stdio_lock:
                     cls._print_debug(
                         *[f"Worker[{worker_number}/{worker_count}]: {message}" for message in messages],
@@ -86,6 +94,9 @@ class MultiProcessingIntegratorBase(
         )
 
         print_debug("Initialized")
+
+        # retrieve and execute tasks, until the queued task is None,
+        # which the integrator puts if it has finished
 
         task = task_queue.get()
 
@@ -102,16 +113,19 @@ class MultiProcessingIntegratorBase(
         self.worker_count = worker_count
 
     def run(self, scheduler: SchedulerBase):
-        def print_debug(*messages: Iterable[str]):
-            self._print_debug(
-                *[f"Integrator: {message}" for message in messages]
-            )
-
-        print_debug("Starting integrator run")
-
         task_queue = Queue()
         result_queue = Queue()
         stdio_lock = Lock()
+
+        def print_debug(*messages: Iterable[str]):
+            # same as for the workers
+            if self.PRINT_DEBUG:
+                with stdio_lock:
+                    self._print_debug(
+                        *[f"Integrator: {message}" for message in messages]
+                    )
+
+        print_debug("Starting integrator run")
 
         processes = [
             Process(
@@ -160,6 +174,8 @@ class MultiProcessingIntegratorBase(
                     idle_workers = self.worker_count - sum(tasks_in_progress.values())
                     tasks_to_queue = min(sum(required_tasks.values()), idle_workers)
 
+                    # TODO: consider queueing predicted tasks if workers are idle and no additional required tasks exist
+
                     # queue as many tasks as are available and can be directly forwarded to an idle worker
                     if tasks_to_queue > 0:
                         for _ in range(tasks_to_queue):
@@ -190,6 +206,11 @@ class MultiProcessingIntegratorBase(
                                 "task_results": task_results,
                             },
                         ).start()
+
+                        # switch thread to allow adding results to store before executing next algorithm iteration,
+                        # thus the synchronous part of the add_rf_bmc_results function will execute before the algorithm
+                        # is continued
+                        sleep(0)
 
                         # remove accomplished tasks from in progress counter
                         for task, result in task_results:

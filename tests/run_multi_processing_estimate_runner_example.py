@@ -7,7 +7,8 @@ from rfb_mc.implementation.eamp.eamp_edge_scheduler import EampEdgeScheduler
 from rfb_mc.implementation.eamp.eamp_rfmi_z3 import EampRfmiZ3
 from rfb_mc.implementation.multi_processing_integrator_z3 import MultiProcessingIntegratorZ3
 from rfb_mc.implementation.runner_z3 import RunnerZ3, FormulaParamsZ3
-from rfb_mc.store import InMemoryStore, StoreData
+from rfb_mc.implementation.in_memory_store import InMemoryStore
+from rfb_mc.store import StoreData
 from rfb_mc.types import Params
 
 RunnerZ3.register_restrictive_formula_module_implementation(EampRfmiZ3)

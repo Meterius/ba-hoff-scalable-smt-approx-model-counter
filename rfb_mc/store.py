@@ -53,15 +53,3 @@ class StoreBase(ABC):
                 self.data.rf_bmc_results_map[task][result] += 1
 
         self._add_rf_bmc_results(task_results)
-
-
-class InMemoryStore(StoreBase):
-    """
-    Only stores in memory
-    """
-
-    def sync(self):
-        pass
-
-    def _add_rf_bmc_results(self, task_results: Iterable[Tuple[RfBmcTask, RfBmcResult]]):
-        pass

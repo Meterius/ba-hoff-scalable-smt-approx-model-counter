@@ -18,6 +18,7 @@ class DirectIntegratorBase(
     Class is abstract since the runner that is used must be specified.
     """
 
+    # whether the integrator should print debug information
     PRINT_DEBUG: bool = True
 
     @classmethod
@@ -76,11 +77,13 @@ class DirectIntegratorBase(
                         daemon=True,
                     ).start()
 
-                    # switch thread to allow adding results to store before executing next algorithm iteration
+                    # switch thread to allow adding results to store before executing next algorithm iteration,
+                    # thus the synchronous part of the add_rf_bmc_results function will execute before the algorithm
+                    # is continued
                     sleep(0)
         except StopIteration as err:
             d1 = perf_counter() - s1
-            self._print_debug(f"Running schedulers tasks until result was available took {d1:.2f} seconds")
+            self._print_debug(f"Running scheduler tasks until result was available took {d1:.2f} seconds")
             self._print_debug(f"Result: {err.value}")
 
             return err.value

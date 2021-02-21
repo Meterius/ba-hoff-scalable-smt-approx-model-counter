@@ -8,9 +8,10 @@ import os
 
 from rfb_mc.implementation.eamp.eamp_edge_scheduler import EampEdgeScheduler
 from rfb_mc.implementation.eamp.eamp_rfmi_z3 import EampRfmiZ3
-from rfb_mc.implementation.multi_processing_integrator_z3 import MultiProcessingIntegratorZ3
+from rfb_mc.implementation.direct_integrator_z3 import DirectIntegratorZ3
 from rfb_mc.implementation.runner_z3 import FormulaParamsZ3, RunnerZ3
-from rfb_mc.store import InMemoryStore, StoreData
+from rfb_mc.implementation.in_memory_store import InMemoryStore
+from rfb_mc.store import StoreData
 from rfb_mc.types import Params
 
 
@@ -34,15 +35,14 @@ def run_benchmark(benchmark: str) -> Tuple[float, Tuple[float, float]]:
 
     scheduler = EampEdgeScheduler(
         store=store,
-        confidence=Fraction(0.995),
+        confidence=Fraction(0.95),
         a=100,
         q=1,
     )
 
     print("Setup Scheduler")
 
-    integrator = MultiProcessingIntegratorZ3(
-        worker_count=os.cpu_count(),
+    integrator = DirectIntegratorZ3(
         formula_params=FormulaParamsZ3(
             formula=formula, variables=variables,
         ),

@@ -66,14 +66,6 @@ class RunnerZ3(RunnerBase[FormulaParamsZ3, RfmiGenerationArgsZ3, z3.BoolRef]):
         :param u:
         """
 
-        if u == 1:
-            response = solver.check()
-
-            if response == z3.unknown:
-                raise RuntimeError("Solver responded with unknown")
-            else:
-                return None if response == z3.sat else 0
-
         solver.push()
 
         for i in range(u):
@@ -86,7 +78,9 @@ class RunnerZ3(RunnerBase[FormulaParamsZ3, RfmiGenerationArgsZ3, z3.BoolRef]):
                 solver.pop()
                 return i
 
+            # in the last iteration adding the constraint would be unnecessary, thus is skipped
             if i != u-1:
+                # add assertion that found model cannot be satisfying again
                 m = solver.model()
                 solver.add(z3.Or([x != m[x] for x in variables]))
 
