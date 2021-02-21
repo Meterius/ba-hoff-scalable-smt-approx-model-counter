@@ -45,8 +45,7 @@ class EampEdgeScheduler(SchedulerBase[EampEdgeInterval, EampEdgeInterval, EampRf
         g = (sqrt(self.a + 1) - 1) ** 2
         G = (sqrt(self.a + 1) + 1) ** 2
 
-        strictly_lower_cn = log2(log2(self.max_model_count ** self.q / G)) + 1
-        cn = max(int(floor(strictly_lower_cn + 1)), 1)
+        cn = max(int(floor(log2(log2(self.max_model_count ** self.q / G) + 1) + 1)), 1)
 
         p = tuple([
             get_pj(j) for j in range(cn)
