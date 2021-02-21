@@ -11,6 +11,7 @@ from rfb_mc.types import Params
 from rfb_mc.implementation.aws.dynamodb_store import DynamodbStore
 
 dynamodb = boto3.resource("dynamodb")
+# should be replaced with used table and requires AWS CLI credentials to be setup
 table = dynamodb.Table("rfb_mc_store_test")
 
 RunnerZ3.register_restrictive_formula_module_implementation(EampRfmiZ3)
