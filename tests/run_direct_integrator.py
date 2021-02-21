@@ -13,7 +13,7 @@ from rfb_mc.types import Params
 RunnerZ3.register_restrictive_formula_module_implementation(EampRfmiZ3)
 
 if __name__ == "__main__":
-    k = 10
+    k = 14
     x, y, z = z3.BitVecs("x y z", k)
     f = z3.And([
         z3.URem(x, 13) == 0,

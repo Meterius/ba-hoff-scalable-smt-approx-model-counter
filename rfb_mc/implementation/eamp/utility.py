@@ -3,7 +3,7 @@ from fractions import Fraction
 from math import ceil, comb, prod
 
 
-def probability_of_any_error(
+def probability_of_correctness(
     error_probabilities: Iterable[Fraction],
 ) -> Fraction:
     """
@@ -11,7 +11,7 @@ def probability_of_any_error(
     Returns the probability of an error occurring in any of them.
     """
 
-    return Fraction(1 - prod([1 - err_prob for err_prob in error_probabilities]))
+    return Fraction(prod([1 - err_prob for err_prob in error_probabilities]))
 
 
 def majority_vote_error_probability(
@@ -35,7 +35,7 @@ def multi_majority_vote_iteration_count_to_ensure_beta(
     """
 
     r = 1
-    while max_majority_voting_countings * majority_vote_error_probability(alpha, r) > beta:
+    while (1 - majority_vote_error_probability(alpha, r))**max_majority_voting_countings < 1 - beta:
         r += 1
 
     return r

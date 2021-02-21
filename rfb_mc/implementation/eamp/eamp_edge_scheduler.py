@@ -5,14 +5,14 @@ from collections import Counter
 from rfb_mc.implementation.eamp.primes import get_pj
 from rfb_mc.implementation.eamp.eamp_rfm import EampRfm, EampParams, EampTransformMethod
 from rfb_mc.implementation.eamp.utility import multi_majority_vote_iteration_count_to_ensure_beta, \
-    majority_vote_error_probability, probability_of_any_error
+    majority_vote_error_probability, probability_of_correctness
 from rfb_mc.scheduler import SchedulerBase
 from rfb_mc.store import StoreBase
 from rfb_mc.types import RfBmcTask, RfBmcResult
 
 EampEdgeInterval = NamedTuple("EampEdgeInterval", [
     ("interval", Tuple[int, int]),
-    ("confidence", float),
+    ("confidence", Fraction),
 ])
 
 
@@ -55,10 +55,10 @@ class EampEdgeScheduler(SchedulerBase[EampEdgeInterval, EampEdgeInterval, EampRf
         beta = 1 - self.confidence
 
         # maximum amount of values that need to be iterated for c[0]
-        max_c0 = max(int(ceil(max([
+        max_c0 = int(ceil(max([
             log2(p[i] / prod([p[j] for j in range(1, i)]))
             for i in range(1, cn)
-        ]))) - 1, 1) if cn > 1 else 1
+        ]))) - 1 if cn > 1 else 1
 
         # maximum amount of expected majority vote counting procedures
         max_majority_vote_countings = cn - 1 + max_c0
@@ -118,7 +118,7 @@ class EampEdgeScheduler(SchedulerBase[EampEdgeInterval, EampEdgeInterval, EampRf
                     min(self.max_model_count, (range_size(c_neg) * G) ** (1 / self.q))
                     if c_neg is not None else self.max_model_count
                 ),
-                confidence=1 - probability_of_any_error(error_probabilities),
+                confidence=probability_of_correctness(error_probabilities),
             )
 
         def majority_vote_estimate(c: List[int]):

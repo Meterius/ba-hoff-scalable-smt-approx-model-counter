@@ -23,7 +23,7 @@ EampParamProperties = NamedTuple("EampParamProperties", [
 
 EampInstanceParams = NamedTuple("EampInstanceParams", [
     ("params", EampParams),
-    ("coefficients", Tuple[Tuple[Tuple[Tuple[int, ...], int, int], ...], ...]),
+    ("coefficients", Tuple[Tuple[Tuple[Tuple[int, ...], int], ...], ...]),
     ("p", Tuple[int, ...]),
 ])
 
@@ -111,7 +111,7 @@ class EampRfm(RestrictiveFormulaModuleBase[EampParams, EampParamProperties, Eamp
             else:
                 raise RuntimeError(f"Not implemented transform method {restrictive_formula_params.transform_method}")
 
-        def generate_coefficients(j: int) -> Tuple[Tuple[int, ...], int, int]:
+        def generate_coefficients(j: int) -> Tuple[Tuple[int, ...], int]:
             pj = restrictive_formula_params.p[j]
 
             return (
@@ -122,7 +122,6 @@ class EampRfm(RestrictiveFormulaModuleBase[EampParams, EampParamProperties, Eamp
                         )
                     )
                 ]),
-                random.get_random_int(0, pj - 1),
                 random.get_random_int(0, pj - 1),
             )
 

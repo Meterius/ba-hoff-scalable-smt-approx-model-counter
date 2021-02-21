@@ -37,6 +37,7 @@ if __name__ == "__main__":
     b = read_benchmark_file(content_b)
 
     for bm in a:
+        print(f"---- {bm} ----")
         print("Content A:")
         print(a[bm]["avg_duration"])
         print(a[bm]["result"])

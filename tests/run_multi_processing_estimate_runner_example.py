@@ -14,7 +14,7 @@ from rfb_mc.types import Params
 RunnerZ3.register_restrictive_formula_module_implementation(EampRfmiZ3)
 
 if __name__ == "__main__":
-    k = 8
+    k = 18
     x, y, z = z3.BitVecs("x y z", k)
     f = z3.And([
         z3.UGE(x, 0),
@@ -44,7 +44,7 @@ if __name__ == "__main__":
         store=store,
         confidence=Fraction(0.75),
         a=a,
-        q=2,
+        q=1,
     )
 
     print(f"Initializing ConfidentEdgeFinderBinarySearchEstimateScheduler took {perf_counter() - s:.3f} seconds")
